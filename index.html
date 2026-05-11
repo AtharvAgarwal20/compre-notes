@@ -1040,7 +1040,8 @@
              = 0.10 / 0.10
              = <span class="val">1.0</span>   ← neutral (no preference)</pre>
                     <p>A value <strong>&gt; 1.0</strong> means the amino acid <em>prefers</em> that structure. A value
-                        <strong>&lt; 1.0</strong> means it is disfavored.</p>
+                        <strong>&lt; 1.0</strong> means it is disfavored.
+                    </p>
                 </div>
 
                 <div class="card blue">
@@ -1168,7 +1169,8 @@
                         <li><span class="step-num">4</span>
                             <div class="step-content">If <strong>average P(α) ≥ 1.0</strong>: continue extending. If
                                 <strong>average P(α) &lt; 1.0</strong>: <strong>STOP</strong> — that is the helix
-                                boundary</div>
+                                boundary
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -1250,7 +1252,8 @@
                         <div class="worked-step">
                             <span class="worked-step-label">Nucleation</span>
                             <div>Window of 6 = positions 1–6: A, E, A, A, K, L. Count P(α)&gt;1: all 6 qualify.
-                                <strong>6/6 ≥ 4</strong> → Nucleation site found ✅</div>
+                                <strong>6/6 ≥ 4</strong> → Nucleation site found ✅
+                            </div>
                         </div>
                         <div class="worked-step">
                             <span class="worked-step-label">Extension</span>
@@ -1261,7 +1264,8 @@
                                 Add position 9 (T, P(α)=0.82). Tetrapeptide = 6,7,8,9: avg = (1.21+1.06+1.08+0.82)/4 =
                                 <strong>1.04 ≥ 1.0</strong> → continue.<br><br>
                                 Add position 10 (G, P(α)=0.57). Tetrapeptide = 7,8,9,10: avg = (1.06+1.08+0.82+0.57)/4 =
-                                <strong>0.88 &lt; 1.0</strong> → <strong>STOP</strong>.</div>
+                                <strong>0.88 &lt; 1.0</strong> → <strong>STOP</strong>.
+                            </div>
                         </div>
                         <div class="callout success">
                             <span class="icon">✅</span>
@@ -1565,7 +1569,8 @@
                             intramolecular base pairing.</p>
                         <p>RNA sequence analysis must therefore account for structure, not just sequence. Often,
                             <strong>structural conservation is more important than sequence conservation</strong> in
-                            RNA.</p>
+                            RNA.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -1694,7 +1699,8 @@
                     <p>Any RNA structure can be decomposed into smaller substructures. The Nussinov insight:
                         <strong>there are only 4 possible cases</strong> for how any optimal substructure
                         <em>S(i,j)</em> can be built from smaller optimal substructures. This makes it solvable in O(n³)
-                        time.</p>
+                        time.
+                    </p>
                 </div>
             </div>
 
@@ -1728,7 +1734,8 @@
                         <div class="card-title">Rule 4: No Pseudoknots</div>
                         <p>If pair (i,j) and pair (i′,j′) both exist, then <code>i &lt; i′ &lt; j &lt; j′</code> is
                             <strong>forbidden</strong>. In other words, base pairs cannot cross each other. Only nested
-                            structures are allowed.</p>
+                            structures are allowed.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -1815,7 +1822,8 @@ Cells where j < i (below diagonal) are set to 0 or marked as invalid.</pre>
                                 </ul>
                                 <p style="margin-top:8px">Valid pairs: (1,7),(1,8),(1,9), (2,7),(2,8),(2,9),
                                     (3,7),(3,8),(3,9), (4,7) — Wait, check: A-U, j−i ≥ 4: (4,7) has separation 3 →
-                                    <strong>not allowed (j−i=3, need &gt;4)</strong>. (3,7)=separation 4 ✅, etc.</p>
+                                    <strong>not allowed (j−i=3, need &gt;4)</strong>. (3,7)=separation 4 ✅, etc.
+                                </p>
                             </div>
                         </div>
                         <div class="worked-step">
@@ -1971,7 +1979,8 @@ Cells where j < i (below diagonal) are set to 0 or marked as invalid.</pre>
                                 <p><strong>How is S(6,7) = 1 calculated?</strong></p>
                                 <p>i=6 (A), j=7 (U). A-U is a valid Watson-Crick pair! j−i = 1 (only 1 apart) → wait,
                                     the rule says j−i must be &gt; 4 (need i &lt; j−4 means j−i &gt; 4). 7−6=1, so
-                                    <strong>they cannot pair</strong>. Let's recalculate...</p>
+                                    <strong>they cannot pair</strong>. Let's recalculate...
+                                </p>
                                 <div class="callout danger" style="margin-top:8px">
                                     <span class="icon">⚠️</span>
                                     <div>

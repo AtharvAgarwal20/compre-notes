@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bioinformatics Study Guide — RNA Structure & Protein Structure Prediction (Nussinov + Chou-Fasman)</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --bg-2: #161b22;
+    --bg-3: #1c232c;
+    --panel: #1a2027;
+    --border: #2a313c;
+    --text: #e6edf3;
+    --text-dim: #b1bac4;
+    --text-mute: #768390;
+    --accent: #58a6ff;
+    --accent-2: #79c0ff;
+    --warn: #ffb454;
+    --danger: #ff7b72;
+    --good: #7ee787;
+    --formula-bg: #161e2c;
+    --formula-border: #3b6ea8;
+    --code: #2d333b;
+    --pair: #f0883e;
+    --helix: #ff7b72;
+    --sheet: #79c0ff;
+    --turn:  #ffd33d;
+    --coil:  #a5a5a5;
+    --hairpin-bg: #1f2a36;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter",
+      Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.65;
+    font-size: 16px;
+  }
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 32px 28px 80px 28px;
+  }
+  header.title {
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 18px;
+    margin-bottom: 30px;
+  }
+  header.title h1 {
+    font-size: 28px;
+    margin: 0 0 6px 0;
+    color: var(--accent-2);
+    letter-spacing: 0.2px;
+  }
+  header.title .sub {
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+
+  h2 {
+    color: var(--accent);
+    font-size: 24px;
+    margin-top: 56px;
+    padding: 10px 14px;
+    background: linear-gradient(90deg, rgba(88,166,255,0.12), rgba(88,166,255,0));
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+  }
+  h3 {
+    color: var(--accent-2);
+    margin-top: 36px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--border);
+  }
+  h4 {
+    color: #d2a8ff;
+    margin-top: 22px;
+    margin-bottom: 8px;
+  }
+
+  p { margin: 8px 0 12px 0; color: var(--text); }
+  ul, ol { margin: 8px 0 14px 22px; }
+  li { margin: 4px 0; }
+
+  code, .mono {
+    font-family: "JetBrains Mono", "Fira Code", Consolas, Monaco, monospace;
+    background: var(--code);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.93em;
+    color: #ffd6a5;
+  }
+  pre {
+    background: var(--code);
+    padding: 14px 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+    font-size: 0.93em;
+    color: #d4d4d4;
+  }
+
+  .callout {
+    border: 1px solid var(--formula-border);
+    background: var(--formula-bg);
+    border-left: 5px solid var(--accent);
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-radius: 6px;
+  }
+  .callout.formula {
+    border-left-color: #d2a8ff;
+    background: #1a1827;
+    text-align: center;
+    font-size: 1.05em;
+  }
+  .callout.warn {
+    border-left-color: var(--warn);
+    background: #25201a;
+  }
+  .callout.danger {
+    border-left-color: var(--danger);
+    background: #2a1818;
+  }
+  .callout.good {
+    border-left-color: var(--good);
+    background: #16241c;
+  }
+  .callout.trap {
+    border-left-color: #ff7b72;
+    background: #2a1a1a;
+  }
+  .callout h4 {
+    margin: 0 0 8px 0;
+    color: var(--accent-2);
+  }
+  .callout.warn h4 { color: var(--warn); }
+  .callout.danger h4 { color: var(--danger); }
+  .callout.good h4 { color: var(--good); }
+  .callout.trap h4 { color: #ff9492; }
+
+  table {
+    border-collapse: collapse;
+    margin: 14px 0;
+    width: 100%;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.92em;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    text-align: center;
+  }
+  th {
+    background: #243040;
+    color: var(--accent-2);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  td.left { text-align: left; }
+  tr:nth-child(even) td { background: #1a2129; }
+
+  /* Nussinov DP matrix */
+  table.dp {
+    font-family: "JetBrains Mono", Consolas, monospace;
+    font-size: 0.85em;
+  }
+  table.dp th, table.dp td {
+    padding: 6px 8px;
+    min-width: 32px;
+  }
+  table.dp td.diag { background: #2a1f0a; color: var(--text-mute); }
+  table.dp td.below { background: #1c1c1c; color: #555; }
+  table.dp td.pair { background: #3a2210; color: #ffd6a5; font-weight: 700; }
+  table.dp td.final { background: #1a3a25; color: #7ee787; font-weight: 700; }
+
+  /* Sequence / structure visual */
+  .seq-row {
+    font-family: "JetBrains Mono", Consolas, monospace;
+    font-size: 1.05em;
+    letter-spacing: 4px;
+    background: var(--code);
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 8px 0;
+  }
+  .seq-label {
+    color: var(--text-mute);
+    margin-right: 8px;
+  }
+  .pos-num {
+    color: var(--text-mute);
+    font-size: 0.85em;
+  }
+
+  /* Highlight colors for residues */
+  .h { color: var(--helix); font-weight: 700; }       /* helix */
+  .b { color: var(--sheet); font-weight: 700; }       /* sheet */
+  .t { color: var(--turn);  font-weight: 700; }       /* turn */
+  .c { color: var(--coil); }                          /* coil */
+  .pair-base { color: var(--pair); font-weight: 700; }
+  .nuc { color: var(--accent-2); font-weight: 700; }
+
+  .toc {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 16px 22px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  }
+  .toc h3 {
+    margin-top: 0;
+    color: var(--accent-2);
+    border-bottom: none;
+  }
+  .toc a {
+    color: var(--text-dim);
+    text-decoration: none;
+  }
+  .toc a:hover { color: var(--accent-2); }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 800px) {
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.8em;
+    margin: 0 4px;
+    border: 1px solid var(--border);
+    background: var(--bg-3);
+    color: var(--text-dim);
+  }
+  .pill.exam {
+    background: #3a2010;
+    color: #ffb454;
+    border-color: #7a4a20;
+  }
+
+  hr.section-break {
+    border: none;
+    border-top: 2px dashed var(--border);
+    margin: 60px 0;
+  }
+
+  .ascii-rna {
+    font-family: "JetBrains Mono", Consolas, monospace;
+    background: var(--code);
+    padding: 14px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    white-space: pre;
+    color: #ffd6a5;
+    font-size: 0.95em;
+    line-height: 1.4;
+  }
+  .ascii-rna .pos { color: var(--text-mute); }
+  .ascii-rna .nuc { color: var(--accent-2); }
+  .ascii-rna .bond { color: var(--good); }
+
+  .legend {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    background: var(--bg-3);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.88em;
+    margin: 8px 0;
+  }
+  .legend span {
+    color: var(--text-dim);
+  }
+  .legend .swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+
+  details {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    border-radius: 6px;
+    margin: 8px 0;
+  }
+  details summary {
+    cursor: pointer;
+    color: var(--accent-2);
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="title">
+  <h1>📘 Bioinformatics Mastery Guide</h1>
+  <div class="sub">
+    <strong>Modules:</strong> RNA Structure (RNA_structure.pdf) &middot; Protein Structure Prediction (ProteinStructurePrediction_SB.pdf, protein_structure_prediction_modeling_SB.pdf)<br>
+    <strong>Deep dives:</strong> <span class="pill exam">Nussinov Algorithm</span> <span class="pill exam">Chou-Fasman Method</span><br>
+    <strong>Aligned with past-paper questions from</strong> Merged_Compre_PYPs.pdf
+  </div>
+</header>
+
+<div class="toc">
+  <h3>📚 Table of Contents</h3>
+  <p style="color:var(--accent-2); font-weight:600; margin-bottom:4px;">PART A — RNA Structure</p>
+  <ol>
+    <li><a href="#why-rna">Why study RNA structure? (The problem we solve)</a></li>
+    <li><a href="#rna-basics">RNA basics: bases, wobble pairing, functions</a></li>
+    <li><a href="#rna-2d">RNA secondary structure elements</a></li>
+    <li><a href="#rna-repr">Representations: 2D, circular, dot-bracket</a></li>
+    <li><a href="#rna-methods">Overview of prediction methods</a></li>
+    <li><a href="#nussinov">⭐ Nussinov algorithm — full theory + 2 worked examples</a></li>
+    <li><a href="#rna-energy">Energy minimization (MFOLD, ViennaRNA)</a></li>
+    <li><a href="#rna-comp">Comparative / covariance methods</a></li>
+  </ol>
+  <p style="color:var(--accent-2); font-weight:600; margin-bottom:4px; margin-top:10px;">PART B — Protein Structure Prediction</p>
+  <ol start="9">
+    <li><a href="#why-protein">Why predict protein structure?</a></li>
+    <li><a href="#protein-hierarchy">Hierarchy of protein structures</a></li>
+    <li><a href="#dogmas">Anfinsen's dogma & Levinthal's paradox</a></li>
+    <li><a href="#ss-overview">Secondary structure prediction — overview</a></li>
+    <li><a href="#chou-fasman">⭐ Chou-Fasman — full theory + 2 worked examples</a></li>
+    <li><a href="#gor">GOR method (brief)</a></li>
+    <li><a href="#modern">Modern predictors (PSIPRED, Jpred, PHD, …)</a></li>
+    <li><a href="#homology">Homology modeling pipeline</a></li>
+    <li><a href="#threading">Threading & Ab initio</a></li>
+    <li><a href="#alphafold">AlphaFold & CASP</a></li>
+    <li><a href="#exam-traps">⚠ Exam traps & common variations</a></li>
+  </ol>
+</div>
+
+<!-- ============================================================ -->
+<!-- PART A: RNA STRUCTURE -->
+<!-- ============================================================ -->
+
+<h2 id="why-rna">PART A · 1 — Why study RNA structure?</h2>
+
+<p>
+DNA holds information passively — it just sits in the double helix and waits to be read. <strong>RNA, however, folds into a 3-D shape, and that shape <em>is</em> its function.</strong> A tRNA's cloverleaf shape is what lets it carry an amino acid; a ribosome's complex RNA scaffold is what catalyzes peptide bond formation; a microRNA's hairpin is what targets it for processing.
+</p>
+
+<div class="callout">
+  <h4>The central problem</h4>
+  <p>
+  RNA is synthesized as a <em>single strand</em>. Inside this single strand, complementary bases find each other and pair up, folding the molecule onto itself. <strong>Given just the nucleotide sequence (A, C, G, U), can we predict which bases will pair with which?</strong> That folded base-pairing pattern is the <em>secondary structure</em>, and predicting it is one of the foundational problems of bioinformatics.
+  </p>
+</div>
+
+<p>From RNA_structure.pdf:</p>
+<ul>
+  <li><strong>RNA sequence analysis is different from DNA</strong> — DNA usually exists as a stable duplex, but RNA folds.</li>
+  <li>For RNA, <strong>structure conservation is more important than sequence conservation</strong>: across evolution, the bases at a paired position can change as long as the pair is preserved (so AU → GC happens often). This is the whole basis of covariance methods.</li>
+</ul>
+
+<h2 id="rna-basics">PART A · 2 — RNA Basics</h2>
+
+<h4>Composition</h4>
+<p>
+RNA is a polymer of nucleotides built from four bases: <span class="nuc">A</span>denine, <span class="nuc">C</span>ytosine, <span class="nuc">G</span>uanine, and <span class="nuc">U</span>racil (replaces Thymine of DNA). The sugar is <strong>ribose</strong> (DNA has deoxyribose — the difference is an extra –OH at the 2′ position of ribose).
+</p>
+
+<h4>Base pairs in RNA</h4>
+<table>
+<thead><tr><th>Pair</th><th>Type</th><th># H-bonds</th><th>Stability</th></tr></thead>
+<tbody>
+<tr><td><strong>G ≡ C</strong></td><td>Canonical Watson-Crick</td><td>3</td><td>Most stable</td></tr>
+<tr><td><strong>A = U</strong></td><td>Canonical Watson-Crick</td><td>2</td><td>Less stable than GC</td></tr>
+<tr><td><strong>G · U</strong></td><td>Non-canonical "wobble"</td><td>2</td><td>Allowed and biologically important</td></tr>
+</tbody>
+</table>
+
+<div class="callout warn">
+  <h4>Wobble pairing — exam essential</h4>
+  <p>The <strong>G–U wobble</strong> is the most important non-canonical pair. It is geometrically allowed and is regularly used in algorithms (and on exam questions — the Comprehensive paper explicitly asked you to use G:U wobble in Nussinov).</p>
+  <p>Rule of thumb: <strong>each base pairs with at most ONE other base</strong>. No base triples in elementary RNA models.</p>
+</div>
+
+<h4>RNA types & functions</h4>
+<p>RNAs are biological multi-tools:</p>
+<table>
+<thead><tr><th>RNA type</th><th>Function</th></tr></thead>
+<tbody>
+<tr><td class="left"><strong>mRNA</strong> (messenger)</td><td class="left">Codes for proteins; carries genetic information from DNA to ribosome</td></tr>
+<tr><td class="left"><strong>tRNA</strong> (transfer)</td><td class="left">Brings amino acids to the ribosome; classic cloverleaf shape</td></tr>
+<tr><td class="left"><strong>rRNA</strong> (ribosomal)</td><td class="left">Catalytic component of ribosome</td></tr>
+<tr><td class="left"><strong>snRNA</strong> (small nuclear)</td><td class="left">Part of the spliceosome</td></tr>
+<tr><td class="left"><strong>snoRNA</strong> (small nucleolar)</td><td class="left">rRNA modification</td></tr>
+<tr><td class="left"><strong>miRNA / siRNA</strong></td><td class="left">Gene regulation (RNA interference)</td></tr>
+<tr><td class="left"><strong>lncRNA</strong></td><td class="left">Long non-coding regulatory RNAs</td></tr>
+</tbody>
+</table>
+<p>Other roles mentioned in the slides: <em>nuclear export, regulatory molecules, enzymes (ribozymes), viral genomes, retrotransposons, and medicine</em>.</p>
+
+<h2 id="rna-2d">PART A · 3 — RNA Secondary Structure Elements</h2>
+
+<p>When an RNA strand folds back on itself, the resulting shapes have <strong>names you must know cold</strong>:</p>
+
+<table>
+<thead><tr><th>Element</th><th>Definition (from slides)</th></tr></thead>
+<tbody>
+<tr><td class="left"><strong>Single-stranded</strong></td><td class="left">Unpaired regions, including dangling 5′/3′ ends</td></tr>
+<tr><td class="left"><strong>Stem (helix)</strong></td><td class="left">Consecutive run of base pairs — the "trunk" of a hairpin</td></tr>
+<tr><td class="left"><strong>Hairpin (stem-loop)</strong></td><td class="left">A stem capped by an unpaired loop. <em>Loop is generally at least 4 bases long.</em></td></tr>
+<tr><td class="left"><strong>Bulge loop</strong></td><td class="left">Unpaired bases on <em>only one side</em> of a stem</td></tr>
+<tr><td class="left"><strong>Interior loop</strong></td><td class="left">Unpaired bases on <em>both sides</em> of a stem</td></tr>
+<tr><td class="left"><strong>Junction (multi-loop)</strong></td><td class="left">Where two or more stems converge into a closed loop</td></tr>
+<tr><td class="left"><strong>Pseudoknot</strong></td><td class="left">Bases inside one loop pair with bases <em>outside</em> that loop — produces <em>crossing</em> base pairs</td></tr>
+<tr><td class="left"><strong>Kissing hairpins</strong></td><td class="left">Two separate hairpin loops base-pair with each other</td></tr>
+</tbody>
+</table>
+
+<div class="callout danger">
+  <h4>⚠ The pseudoknot constraint — critical for Nussinov</h4>
+  <p>A <em>pseudoknot</em> arises when base pairs <em>cross</em>: that is, you have pairs (i, j) and (i′, j′) with <code>i &lt; i′ &lt; j &lt; j′</code>. <strong>Standard Nussinov and Zuker dynamic programming algorithms CANNOT handle pseudoknots</strong> — that case is explicitly prohibited by the recursion (the bifurcation rule splits a region into two independent halves, which only nested structures allow).</p>
+</div>
+
+<h2 id="rna-repr">PART A · 4 — Representing RNA Secondary Structure</h2>
+
+<h4>1) The classic 2-D drawing</h4>
+<p>Lines for backbone, dashes for hydrogen bonds. Easy to read for small molecules; messy for big ones.</p>
+
+<h4>2) Dot-bracket (Vienna) notation</h4>
+<p>One character per nucleotide:</p>
+<ul>
+  <li><code>.</code> = unpaired</li>
+  <li><code>(</code> = paired with a downstream base</li>
+  <li><code>)</code> = paired with an upstream base — matching parentheses identify the pair</li>
+</ul>
+<p>Example: <code>.(((...)))</code> means position 1 is unpaired; positions 2-4 each pair with positions 10-8; positions 5-7 form the unpaired loop.</p>
+
+<h4>3) Circular representation (the diagram the Comprehensive PYP asks about)</h4>
+<p>From RNA_structure.pdf, this is defined precisely:</p>
+<div class="callout">
+  <ul style="margin:0;">
+    <li>Place the bases on the circumference of a circle, in sequence order.</li>
+    <li>For every base pair, draw a <em>chord</em> (arc) between the two paired bases.</li>
+    <li><strong>If any two arcs cross, a pseudoknot is present.</strong></li>
+  </ul>
+</div>
+
+<div class="callout warn">
+  <h4>🎯 PYP Q1(d) — circular representation & Nussinov capability</h4>
+  <p>The Compre paper shows a 49-base RNA and asks you to (a) draw its circular representation and (b) <em>assess whether Nussinov can predict it</em>. Your answer should follow this two-step logic:</p>
+  <ol>
+    <li><strong>Draw arcs.</strong> Bases on the circle, one arc per H-bond.</li>
+    <li><strong>Test crossings.</strong>
+      <ul>
+        <li>If <em>no</em> arcs cross → structure is nested (no pseudoknot) → Nussinov <em>can in principle</em> recover it, but Nussinov simply maximizes the <strong>number</strong> of pairs and ignores thermodynamics, nearest-neighbor stacking, and loop-length preferences — so it may find a structure with the same or more pairs that isn't the biological one.</li>
+        <li>If <em>any</em> arcs cross → pseudoknot present → <strong>Nussinov cannot predict this structure</strong>, because its bifurcation rule only generates nested structures.</li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<h2 id="rna-methods">PART A · 5 — Overview of RNA structure prediction methods</h2>
+
+<p>From RNA_structure.pdf, there are four major families:</p>
+<table>
+<thead><tr><th>Method</th><th>Idea</th><th>Tools</th></tr></thead>
+<tbody>
+<tr><td class="left"><strong>Dot plot analysis</strong></td><td class="left">Plot the sequence against itself; diagonals identify self-complementary regions (potential stems)</td><td>Visual / heuristic</td></tr>
+<tr><td class="left"><strong>Base-pair maximization</strong></td><td class="left">Find the structure with the most pairs (combinatorial). Solved with DP by Ruth Nussinov.</td><td>Nussinov algorithm</td></tr>
+<tr><td class="left"><strong>Free energy minimization</strong></td><td class="left">Most stable structure (lowest ΔG) is the most likely. Considers stacking energies, loop penalties, etc.</td><td>MFOLD, ViennaRNA</td></tr>
+<tr><td class="left"><strong>Comparative / covariance models</strong></td><td class="left">Use MSAs and covariation between columns to infer pairs. <em>Most trusted method.</em></td><td>INFERNAL, RNAalifold, SCFGs</td></tr>
+</tbody>
+</table>
+
+<p>The two big families <em>that require no homologs</em>:</p>
+<ul>
+  <li><strong>Energy minimization</strong> — dynamic programming, doesn't need prior sequence alignment, but needs estimates of energy terms.</li>
+  <li><strong>Comparative sequence analysis</strong> — uses MSA to find conserved residues and <em>covariant</em> base pairs. <strong>Most trusted.</strong></li>
+</ul>
+
+<hr class="section-break">
+
+<!-- ================== NUSSINOV ================== -->
+<h2 id="nussinov">PART A · 6 — ⭐ Nussinov Algorithm (deep dive)</h2>
+
+<p>
+<strong>The problem Ruth Nussinov solved (1978):</strong> Given an RNA sequence, find the secondary structure (set of non-crossing base pairs) that contains the <em>maximum</em> number of base pairs.
+</p>
+
+<p>Why this works as a starting point: more base pairs ≈ more hydrogen bonds ≈ generally more stable. It's a crude approximation of thermodynamics — but it has the redeeming property that it can be solved <strong>exactly</strong> and <strong>efficiently</strong> using dynamic programming.</p>
+
+<h3>6.1 — The rules (verbatim from the slides)</h3>
+<div class="callout">
+  <p>String uses {A, U, G, C}. Pairs allowed: <strong>A–U, G–C, and G–U (wobble)</strong>. The structure must satisfy:</p>
+  <ol>
+    <li><code>i &lt; j − 4</code> (minimum loop separation — usually a hairpin loop needs ≥ 3 unpaired bases between paired positions; you can change this choice). <em>"You can change your choice"</em> means problem statements may relax this to <code>j − i ≥ 2</code> or any other value.</li>
+    <li>Only A–U, G–C, and G–U can pair.</li>
+    <li>"Pairing forms a matching" — <strong>each position pairs with at most one other</strong>.</li>
+    <li>If (i, j) and (i′, j′) are paired, then the arrangement <code>i &lt; i′ &lt; j &lt; j′</code> is <strong>prohibited</strong> — i.e., no crossing pairs / no pseudoknots.</li>
+  </ol>
+</div>
+
+<h3>6.2 — Core idea of the recursion</h3>
+
+<p>Define <code>γ(i, j)</code> = maximum number of base pairs in the optimal folding of the subsequence x<sub>i</sub>…x<sub>j</sub>.</p>
+
+<p>The slide gives the key insight: <strong>there are exactly four ways to obtain the best structure for (i, j) from smaller subsequences</strong>:</p>
+
+<div class="callout formula">
+  <p style="margin:0;">
+  <strong>γ(i, j) = max</strong> of these four cases:
+  </p>
+  <table style="margin: 10px auto 0 auto; width: auto; background: transparent;">
+    <tr style="background: transparent;">
+      <td class="left" style="background:transparent; border:none;">①</td>
+      <td class="left" style="background:transparent; border:none;"><code>γ(i+1, j)</code></td>
+      <td class="left" style="background:transparent; border:none;">— position <em>i</em> is unpaired</td>
+    </tr>
+    <tr style="background: transparent;">
+      <td class="left" style="background:transparent; border:none;">②</td>
+      <td class="left" style="background:transparent; border:none;"><code>γ(i, j−1)</code></td>
+      <td class="left" style="background:transparent; border:none;">— position <em>j</em> is unpaired</td>
+    </tr>
+    <tr style="background: transparent;">
+      <td class="left" style="background:transparent; border:none;">③</td>
+      <td class="left" style="background:transparent; border:none;"><code>γ(i+1, j−1) + δ(i, j)</code></td>
+      <td class="left" style="background:transparent; border:none;">— <em>i</em> pairs with <em>j</em> (δ = 1 if pair allowed, else 0)</td>
+    </tr>
+    <tr style="background: transparent;">
+      <td class="left" style="background:transparent; border:none;">④</td>
+      <td class="left" style="background:transparent; border:none;"><code>max<sub>i &lt; k &lt; j</sub> [ γ(i, k) + γ(k+1, j) ]</code></td>
+      <td class="left" style="background:transparent; border:none;">— bifurcation: split into two independent sub-structures</td>
+    </tr>
+  </table>
+</div>
+
+<p><strong>Why these four exhaust every possibility:</strong> In any optimal structure of (i, j), position <em>i</em> is either (a) unpaired → case ①, (b) paired with <em>j</em> → case ③, or (c) paired with some interior <em>k</em>, which splits the region into (i, k) and (k+1, j) → case ④. Similarly considering j gives case ②. Together these cover every legal nested structure.</p>
+
+<h3>6.3 — Initialization (the base case)</h3>
+<div class="callout formula">
+  γ(i, i) = 0 &nbsp; for i = 1 to L<br>
+  γ(i, i−1) = 0 &nbsp; for i = 2 to L
+</div>
+<p>Diagonal cells are zero (an interval of length 1 has no pairs), and the "below diagonal" sentinel cells are zero too (an empty interval has no pairs). All other cells start with no value and are filled in by the recursion.</p>
+
+<h3>6.4 — Fill order: how to populate the DP matrix</h3>
+<p>
+Because <code>γ(i, j)</code> depends on <code>γ(i+1, j)</code>, <code>γ(i, j−1)</code>, <code>γ(i+1, j−1)</code>, and <code>γ(i, k)</code> + <code>γ(k+1, j)</code>, you fill the matrix <strong>diagonal by diagonal</strong>, starting with the shortest subsequences (length 2) and working up to the full sequence (length L).
+</p>
+<ul>
+  <li>Compute all cells with j − i = 1, then j − i = 2, then j − i = 3 … up to j − i = L − 1.</li>
+  <li>The answer to "max pairs in the whole sequence" is <strong>γ(1, L)</strong> (top-right corner).</li>
+</ul>
+
+<h3>6.5 — Traceback (the second stage)</h3>
+
+<p>γ(1, L) gives the maximum number of pairs, but <em>not which pairs</em>. To recover the structure, we trace back through the DP table using a <strong>stack</strong>:</p>
+
+<div class="callout">
+<strong>Initialization:</strong> push (1, L) onto stack.<br><br>
+<strong>Recursion:</strong> repeat until stack is empty:
+<ol>
+  <li>Pop (i, j).</li>
+  <li>If i ≥ j: continue (nothing to do).</li>
+  <li>Else if γ(i+1, j) == γ(i, j): push (i+1, j).
+    <span class="pill">i is unpaired</span></li>
+  <li>Else if γ(i, j−1) == γ(i, j): push (i, j−1).
+    <span class="pill">j is unpaired</span></li>
+  <li>Else if γ(i+1, j−1) + δ(i, j) == γ(i, j):
+    <ul>
+      <li><strong>Record (i, j) as a base pair</strong></li>
+      <li>Push (i+1, j−1).</li>
+    </ul>
+  </li>
+  <li>Else for k = i+1 to j−1, find the k where γ(i, k) + γ(k+1, j) == γ(i, j):
+    <ul>
+      <li>Push (k+1, j) and (i, k).</li>
+      <li>Break out of the for-loop.</li>
+    </ul>
+  </li>
+</ol>
+</div>
+
+<div class="callout warn">
+  <h4>About ties</h4>
+  <p>There may be multiple optimal structures with the same maximum number of pairs. The traceback rules are checked in order, so the algorithm will return ONE specific structure (typically the one preferring "i unpaired" first). Other valid optimal structures exist — they are equally good base-pair-wise but differ in which positions pair.</p>
+</div>
+
+<h3>6.6 — Worked Example 1: <code>GGGAAAUCC</code> (from the slides)</h3>
+
+<p>Length L = 9. Allowed pairs respecting i &lt; j − 4 means j − i ≥ 5 (so positions can pair only if they're at least 5 apart in the index; this is the slide's convention with "+4 separation").</p>
+
+<p>Let's identify candidate pairs. The G's are at positions 1, 2, 3; the C's at 8, 9; the U at 7; the A's at 4, 5, 6.</p>
+
+<p>Pairs that satisfy j − i ≥ 5 and one of {A-U, G-C, G-U}:</p>
+<ul>
+  <li>G(1)–C(8), G(1)–C(9): j−i = 7, 8 — both <strong>allowed</strong> (G-C pair).</li>
+  <li>G(2)–C(8), G(2)–C(9): j−i = 6, 7 — allowed.</li>
+  <li>G(3)–C(8), G(3)–C(9): j−i = 5, 6 — allowed.</li>
+  <li>A(4)–? : only A-U; U is at position 7, but j−i = 3 < 5 → <strong>not allowed</strong>.</li>
+  <li>A(5)–U(7), A(6)–U(7): j−i = 2, 1 → not allowed.</li>
+</ul>
+
+<p><strong>The classroom slides give the final DP table:</strong></p>
+
+<table class="dp">
+<thead>
+<tr><th></th><th>j →</th><th>1<br>G</th><th>2<br>G</th><th>3<br>G</th><th>4<br>A</th><th>5<br>A</th><th>6<br>A</th><th>7<br>U</th><th>8<br>C</th><th>9<br>C</th></tr>
+</thead>
+<tbody>
+<tr><td>i = 1</td><td>G</td><td class="diag">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>2</td><td class="final">3</td></tr>
+<tr><td>i = 2</td><td>G</td><td class="below">—</td><td class="diag">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>2</td><td>3</td></tr>
+<tr><td>i = 3</td><td>G</td><td class="below">—</td><td class="below">—</td><td class="diag">0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>2</td><td>2</td></tr>
+<tr><td>i = 4</td><td>A</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="diag">0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+<tr><td>i = 5</td><td>A</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="diag">0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+<tr><td>i = 6</td><td>A</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="diag">0</td><td>0</td><td>1</td><td>1</td></tr>
+<tr><td>i = 7</td><td>U</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="diag">0</td><td>0</td><td>0</td></tr>
+<tr><td>i = 8</td><td>C</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="diag">0</td><td>0</td></tr>
+<tr><td>i = 9</td><td>C</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="diag">0</td></tr>
+</tbody>
+</table>
+
+<p>The final answer in the top-right corner is <strong>γ(1, 9) = 3</strong>. Three base pairs is the maximum.</p>
+
+<p>The slide's traceback yields the structure:</p>
+
+<pre>
+Position:   1  2  3  4  5  6  7  8  9
+Base:       G  G  G  A  A  A  U  C  C
+Pairs:                  ·  ·  ·  ·  ·       ← The structure
+            ┌──pair──────────────┐
+               ┌──pair───────┐
+                  ┌──pair─┐
+            (1,9) (2,8) (3,7?) → actually let's verify
+</pre>
+
+<p>Looking at the slide annotation:</p>
+<div class="ascii-rna">
+G
+G ● C       ← pair
+G ● C       ← pair
+A
+A
+A
+● U         ← pair (A-U)
+</div>
+
+<p>The illustrated stem has three pairs forming a hairpin: <strong>(1,9) G–C, (2,8) G–C, (3,7) G–U? No — let's re-examine.</strong> Actually, with the i &lt; j − 4 rule (j − i ≥ 5), one valid maximal structure is (1,9), (2,8), (3,7) — but (3,7) is G–U which IS allowed (wobble). The slide shows a hairpin with two G·C and one A·U at positions 4–7 area. Inspecting the diagram, the three pairs are <strong>(1,9), (2,8), (3,7)</strong>: G-C, G-C, G-U. Loop = AAA at positions 4-5-6.</p>
+
+<p>Dot-bracket: <code>(((...)))</code></p>
+
+<hr class="section-break">
+
+<h3>6.7 — Worked Example 2: <span class="pill exam">PYP Question</span> <code>GAUACCCUAU</code></h3>
+
+<div class="callout warn">
+  <h4>📝 Past paper (Compre 2024-25 Q4c, 5 marks):</h4>
+  <p>"Using Ruth Nussinov algorithm, predict secondary structure of the following RNA sequence considering standard Watson-Crick hydrogen bond scheme along with G:U wobble pairing. [Assuming that a nucleotide cannot form hydrogen bond with its immediate two neighbors]"</p>
+  <p><strong>Sequence: <code>GAUACCCUAU</code></strong></p>
+</div>
+
+<h4>Step 1 — Interpret the question</h4>
+<ul>
+  <li>L = 10.</li>
+  <li>"Cannot form H-bond with its immediate two neighbors" → a base at position <em>i</em> cannot pair with i+1 or i+2 → required separation <strong>|i − j| ≥ 3</strong> (i.e., j − i ≥ 3).</li>
+  <li>Allowed pairs: A–U, G–C, <strong>and G–U wobble</strong>.</li>
+  <li>δ(i, j) = 1 if i, j are an allowed pair AND j − i ≥ 3; else δ(i, j) = 0.</li>
+</ul>
+
+<h4>Step 2 — Number the sequence and list possible pairs</h4>
+
+<div class="seq-row">
+<span class="seq-label">Pos:</span> <span class="pos-num">1&nbsp;&nbsp;2&nbsp;&nbsp;3&nbsp;&nbsp;4&nbsp;&nbsp;5&nbsp;&nbsp;6&nbsp;&nbsp;7&nbsp;&nbsp;8&nbsp;&nbsp;9&nbsp;10</span><br>
+<span class="seq-label">Base:</span> <span class="nuc">G&nbsp;&nbsp;A&nbsp;&nbsp;U&nbsp;&nbsp;A&nbsp;&nbsp;C&nbsp;&nbsp;C&nbsp;&nbsp;C&nbsp;&nbsp;U&nbsp;&nbsp;A&nbsp;&nbsp;U</span>
+</div>
+
+<p>Enumerate all (i, j) with i &lt; j, j − i ≥ 3, and bases compatible (G-C / A-U / G-U):</p>
+
+<table>
+<thead><tr><th>i</th><th>base</th><th>Valid partners j</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>G</td><td class="left">C(5) j−i=4 ✓; C(6) =5 ✓; C(7) =6 ✓; U(8) =7 ✓ (wobble); U(10) =9 ✓ (wobble)</td></tr>
+<tr><td>2</td><td>A</td><td class="left">U(8) =6 ✓; U(10) =8 ✓</td></tr>
+<tr><td>3</td><td>U</td><td class="left">A(9) =6 ✓ &nbsp; (A(4) and G(1) are too close)</td></tr>
+<tr><td>4</td><td>A</td><td class="left">U(8) =4 ✓; U(10) =6 ✓</td></tr>
+<tr><td>5-7</td><td>C</td><td class="left">Only G is at position 1, already accounted for above</td></tr>
+<tr><td>8</td><td>U</td><td class="left">Already accounted for above</td></tr>
+<tr><td>9</td><td>A</td><td class="left">Already accounted for above</td></tr>
+</tbody>
+</table>
+
+<h4>Step 3 — Fill the DP table diagonal-by-diagonal</h4>
+
+<p>Initialization: γ(i, i) = 0 for all i and γ(i, i−1) = 0. For j − i ≤ 2 (positions too close to pair): γ = 0.</p>
+
+<p>I'll walk through every non-trivial computation. Subscripts on δ are shorthand for pair-checks.</p>
+
+<h5>Diagonal j − i = 3 (length-4 sub-sequences) — all give γ = 0</h5>
+<p>The end-points are too close (j − i = 3 satisfies the distance, but check the actual bases):</p>
+<ul>
+  <li>γ(1,4): G·A — not a pair. Max of γ(2,4)=0, γ(1,3)=0, γ(2,3)+0 = 0 → <strong>0</strong></li>
+  <li>γ(2,5): A·C → 0. γ(3,6): U·C → 0. γ(4,7): A·C → 0. γ(5,8): C·U → 0. γ(6,9): C·A → 0. γ(7,10): C·U → 0.</li>
+  <li>All diagonal-3 cells = <strong>0</strong>.</li>
+</ul>
+
+<h5>Diagonal j − i = 4</h5>
+<ul>
+  <li><strong>γ(1, 5)</strong>: G·C → pair! γ(2,4)+1 = 0+1 = <strong>1</strong>. Other options: γ(2,5)=0, γ(1,4)=0, bifurcations all 0. → <strong>1</strong></li>
+  <li>γ(2, 6): A·C → no pair → 0.</li>
+  <li>γ(3, 7): U·C → no pair → 0.</li>
+  <li><strong>γ(4, 8)</strong>: A·U → pair! γ(5,7)+1 = 0+1 = <strong>1</strong>. → <strong>1</strong></li>
+  <li>γ(5, 9): C·A → no pair → 0.</li>
+  <li>γ(6, 10): C·U → no pair → 0.</li>
+</ul>
+
+<h5>Diagonal j − i = 5</h5>
+<ul>
+  <li><strong>γ(1, 6)</strong>: G·C → pair. γ(2,5)+1 = 0+1 = 1. Also γ(1,5)=1 (= γ(2,6)=0). Bifurcation γ(1,5)+γ(6,6) = 1+0 = 1. Max → <strong>1</strong>.</li>
+  <li>γ(2, 7): A·C → no pair. All options = 0. → <strong>0</strong>.</li>
+  <li><strong>γ(3, 8)</strong>: U·U → no pair. γ(4,8) = 1, γ(3,7) = 0. Bifurcation γ(3,3)+γ(4,8) = 0+1 = 1. Max → <strong>1</strong>.</li>
+  <li><strong>γ(4, 9)</strong>: A·A → no pair. γ(5,9) = 0, γ(4,8) = 1. Bifurcation γ(4,8)+γ(9,9) = 1+0 = 1. Max → <strong>1</strong>.</li>
+  <li>γ(5, 10): C·U → no pair → 0.</li>
+</ul>
+
+<h5>Diagonal j − i = 6</h5>
+<ul>
+  <li><strong>γ(1, 7)</strong>: G·C → pair. γ(2,6)+1 = 0+1 = 1. γ(1,6) = 1, γ(2,7) = 0. Bifurcations: γ(1,5)+γ(6,7)=1+0=1; γ(1,6)+γ(7,7)=1+0=1. Max → <strong>1</strong>.</li>
+  <li><strong>γ(2, 8)</strong>: A·U → pair. γ(3,7)+1 = 0+1 = 1. γ(3,8)=1, γ(2,7)=0. Bifurcations: γ(2,3)+γ(4,8)=0+1=1; γ(2,8) etc. Max → <strong>1</strong>.</li>
+  <li><strong>γ(3, 9)</strong>: U·A → pair! γ(4,8)+1 = 1+1 = <strong>2</strong>. γ(4,9)=1, γ(3,8)=1. Max → <strong>2</strong>.</li>
+  <li><strong>γ(4, 10)</strong>: A·U → pair. γ(5,9)+1 = 0+1 = 1. γ(5,10)=0, γ(4,9)=1. Bifurcation γ(4,8)+γ(9,10)=1+0=1; γ(4,9)+γ(10,10)=1+0=1. Max → <strong>1</strong>.</li>
+</ul>
+
+<h5>Diagonal j − i = 7</h5>
+<ul>
+  <li><strong>γ(1, 8)</strong>: G·U → <em>wobble pair</em>! γ(2,7)+1 = 0+1 = 1. γ(2,8)=1, γ(1,7)=1. Bifurcations: best is γ(1,5)+γ(6,8) = 1+0 = 1; γ(1,3)+γ(4,8) = 0+1 = 1; etc. Max → <strong>1</strong>.
+    <details>
+      <summary>Why we can't get 2 here</summary>
+      <p>Any single pair gives 1, and any two compatible pairs would have to be non-crossing inside (1, 8). The candidates inside are (1,5), (1,6), (1,7), (1,8), (4,8). Check (1,5) + (4,8): we have 1 &lt; 4 &lt; 5 &lt; 8 — this is the <em>crossing</em> pattern (i &lt; i′ &lt; j &lt; j′), so they cross and are mutually forbidden. Similarly (1,6)+(4,8) and (1,7)+(4,8) all cross. So max is 1.</p>
+    </details>
+  </li>
+  <li><strong>γ(2, 9)</strong>: A·A → no pair. γ(3,9)=2, γ(2,8)=1. Bifurcation γ(2,2)+γ(3,9)=0+2=2. Max → <strong>2</strong>.</li>
+  <li><strong>γ(3, 10)</strong>: U·U → no pair. γ(4,10)=1, γ(3,9)=2. Bifurcation γ(3,9)+γ(10,10) = 2+0 = 2. Max → <strong>2</strong>.</li>
+</ul>
+
+<h5>Diagonal j − i = 8</h5>
+<ul>
+  <li><strong>γ(1, 9)</strong>: G·A → no pair. γ(2,9)=2, γ(1,8)=1. Bifurcation γ(1,2)+γ(3,9)=0+2=2. Max → <strong>2</strong>.</li>
+  <li><strong>γ(2, 10)</strong>: A·U → pair! γ(3,9)+1 = 2+1 = <strong>3</strong>. γ(3,10)=2, γ(2,9)=2. Max → <strong>3</strong>.</li>
+</ul>
+
+<h5>Diagonal j − i = 9 (the whole sequence)</h5>
+<ul>
+  <li><strong>γ(1, 10)</strong>: G·U → wobble pair! γ(2,9)+1 = 2+1 = 3. γ(2,10)=3, γ(1,9)=2. Bifurcation γ(2,9)+γ(10,10)=2+0=2; γ(1,9)+γ(10,10)=2+0=2. Max → <strong>3</strong>.</li>
+</ul>
+
+<h4>Step 4 — The completed DP table</h4>
+
+<table class="dp">
+<thead>
+<tr>
+<th></th><th>j →</th>
+<th>1<br>G</th><th>2<br>A</th><th>3<br>U</th><th>4<br>A</th><th>5<br>C</th><th>6<br>C</th><th>7<br>C</th><th>8<br>U</th><th>9<br>A</th><th>10<br>U</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>i = 1</td><td>G</td><td class="diag">0</td><td>0</td><td>0</td><td>0</td><td class="pair">1</td><td class="pair">1</td><td class="pair">1</td><td class="pair">1</td><td>2</td><td class="final">3</td></tr>
+<tr><td>i = 2</td><td>A</td><td class="below">—</td><td class="diag">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pair">1</td><td>2</td><td class="pair">3</td></tr>
+<tr><td>i = 3</td><td>U</td><td class="below">—</td><td class="below">—</td><td class="diag">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td class="pair">2</td><td>2</td></tr>
+<tr><td>i = 4</td><td>A</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="diag">0</td><td>0</td><td>0</td><td>0</td><td class="pair">1</td><td>1</td><td class="pair">1</td></tr>
+<tr><td>i = 5</td><td>C</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="diag">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>i = 6</td><td>C</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="diag">0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>i = 7</td><td>C</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="diag">0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>i = 8</td><td>U</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="diag">0</td><td>0</td><td>0</td></tr>
+<tr><td>i = 9</td><td>A</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="diag">0</td><td>0</td></tr>
+<tr><td>i = 10</td><td>U</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="below">—</td><td class="diag">0</td></tr>
+</tbody>
+</table>
+
+<p style="color:var(--text-dim); font-size:0.9em;">
+<span style="background:#3a2210; padding:1px 6px; border-radius:3px;">orange</span> = cell where a base pair is recorded;
+<span style="background:#1a3a25; padding:1px 6px; border-radius:3px;">green</span> = γ(1, L), the final score.
+</p>
+
+<p><strong>γ(1, 10) = 3</strong>. The maximum number of base pairs is 3.</p>
+
+<h4>Step 5 — Traceback to recover the structure</h4>
+
+<p>Stack starts as <code>[(1, 10)]</code>. Pairs found: empty.</p>
+
+<table>
+<thead><tr><th>Step</th><th>Pop</th><th>Rule that fires</th><th>Action</th><th>Pairs so far</th><th>Stack after</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>(1, 10)</td><td class="left">γ(2, 10) = 3 = γ(1, 10) → "i unpaired" rule</td><td class="left">Push (2, 10)</td><td>—</td><td>(2, 10)</td></tr>
+<tr><td>2</td><td>(2, 10)</td><td class="left">γ(3, 10) = 2 ≠ 3, γ(2, 9) = 2 ≠ 3, γ(3, 9) + δ(2, 10) = 2 + 1 = 3 ✓</td><td class="left">Record (2, 10). Push (3, 9).</td><td><strong>(2, 10)</strong></td><td>(3, 9)</td></tr>
+<tr><td>3</td><td>(3, 9)</td><td class="left">γ(4, 9) = 1, γ(3, 8) = 1, γ(4, 8) + δ(3, 9) = 1 + 1 = 2 ✓</td><td class="left">Record (3, 9). Push (4, 8).</td><td>(2, 10), <strong>(3, 9)</strong></td><td>(4, 8)</td></tr>
+<tr><td>4</td><td>(4, 8)</td><td class="left">γ(5, 8) = 0, γ(4, 7) = 0, γ(5, 7) + δ(4, 8) = 0 + 1 = 1 ✓</td><td class="left">Record (4, 8). Push (5, 7).</td><td>(2, 10), (3, 9), <strong>(4, 8)</strong></td><td>(5, 7)</td></tr>
+<tr><td>5</td><td>(5, 7)</td><td class="left">γ(6, 7) = 0 = γ(5, 7) → "i unpaired"</td><td class="left">Push (6, 7).</td><td>(same)</td><td>(6, 7)</td></tr>
+<tr><td>6</td><td>(6, 7)</td><td class="left">γ(7, 7) = 0 = γ(6, 7) → "i unpaired"</td><td class="left">Push (7, 7).</td><td>(same)</td><td>(7, 7)</td></tr>
+<tr><td>7</td><td>(7, 7)</td><td class="left">i ≥ j → continue</td><td class="left">(nothing)</td><td>(same)</td><td>empty</td></tr>
+</tbody>
+</table>
+
+<p>Traceback complete. <strong>Predicted base pairs:</strong> (2, 10), (3, 9), (4, 8).</p>
+
+<h4>Step 6 — Draw the predicted structure</h4>
+
+<div class="ascii-rna">
+Position:  <span class="pos">1   2   3   4   5   6   7   8   9   10</span>
+Base:      <span class="nuc">G   A   U   A   C   C   C   U   A   U</span>
+Structure: .   (   (   (   .   .   .   )   )   )
+
+Dot-bracket:  <span style="color:var(--good);">.(((...)))</span>
+
+Pairs:
+   (2, 10) :  A — U   ✓ Watson-Crick
+   (3,  9) :  U — A   ✓ Watson-Crick
+   (4,  8) :  A — U   ✓ Watson-Crick
+
+Hairpin loop:  positions 5, 6, 7  (C-C-C)
+Stem length:   3 base pairs
+Dangling 5′ end: G(1) is unpaired
+</div>
+
+<h4>Step 7 — Visualise as a hairpin</h4>
+
+<pre>
+                 5
+              C
+       C  6
+       |
+       C  7
+       |
+   4   A───U   8
+       |   |
+   3   U───A   9
+       |   |
+   2   A───U   10
+       
+  1  G            ← single-stranded 5′ dangling end
+</pre>
+
+<div class="callout good">
+  <h4>✅ Final answer (PYP-ready)</h4>
+  <p><strong>Maximum base pairs = 3</strong></p>
+  <p><strong>Predicted secondary structure:</strong> <code>.(((...)))</code></p>
+  <p><strong>Base pairs:</strong> A(2)–U(10), U(3)–A(9), A(4)–U(8)</p>
+  <p><strong>Topology:</strong> A 3-base-pair stem with a CCC hairpin loop and a single unpaired G at the 5′ end.</p>
+</div>
+
+<div class="callout warn">
+  <h4>Note on alternative optima</h4>
+  <p>Because γ(1, 10) = γ(2, 9) + δ(1, 10) = 2 + 1 = 3 also achieves the max, an <em>alternative optimal structure</em> with the same score 3 is to pair G(1)–U(10) (wobble), U(3)–A(9), A(4)–U(8), giving <code>(.((...)).)</code>. The standard traceback above (which prefers "i unpaired" first) returns the first version. Either is acceptable; an exam answer is strongest if you mention that ties exist.</p>
+</div>
+
+<h3>6.8 — Complexity & limitations</h3>
+<table>
+<thead><tr><th>Aspect</th><th>Detail</th></tr></thead>
+<tbody>
+<tr><td class="left"><strong>Time complexity</strong></td><td class="left">O(L³) — three nested loops (i, j, k bifurcation)</td></tr>
+<tr><td class="left"><strong>Space complexity</strong></td><td class="left">O(L²) — the DP matrix</td></tr>
+<tr><td class="left"><strong>Pseudoknots?</strong></td><td class="left"><strong>No</strong> — explicitly forbidden by the bifurcation rule</td></tr>
+<tr><td class="left"><strong>Energy terms?</strong></td><td class="left">Ignored — only counts pair number</td></tr>
+<tr><td class="left"><strong>Loop-length preferences?</strong></td><td class="left">Ignored</td></tr>
+<tr><td class="left"><strong>Stacking interactions?</strong></td><td class="left">Ignored — adjacent stacked pairs are not given a bonus</td></tr>
+</tbody>
+</table>
+
+<div class="callout danger">
+  <h4>Why Nussinov is not used in practice</h4>
+  <p>The textbook itself ("Evaluation of Maximizing Basepairs") lists why this is a simplistic approach:</p>
+  <ul>
+    <li><strong>Does not give accurate structure predictions.</strong></li>
+    <li>Misses <strong>nearest-neighbor interactions</strong>.</li>
+    <li>Misses <strong>stacking interactions</strong> (stacked pairs are much more stable than isolated ones).</li>
+    <li>Misses <strong>loop-length preferences</strong> (hairpin loops have an optimal length around 4-8 nt; very short or very long loops are penalized).</li>
+  </ul>
+  <p>That's why <strong>energy minimization (MFOLD, ViennaRNA)</strong> superseded Nussinov for real predictions.</p>
+</div>
+
+<hr class="section-break">
+
+<h2 id="rna-energy">PART A · 7 — Energy Minimization (MFOLD, ViennaRNA)</h2>
+
+<p>Better than Nussinov: instead of counting pairs, <em>minimize the total Gibbs free energy ΔG</em> of the predicted structure.</p>
+
+<div class="callout">
+  <strong>Key principles (from RNA_structure.pdf):</strong>
+  <ul>
+    <li><strong>Thermodynamic stability</strong> — the most stable structure is the most likely.</li>
+    <li>Energy parameters for stacks, loops, bulges are <em>measured experimentally</em>.</li>
+    <li>Uses dynamic programming (much like Nussinov, but the score is ΔG, not pair count).</li>
+    <li>Energy of any position is influenced only by <em>local</em> sequence and structure (this is the "nearest-neighbor" model — it's what makes DP feasible).</li>
+    <li>Pseudoknots <strong>not</strong> handled (same DP limitation as Nussinov).</li>
+    <li>Implementations: <strong>MFOLD</strong> (Michael Zuker) and <strong>ViennaRNA</strong>.</li>
+  </ul>
+</div>
+
+<p><strong>Drawbacks:</strong></p>
+<ul>
+  <li>Compute only <em>one</em> optimal structure (although suboptimals can be enumerated).</li>
+  <li>Inherits the usual problems of any purely mathematical approach — the energy model is an approximation, RNAs in cells may not be in the minimum-energy state (kinetic traps, chaperones, etc.).</li>
+</ul>
+
+<h2 id="rna-comp">PART A · 8 — Comparative Sequence Analysis & Covariance Models</h2>
+
+<div class="callout good">
+  <h4>The most trusted method</h4>
+  <p>If you have many homologous RNA sequences, you can <strong>align them and look for compensatory mutations</strong>: a position that changes from A → G is informative only if its partner also changes from U → C, preserving the pair. Such <em>covariation</em> is strong evidence the two positions are base-paired in the real structure.</p>
+  <p>Tools that formalize this with stochastic context-free grammars (SCFGs): <strong>INFERNAL / Rfam, RNAalifold</strong>.</p>
+</div>
+
+<p>Strengths: handles pseudoknots (with appropriate models), incorporates real evolutionary signal.<br>
+Weakness: requires many homologous sequences with sufficient diversity.</p>
+
+<hr class="section-break">
+
+<!-- ============================================================ -->
+<!-- PART B: PROTEIN STRUCTURE PREDICTION -->
+<!-- ============================================================ -->
+
+<h2 id="why-protein">PART B · 9 — Why predict protein structure?</h2>
+
+<p>The textbook lays out the motivation directly:</p>
+
+<div class="callout">
+  <strong>Sequence → Structure → Function.</strong> Once you know a protein's 3-D structure, you can:
+  <ul>
+    <li>Predict the <strong>function of novel proteins</strong>.</li>
+    <li>Predict the <strong>effect of mutations</strong> (disease variants).</li>
+    <li>Design <strong>structure-based drugs</strong> (rational drug design needs a target binding pocket).</li>
+    <li>Understand the <strong>protein-folding problem</strong> itself — one of biology's grand challenges.</li>
+  </ul>
+</div>
+
+<h4>The motivating gap</h4>
+<p>From the slides — the gap between known sequences and known structures is enormous and growing:</p>
+<table>
+<thead><tr><th>Date</th><th>PDB structures</th><th>UniProt sequences</th></tr></thead>
+<tbody>
+<tr><td>3 Oct 2022</td><td>~195,858</td><td>~226,771,949</td></tr>
+<tr><td>16 Oct 2023</td><td>~210,554</td><td>~251,600,768</td></tr>
+<tr><td>"Today" (slide date)</td><td>~252,482</td><td>~203,130,941</td></tr>
+</tbody>
+</table>
+<p>~250k structures vs. ~250 million sequences — three orders of magnitude. Experiments (X-ray, NMR, cryo-EM) are <em>time-consuming, expensive, laborious</em>. <strong>Computational prediction is the only way to close the gap.</strong></p>
+
+<h2 id="protein-hierarchy">PART B · 10 — Hierarchy of Protein Structures</h2>
+
+<table>
+<thead><tr><th>Level</th><th>What it is</th><th>Driving force</th></tr></thead>
+<tbody>
+<tr><td class="left"><strong>Primary</strong></td><td class="left">Sequence of amino acids (~20 to ~30,000 long)</td><td class="left">Peptide (amide) bonds</td></tr>
+<tr><td class="left"><strong>Secondary</strong></td><td class="left">Local backbone organization — α-helix, β-sheet, coil/loop</td><td class="left">Backbone–backbone <strong>hydrogen bonds</strong></td></tr>
+<tr><td class="left"><strong>Tertiary</strong></td><td class="left">3-D arrangement of all atoms in one polypeptide chain (interaction <em>between</em> secondary structures)</td><td class="left"><strong>Hydrophobic effect</strong> (primary), H-bonds, ionic (salt-bridges), Van der Waals, di-sulfide bonds</td></tr>
+<tr><td class="left"><strong>Quaternary</strong></td><td class="left">Interaction of multiple polypeptide subunits (e.g., hemoglobin)</td><td class="left">Same forces as tertiary, but between chains</td></tr>
+</tbody>
+</table>
+
+<p>The slide's analogy:</p>
+<div class="callout">
+  Alphabets &nbsp;==&nbsp; Primary structure (amino acids)<br>
+  Words &nbsp;==&nbsp; Secondary structure (α-helix, β-sheets)<br>
+  Sentence &nbsp;==&nbsp; Tertiary structure (helices + sheets folded together)<br>
+  Paragraph &nbsp;==&nbsp; Quaternary structure (multiple subunits)
+</div>
+
+<p>What protein structure prediction actually means: <strong>predict the spatial atomic positions (the tertiary structure) starting from the primary structure (the amino-acid sequence).</strong></p>
+
+<h2 id="dogmas">PART B · 11 — The two governing principles (Anfinsen + Levinthal)</h2>
+
+<div class="callout">
+  <h4>Anfinsen's Dogma</h4>
+  <p><strong>The native 3-D structure is determined entirely by the amino-acid sequence.</strong> The native state corresponds to the global minimum of free energy. → This is the <em>theoretical postulate</em> that justifies structure prediction from sequence alone.</p>
+</div>
+
+<div class="callout danger">
+  <h4>Levinthal's Paradox</h4>
+  <p>A 100-residue protein with just 3 conformational degrees of freedom per residue can theoretically adopt 3¹⁰⁰ ≈ 5×10⁴⁷ conformations. Even a supercomputer would take <em>years</em> to enumerate them all. Yet real proteins fold in <strong>milliseconds to microseconds</strong>. Therefore, folding cannot be a random search — it must follow a directed pathway (folding funnel). This is why naïve "try every possibility" computational approaches fail.</p>
+</div>
+
+<p>Together: <em>Anfinsen says the answer exists; Levinthal says naïve search will never find it.</em> Hence the field of <strong>protein structure prediction</strong>.</p>
+
+<h2 id="ss-overview">PART B · 12 — Secondary Structure Prediction — overview</h2>
+
+<p>Three main secondary-structure states (3-state prediction):</p>
+<ul>
+  <li><strong>H</strong> — α-helix</li>
+  <li><strong>E</strong> — β-sheet (extended strand)</li>
+  <li><strong>C</strong> — coil / loop</li>
+</ul>
+
+<h4>Why some amino acids prefer some structures (amino-acid <em>propensities</em>)</h4>
+<p>The 20 amino acids differ in <strong>size, shape, and charge</strong>; this makes them prefer one secondary-structure context over another. From the slides:</p>
+<ul>
+  <li><strong>Proline</strong> has a rigid, ring-locked side chain — it cannot fit into an α-helix backbone geometry and is famously a "helix breaker".</li>
+  <li><strong>Glycine</strong> has no side chain — it's too flexible, also a helix-breaker (and turn-favoring).</li>
+  <li><strong>Glutamic acid, methionine, alanine, leucine</strong> — strong helix-formers.</li>
+  <li><strong>Valine, isoleucine, tyrosine, phenylalanine, tryptophan</strong> — strong sheet-formers.</li>
+</ul>
+
+<p>"Classic methods" listed by the slides: <strong>Chou-Fasman and GOR</strong>. They both start from these propensities computed from databases of known structures.</p>
+
+<hr class="section-break">
+
+<!-- ============ CHOU-FASMAN ============ -->
+<h2 id="chou-fasman">PART B · 13 — ⭐ Chou-Fasman Method (deep dive)</h2>
+
+<p>
+Developed by Peter Y. Chou and Gerald D. Fasman in 1974. It's the founding statistical method of secondary-structure prediction — simple enough to do by hand, which is exactly why <strong>it appears every year on the exam</strong>.
+</p>
+
+<h3>13.1 — The core idea: conformational parameters (propensities)</h3>
+
+<p>For every amino acid, compute three numbers from a database of <em>known</em> protein structures:</p>
+<ul>
+  <li><strong>P<sub>α</sub></strong> — propensity for α-helix</li>
+  <li><strong>P<sub>β</sub></strong> — propensity for β-sheet</li>
+  <li><strong>P<sub>turn</sub></strong> — propensity for β-turn</li>
+</ul>
+
+<div class="callout formula">
+  <strong>P<sub>i,j</sub> = (frequency of amino acid <em>i</em> in secondary structure <em>j</em>) / (overall frequency of amino acid <em>i</em>)</strong>
+</div>
+
+<p><strong>Interpretation:</strong></p>
+<ul>
+  <li><strong>P > 1</strong> → the amino acid is <em>over-represented</em> in that structure → it <em>favors</em> that structure.</li>
+  <li><strong>P = 1</strong> → no preference (random).</li>
+  <li><strong>P &lt; 1</strong> → under-represented → it <em>disfavors</em> that structure.</li>
+</ul>
+
+<h4>Worked example of the propensity calculation (from the slides)</h4>
+<div class="callout">
+  <strong>Scenario:</strong> A database of 50 proteins has 20,000 amino acids total. Of these, 5,000 form α-helix. The database contains 2,000 alanine residues, and 500 of them are in helices.<br><br>
+  <strong>Compute P<sub>Ala, helix</sub>:</strong>
+  <br>
+  P = (frequency of Ala in helix) / (overall frequency of Ala)<br>
+  &nbsp;&nbsp;= (500 / 5,000) / (2,000 / 20,000)<br>
+  &nbsp;&nbsp;= 0.10 / 0.10<br>
+  &nbsp;&nbsp;= <strong>1.0</strong> &nbsp; → no preference (Ala is equally likely to be in helix as random)
+</div>
+
+<h3>13.2 — The full Chou-Fasman parameter table (from the slides)</h3>
+
+<p style="color:var(--text-dim); font-size:0.92em;"><em>The original table reports P × 100 (i.e., the value 142 in the table means P = 1.42). To use the values in the algorithm, divide each by 100. The four columns on the right — f(i), f(i+1), f(i+2), f(i+3) — are position-specific turn frequencies used in β-turn prediction.</em></p>
+
+<table>
+<thead>
+<tr><th>Amino acid</th><th>Code</th><th>P(α)</th><th>P(β)</th><th>P(turn)</th><th>f(i)</th><th>f(i+1)</th><th>f(i+2)</th><th>f(i+3)</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">Alanine</td><td>A</td><td>1.42</td><td>0.83</td><td>0.66</td><td>0.060</td><td>0.076</td><td>0.035</td><td>0.058</td></tr>
+<tr><td class="left">Arginine</td><td>R</td><td>0.98</td><td>0.93</td><td>0.95</td><td>0.070</td><td>0.106</td><td>0.099</td><td>0.085</td></tr>
+<tr><td class="left">Asparagine</td><td>N</td><td>0.67</td><td>0.89</td><td>1.56</td><td>0.161</td><td>0.083</td><td>0.191</td><td>0.091</td></tr>
+<tr><td class="left">Aspartic acid</td><td>D</td><td>1.01</td><td>0.54</td><td>1.46</td><td>0.147</td><td>0.110</td><td>0.179</td><td>0.081</td></tr>
+<tr><td class="left">Cysteine</td><td>C</td><td>0.70</td><td>1.19</td><td>1.19</td><td>0.149</td><td>0.050</td><td>0.117</td><td>0.128</td></tr>
+<tr><td class="left">Glutamic acid</td><td>E</td><td>1.51</td><td>0.37</td><td>0.74</td><td>0.056</td><td>0.060</td><td>0.077</td><td>0.064</td></tr>
+<tr><td class="left">Glutamine</td><td>Q</td><td>1.11</td><td>1.10</td><td>0.98</td><td>0.074</td><td>0.098</td><td>0.037</td><td>0.098</td></tr>
+<tr><td class="left">Glycine</td><td>G</td><td>0.57</td><td>0.75</td><td>1.56</td><td>0.102</td><td>0.085</td><td>0.190</td><td>0.152</td></tr>
+<tr><td class="left">Histidine</td><td>H</td><td>1.00</td><td>0.87</td><td>0.95</td><td>0.140</td><td>0.047</td><td>0.093</td><td>0.054</td></tr>
+<tr><td class="left">Isoleucine</td><td>I</td><td>1.08</td><td>1.60</td><td>0.47</td><td>0.043</td><td>0.034</td><td>0.013</td><td>0.056</td></tr>
+<tr><td class="left">Leucine</td><td>L</td><td>1.21</td><td>1.30</td><td>0.59</td><td>0.061</td><td>0.025</td><td>0.036</td><td>0.070</td></tr>
+<tr><td class="left">Lysine</td><td>K</td><td>1.14</td><td>0.74</td><td>1.01</td><td>0.055</td><td>0.115</td><td>0.072</td><td>0.095</td></tr>
+<tr><td class="left">Methionine</td><td>M</td><td>1.45</td><td>1.05</td><td>0.60</td><td>0.068</td><td>0.082</td><td>0.014</td><td>0.055</td></tr>
+<tr><td class="left">Phenylalanine</td><td>F</td><td>1.13</td><td>1.38</td><td>0.60</td><td>0.059</td><td>0.041</td><td>0.065</td><td>0.065</td></tr>
+<tr><td class="left">Proline</td><td>P</td><td>0.57</td><td>0.55</td><td>1.52</td><td>0.102</td><td>0.301</td><td>0.034</td><td>0.068</td></tr>
+<tr><td class="left">Serine</td><td>S</td><td>0.77</td><td>0.75</td><td>1.43</td><td>0.120</td><td>0.139</td><td>0.125</td><td>0.106</td></tr>
+<tr><td class="left">Threonine</td><td>T</td><td>0.83</td><td>1.19</td><td>0.96</td><td>0.086</td><td>0.108</td><td>0.065</td><td>0.079</td></tr>
+<tr><td class="left">Tryptophan</td><td>W</td><td>1.08</td><td>1.37</td><td>0.96</td><td>0.077</td><td>0.013</td><td>0.064</td><td>0.167</td></tr>
+<tr><td class="left">Tyrosine</td><td>Y</td><td>0.69</td><td>1.47</td><td>1.14</td><td>0.082</td><td>0.065</td><td>0.114</td><td>0.125</td></tr>
+<tr><td class="left">Valine</td><td>V</td><td>1.06</td><td>1.70</td><td>0.50</td><td>0.062</td><td>0.048</td><td>0.028</td><td>0.053</td></tr>
+</tbody>
+</table>
+
+<div class="callout warn">
+  <h4>Memorize the strong values</h4>
+  <ul>
+    <li><strong>Strong helix formers (P<sub>α</sub> > 1.2):</strong> E (1.51), M (1.45), A (1.42), L (1.21).</li>
+    <li><strong>Strong sheet formers (P<sub>β</sub> > 1.3):</strong> V (1.70), I (1.60), Y (1.47), F (1.38), W (1.37), L (1.30).</li>
+    <li><strong>Strong turn formers (P<sub>t</sub> > 1.4):</strong> G (1.56), N (1.56), P (1.52), D (1.46), S (1.43).</li>
+    <li><strong>Helix breakers:</strong> Proline (P) and Glycine (G) — both P<sub>α</sub> = 0.57.</li>
+  </ul>
+</div>
+
+<h3>13.3 — The Algorithm (the procedure you'll do on the exam)</h3>
+
+<h4>A. Predicting α-helices</h4>
+
+<div class="callout">
+  <h4>Step 1 — Nucleation (find a seed region)</h4>
+  <ul>
+    <li>Slide a <strong>6-residue window</strong> across the sequence.</li>
+    <li>If a window contains <strong>at least 4 residues with P(α) > 1</strong> (they need NOT be contiguous within the window), mark that window as a <strong>nucleation site</strong>.</li>
+  </ul>
+  <h4>Step 2 — Extension (grow the helix in both directions)</h4>
+  <ul>
+    <li>Try to add the next residue (forward, toward C-term; or backward, toward N-term).</li>
+    <li>After adding, compute the average P(α) of the <strong>4-residue tetrapeptide at the new edge</strong>.</li>
+    <li>If <strong>avg P(α) ≥ 1</strong>, accept the new residue and continue extending.</li>
+    <li><strong>Terminate</strong> when avg P(α) < 1. The last accepted residue is the helix boundary.</li>
+  </ul>
+  <h4>Step 3 — Resolve conflicts</h4>
+  <ul>
+    <li>If a region is predicted as both helix and sheet, compute avg P(α) and avg P(β) over the conflicting region.</li>
+    <li>Assign the structure with the higher average.</li>
+  </ul>
+</div>
+
+<h4>B. Predicting β-sheets — the parameters change slightly</h4>
+
+<table>
+<thead><tr><th>Step</th><th>α-Helix</th><th>β-Sheet</th></tr></thead>
+<tbody>
+<tr><td class="left"><strong>Nucleation window size</strong></td><td>6 residues</td><td>5 residues</td></tr>
+<tr><td class="left"><strong>Threshold</strong></td><td>≥ 4 residues with P(α) > 1</td><td>≥ 3 residues with P(β) > 1</td></tr>
+<tr><td class="left"><strong>Need to be contiguous within window?</strong></td><td>No</td><td>No</td></tr>
+<tr><td class="left"><strong>Extension window</strong></td><td>4 residues (tetrapeptide)</td><td>4 residues (tetrapeptide)</td></tr>
+<tr><td class="left"><strong>Extension rule</strong></td><td>Avg P(α) ≥ 1 → extend</td><td>Avg P(β) ≥ 1 → extend</td></tr>
+<tr><td class="left"><strong>Termination</strong></td><td>Avg P(α) < 1 → stop</td><td>Avg P(β) < 1 → stop</td></tr>
+</tbody>
+</table>
+
+<h4>C. Predicting β-turns (hairpin loops)</h4>
+
+<p>Turns are tighter — they involve only 4 residues, and Chou-Fasman uses <strong>position-specific frequencies</strong> f(i), f(i+1), f(i+2), f(i+3) (the last four columns of the parameter table).</p>
+
+<div class="callout formula">
+  <strong>p(t) = f(i) × f(i+1) × f(i+2) × f(i+3)</strong>
+</div>
+
+<p><strong>Predict a β-turn starting at position i if all three conditions hold:</strong></p>
+<ul>
+  <li><strong>p(t) > 0.000075</strong> &nbsp;<span class="pill">positional product</span></li>
+  <li><strong>Avg P(turn) of the tetrapeptide > 1</strong>, AND</li>
+  <li><strong>Avg P(turn) > Avg P(α) AND Avg P(turn) > Avg P(β)</strong> over the same tetrapeptide.</li>
+</ul>
+
+<h3>13.4 — Worked Example 1: <code>A–E–A–A–K–L–V–I–T–G</code> (from the slides)</h3>
+
+<p>Reduced table for the residues in this example:</p>
+
+<table>
+<thead><tr><th>Position</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr></thead>
+<tbody>
+<tr><td class="left"><strong>Residue</strong></td><td>A</td><td>E</td><td>A</td><td>A</td><td>K</td><td>L</td><td>V</td><td>I</td><td>T</td><td>G</td></tr>
+<tr><td class="left"><strong>P(α)</strong></td><td>1.42</td><td>1.51</td><td>1.42</td><td>1.42</td><td>1.14</td><td>1.21</td><td>1.06</td><td>1.08</td><td>0.83</td><td>0.57</td></tr>
+<tr><td class="left"><strong>P(β)</strong></td><td>0.83</td><td>0.37</td><td>0.83</td><td>0.83</td><td>0.74</td><td>1.30</td><td>1.70</td><td>1.60</td><td>1.19</td><td>0.75</td></tr>
+</tbody>
+</table>
+<p style="color:var(--text-mute); font-size:0.88em;"><em>(The slide shows the P-values without repeats for A; both are 1.42.)</em></p>
+
+<h4>α-Helix scan (window of 6, threshold ≥ 4 residues with P(α) > 1):</h4>
+<ul>
+  <li><strong>Window 1-6 (AEAAKL):</strong> P(α) = 1.42, 1.51, 1.42, 1.42, 1.14, 1.21 → <strong>all 6 are > 1</strong> → NUCLEATION ✓</li>
+  <li>Window 2-7 (EAAKLV): 6 > 1 → nucleation.</li>
+  <li>Window 3-8 (AAKLVI): 6 > 1 → nucleation.</li>
+  <li>Window 4-9 (AKLVIT): 1.42, 1.14, 1.21, 1.06, 1.08, 0.83 → 5 > 1 → still nucleation.</li>
+  <li>Window 5-10 (KLVITG): 1.14, 1.21, 1.06, 1.08, 0.83, 0.57 → 4 > 1 → nucleation.</li>
+</ul>
+
+<p><strong>Extension from window 1–6:</strong></p>
+<ul>
+  <li>Forward: add position 7 (V). New C-edge tetrapeptide is positions 4-7 (AKLV): avg P(α) = (1.42 + 1.14 + 1.21 + 1.06) / 4 = <strong>1.21 ≥ 1</strong> → include. Helix now 1-7.</li>
+  <li>Add position 8 (I). New tetrapeptide 5-8 (KLVI): avg = (1.14 + 1.21 + 1.06 + 1.08)/4 = <strong>1.12 ≥ 1</strong> → include. Helix 1-8.</li>
+  <li>Add position 9 (T). New tetrapeptide 6-9 (LVIT): avg = (1.21 + 1.06 + 1.08 + 0.83)/4 = <strong>1.045 ≥ 1</strong> → include. Helix 1-9.</li>
+  <li>Add position 10 (G). New tetrapeptide 7-10 (VITG): avg = (1.06 + 1.08 + 0.83 + 0.57)/4 = <strong>0.885 &lt; 1</strong> → STOP.</li>
+  <li>(No backward extension possible — position 1 is the start.)</li>
+</ul>
+
+<p><strong>Predicted helix:</strong> positions 1-9 → AEAAKLVIT.</p>
+
+<h4>β-Sheet scan (window of 5, threshold ≥ 3 residues with P(β) > 1):</h4>
+<ul>
+  <li>Window 1-5 (AEAAK): P(β) all &lt; 1 → no.</li>
+  <li>Window 2-6 (EAAKL): only L (1.30) &gt; 1 → no.</li>
+  <li>Window 3-7 (AAKLV): L (1.30), V (1.70) → 2 &gt; 1 → no.</li>
+  <li><strong>Window 4-8 (AKLVI):</strong> L (1.30), V (1.70), I (1.60) → 3 &gt; 1 → NUCLEATION ✓</li>
+  <li><strong>Window 5-9 (KLVIT):</strong> L, V, I, T (1.19) → 4 &gt; 1 → nucleation.</li>
+  <li>Window 6-10 (LVITG): L, V, I, T → 4 &gt; 1 → nucleation.</li>
+</ul>
+
+<p><strong>Extension from window 4–8:</strong></p>
+<ul>
+  <li>Forward: add 9 (T). New tetrapeptide 6-9 (LVIT): avg P(β) = (1.30+1.70+1.60+1.19)/4 = <strong>1.45 ≥ 1</strong> → include.</li>
+  <li>Add 10 (G). New tetrapeptide 7-10 (VITG): avg = (1.70+1.60+1.19+0.75)/4 = <strong>1.31 ≥ 1</strong> → include.</li>
+  <li>Backward: add 3 (A). New tetrapeptide 3-6 (AAKL): avg = (0.83+0.83+0.74+1.30)/4 = <strong>0.925 &lt; 1</strong> → STOP.</li>
+</ul>
+
+<p><strong>Predicted sheet:</strong> positions 4-10 → AKLVITG.</p>
+
+<h4>Resolve the conflict (positions 4-9 are claimed by both)</h4>
+<ul>
+  <li>Avg P(α) over positions 4-9 (AKLVIT) = (1.42+1.14+1.21+1.06+1.08+0.83)/6 = <strong>1.123</strong></li>
+  <li>Avg P(β) over positions 4-9 = (0.83+0.74+1.30+1.70+1.60+1.19)/6 = <strong>1.227</strong></li>
+</ul>
+<p>Sheet wins on the overlap. Final assignment (one reasonable answer):</p>
+<ul>
+  <li><strong>Helix:</strong> positions 1-3 (AEA) &nbsp;<span class="pill">α</span></li>
+  <li><strong>Sheet:</strong> positions 4-10 (AKLVITG) &nbsp;<span class="pill">β</span></li>
+</ul>
+
+<hr class="section-break">
+
+<h3>13.5 — Worked Example 2: <span class="pill exam">PYP Question</span> <code>SSGRPNLAYIQWLKDG</code></h3>
+
+<div class="callout warn">
+  <h4>📝 Past paper (Compre 2024-25 Q4a, 4 marks):</h4>
+  <p>"Predict the alpha-helical segment of the given sequence through the Chou-Fasman secondary structure prediction algorithm."</p>
+  <p><strong>Sequence: <code>SSGRPNLAYIQWLKDG</code></strong></p>
+</div>
+
+<h4>Step 1 — Tabulate P(α) for every residue</h4>
+
+<table>
+<thead><tr><th>Position</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th></tr></thead>
+<tbody>
+<tr><td class="left"><strong>Residue</strong></td><td>S</td><td>S</td><td>G</td><td>R</td><td>P</td><td>N</td><td>L</td><td>A</td><td>Y</td><td>I</td><td>Q</td><td>W</td><td>L</td><td>K</td><td>D</td><td>G</td></tr>
+<tr><td class="left"><strong>P(α)</strong></td><td>0.77</td><td>0.77</td><td>0.57</td><td>0.98</td><td>0.57</td><td>0.67</td><td>1.21</td><td>1.42</td><td>0.69</td><td>1.08</td><td>1.11</td><td>1.08</td><td>1.21</td><td>1.14</td><td>1.01</td><td>0.57</td></tr>
+<tr><td class="left"><strong>P(α) > 1 ?</strong></td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td></tr>
+</tbody>
+</table>
+
+<h4>Step 2 — Scan all 6-residue windows for nucleation (≥ 4 of 6 with P(α) > 1)</h4>
+
+<table>
+<thead><tr><th>Window (pos)</th><th>Residues</th><th># with P(α) > 1</th><th>Nucleation?</th></tr></thead>
+<tbody>
+<tr><td>1-6</td><td class="left">S, S, G, R, P, N</td><td>0</td><td>✗</td></tr>
+<tr><td>2-7</td><td class="left">S, G, R, P, N, L</td><td>1 (L)</td><td>✗</td></tr>
+<tr><td>3-8</td><td class="left">G, R, P, N, L, A</td><td>2 (L, A)</td><td>✗</td></tr>
+<tr><td>4-9</td><td class="left">R, P, N, L, A, Y</td><td>2 (L, A)</td><td>✗</td></tr>
+<tr><td>5-10</td><td class="left">P, N, L, A, Y, I</td><td>3 (L, A, I)</td><td>✗ (need ≥ 4)</td></tr>
+<tr style="background:#1f2a36;"><td><strong>6-11</strong></td><td class="left"><strong>N, L, A, Y, I, Q</strong></td><td><strong>4 (L, A, I, Q)</strong></td><td>✓ <strong>NUCLEATION</strong></td></tr>
+<tr style="background:#1f2a36;"><td>7-12</td><td class="left">L, A, Y, I, Q, W</td><td>5 (L, A, I, Q, W)</td><td>✓</td></tr>
+<tr style="background:#1f2a36;"><td>8-13</td><td class="left">A, Y, I, Q, W, L</td><td>5</td><td>✓</td></tr>
+<tr style="background:#1f2a36;"><td>9-14</td><td class="left">Y, I, Q, W, L, K</td><td>5</td><td>✓</td></tr>
+<tr style="background:#1f2a36;"><td>10-15</td><td class="left">I, Q, W, L, K, D</td><td>6 (all!)</td><td>✓ (strongest)</td></tr>
+<tr style="background:#1f2a36;"><td>11-16</td><td class="left">Q, W, L, K, D, G</td><td>5</td><td>✓</td></tr>
+</tbody>
+</table>
+
+<p>Multiple overlapping nucleations exist. The first one is at positions 6-11. The strongest is 10-15 (all six residues exceed 1). We extend from the nucleation cores in <strong>both directions</strong>.</p>
+
+<h4>Step 3 — Extension from the first nucleation (6-11, NLAYIQ)</h4>
+
+<p><strong>Backward extension (toward N-term):</strong></p>
+<ul>
+  <li>Tentatively add residue 5 (P). New N-edge tetrapeptide = positions 5-8 (PNLA).</li>
+  <li>Avg P(α) = (0.57 + 0.67 + 1.21 + 1.42) / 4 = 3.87 / 4 = <strong>0.968 &lt; 1</strong> → STOP. Don't include position 5.</li>
+</ul>
+
+<p><strong>Forward extension (toward C-term):</strong></p>
+<ul>
+  <li>Tentatively add residue 12 (W). New C-edge tetrapeptide = positions 9-12 (YIQW).</li>
+  <li>Avg P(α) = (0.69 + 1.08 + 1.11 + 1.08) / 4 = 3.96 / 4 = <strong>0.990 &lt; 1</strong> → STOP.</li>
+</ul>
+
+<p>From this nucleation alone: helix = <strong>positions 6-11 (NLAYIQ)</strong>.</p>
+
+<h4>Step 4 — Extension from the second nucleation (7-12, LAYIQW)</h4>
+
+<p><strong>Backward:</strong></p>
+<ul>
+  <li>Add residue 6 (N). New N-edge tetrapeptide = positions 6-9 (NLAY).</li>
+  <li>Avg = (0.67 + 1.21 + 1.42 + 0.69) / 4 = <strong>0.998 &lt; 1</strong> → STOP. Don't include 6.</li>
+</ul>
+
+<p><strong>Forward:</strong></p>
+<ul>
+  <li>Add 13 (L). Tetrapeptide 10-13 (IQWL): avg = (1.08+1.11+1.08+1.21)/4 = <strong>1.120 ≥ 1</strong> → include.</li>
+  <li>Add 14 (K). Tetrapeptide 11-14 (QWLK): avg = (1.11+1.08+1.21+1.14)/4 = <strong>1.135 ≥ 1</strong> → include.</li>
+  <li>Add 15 (D). Tetrapeptide 12-15 (WLKD): avg = (1.08+1.21+1.14+1.01)/4 = <strong>1.110 ≥ 1</strong> → include.</li>
+  <li>Add 16 (G). Tetrapeptide 13-16 (LKDG): avg = (1.21+1.14+1.01+0.57)/4 = <strong>0.983 &lt; 1</strong> → STOP.</li>
+</ul>
+
+<p>From this nucleation: helix = <strong>positions 7-15 (LAYIQWLKD)</strong>.</p>
+
+<h4>Step 5 — Merge overlapping helices</h4>
+
+<p>The two predicted helices overlap on positions 7-11. Standard practice merges them. The first nucleation (6-11) extends backward unsuccessfully; therefore position 6 is not part of the helix even after merging (it was excluded by both extensions). The merged helix is:</p>
+
+<div class="callout good">
+  <h4>✅ Final answer</h4>
+  <p><strong>Predicted α-helix: positions 7–15 → LAYIQWLKD</strong></p>
+  <p>The structure assignment along the full sequence:</p>
+  <div class="seq-row">
+  <span class="pos-num">Pos:  </span> <span class="pos-num">1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16</span><br>
+  <span class="seq-label">Seq:  </span> S S G R P N <span class="h">L</span> <span class="h">A</span> <span class="h">Y</span> <span class="h">I</span> &nbsp;<span class="h">Q</span> &nbsp;<span class="h">W</span> &nbsp;<span class="h">L</span> &nbsp;<span class="h">K</span> &nbsp;<span class="h">D</span> &nbsp;G<br>
+  <span class="seq-label">SS:   </span> C C C C C C <span class="h">H</span> <span class="h">H</span> <span class="h">H</span> <span class="h">H</span> &nbsp;<span class="h">H</span> &nbsp;<span class="h">H</span> &nbsp;<span class="h">H</span> &nbsp;<span class="h">H</span> &nbsp;<span class="h">H</span> &nbsp;C
+  </div>
+  <p style="margin-top:8px;"><strong>Biological reasonableness check:</strong> The proline at position 5 sits just <em>outside</em> the helix — exactly where we'd expect a helix breaker. The terminal glycine at position 16 also lies outside — consistent with G being a helix-breaker. The helix is rich in classical helix-formers (L, A, K, Q, E-like), so the prediction is sensible.</p>
+</div>
+
+<div class="callout warn">
+  <h4>About the "logic of a 6-residue window" — PYP Q4b (1 mark)</h4>
+  <p>"What is the logic behind using a six residue sliding window during the Chou-Fasman method?"</p>
+  <p><strong>Answer:</strong> One full turn of an α-helix contains <strong>3.6 residues</strong>. A 6-residue window therefore spans approximately <strong>1.6 turns</strong>, which is the minimum stretch that can form a stable helical segment with hydrogen bonds between residue <em>i</em> and residue <em>i+4</em>. A shorter window would risk over-predicting tiny non-helical fluctuations; a longer one would miss short genuine helices. Six is the empirical sweet spot — long enough for at least one full helical H-bond pattern to exist, short enough to retain local resolution.</p>
+</div>
+
+<h3>13.6 — Common Chou-Fasman exam traps</h3>
+
+<div class="callout trap">
+  <h4>⚠ Traps and tips</h4>
+  <ul>
+    <li><strong>P-values in the printed table are × 100.</strong> Don't accidentally compare 142 to 1 — divide by 100 first.</li>
+    <li><strong>"Need not be contiguous"</strong> — in the nucleation window, the residues with P > 1 can be scattered. You just need a count of how many exceed 1.</li>
+    <li><strong>Extension uses a tetrapeptide AT THE NEW EDGE</strong>, not the entire growing helix. Only the last 4 residues including the newly-added one are averaged.</li>
+    <li><strong>Termination is strict</strong>: avg P < 1 (not "≤ 1") terminates. avg = 1.0 includes.</li>
+    <li><strong>Proline kills helices.</strong> Wherever Pro sits, the tetrapeptide containing it usually drops below 1 because P(α) = 0.57. Use Pro as a quick visual "boundary marker".</li>
+    <li><strong>Glycine</strong> is also P(α) = 0.57. Same effect.</li>
+    <li><strong>Resolve conflicts</strong> only when you predicted overlapping helix AND sheet — then compute the average of each and assign the higher one.</li>
+    <li><strong>If asked for β-sheet:</strong> remember the parameters change — <em>window = 5</em>, <em>threshold = 3 residues with P(β) > 1</em>. Same extension rule.</li>
+  </ul>
+</div>
+
+<hr class="section-break">
+
+<!-- ============ GOR ============ -->
+<h2 id="gor">PART B · 14 — GOR Method (brief)</h2>
+
+<p>
+GOR (Garnier-Osguthorpe-Robson) is the second classic method. It improves on Chou-Fasman by using <strong>information theory / Bayesian inference</strong> — it considers not just the residue at position <em>i</em>, but the influence of <em>neighbouring residues</em> on the structure at <em>i</em> (typically a window of ±8 residues). Multiple implementations exist; GOR V (2002) is one. From the slides, GOR appears as one of nine algorithms used to predict SS for the 2SOD protein.
+</p>
+
+<h2 id="modern">PART B · 15 — Modern secondary-structure predictors</h2>
+
+<p>From the slides, list of notable programs:</p>
+
+<table>
+<thead><tr><th>Name</th><th>Method</th><th>Type</th><th>Initial release</th></tr></thead>
+<tbody>
+<tr><td><strong>RaptorX-SS8</strong></td><td class="left">Predicts both 3-state and 8-state secondary structure using <em>conditional neural fields</em> from PSI-BLAST profiles</td><td class="left">Webserver / downloadable</td><td>2011</td></tr>
+<tr><td><strong>GOR</strong></td><td class="left">Information theory / Bayesian inference</td><td class="left">Many implementations</td><td>2002 (GOR V)</td></tr>
+<tr><td><strong>Jpred</strong></td><td class="left">Multiple neural network assignment from PSI-BLAST and HMMER profiles. Predicts secondary structure and solvent accessibility</td><td class="left">Webserver</td><td>1998</td></tr>
+<tr><td><strong>PredictProtein</strong></td><td class="left">Profile-based neural network</td><td class="left">Webserver</td><td>1992</td></tr>
+<tr><td><strong>PSIPRED</strong></td><td class="left">Two feed-forward neural networks operating on PSI-BLAST output</td><td class="left">Webserver</td><td>1999</td></tr>
+<tr><td><strong>PHD</strong></td><td class="left">Artificial neural network (Rost & Sander)</td><td class="left">—</td><td>—</td></tr>
+<tr><td><strong>DSC</strong></td><td class="left">Linear discriminant analysis (King & Sternberg)</td><td class="left">—</td><td>—</td></tr>
+<tr><td><strong>NNSSP</strong></td><td class="left">Nearest-neighbour algorithm (Salomov & Solevyev)</td><td class="left">—</td><td>—</td></tr>
+<tr><td><strong>PREDATOR</strong></td><td class="left">Frishman & Argos</td><td class="left">—</td><td>—</td></tr>
+<tr><td><strong>Jnet</strong></td><td class="left">Barton Group</td><td class="left">—</td><td>—</td></tr>
+</tbody>
+</table>
+
+<p><strong>Trend:</strong> propensity-based (Chou-Fasman, GOR) → neural networks → deep learning. Each generation uses more <em>contextual</em> information: single residue → window → MSA-derived profile → cross-residue attention.</p>
+
+<h4>What 3-state SS output looks like</h4>
+<p>From the slides, predictions for the 2SOD protein by different algorithms are aligned to the experimental structure:</p>
+<pre>
+ATKAVCVLKGDGPVQGTIHFEAKGDTVVVTGSITGLTEGDHGFHVHQFGDNTQGCTSAGP  ← 2SOD sequence
+CCCCCCCCCCCCCCCCEEHCCHHECEEEEEEEEEEEECCCCCCCCCCCCCCCCCCCCCCC  ← BPS (experimental)
+CCHEEEEECCCCCCCCEEEHHHCCCEEEEEEEEECECCCCCCEEEECCCCCCCCCCCCCC  ← DSC
+...
+</pre>
+<p>where <strong>H</strong> = helix, <strong>E</strong> = sheet/extended, <strong>C</strong> = coil. Different algorithms produce different results — none agree perfectly with the experiment. (This is why consensus methods like Jpred became popular.)</p>
+
+<hr class="section-break">
+
+<!-- ============ TERTIARY STRUCTURE ============ -->
+<h2 id="homology">PART B · 16 — Tertiary Structure Prediction: Homology Modeling</h2>
+
+<p>Now we move from <em>secondary</em> (local helix/sheet) to <em>tertiary</em> (full 3-D atomic positions). The three approaches:</p>
+
+<table>
+<thead><tr><th>Approach</th><th>When it works</th><th>Idea</th></tr></thead>
+<tbody>
+<tr><td class="left"><strong>Homology modeling</strong></td><td class="left">A close evolutionary relative with a known structure exists</td><td class="left">Copy the relative's structure as a template</td></tr>
+<tr><td class="left"><strong>Threading (fold recognition)</strong></td><td class="left">No close homolog, but the structure type already exists in PDB</td><td class="left">"Thread" the target sequence onto many known folds; pick the best fitting one</td></tr>
+<tr><td class="left"><strong>Ab initio / de novo</strong></td><td class="left">No homolog and possibly a novel fold</td><td class="left">Build the structure from physical/statistical principles alone</td></tr>
+</tbody>
+</table>
+
+<h3>16.1 — Homology Modeling: the 6-step pipeline</h3>
+
+<p>From protein_structure_prediction_modeling_SB.pdf:</p>
+
+<div class="callout">
+  <ol>
+    <li><strong>Template Identification</strong> — search the PDB. <em>>50% sequence identity is ideal; &lt;30% is risky</em>.</li>
+    <li><strong>Sequence Alignment</strong> — align target to template(s). The single most critical step; alignment errors propagate to every later step.</li>
+    <li><strong>Backbone Construction</strong> — copy the backbone (Cα + main chain) from the template. Structurally Conserved Regions (SCRs) come directly across.</li>
+    <li><strong>Loop Modeling</strong> — handle insertions/deletions and Structurally Variable Regions (SVRs). The <em>least reliable</em> part of the model.</li>
+    <li><strong>Side-Chain Modeling</strong> — assign side-chain conformations (torsion angles χ), avoid steric clashes. Often uses rotamer libraries.</li>
+    <li><strong>Refinement & Validation</strong> — energy minimization, stereochemistry checks (Ramachandran plot), model-quality assessment (DOPE, MolProbity, ProQ, etc.). If quality is bad, iterate from earlier steps.</li>
+  </ol>
+</div>
+
+<p>The pipeline ends in: target sequence → template selection → alignment → build → refine → evaluate → if good, use model; if bad, re-iterate.</p>
+
+<h3>16.2 — Limitations of homology modeling</h3>
+<ul>
+  <li><strong>Needs a template</strong> — no template means no model.</li>
+  <li>Alignment errors propagate everywhere downstream.</li>
+  <li>Poor loop prediction is a chronic problem.</li>
+  <li><strong>Fails for novel folds</strong> — by definition.</li>
+</ul>
+
+<h2 id="threading">PART B · 17 — Threading & Ab Initio</h2>
+
+<h4>Threading (Fold Recognition)</h4>
+<p>
+Instead of relying on <em>sequence</em> similarity to find a template, threading relies on <em>structural compatibility</em>. The target sequence is computationally <em>threaded</em> onto every known 3-D fold in a library, and each alignment is scored energetically/statistically. The best-scoring fold becomes the predicted structure.</p>
+<p>Useful when the target has &lt; 30% identity to any PDB entry but adopts a fold already represented in PDB.</p>
+
+<h4>Ab initio</h4>
+<p>From scratch — no template, no fold library. Uses physics-based force fields (molecular dynamics), or statistical potentials, often with fragment libraries (Rosetta). Computationally expensive; usually limited to small proteins (&lt; ~100-150 residues).</p>
+
+<h2 id="alphafold">PART B · 18 — AlphaFold & CASP</h2>
+
+<h4>CASP — Critical Assessment of techniques for protein Structure Prediction</h4>
+<ul>
+  <li>Community-wide <strong>blind</strong> competition held every two years.</li>
+  <li>Research groups submit predicted structures before the experimental structures are released.</li>
+  <li>The CASP rankings show the latest state-of-the-art in structure prediction.</li>
+  <li><strong>CASP14 (2020) — AlphaFold</strong>, developed by Google DeepMind, achieved near-experimental accuracy and <em>changed the history of structure prediction.</em></li>
+</ul>
+
+<h4>AlphaFold idea (high level)</h4>
+<ul>
+  <li>Inputs: target sequence → genetic-database search to build a deep MSA → structure-database search for templates.</li>
+  <li>Builds two representations: an "MSA representation" (single repr.) and a "Pair representation" (between residue pairs).</li>
+  <li>The <strong>Evoformer</strong> (48 transformer-style blocks) refines both representations using co-evolutionary information.</li>
+  <li>The <strong>Structure module</strong> (8 blocks) converts these into 3-D atomic coordinates.</li>
+  <li>Recycled three times to refine.</li>
+  <li>Uses <strong>spatial + (co-)evolutionary information</strong> to predict residue-residue interactions and then build the 3-D structure.</li>
+</ul>
+
+<hr class="section-break">
+
+<!-- ============ EXAM PREP ============ -->
+<h2 id="exam-traps">PART C — ⚠ Exam Traps, Variations & Quick Revision</h2>
+
+<h3>For Nussinov</h3>
+<table>
+<thead><tr><th>Variation</th><th>How to adapt</th></tr></thead>
+<tbody>
+<tr><td class="left">"Cannot pair with immediate neighbor"</td><td class="left">Set min separation j − i ≥ 2</td></tr>
+<tr><td class="left">"Cannot pair with immediate two neighbors"</td><td class="left">Set j − i ≥ 3 (this is the PYP convention)</td></tr>
+<tr><td class="left">"Hairpin loop must be ≥ 3 nt"</td><td class="left">Set j − i ≥ 4</td></tr>
+<tr><td class="left">Slide convention "i &lt; j − 4"</td><td class="left">Set j − i ≥ 5</td></tr>
+<tr><td class="left">"No G-U wobble"</td><td class="left">δ(i, j) = 1 only for A-U and G-C</td></tr>
+<tr><td class="left">"Score 2 for G-C, 1 for A-U"</td><td class="left">Modify δ to be pair-specific (this still works with same DP)</td></tr>
+<tr><td class="left">"Find all optimal structures"</td><td class="left">During traceback, when more than one rule matches, branch into multiple paths</td></tr>
+<tr><td class="left">"Predict pseudoknots?"</td><td class="left">Nussinov CANNOT — state this and explain via the i &lt; i′ &lt; j &lt; j′ prohibition</td></tr>
+</tbody>
+</table>
+
+<h3>For Chou-Fasman</h3>
+<table>
+<thead><tr><th>Variation</th><th>How to adapt</th></tr></thead>
+<tbody>
+<tr><td class="left">Predict α-helix only</td><td class="left">Window 6, threshold 4 with P(α) > 1, tetrapeptide extension</td></tr>
+<tr><td class="left">Predict β-sheet only</td><td class="left">Window 5, threshold 3 with P(β) > 1, tetrapeptide extension</td></tr>
+<tr><td class="left">Predict turn at position i</td><td class="left">Use f(i)·f(i+1)·f(i+2)·f(i+3) &gt; 0.000075, avg P(turn) > 1, and > avg P(α), P(β)</td></tr>
+<tr><td class="left">Conflict between helix and sheet</td><td class="left">Compute avg P(α) and avg P(β) over the conflicting region; assign the higher one</td></tr>
+<tr><td class="left">Why 6-residue window?</td><td class="left">Spans ~1.6 helical turns (3.6 residues/turn) — minimum to detect helical pattern with i↔i+4 H-bonds</td></tr>
+<tr><td class="left">Why Pro/Gly break helices?</td><td class="left">Pro's ring restricts ϕ; Gly is too flexible (no side chain). Both have P(α) = 0.57.</td></tr>
+<tr><td class="left">Why is method statistical, not deterministic?</td><td class="left">Propensities are <em>population averages</em> from PDB; they describe tendencies, not certainties → predictions are only ~60% accurate at residue level.</td></tr>
+</tbody>
+</table>
+
+<h3>Quick-fire summary card</h3>
+
+<div class="grid-2">
+  <div class="callout">
+    <h4>🧬 Nussinov in one breath</h4>
+    <p>"<em>Given an RNA sequence, find the non-crossing set of base pairs that maximizes the number of pairs.</em> Uses dynamic programming in O(L³) time and O(L²) space. Recursion has four cases: i unpaired, j unpaired, i-j paired (+1), or bifurcation. Initialization γ(i,i)=γ(i,i-1)=0. After fill stage, γ(1,L) is the answer; structure is recovered by stack-based traceback. <strong>Cannot handle pseudoknots</strong>; ignores stacking, loop length, and thermodynamics."</p>
+  </div>
+  <div class="callout">
+    <h4>🧪 Chou-Fasman in one breath</h4>
+    <p>"<em>Use empirical propensities P(α), P(β), P(turn) of each amino acid to predict secondary structure.</em> For α-helix: slide a 6-residue window; if ≥4 residues have P(α)>1, nucleate; extend by tetrapeptide average. For β-sheet: window of 5, threshold 3. For turn: position-specific f-values plus P(turn) checks. Resolve conflicts by comparing averages. Accuracy ~60-65% — superseded by neural-network methods but still the canonical pen-and-paper algorithm."</p>
+  </div>
+</div>
+
+<div class="callout good">
+  <h4>🎯 Final exam strategy</h4>
+  <ol>
+    <li>For any Nussinov question: <strong>(1) state the rules</strong>, <strong>(2) write the recursion</strong>, <strong>(3) build the DP table diagonal by diagonal</strong>, <strong>(4) traceback with the stack</strong>, <strong>(5) draw the structure and give the dot-bracket</strong>. Marks are awarded at each step — don't skip even if the score is obvious.</li>
+    <li>For any Chou-Fasman question: <strong>(1) tabulate P(α) (and P(β) if asked) for every residue</strong>, <strong>(2) scan all windows and identify nucleations</strong>, <strong>(3) for each nucleation extend in both directions showing the tetrapeptide averages</strong>, <strong>(4) merge overlaps</strong>, <strong>(5) resolve any α/β conflicts</strong>. Always show the arithmetic — do not just write the final answer.</li>
+    <li>Always include a one-line <em>biological sanity check</em> at the end (e.g., "Pro at position 5 is consistent with the helix starting at position 7", "the predicted hairpin loop has 3 unpaired bases, which is borderline acceptable", etc.). It costs no marks if wrong but signals understanding when right.</li>
+  </ol>
+</div>
+
+<footer style="margin-top:60px; padding-top:20px; border-top:1px solid var(--border); color:var(--text-mute); font-size:0.85em; text-align:center;">
+  <p>Compiled from RNA_structure.pdf, ProteinStructurePrediction_SB.pdf, protein_structure_prediction_modeling_SB.pdf, and Merged_Compre_PYPs.pdf.<br>
+  Past-paper worked examples aligned to BITS BIO F242 — Comprehensive 2024-25.</p>
+</footer>
+
+</div>
+</body>
+</html>

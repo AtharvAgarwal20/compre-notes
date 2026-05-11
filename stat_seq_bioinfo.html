@@ -1,997 +1,1283 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Statistical Significance of Sequence Alignment — Complete Study Guide</title>
-<style>
-  :root {
-    --bg: #0f1419;
-    --bg-elev: #161c24;
-    --bg-card: #1c2530;
-    --bg-code: #0a0e13;
-    --border: #2a3340;
-    --text: #e6edf3;
-    --text-dim: #b1bac4;
-    --text-mute: #7d8590;
-    --accent: #58a6ff;
-    --accent-2: #79c0ff;
-    --green: #56d364;
-    --yellow: #e3b341;
-    --orange: #ff9f43;
-    --red: #ff7b72;
-    --purple: #d2a8ff;
-    --pink: #ff9bf3;
-    --cyan: #7ce3e0;
-  }
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0; padding: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto, "Helvetica Neue", Arial, sans-serif;
-    line-height: 1.65;
-    font-size: 16px;
-  }
-  .container {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 40px 28px 80px;
-  }
-  header.hero {
-    border: 1px solid var(--border);
-    background: linear-gradient(135deg, #182030 0%, #1a2536 100%);
-    border-radius: 14px;
-    padding: 32px 30px;
-    margin-bottom: 36px;
-  }
-  header.hero h1 {
-    margin: 0 0 8px;
-    font-size: 2.0rem;
-    color: var(--accent-2);
-    letter-spacing: -0.01em;
-  }
-  header.hero p {
-    margin: 4px 0 0;
-    color: var(--text-dim);
-    font-size: 1.02rem;
-  }
-  header.hero .tag {
-    display: inline-block;
-    margin-top: 14px;
-    padding: 4px 12px;
-    background: rgba(88,166,255,0.12);
-    border: 1px solid rgba(88,166,255,0.3);
-    color: var(--accent);
-    border-radius: 999px;
-    font-size: 0.82rem;
-    font-weight: 500;
-  }
-  h2 {
-    color: var(--accent-2);
-    font-size: 1.55rem;
-    margin: 48px 0 14px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--border);
-  }
-  h3 {
-    color: var(--cyan);
-    font-size: 1.2rem;
-    margin: 26px 0 10px;
-  }
-  h4 {
-    color: var(--purple);
-    font-size: 1.05rem;
-    margin: 20px 0 8px;
-  }
-  p { margin: 10px 0; }
-  strong { color: var(--yellow); font-weight: 600; }
-  em { color: var(--pink); font-style: normal; font-weight: 500; }
-  code {
-    font-family: "JetBrains Mono", "Fira Code", "Consolas", monospace;
-    background: var(--bg-code);
-    color: var(--cyan);
-    padding: 2px 7px;
-    border-radius: 5px;
-    font-size: 0.92em;
-    border: 1px solid var(--border);
-  }
-  .formula {
-    background: var(--bg-code);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--accent);
-    padding: 16px 22px;
-    margin: 16px 0;
-    border-radius: 8px;
-    font-family: "JetBrains Mono", "Fira Code", monospace;
-    color: var(--accent-2);
-    font-size: 1.08rem;
-    overflow-x: auto;
-  }
-  .formula.center {
-    text-align: center;
-    font-size: 1.18rem;
-    padding: 20px 22px;
-  }
-  .callout {
-    border-radius: 9px;
-    padding: 16px 20px;
-    margin: 18px 0;
-    border: 1px solid var(--border);
-    background: var(--bg-card);
-  }
-  .callout-title {
-    display: block;
-    font-weight: 700;
-    margin-bottom: 6px;
-    font-size: 0.96rem;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-  }
-  .callout.info {
-    border-left: 4px solid var(--accent);
-    background: rgba(88,166,255,0.06);
-  }
-  .callout.info .callout-title { color: var(--accent-2); }
-  .callout.warn {
-    border-left: 4px solid var(--orange);
-    background: rgba(255,159,67,0.06);
-  }
-  .callout.warn .callout-title { color: var(--orange); }
-  .callout.danger {
-    border-left: 4px solid var(--red);
-    background: rgba(255,123,114,0.07);
-  }
-  .callout.danger .callout-title { color: var(--red); }
-  .callout.success {
-    border-left: 4px solid var(--green);
-    background: rgba(86,211,100,0.06);
-  }
-  .callout.success .callout-title { color: var(--green); }
-  .callout.key {
-    border-left: 4px solid var(--purple);
-    background: rgba(210,168,255,0.06);
-  }
-  .callout.key .callout-title { color: var(--purple); }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 16px 0;
-    background: var(--bg-card);
-    border-radius: 8px;
-    overflow: hidden;
-    font-size: 0.94rem;
-  }
-  th, td {
-    padding: 11px 14px;
-    text-align: left;
-    border-bottom: 1px solid var(--border);
-    border-right: 1px solid var(--border);
-  }
-  th:last-child, td:last-child { border-right: none; }
-  th {
-    background: #1f2935;
-    color: var(--accent-2);
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: rgba(88,166,255,0.04); }
-  .seq {
-    font-family: "JetBrains Mono", "Fira Code", monospace;
-    background: var(--bg-code);
-    color: var(--green);
-    padding: 10px 14px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    display: inline-block;
-    font-size: 0.94rem;
-    letter-spacing: 0.05em;
-  }
-  .seq-block {
-    font-family: "JetBrains Mono", "Fira Code", monospace;
-    background: var(--bg-code);
-    padding: 14px 18px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    margin: 12px 0;
-    color: var(--text);
-    white-space: pre;
-    overflow-x: auto;
-    font-size: 0.94rem;
-    line-height: 1.55;
-  }
-  .conserved { color: var(--green); font-weight: 700; }
-  .diff { color: var(--red); }
-  .step {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    padding: 16px 20px;
-    margin: 12px 0;
-  }
-  .step-num {
-    display: inline-block;
-    background: var(--accent);
-    color: #0a0e13;
-    border-radius: 50%;
-    width: 26px;
-    height: 26px;
-    text-align: center;
-    line-height: 26px;
-    font-weight: 700;
-    margin-right: 10px;
-    font-size: 0.88rem;
-  }
-  .flowchain {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    padding: 22px;
-    margin: 18px 0;
-    text-align: center;
-    font-family: "JetBrains Mono", monospace;
-    color: var(--cyan);
-    line-height: 2.0;
-    font-size: 1.0rem;
-  }
-  .flowchain .arrow { color: var(--accent); font-size: 1.3em; }
-  .toc {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    padding: 18px 26px;
-    margin: 20px 0 40px;
-  }
-  .toc h3 { margin-top: 0; color: var(--yellow); }
-  .toc ol { margin: 8px 0 0; padding-left: 22px; }
-  .toc a {
-    color: var(--text-dim);
-    text-decoration: none;
-    border-bottom: 1px dashed transparent;
-    transition: 0.2s;
-  }
-  .toc a:hover { color: var(--accent-2); border-bottom-color: var(--accent-2); }
-  .grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin: 14px 0;
-  }
-  @media (max-width: 720px) {
-    .grid-2 { grid-template-columns: 1fr; }
-    .container { padding: 20px 16px 50px; }
-    h1 { font-size: 1.5rem; }
-  }
-  .qbox {
-    background: linear-gradient(135deg, #1c1f2e 0%, #1a2438 100%);
-    border: 1px solid #3a4458;
-    border-left: 4px solid var(--yellow);
-    border-radius: 9px;
-    padding: 18px 22px;
-    margin: 18px 0;
-  }
-  .qbox .qtitle {
-    color: var(--yellow);
-    font-weight: 700;
-    margin-bottom: 8px;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .footer {
-    margin-top: 70px;
-    border-top: 1px solid var(--border);
-    padding-top: 20px;
-    color: var(--text-mute);
-    font-size: 0.86rem;
-    text-align: center;
-  }
-  .symbol-list {
-    font-family: "JetBrains Mono", monospace;
-    background: var(--bg-code);
-    padding: 14px 18px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    margin: 12px 0;
-  }
-  .symbol-list div { margin: 4px 0; color: var(--text-dim); }
-  .symbol-list .sym { color: var(--accent-2); font-weight: 600; display: inline-block; min-width: 50px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Statistical Significance of Sequence Alignment — Complete Study Guide</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --bg-elev: #161c24;
+      --bg-card: #1c2530;
+      --bg-code: #0a0e13;
+      --border: #2a3340;
+      --text: #e6edf3;
+      --text-dim: #b1bac4;
+      --text-mute: #7d8590;
+      --accent: #58a6ff;
+      --accent-2: #79c0ff;
+      --green: #56d364;
+      --yellow: #e3b341;
+      --orange: #ff9f43;
+      --red: #ff7b72;
+      --purple: #d2a8ff;
+      --pink: #ff9bf3;
+      --cyan: #7ce3e0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 40px 28px 80px;
+    }
+
+    header.hero {
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, #182030 0%, #1a2536 100%);
+      border-radius: 14px;
+      padding: 32px 30px;
+      margin-bottom: 36px;
+    }
+
+    header.hero h1 {
+      margin: 0 0 8px;
+      font-size: 2.0rem;
+      color: var(--accent-2);
+      letter-spacing: -0.01em;
+    }
+
+    header.hero p {
+      margin: 4px 0 0;
+      color: var(--text-dim);
+      font-size: 1.02rem;
+    }
+
+    header.hero .tag {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 4px 12px;
+      background: rgba(88, 166, 255, 0.12);
+      border: 1px solid rgba(88, 166, 255, 0.3);
+      color: var(--accent);
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    h2 {
+      color: var(--accent-2);
+      font-size: 1.55rem;
+      margin: 48px 0 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    h3 {
+      color: var(--cyan);
+      font-size: 1.2rem;
+      margin: 26px 0 10px;
+    }
+
+    h4 {
+      color: var(--purple);
+      font-size: 1.05rem;
+      margin: 20px 0 8px;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    strong {
+      color: var(--yellow);
+      font-weight: 600;
+    }
+
+    em {
+      color: var(--pink);
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    code {
+      font-family: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+      background: var(--bg-code);
+      color: var(--cyan);
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 0.92em;
+      border: 1px solid var(--border);
+    }
+
+    .formula {
+      background: var(--bg-code);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      padding: 16px 22px;
+      margin: 16px 0;
+      border-radius: 8px;
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      color: var(--accent-2);
+      font-size: 1.08rem;
+      overflow-x: auto;
+    }
+
+    .formula.center {
+      text-align: center;
+      font-size: 1.18rem;
+      padding: 20px 22px;
+    }
+
+    .callout {
+      border-radius: 9px;
+      padding: 16px 20px;
+      margin: 18px 0;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+
+    .callout-title {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 0.96rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .callout.info {
+      border-left: 4px solid var(--accent);
+      background: rgba(88, 166, 255, 0.06);
+    }
+
+    .callout.info .callout-title {
+      color: var(--accent-2);
+    }
+
+    .callout.warn {
+      border-left: 4px solid var(--orange);
+      background: rgba(255, 159, 67, 0.06);
+    }
+
+    .callout.warn .callout-title {
+      color: var(--orange);
+    }
+
+    .callout.danger {
+      border-left: 4px solid var(--red);
+      background: rgba(255, 123, 114, 0.07);
+    }
+
+    .callout.danger .callout-title {
+      color: var(--red);
+    }
+
+    .callout.success {
+      border-left: 4px solid var(--green);
+      background: rgba(86, 211, 100, 0.06);
+    }
+
+    .callout.success .callout-title {
+      color: var(--green);
+    }
+
+    .callout.key {
+      border-left: 4px solid var(--purple);
+      background: rgba(210, 168, 255, 0.06);
+    }
+
+    .callout.key .callout-title {
+      color: var(--purple);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      background: var(--bg-card);
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 0.94rem;
+    }
+
+    th,
+    td {
+      padding: 11px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }
+
+    th:last-child,
+    td:last-child {
+      border-right: none;
+    }
+
+    th {
+      background: #1f2935;
+      color: var(--accent-2);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(88, 166, 255, 0.04);
+    }
+
+    .seq {
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      background: var(--bg-code);
+      color: var(--green);
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      display: inline-block;
+      font-size: 0.94rem;
+      letter-spacing: 0.05em;
+    }
+
+    .seq-block {
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      background: var(--bg-code);
+      padding: 14px 18px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin: 12px 0;
+      color: var(--text);
+      white-space: pre;
+      overflow-x: auto;
+      font-size: 0.94rem;
+      line-height: 1.55;
+    }
+
+    .conserved {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .diff {
+      color: var(--red);
+    }
+
+    .step {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 16px 20px;
+      margin: 12px 0;
+    }
+
+    .step-num {
+      display: inline-block;
+      background: var(--accent);
+      color: #0a0e13;
+      border-radius: 50%;
+      width: 26px;
+      height: 26px;
+      text-align: center;
+      line-height: 26px;
+      font-weight: 700;
+      margin-right: 10px;
+      font-size: 0.88rem;
+    }
+
+    .flowchain {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 22px;
+      margin: 18px 0;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      color: var(--cyan);
+      line-height: 2.0;
+      font-size: 1.0rem;
+    }
+
+    .flowchain .arrow {
+      color: var(--accent);
+      font-size: 1.3em;
+    }
+
+    .toc {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 18px 26px;
+      margin: 20px 0 40px;
+    }
+
+    .toc h3 {
+      margin-top: 0;
+      color: var(--yellow);
+    }
+
+    .toc ol {
+      margin: 8px 0 0;
+      padding-left: 22px;
+    }
+
+    .toc a {
+      color: var(--text-dim);
+      text-decoration: none;
+      border-bottom: 1px dashed transparent;
+      transition: 0.2s;
+    }
+
+    .toc a:hover {
+      color: var(--accent-2);
+      border-bottom-color: var(--accent-2);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 14px 0;
+    }
+
+    @media (max-width: 720px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding: 20px 16px 50px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+
+    .qbox {
+      background: linear-gradient(135deg, #1c1f2e 0%, #1a2438 100%);
+      border: 1px solid #3a4458;
+      border-left: 4px solid var(--yellow);
+      border-radius: 9px;
+      padding: 18px 22px;
+      margin: 18px 0;
+    }
+
+    .qbox .qtitle {
+      color: var(--yellow);
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .footer {
+      margin-top: 70px;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      color: var(--text-mute);
+      font-size: 0.86rem;
+      text-align: center;
+    }
+
+    .symbol-list {
+      font-family: "JetBrains Mono", monospace;
+      background: var(--bg-code);
+      padding: 14px 18px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin: 12px 0;
+    }
+
+    .symbol-list div {
+      margin: 4px 0;
+      color: var(--text-dim);
+    }
+
+    .symbol-list .sym {
+      color: var(--accent-2);
+      font-weight: 600;
+      display: inline-block;
+      min-width: 50px;
+    }
+  </style>
 </head>
+
 <body>
-<div class="container">
+  <div class="container">
 
-<header class="hero">
-  <h1>Statistical Significance of Sequence Alignment</h1>
-  <p>A zero-to-exam study guide built directly from <code>Statistical_Significance_Seq_Align_SB.pdf</code>, cross-aligned with the BIO F242 past papers.</p>
-  <span class="tag">Topic · BIO F242 — Introduction to Bioinformatics</span>
-</header>
+    <header class="hero">
+      <h1>Statistical Significance of Sequence Alignment</h1>
+      <p>A zero-to-exam study guide built directly from <code>Statistical_Significance_Seq_Align_SB.pdf</code>,
+        cross-aligned with the BIO F242 past papers.</p>
+      <span class="tag">Topic · BIO F242 — Introduction to Bioinformatics</span>
+    </header>
 
-<div class="toc">
-  <h3>📚 What this guide covers</h3>
-  <ol>
-    <li><a href="#why">Why statistical significance is needed at all</a></li>
-    <li><a href="#random">Random sequence model &amp; null hypothesis</a></li>
-    <li><a href="#rawscore">Alignment score &amp; the problem with raw scores</a></li>
-    <li><a href="#distribution">Distribution of random scores — Normal vs Gumbel EVD</a></li>
-    <li><a href="#pdfcdf">EVD: PDF, CDF and P(S ≥ X)</a></li>
-    <li><a href="#expected">From probability to expected number of hits (E)</a></li>
-    <li><a href="#karlin">Karlin–Altschul equation — the master formula</a></li>
-    <li><a href="#interpret">Interpreting the E-value (the table you must memorize)</a></li>
-    <li><a href="#poisson">E-value ↔ p-value via the Poisson distribution</a></li>
-    <li><a href="#bitscore">Bit score (the normalized score)</a></li>
-    <li><a href="#gapped">Gapped alignment statistics</a></li>
-    <li><a href="#worked">Past-paper worked example: reading a BLAST output</a></li>
-    <li><a href="#summary">One-page summary &amp; cheat-sheet</a></li>
-    <li><a href="#traps">Common traps, edge cases &amp; expected exam variants</a></li>
-  </ol>
-</div>
+    <div class="toc">
+      <h3>📚 What this guide covers</h3>
+      <ol>
+        <li><a href="#why">Why statistical significance is needed at all</a></li>
+        <li><a href="#random">Random sequence model &amp; null hypothesis</a></li>
+        <li><a href="#rawscore">Alignment score &amp; the problem with raw scores</a></li>
+        <li><a href="#distribution">Distribution of random scores — Normal vs Gumbel EVD</a></li>
+        <li><a href="#pdfcdf">EVD: PDF, CDF and P(S ≥ X)</a></li>
+        <li><a href="#expected">From probability to expected number of hits (E)</a></li>
+        <li><a href="#karlin">Karlin–Altschul equation — the master formula</a></li>
+        <li><a href="#interpret">Interpreting the E-value (the table you must memorize)</a></li>
+        <li><a href="#poisson">E-value ↔ p-value via the Poisson distribution</a></li>
+        <li><a href="#bitscore">Bit score (the normalized score)</a></li>
+        <li><a href="#gapped">Gapped alignment statistics</a></li>
+        <li><a href="#worked">Past-paper worked example: reading a BLAST output</a></li>
+        <li><a href="#summary">One-page summary &amp; cheat-sheet</a></li>
+        <li><a href="#traps">Common traps, edge cases &amp; expected exam variants</a></li>
+      </ol>
+    </div>
 
-<!-- ====================== SECTION 1 ====================== -->
-<h2 id="why">1 · Why do we even need statistical significance?</h2>
+    <!-- ====================== SECTION 1 ====================== -->
+    <h2 id="why">1 · Why do we even need statistical significance?</h2>
 
-<p>Sequence alignment gives you a single number called a <strong>score (S)</strong>. A higher score means a better-looking alignment. The hard question is the next one:</p>
+    <p>Sequence alignment gives you a single number called a <strong>score (S)</strong>. A higher score means a
+      better-looking alignment. The hard question is the next one:</p>
 
-<div class="callout key">
-  <span class="callout-title">🔑 The Central Question</span>
-  Is this high alignment score the result of <em>real biological homology</em>, or is it just what you'd get by sliding two unrelated sequences together until they happen to line up?
-</div>
+    <div class="callout key">
+      <span class="callout-title">🔑 The Central Question</span>
+      Is this high alignment score the result of <em>real biological homology</em>, or is it just what you'd get by
+      sliding two unrelated sequences together until they happen to line up?
+    </div>
 
-<p>Have a look at the very examples from the lecture deck:</p>
+    <p>Have a look at the very examples from the lecture deck:</p>
 
-<div class="seq-block">Pair 1
-Seq1   <span class="conserved">MKTAY</span>I<span class="conserved">AKQRQI</span>S<span class="conserved">FVK</span>
-Seq2   <span class="conserved">MKTAY</span>L<span class="conserved">SKQRQI</span>T<span class="conserved">FVK</span>
-       ↑ Many conserved positions — this looks meaningful.
+    <div class="seq-block">Pair 1
+      Seq1 <span class="conserved">MKTAY</span>I<span class="conserved">AKQRQI</span>S<span class="conserved">FVK</span>
+      Seq2 <span class="conserved">MKTAY</span>L<span class="conserved">SKQRQI</span>T<span class="conserved">FVK</span>
+      ↑ Many conserved positions — this looks meaningful.
 
-Pair 2
-Seq1   ASDFGHQWERTYPLMN
-Seq2   QWERTYASDFZXCVBN
-       ↑ Two random-looking strings.
+      Pair 2
+      Seq1 ASDFGHQWERTYPLMN
+      Seq2 QWERTYASDFZXCVBN
+      ↑ Two random-looking strings.
 
-Pair 3 (the same Pair 2, but locally aligned)
-Seq1   ASDFGH<span class="conserved">QWERTY</span>PLMN
-Seq2         <span class="conserved">QWERTY</span>ASDFZXCVBN
-       ↑ Suddenly you find a perfect 6-letter local match!</div>
+      Pair 3 (the same Pair 2, but locally aligned)
+      Seq1 ASDFGH<span class="conserved">QWERTY</span>PLMN
+      Seq2 <span class="conserved">QWERTY</span>ASDFZXCVBN
+      ↑ Suddenly you find a perfect 6-letter local match!</div>
 
-<div class="callout warn">
-  <span class="callout-title">⚠ The Lesson</span>
-  <strong>Random sequences can produce high-scoring local alignments.</strong> A high raw score by itself does <em>not</em> prove homology. We need a statistical framework that tells us: "yes, that score is too high to be a fluke" — or — "sorry, scores like that happen by accident all the time."
-</div>
+    <div class="callout warn">
+      <span class="callout-title">⚠ The Lesson</span>
+      <strong>Random sequences can produce high-scoring local alignments.</strong> A high raw score by itself does
+      <em>not</em> prove homology. We need a statistical framework that tells us: "yes, that score is too high to be a
+      fluke" — or — "sorry, scores like that happen by accident all the time."
+    </div>
 
-<p>That framework is what the rest of this topic is about. Its end products are the two numbers you see in every BLAST output: the <strong>E-value</strong> and the <strong>bit score</strong>.</p>
+    <p>That framework is what the rest of this topic is about. Its end products are the two numbers you see in every
+      BLAST output: the <strong>E-value</strong> and the <strong>bit score</strong>.</p>
 
-<!-- ====================== SECTION 2 ====================== -->
-<h2 id="random">2 · The Random Sequence Model (Null Hypothesis)</h2>
+    <!-- ====================== SECTION 2 ====================== -->
+    <h2 id="random">2 · The Random Sequence Model (Null Hypothesis)</h2>
 
-<p>To decide whether a score is "unusually high", we first need to know what a <em>typical</em> score looks like when nothing biological is going on. That baseline is built using a <strong>null hypothesis</strong>:</p>
+    <p>To decide whether a score is "unusually high", we first need to know what a <em>typical</em> score looks like
+      when nothing biological is going on. That baseline is built using a <strong>null hypothesis</strong>:</p>
 
-<div class="callout info">
-  <span class="callout-title">📐 Null Hypothesis (H₀)</span>
-  The two aligned sequences are <strong>unrelated</strong>. Any score we get is therefore a <em>random alignment score</em>.<br><br>
-  <strong>Assumptions used to generate the random sequences:</strong>
-  <ul>
-    <li>The sequences are <em>random</em> (no biological signal).</li>
-    <li>They have the <em>same amino acid frequencies</em> as the real sequence being studied.</li>
-    <li>They have the <em>same length</em> as the real sequence.</li>
-  </ul>
-  The statistical test then verifies whether H₀ should be <em>accepted</em> (alignment is random) or <em>rejected</em> (alignment is significant).
-</div>
-
-<h3>How to actually generate a random sequence — Multinomial Model</h3>
-
-<p>The standard way is the <strong>multinomial model</strong>. Imagine a 20-sided "loaded" die where each face is an amino acid, and the face areas are proportional to that amino acid's frequency in the real sequence. You roll the die <code>n</code> times to make a random sequence of length <code>n</code>.</p>
-
-<div class="callout success">
-  <span class="callout-title">✅ Example from the slides</span>
-  Suppose a real sequence has these amino acid fractions:<br>
-  <code>p(P) = 0.14,  p(A) = 0.28,  p(W) = 0.14,  p(H) = 0.14,  p(E) = 0.28</code> &nbsp;(all others = 0)<br><br>
-  A random sequence generated under this multinomial model will end up with the <em>same length</em> and <em>roughly the same composition</em> — but with the letters in random order. That is exactly what we want as a comparison baseline ("good model — same length, same AA composition").
-</div>
-
-<p>The lecture deck shows a concrete demonstration: <em>human PTCH2</em> (228 aa) was aligned against a shuffled version of <em>TRA2</em> (233 aa, generated by the multinomial model). Even though one sequence is completely scrambled, the alignment score = <strong>51</strong>. That number is your baseline "this happens at random."</p>
-
-<!-- ====================== SECTION 3 ====================== -->
-<h2 id="rawscore">3 · The Alignment Score — and Why Raw Scores Are Not Enough</h2>
-
-<p>The alignment score has the following anatomy:</p>
-
-<div class="formula center">
-  S = Σ (substitution scores) + Σ (gap penalties)
-</div>
-
-<p>You add up the substitution score for every aligned pair of residues (from your scoring matrix — BLOSUM, PAM, etc.) and subtract penalties for every gap. The result is the <strong>raw score, S</strong>.</p>
-
-<div class="callout danger">
-  <span class="callout-title">🚫 Why we cannot use raw scores directly</span>
-  <strong>Raw scores depend on:</strong>
-  <ul>
-    <li><strong>Sequence length</strong> — longer sequences naturally accumulate more positive matches, so a longer alignment of unrelated sequences can score higher than a short alignment of related ones.</li>
-    <li><strong>Scoring matrix</strong> — BLOSUM62 gives different numbers than PAM250 even for the same alignment.</li>
-    <li><strong>Gap penalties</strong> — different gap-opening / gap-extension costs change the answer.</li>
-  </ul>
-  ⮕ <strong>Conclusion: raw scores from different searches cannot be directly compared.</strong> A score of 51 on one search means something completely different from a 51 on another.
-</div>
-
-<p>This is precisely the motivation for everything that follows. We need to convert <code>S</code> into something <em>scale-free</em> — the E-value and the bit score.</p>
-
-<!-- ====================== SECTION 4 ====================== -->
-<h2 id="distribution">4 · Distribution of Random Alignment Scores</h2>
-
-<h3>Initial (wrong) expectation — Normal Distribution</h3>
-
-<p>A reasonable first guess is: "random scores should be normally distributed around some mean." This would imply a symmetric bell curve, like a Gaussian.</p>
-
-<div class="callout warn">
-  <span class="callout-title">⚠ This is wrong, and here's why</span>
-  When you do <em>local</em> alignment (Smith–Waterman, BLAST), the algorithm <strong>maximizes</strong> the score over all possible sub-alignments. You don't get the "average" score — you get the <em>best</em> score the algorithm can find. Once you're looking at maxima of random variables, you are no longer in normal-distribution territory.
-</div>
-
-<h3>The real distribution — Gumbel Extreme Value Distribution (EVD)</h3>
-
-<p>Because alignment scores are <em>maxima</em>, they follow a special distribution called the <strong>Gumbel Extreme Value Distribution (EVD)</strong>. It is asymmetric — it has a sharp peak and a <em>long, fat right tail</em>.</p>
-
-<div class="callout info">
-  <span class="callout-title">📈 How to read a Gumbel curve</span>
-  <ul>
-    <li><strong>Mode (peak)</strong>: The most frequent "maximum" score you'd get aligning random sequences.</li>
-    <li><strong>Right tail</strong>:
+    <div class="callout info">
+      <span class="callout-title">📐 Null Hypothesis (H₀)</span>
+      The two aligned sequences are <strong>unrelated</strong>. Any score we get is therefore a <em>random alignment
+        score</em>.<br><br>
+      <strong>Assumptions used to generate the random sequences:</strong>
       <ul>
-        <li>High scores are <em>rare</em>, but…</li>
-        <li>…they are <em>much more likely than a normal distribution would predict</em>.</li>
-        <li>A score that lands deep in the right tail is unlikely to occur by chance — it is <em>statistically significant</em>.</li>
+        <li>The sequences are <em>random</em> (no biological signal).</li>
+        <li>They have the <em>same amino acid frequencies</em> as the real sequence being studied.</li>
+        <li>They have the <em>same length</em> as the real sequence.</li>
       </ul>
-    </li>
-  </ul>
-</div>
+      The statistical test then verifies whether H₀ should be <em>accepted</em> (alignment is random) or
+      <em>rejected</em> (alignment is significant).
+    </div>
 
-<div class="callout key">
-  <span class="callout-title">🔑 Why this matters</span>
-  If you used a Normal distribution to judge significance, you would think extremely high scores are vanishingly unlikely — and you would overestimate the significance of every hit. The fat-tailed Gumbel distribution correctly tells you "actually, that score isn't quite as rare as you think."
-</div>
+    <h3>How to actually generate a random sequence — Multinomial Model</h3>
 
-<!-- ====================== SECTION 5 ====================== -->
-<h2 id="pdfcdf">5 · EVD Mathematics — PDF, CDF, and the Tail Probability</h2>
+    <p>The standard way is the <strong>multinomial model</strong>. Imagine a 20-sided "loaded" die where each face is an
+      amino acid, and the face areas are proportional to that amino acid's frequency in the real sequence. You roll the
+      die <code>n</code> times to make a random sequence of length <code>n</code>.</p>
 
-<p>You don't need to derive any of these. You only need to know which formula does what.</p>
+    <div class="callout success">
+      <span class="callout-title">✅ Example from the slides</span>
+      Suppose a real sequence has these amino acid fractions:<br>
+      <code>p(P) = 0.14,  p(A) = 0.28,  p(W) = 0.14,  p(H) = 0.14,  p(E) = 0.28</code> &nbsp;(all others = 0)<br><br>
+      A random sequence generated under this multinomial model will end up with the <em>same length</em> and <em>roughly
+        the same composition</em> — but with the letters in random order. That is exactly what we want as a comparison
+      baseline ("good model — same length, same AA composition").
+    </div>
 
-<h3>Probability Density Function (PDF)</h3>
+    <p>The lecture deck shows a concrete demonstration: <em>human PTCH2</em> (228 aa) was aligned against a shuffled
+      version of <em>TRA2</em> (233 aa, generated by the multinomial model). Even though one sequence is completely
+      scrambled, the alignment score = <strong>51</strong>. That number is your baseline "this happens at random."</p>
 
-<div class="formula center">f(x) = e<sup>−x − e<sup>−x</sup></sup></div>
+    <!-- ====================== SECTION 3 ====================== -->
+    <h2 id="rawscore">3 · The Alignment Score — and Why Raw Scores Are Not Enough</h2>
 
-<p>The PDF tells you <em>how likely each score value is</em> for a random alignment. It is the "shape" of the Gumbel curve.</p>
+    <p>The alignment score has the following anatomy:</p>
 
-<h3>Cumulative Distribution Function (CDF) — score is <em>less</em> than X</h3>
+    <div class="formula center">
+      S = Σ (substitution scores) + Σ (gap penalties)
+    </div>
 
-<p>The CDF is the integral of the PDF — the area under the curve up to some value X. It answers: "what is the probability that the random alignment score S is <em>below</em> X?"</p>
+    <p>You add up the substitution score for every aligned pair of residues (from your scoring matrix — BLOSUM, PAM,
+      etc.) and subtract penalties for every gap. The result is the <strong>raw score, S</strong>.</p>
 
-<div class="formula center">
-  P(S &lt; X) = ∫<sub>−∞</sub><sup>X</sup> e<sup>−x − e<sup>−x</sup></sup> dx
-</div>
+    <div class="callout danger">
+      <span class="callout-title">🚫 Why we cannot use raw scores directly</span>
+      <strong>Raw scores depend on:</strong>
+      <ul>
+        <li><strong>Sequence length</strong> — longer sequences naturally accumulate more positive matches, so a longer
+          alignment of unrelated sequences can score higher than a short alignment of related ones.</li>
+        <li><strong>Scoring matrix</strong> — BLOSUM62 gives different numbers than PAM250 even for the same alignment.
+        </li>
+        <li><strong>Gap penalties</strong> — different gap-opening / gap-extension costs change the answer.</li>
+      </ul>
+      ⮕ <strong>Conclusion: raw scores from different searches cannot be directly compared.</strong> A score of 51 on
+      one search means something completely different from a 51 on another.
+    </div>
 
-<p>The integral evaluates to a beautifully compact form:</p>
+    <p>This is precisely the motivation for everything that follows. We need to convert <code>S</code> into something
+      <em>scale-free</em> — the E-value and the bit score.</p>
 
-<div class="formula center">
-  P(S &lt; X) = e<sup>−e<sup>−X</sup></sup>
-</div>
+    <!-- ====================== SECTION 4 ====================== -->
+    <h2 id="distribution">4 · Distribution of Random Alignment Scores</h2>
 
-<h3>The probability we actually care about — score is <em>greater</em> than X</h3>
+    <h3>Initial (wrong) expectation — Normal Distribution</h3>
 
-<p>For significance, we want the opposite question: what's the chance a random alignment scores <em>at least as high as</em> our observed score X? That's the right-tail probability.</p>
+    <p>A reasonable first guess is: "random scores should be normally distributed around some mean." This would imply a
+      symmetric bell curve, like a Gaussian.</p>
 
-<div class="formula center">
-  P(S ≥ X) = 1 − e<sup>−e<sup>−X</sup></sup>
-</div>
+    <div class="callout warn">
+      <span class="callout-title">⚠ This is wrong, and here's why</span>
+      When you do <em>local</em> alignment (Smith–Waterman, BLAST), the algorithm <strong>maximizes</strong> the score
+      over all possible sub-alignments. You don't get the "average" score — you get the <em>best</em> score the
+      algorithm can find. Once you're looking at maxima of random variables, you are no longer in normal-distribution
+      territory.
+    </div>
 
-<div class="callout success">
-  <span class="callout-title">✅ Practical simplification for large X</span>
-  When X is large (a high score), <code>e<sup>−X</sup></code> is tiny. Using the approximation <code>1 − e<sup>−ε</sup> ≈ ε</code> for small ε:
-  <div class="formula center" style="margin-top:10px;">P(S ≥ X) ≈ e<sup>−X</sup></div>
-  ⮕ <strong>The probability of observing a very high random score decreases <em>exponentially</em>.</strong> This is the key insight that lets the Karlin–Altschul equation take its simple form.
-</div>
+    <h3>The real distribution — Gumbel Extreme Value Distribution (EVD)</h3>
 
-<!-- ====================== SECTION 6 ====================== -->
-<h2 id="expected">6 · From Probability to Expected Number of Random Hits (E)</h2>
+    <p>Because alignment scores are <em>maxima</em>, they follow a special distribution called the <strong>Gumbel
+        Extreme Value Distribution (EVD)</strong>. It is asymmetric — it has a sharp peak and a <em>long, fat right
+        tail</em>.</p>
 
-<p>So far we have the probability that <em>one</em> random alignment has score ≥ S. But in a BLAST search you compare your query against an entire database — that's <em>many</em> alignments. We need to convert the per-alignment probability into an expected count.</p>
+    <div class="callout info">
+      <span class="callout-title">📈 How to read a Gumbel curve</span>
+      <ul>
+        <li><strong>Mode (peak)</strong>: The most frequent "maximum" score you'd get aligning random sequences.</li>
+        <li><strong>Right tail</strong>:
+          <ul>
+            <li>High scores are <em>rare</em>, but…</li>
+            <li>…they are <em>much more likely than a normal distribution would predict</em>.</li>
+            <li>A score that lands deep in the right tail is unlikely to occur by chance — it is <em>statistically
+                significant</em>.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
 
-<div class="symbol-list">
-  <div><span class="sym">m</span> = query sequence length</div>
-  <div><span class="sym">n</span> = total database length</div>
-  <div><span class="sym">S</span> = the observed alignment score (raw)</div>
-  <div><span class="sym">λ</span> = scale parameter of the Gumbel distribution (depends on scoring matrix)</div>
-  <div><span class="sym">K</span> = correction constant (depends on AA frequencies &amp; matrix)</div>
-</div>
+    <div class="callout key">
+      <span class="callout-title">🔑 Why this matters</span>
+      If you used a Normal distribution to judge significance, you would think extremely high scores are vanishingly
+      unlikely — and you would overestimate the significance of every hit. The fat-tailed Gumbel distribution correctly
+      tells you "actually, that score isn't quite as rare as you think."
+    </div>
 
-<p>Each position in the query can pair with each position in the database, giving us roughly <code>m × n</code> potential starting points for an alignment.</p>
+    <!-- ====================== SECTION 5 ====================== -->
+    <h2 id="pdfcdf">5 · EVD Mathematics — PDF, CDF, and the Tail Probability</h2>
 
-<div class="formula center">
-  E = (number of opportunities) × (probability of score ≥ S)<br>
-  E = m·n · P(S ≥ S)<br>
-  E ≈ m·n · e<sup>−λS</sup>
-</div>
+    <p>You don't need to derive any of these. You only need to know which formula does what.</p>
 
-<p>The <code>λ</code> appears because the alignment scoring system has its own scale — different scoring matrices "stretch" the score axis differently. <code>λ</code> is the calibration constant for whichever matrix you are using.</p>
+    <h3>Probability Density Function (PDF)</h3>
 
-<!-- ====================== SECTION 7 ====================== -->
-<h2 id="karlin">7 · The Karlin–Altschul Equation — The Master Formula</h2>
+    <div class="formula center">f(x) = e<sup>−x − e<sup>−x</sup></sup></div>
 
-<p>The simple <code>E = mn · e<sup>−λS</sup></code> isn't quite right yet. The actual number of <em>independent</em> alignment opportunities is not exactly <code>m × n</code>. There are three reasons why:</p>
+    <p>The PDF tells you <em>how likely each score value is</em> for a random alignment. It is the "shape" of the Gumbel
+      curve.</p>
 
-<div class="callout warn">
-  <span class="callout-title">⚠ Why m × n is not the true alignment count</span>
-  <ol>
-    <li><strong>Alignment lengths</strong> — each alignment extends across many positions, so adjacent starts are not really independent.</li>
-    <li><strong>Edge effects</strong> — local alignments near the ends of sequences are <em>underestimated</em> because they can't extend in one direction.</li>
-    <li><strong>Scoring matrix</strong> — different matrices produce different effective search spaces.</li>
-  </ol>
-</div>
+    <h3>Cumulative Distribution Function (CDF) — score is <em>less</em> than X</h3>
 
-<p>To absorb all three corrections, a <strong>correction constant K</strong> is introduced. The result is the canonical equation of this field:</p>
+    <p>The CDF is the integral of the PDF — the area under the curve up to some value X. It answers: "what is the
+      probability that the random alignment score S is <em>below</em> X?"</p>
 
-<div class="formula center" style="font-size: 1.45rem; color: var(--green); border-left: 4px solid var(--green);">
-  E = K · m · n · e<sup>−λS</sup>
-</div>
+    <div class="formula center">
+      P(S &lt; X) = ∫<sub>−∞</sub><sup>X</sup> e<sup>−x − e<sup>−x</sup></sup> dx
+    </div>
 
-<div class="callout key">
-  <span class="callout-title">🔑 The Karlin–Altschul Equation — What every term means</span>
-  <ul>
-    <li><strong>E</strong> = expected number of random alignments with score ≥ S</li>
-    <li><strong>K</strong> = correction constant for the scoring system and edge effects</li>
-    <li><strong>m</strong> = query length</li>
-    <li><strong>n</strong> = database length</li>
-    <li><strong>λ</strong> = Gumbel scale parameter, scaled by the scoring matrix</li>
-    <li><strong>S</strong> = raw alignment score</li>
-  </ul>
-</div>
+    <p>The integral evaluates to a beautifully compact form:</p>
 
-<p>A few observations from this single equation that explain everything you'll see in BLAST:</p>
+    <div class="formula center">
+      P(S &lt; X) = e<sup>−e<sup>−X</sup></sup>
+    </div>
 
-<table>
-  <thead>
-    <tr><th>If this goes up…</th><th>What happens to E?</th><th>Intuition</th></tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>S</strong> (alignment score)</td><td>E ↓ (exponentially)</td><td>Higher scores are exponentially less likely by chance.</td></tr>
-    <tr><td><strong>m</strong> (query length)</td><td>E ↑ (linearly)</td><td>Longer queries have more chances for random hits.</td></tr>
-    <tr><td><strong>n</strong> (database size)</td><td>E ↑ (linearly)</td><td>A bigger database = more random hits.</td></tr>
-    <tr><td><strong>K, λ</strong></td><td>scale-dependent</td><td>Set by the scoring system; usually fixed for a given search.</td></tr>
-  </tbody>
-</table>
+    <h3>The probability we actually care about — score is <em>greater</em> than X</h3>
 
-<!-- ====================== SECTION 8 ====================== -->
-<h2 id="interpret">8 · Interpreting the E-value</h2>
+    <p>For significance, we want the opposite question: what's the chance a random alignment scores <em>at least as high
+        as</em> our observed score X? That's the right-tail probability.</p>
 
-<p>This is the single most testable concept in the chapter. Memorize both the definition and the table.</p>
+    <div class="formula center">
+      P(S ≥ X) = 1 − e<sup>−e<sup>−X</sup></sup>
+    </div>
 
-<div class="callout info">
-  <span class="callout-title">📖 Formal definition</span>
-  <strong>E-value = the expected number of random alignments with score ≥ S</strong> that would be observed when searching this query against this database.
-</div>
+    <div class="callout success">
+      <span class="callout-title">✅ Practical simplification for large X</span>
+      When X is large (a high score), <code>e<sup>−X</sup></code> is tiny. Using the approximation
+      <code>1 − e<sup>−ε</sup> ≈ ε</code> for small ε:
+      <div class="formula center" style="margin-top:10px;">P(S ≥ X) ≈ e<sup>−X</sup></div>
+      ⮕ <strong>The probability of observing a very high random score decreases <em>exponentially</em>.</strong> This is
+      the key insight that lets the Karlin–Altschul equation take its simple form.
+    </div>
 
-<div class="callout success">
-  <span class="callout-title">💬 Plain-English version</span>
-  "How many times would I see a match this good <em>just by chance</em> in this database?"
-</div>
+    <!-- ====================== SECTION 6 ====================== -->
+    <h2 id="expected">6 · From Probability to Expected Number of Random Hits (E)</h2>
 
-<p>Visually, the E-value is the area of the right tail of the EVD (the probability of a single random hit) multiplied by the total number of alignments in the search:</p>
+    <p>So far we have the probability that <em>one</em> random alignment has score ≥ S. But in a BLAST search you
+      compare your query against an entire database — that's <em>many</em> alignments. We need to convert the
+      per-alignment probability into an expected count.</p>
 
-<div class="formula center">
-  E-value = (Area of tail) × (# of alignments)
-</div>
+    <div class="symbol-list">
+      <div><span class="sym">m</span> = query sequence length</div>
+      <div><span class="sym">n</span> = total database length</div>
+      <div><span class="sym">S</span> = the observed alignment score (raw)</div>
+      <div><span class="sym">λ</span> = scale parameter of the Gumbel distribution (depends on scoring matrix)</div>
+      <div><span class="sym">K</span> = correction constant (depends on AA frequencies &amp; matrix)</div>
+    </div>
 
-<h3>The interpretation table — memorize this</h3>
+    <p>Each position in the query can pair with each position in the database, giving us roughly <code>m × n</code>
+      potential starting points for an alignment.</p>
 
-<table>
-  <thead>
-    <tr><th>E-value</th><th>Biological relevance</th></tr>
-  </thead>
-  <tbody>
-    <tr><td><code>10</code></td><td>~10 random hits expected by chance — <em>not meaningful</em></td></tr>
-    <tr><td><code>1</code></td><td>~1 random hit — <em>may be meaningful</em></td></tr>
-    <tr><td><code>0.01</code></td><td>Rare by chance — <em>most likely meaningful</em></td></tr>
-    <tr><td><code>1e-20</code></td><td>Extremely unlikely by chance — <em>strong homology</em></td></tr>
-    <tr><td><code>0</code></td><td>Extremely unlikely (reported when below floating-point precision) — <em>strong homology</em></td></tr>
-  </tbody>
-</table>
+    <div class="formula center">
+      E = (number of opportunities) × (probability of score ≥ S)<br>
+      E = m·n · P(S ≥ S)<br>
+      E ≈ m·n · e<sup>−λS</sup>
+    </div>
 
-<div class="callout danger">
-  <span class="callout-title">🧠 Rule of thumb for exam answers</span>
-  <ul>
-    <li>Lower E-value ⟶ more significant alignment.</li>
-    <li><strong>E ≤ 0.01</strong> is the conventional threshold for "biologically meaningful."</li>
-    <li>E-value <em>is not</em> a probability — it can be greater than 1 (e.g., E = 10).</li>
-  </ul>
-</div>
+    <p>The <code>λ</code> appears because the alignment scoring system has its own scale — different scoring matrices
+      "stretch" the score axis differently. <code>λ</code> is the calibration constant for whichever matrix you are
+      using.</p>
 
-<h3>Effect of sequence and database length</h3>
+    <!-- ====================== SECTION 7 ====================== -->
+    <h2 id="karlin">7 · The Karlin–Altschul Equation — The Master Formula</h2>
 
-<div class="formula center">E ∝ m·n</div>
+    <p>The simple <code>E = mn · e<sup>−λS</sup></code> isn't quite right yet. The actual number of <em>independent</em>
+      alignment opportunities is not exactly <code>m × n</code>. There are three reasons why:</p>
 
-<p>This is the relationship you'll be asked to reason about. If a colleague says "my E-value is 0.01" — that answer depends on the database she searched. The <em>same alignment</em> against a 10× larger database gives a 10× larger E-value, because there are 10× more chances for random hits. This is also why a BLAST hit from yesterday may become "less significant" tomorrow if the database has grown.</p>
+    <div class="callout warn">
+      <span class="callout-title">⚠ Why m × n is not the true alignment count</span>
+      <ol>
+        <li><strong>Alignment lengths</strong> — each alignment extends across many positions, so adjacent starts are
+          not really independent.</li>
+        <li><strong>Edge effects</strong> — local alignments near the ends of sequences are <em>underestimated</em>
+          because they can't extend in one direction.</li>
+        <li><strong>Scoring matrix</strong> — different matrices produce different effective search spaces.</li>
+      </ol>
+    </div>
 
-<!-- ====================== SECTION 9 ====================== -->
-<h2 id="poisson">9 · E-value ↔ p-value via the Poisson Distribution</h2>
+    <p>To absorb all three corrections, a <strong>correction constant K</strong> is introduced. The result is the
+      canonical equation of this field:</p>
 
-<p>People sometimes report a <strong>p-value</strong> instead of (or alongside) an E-value. The two are related but they answer slightly different questions.</p>
+    <div class="formula center" style="font-size: 1.45rem; color: var(--green); border-left: 4px solid var(--green);">
+      E = K · m · n · e<sup>−λS</sup>
+    </div>
 
-<div class="grid-2">
-  <div class="callout info">
-    <span class="callout-title">E-value</span>
-    Expected <em>number</em> of random hits with score ≥ S.<br>
-    (a count — can be 0.001 or 10).
+    <div class="callout key">
+      <span class="callout-title">🔑 The Karlin–Altschul Equation — What every term means</span>
+      <ul>
+        <li><strong>E</strong> = expected number of random alignments with score ≥ S</li>
+        <li><strong>K</strong> = correction constant for the scoring system and edge effects</li>
+        <li><strong>m</strong> = query length</li>
+        <li><strong>n</strong> = database length</li>
+        <li><strong>λ</strong> = Gumbel scale parameter, scaled by the scoring matrix</li>
+        <li><strong>S</strong> = raw alignment score</li>
+      </ul>
+    </div>
+
+    <p>A few observations from this single equation that explain everything you'll see in BLAST:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>If this goes up…</th>
+          <th>What happens to E?</th>
+          <th>Intuition</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>S</strong> (alignment score)</td>
+          <td>E ↓ (exponentially)</td>
+          <td>Higher scores are exponentially less likely by chance.</td>
+        </tr>
+        <tr>
+          <td><strong>m</strong> (query length)</td>
+          <td>E ↑ (linearly)</td>
+          <td>Longer queries have more chances for random hits.</td>
+        </tr>
+        <tr>
+          <td><strong>n</strong> (database size)</td>
+          <td>E ↑ (linearly)</td>
+          <td>A bigger database = more random hits.</td>
+        </tr>
+        <tr>
+          <td><strong>K, λ</strong></td>
+          <td>scale-dependent</td>
+          <td>Set by the scoring system; usually fixed for a given search.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- ====================== SECTION 8 ====================== -->
+    <h2 id="interpret">8 · Interpreting the E-value</h2>
+
+    <p>This is the single most testable concept in the chapter. Memorize both the definition and the table.</p>
+
+    <div class="callout info">
+      <span class="callout-title">📖 Formal definition</span>
+      <strong>E-value = the expected number of random alignments with score ≥ S</strong> that would be observed when
+      searching this query against this database.
+    </div>
+
+    <div class="callout success">
+      <span class="callout-title">💬 Plain-English version</span>
+      "How many times would I see a match this good <em>just by chance</em> in this database?"
+    </div>
+
+    <p>Visually, the E-value is the area of the right tail of the EVD (the probability of a single random hit)
+      multiplied by the total number of alignments in the search:</p>
+
+    <div class="formula center">
+      E-value = (Area of tail) × (# of alignments)
+    </div>
+
+    <h3>The interpretation table — memorize this</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>E-value</th>
+          <th>Biological relevance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>10</code></td>
+          <td>~10 random hits expected by chance — <em>not meaningful</em></td>
+        </tr>
+        <tr>
+          <td><code>1</code></td>
+          <td>~1 random hit — <em>may be meaningful</em></td>
+        </tr>
+        <tr>
+          <td><code>0.01</code></td>
+          <td>Rare by chance — <em>most likely meaningful</em></td>
+        </tr>
+        <tr>
+          <td><code>1e-20</code></td>
+          <td>Extremely unlikely by chance — <em>strong homology</em></td>
+        </tr>
+        <tr>
+          <td><code>0</code></td>
+          <td>Extremely unlikely (reported when below floating-point precision) — <em>strong homology</em></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout danger">
+      <span class="callout-title">🧠 Rule of thumb for exam answers</span>
+      <ul>
+        <li>Lower E-value ⟶ more significant alignment.</li>
+        <li><strong>E ≤ 0.01</strong> is the conventional threshold for "biologically meaningful."</li>
+        <li>E-value <em>is not</em> a probability — it can be greater than 1 (e.g., E = 10).</li>
+      </ul>
+    </div>
+
+    <h3>Effect of sequence and database length</h3>
+
+    <div class="formula center">E ∝ m·n</div>
+
+    <p>This is the relationship you'll be asked to reason about. If a colleague says "my E-value is 0.01" — that answer
+      depends on the database she searched. The <em>same alignment</em> against a 10× larger database gives a 10× larger
+      E-value, because there are 10× more chances for random hits. This is also why a BLAST hit from yesterday may
+      become "less significant" tomorrow if the database has grown.</p>
+
+    <!-- ====================== SECTION 9 ====================== -->
+    <h2 id="poisson">9 · E-value ↔ p-value via the Poisson Distribution</h2>
+
+    <p>People sometimes report a <strong>p-value</strong> instead of (or alongside) an E-value. The two are related but
+      they answer slightly different questions.</p>
+
+    <div class="grid-2">
+      <div class="callout info">
+        <span class="callout-title">E-value</span>
+        Expected <em>number</em> of random hits with score ≥ S.<br>
+        (a count — can be 0.001 or 10).
+      </div>
+      <div class="callout info">
+        <span class="callout-title">p-value</span>
+        <em>Probability</em> that <strong>at least one</strong> random hit with score ≥ S occurs.<br>
+        (always between 0 and 1).
+      </div>
+    </div>
+
+    <h3>The bridge: rare independent events follow a Poisson distribution</h3>
+
+    <p>A high-scoring random hit is a <em>rare</em> event. When rare events occur <em>independently</em>, the number of
+      them in a fixed search follows the <strong>Poisson distribution</strong>:</p>
+
+    <div class="formula center">
+      P(k) = (e<sup>−λ</sup> · λ<sup>k</sup>) / k!
+    </div>
+
+    <div class="symbol-list">
+      <div><span class="sym">λ</span> = expected number of occurrences = <strong>E-value</strong></div>
+      <div><span class="sym">k</span> = the actual observed number of hits with score ≥ S</div>
+    </div>
+
+    <div class="callout key">
+      <span class="callout-title">🔑 The two distributions, two roles</span>
+      • <strong>Gumbel Distribution</strong> describes the <em>shape</em> of scores (what values they take).<br>
+      • <strong>Poisson Distribution</strong> describes the <em>count</em> of those scores (how many of them appear).
+    </div>
+
+    <h3>Deriving the p-value</h3>
+
+    <p>The p-value is the probability of seeing <em>at least one</em> random hit with score ≥ S. That equals 1 minus the
+      probability of seeing <em>zero</em> such hits:</p>
+
+    <div class="formula center">
+      p-value = 1 − P(0)<br>
+      P(0) = (e<sup>−E</sup> · E<sup>0</sup>) / 0! = e<sup>−E</sup>
+    </div>
+
+    <div class="formula center" style="font-size: 1.4rem; color: var(--green); border-left: 4px solid var(--green);">
+      p-value = 1 − e<sup>−E</sup>
+    </div>
+
+    <h3>When E ≈ p, and when they diverge</h3>
+
+    <div class="callout success">
+      <span class="callout-title">✅ Small E (≪ 1): E ≈ p</span>
+      When <code>E</code> is very small, the exponential <code>e<sup>−E</sup> ≈ 1 − E</code>, so
+      <code>p = 1 − (1−E) = E</code>. The two numbers are essentially identical.<br><br>
+      <strong>Quick check from the slides:</strong>
+      <ul>
+        <li>If <code>E = 0.01</code>, then <code>p = 1 − e<sup>−0.01</sup> ≈ 0.00995</code>. ⇒ <strong>E ≈ p</strong>. ✅
+        </li>
+        <li>If <code>E = 5</code>, then <code>p = 1 − e<sup>−5</sup> ≈ 0.9933</code>. ⇒ <strong>Very different!</strong>
+          The p-value can never exceed 1, while E can be 5, 10, 100, etc.</li>
+      </ul>
+    </div>
+
+    <!-- ====================== SECTION 10 ====================== -->
+    <h2 id="bitscore">10 · Bit Score — The Normalized Score</h2>
+
+    <p>The raw score <code>S</code> still suffers from one problem: its significance via
+      <code>E = Kmn·e<sup>−λS</sup></code> depends on <code>K</code> and <code>λ</code> — which themselves depend on the
+      scoring system. We want a score that you can read off a paper from 1998 and a paper from 2024 and they'll mean the
+      same thing. That's the <strong>bit score</strong>.</p>
+
+    <h3>The two-step transformation</h3>
+
+    <div class="step">
+      <p><span class="step-num">1</span><strong>Strip out K and λ</strong> to get a "system-free" score S':</p>
+      <div class="formula center">S' = λS − ln(K)</div>
+    </div>
+
+    <div class="step">
+      <p><span class="step-num">2</span><strong>Convert to bits</strong> by dividing by ln(2) (so we get a log base 2):
+      </p>
+      <div class="formula center">
+        S<sub>bit</sub> = (λS − ln K) / ln(2)
+      </div>
+    </div>
+
+    <h3>Interpretation: bit score as a log-odds ratio</h3>
+
+    <div class="formula center">
+      Bit-score = log<sub>2</sub> ( Probability of alignment if related / Probability of alignment if random )
+    </div>
+
+    <div class="callout key">
+      <span class="callout-title">🔑 The doubling rule (very testable)</span>
+      Because the bit score is log<sub>2</sub>, <strong>every +1 in bit score doubles the probability of a statistically
+        significant alignment.</strong><br>
+      A 30-bit alignment is twice as good as a 29-bit one. A 50-bit hit is 2<sup>20</sup> ≈ 10⁶ times stronger than a
+      30-bit one.
+    </div>
+
+    <h3>Final E-value using the bit score</h3>
+
+    <p>Once the score has been normalized, the E-value becomes radically simpler — no <code>K</code> or <code>λ</code>
+      in sight, because they've been absorbed into S':</p>
+
+    <div class="formula center" style="font-size: 1.4rem; color: var(--green); border-left: 4px solid var(--green);">
+      E = m · n · 2<sup>−S'</sup>
+    </div>
+
+    <p>This is the form you can actually use for back-of-the-envelope calculations during an exam, when you're given a
+      bit score and a database size.</p>
+
+    <!-- ====================== SECTION 11 ====================== -->
+    <h2 id="gapped">11 · Statistics for Gapped Alignments</h2>
+
+    <p>Everything above was derived for <strong>ungapped</strong> local alignment, but real BLAST does
+      <strong>gapped</strong> alignment. Why does this matter?</p>
+
+    <div class="callout warn">
+      <span class="callout-title">⚠ The complication</span>
+      In gapped alignment:
+      <ul>
+        <li>Positions are <em>not independent</em> anymore — a gap "drags" the next residue along with it.</li>
+        <li>The clean mathematical assumptions used to derive the ungapped EVD <em>do not strictly hold</em>.</li>
+        <li>Therefore we need an <strong>empirical correction</strong> instead of a clean derivation.</li>
+      </ul>
+    </div>
+
+    <div class="callout success">
+      <span class="callout-title">✅ How it's handled in practice</span>
+      <ol>
+        <li>Generate a <em>large number</em> of random gapped alignments using the chosen scoring matrix and gap
+          penalties.</li>
+        <li>Fit a Gumbel distribution to the resulting score distribution.</li>
+        <li>Read off the empirically estimated values of <code>λ</code> and <code>K</code> from the fit.</li>
+        <li>Plug those empirical <code>λ</code> and <code>K</code> back into the same Karlin–Altschul equation:
+          <div class="formula center" style="margin-top:8px;">E = K·m·n · e<sup>−λS</sup></div>
+        </li>
+      </ol>
+      <strong>Same formula, adjusted (empirical) parameter values.</strong>
+    </div>
+
+    <!-- ====================== SECTION 12 ====================== -->
+    <h2 id="worked">12 · Worked Example — Reading a BLAST Output (from the past paper)</h2>
+
+    <p>This is exactly the type of question asked in the BIO F242 Comprehensive Examination (2024–2025, Q5a, 4 marks):
+      given a BLASTp output, explain every term and symbol and draw inferences.</p>
+
+    <div class="qbox">
+      <div class="qtitle">📝 Past-Paper Question (Comprehensive Exam, 07.05.25, Q5a — 4 marks)</div>
+      "One of the blastp searches gave the following output with alignment. Explain each of the term and symbol
+      mentioned in the output and draw inference."
+    </div>
+
+    <div class="seq-block">Score Expect Identities Positives Gaps
+      72.8 bits(177) 3e-16 49/165 (30%) 76/165 (46%) 25/165 (15%)
+
+      Query 12 VSLEKYKGKVSLVVNVASDCQLTDRNYLGLKELHKEFGPSHFSVLAFPCNQFGESEPRPS 71
+      + ++Y GK L VNVAS LT + Y+ L L +E P +L FPCNQFG+ EP +
+      Sbjct 31 IPFKQYAGKYVLFVNVASYGGLTGQ-YIELNALQEELAPFGLVILGFPCNQFGKQEPGEN 89
+
+      Query 72 KEV---ESFARKNYGV--TFPIFHKIKILGSEGEPAFRFLVDSSK--------------- 111
+      E+ + R G F +F K + G + + + FL +S
+      Sbjct 90 SEILPTLKYVRPGGGFVPNFQLFEKGDVNGEKEQKFYTFLKNSCPPTSELLGTSDRLFWE 149
+
+      Query 112 ----KEPRWNFWKYLVNPEGQVVKFWRPEEPIEVIRPDIAALVRQ 152
+      + RWNF K+LV P+G + +W + ++ DI + +R+
+      Sbjct 150 PMKVHDIRWNFEKFLVGPDGIPIMRWHHRTTVSNVKMDILSYMRR 194</div>
+
+    <h3>Step-by-step decoding</h3>
+
+    <div class="step">
+      <p><span class="step-num">1</span><strong>Score: 72.8 bits (177)</strong></p>
+      <ul>
+        <li><code>72.8 bits</code> = the <strong>bit score</strong> S<sub>bit</sub>. This is the system-free, normalized
+          score.</li>
+        <li><code>(177)</code> in parentheses = the <strong>raw score</strong> S (sum of substitution scores − gap
+          penalties).</li>
+        <li>The bit score &gt; 50 — by the doubling rule, this is an enormously strong alignment.</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <p><span class="step-num">2</span><strong>Expect: 3e-16</strong></p>
+      <ul>
+        <li>This is the <strong>E-value</strong>.</li>
+        <li>Definition: the expected number of alignments scoring ≥ 72.8 bits that you'd get by chance in this database.
+        </li>
+        <li>Plain English: "You'd have to do 3 × 10<sup>15</sup> independent searches to expect one fluke this strong."
+        </li>
+        <li>Inference: cross-reference our memorized table — anything below <code>1e-20</code> is "strong homology";
+          <code>3e-16</code> is also firmly in the strong-homology zone.</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <p><span class="step-num">3</span><strong>Identities: 49/165 (30%)</strong></p>
+      <ul>
+        <li>49 of 165 aligned columns have the <em>exact same residue</em> in query and subject.</li>
+        <li>30% identity falls in the well-known <em>"twilight zone"</em> for proteins (~20–35%), but the very low
+          E-value tells us the homology is still real.</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <p><span class="step-num">4</span><strong>Positives: 76/165 (46%)</strong></p>
+      <ul>
+        <li>76 of 165 columns are <em>similar</em> residues (positive score in BLOSUM62 — either identical or a
+          conservative substitution).</li>
+        <li>This is the count of all "+" symbols and identical letters shown in the middle row of the alignment.</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <p><span class="step-num">5</span><strong>Gaps: 25/165 (15%)</strong></p>
+      <ul>
+        <li>25 of 165 alignment columns are gap (<code>−</code>) characters.</li>
+        <li>15% gapping is moderate — visible in the middle of the alignment as the long <code>---</code> stretch.</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <p><span class="step-num">6</span><strong>The alignment symbols</strong></p>
+      <ul>
+        <li><strong>Letter</strong> in the middle row (e.g., <code>Y</code>) = identical residue.</li>
+        <li><strong>+</strong> = positive-scoring substitution (similar amino acid).</li>
+        <li><strong>blank</strong> = non-similar substitution (negative or zero score).</li>
+        <li><strong>−</strong> in query or subject = gap (insertion/deletion).</li>
+        <li><strong>Numbers</strong> at start/end = residue position in the original sequence.</li>
+      </ul>
+    </div>
+
+    <div class="callout success">
+      <span class="callout-title">✅ Final inference (full-mark answer)</span>
+      This alignment is <strong>highly statistically significant</strong> (E = 3 × 10<sup>−16</sup>, bit score 72.8)
+      despite only 30% identity. Roughly half of the positions show conservative or identical substitution (46%
+      positives), and gaps make up 15% of the alignment. The conclusion is that the query and subject are <em>homologous
+        proteins</em> — likely belonging to the same family (the FPCNQFG motif visible around position 60 is highly
+      conserved, suggesting a functional/structural role).
+    </div>
+
+    <!-- ====================== SECTION 13 ====================== -->
+    <h2 id="summary">13 · One-Page Summary &amp; Cheat-Sheet</h2>
+
+    <h3>The logical flow (memorize this chain)</h3>
+
+    <div class="flowchain">
+      Random sequences <span class="arrow">↓</span><br>
+      Gumbel EVD distribution <span class="arrow">↓</span><br>
+      P(S ≥ X) ≈ e<sup>−X</sup> <span class="arrow">↓</span><br>
+      E-value (expected count) — Karlin–Altschul <span class="arrow">↓</span><br>
+      Poisson model <span class="arrow">↓</span><br>
+      p-value (probability)
+    </div>
+
+    <h3>All key formulas in one place</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Quantity</th>
+          <th>Formula</th>
+          <th>What it gives you</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>EVD PDF</td>
+          <td><code>f(x) = e<sup>−x − e<sup>−x</sup></sup></code></td>
+          <td>Likelihood of each score value (the "shape")</td>
+        </tr>
+        <tr>
+          <td>EVD CDF</td>
+          <td><code>P(S &lt; X) = e<sup>−e<sup>−X</sup></sup></code></td>
+          <td>Probability score is below X</td>
+        </tr>
+        <tr>
+          <td>Tail probability</td>
+          <td><code>P(S ≥ X) = 1 − e<sup>−e<sup>−X</sup></sup> ≈ e<sup>−X</sup></code></td>
+          <td>Probability of a random score ≥ X</td>
+        </tr>
+        <tr>
+          <td><strong>Karlin–Altschul</strong></td>
+          <td><code>E = K · m · n · e<sup>−λS</sup></code></td>
+          <td>Expected # of random hits ≥ S</td>
+        </tr>
+        <tr>
+          <td>Bit score</td>
+          <td><code>S<sub>bit</sub> = (λS − ln K) / ln 2</code></td>
+          <td>Normalized score (system-free)</td>
+        </tr>
+        <tr>
+          <td>E from bit score</td>
+          <td><code>E = m · n · 2<sup>−S'</sup></code></td>
+          <td>E-value using normalized score</td>
+        </tr>
+        <tr>
+          <td>Poisson</td>
+          <td><code>P(k) = e<sup>−λ</sup>·λ<sup>k</sup> / k!</code></td>
+          <td>Count of rare independent events (λ = E)</td>
+        </tr>
+        <tr>
+          <td>P(0) hits</td>
+          <td><code>P(0) = e<sup>−E</sup></code></td>
+          <td>Probability of zero random hits</td>
+        </tr>
+        <tr>
+          <td><strong>p-value</strong></td>
+          <td><code>p = 1 − e<sup>−E</sup></code></td>
+          <td>Probability of ≥1 random hit</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Key relationships</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Statement</th>
+          <th>Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>E ≈ p-value</code> when E is very small</td>
+          <td>For E ≤ 0.01, the two numbers are essentially equal.</td>
+        </tr>
+        <tr>
+          <td><code>E ≠ p-value</code> when E is large</td>
+          <td>e.g., E = 5 ⇒ p ≈ 0.99. The p-value is capped at 1; the E-value is not.</td>
+        </tr>
+        <tr>
+          <td>Doubling rule</td>
+          <td>Every +1 of bit score doubles the significance.</td>
+        </tr>
+        <tr>
+          <td><code>E ∝ m·n</code></td>
+          <td>Doubling the database doubles the E-value.</td>
+        </tr>
+        <tr>
+          <td>Gapped alignments use empirical λ, K</td>
+          <td>Same formula, empirically-fit parameters.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- ====================== SECTION 14 ====================== -->
+    <h2 id="traps">14 · Common Traps, Edge Cases &amp; Expected Exam Variants</h2>
+
+    <div class="callout danger">
+      <span class="callout-title">🪤 Trap 1: "E-value is a probability"</span>
+      No — the E-value is an <em>expected count</em>. It can be 5, 10, 100. Only the p-value is bounded between 0 and 1.
+      Saying "an E-value of 5 means a 500% probability" is wrong.
+    </div>
+
+    <div class="callout danger">
+      <span class="callout-title">🪤 Trap 2: "Higher score = more significant"</span>
+      Higher <em>bit score</em> = more significant, yes. But higher <em>raw score</em> alone tells you nothing without
+      knowing the scoring matrix and the database size. This is the entire point of normalization.
+    </div>
+
+    <div class="callout danger">
+      <span class="callout-title">🪤 Trap 3: "The threshold of significance is fixed"</span>
+      E ≤ 0.01 is a <em>convention</em>, not a law. For very large databases people often use E ≤ 1e-5; for short
+      queries the threshold is sometimes relaxed. Always discuss it in context.
+    </div>
+
+    <div class="callout danger">
+      <span class="callout-title">🪤 Trap 4: Confusing K, λ, and m, n</span>
+      <ul>
+        <li><strong>K</strong> and <strong>λ</strong> are properties of the <em>scoring system</em> (matrix + gap
+          penalties + AA composition).</li>
+        <li><strong>m</strong> and <strong>n</strong> are properties of the <em>search</em> (query and database
+          lengths).</li>
+      </ul>
+    </div>
+
+    <div class="callout danger">
+      <span class="callout-title">🪤 Trap 5: "Normal distribution"</span>
+      Random alignment scores follow the <strong>Gumbel EVD</strong>, not the Normal distribution. Why? Because
+      alignment scores are maxima (local alignment maximizes the score), and maxima of random variables follow
+      extreme-value distributions.
+    </div>
+
+    <h3>Expected exam variants and how to handle each</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Type of question</th>
+          <th>How to answer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Explain a BLAST output</strong> (like Q5a 2024–25)</td>
+          <td>Decode each field: bits, raw score, E-value, identities, positives, gaps, alignment symbols. Then state
+            the biological inference (significant homology / weak hit / not significant).</td>
+        </tr>
+        <tr>
+          <td><strong>Calculate E given S, m, n</strong></td>
+          <td>If bit score is given: use <code>E = m·n · 2<sup>−S'</sup></code>. If raw + K, λ given: use
+            Karlin–Altschul. Show the substitution explicitly.</td>
+        </tr>
+        <tr>
+          <td><strong>Calculate p-value from E</strong></td>
+          <td>Use <code>p = 1 − e<sup>−E</sup></code>. Note whether E is small (so E ≈ p) or large (compute exactly).
+          </td>
+        </tr>
+        <tr>
+          <td><strong>"What if database doubles?"</strong></td>
+          <td>E doubles (E ∝ n). Significance gets <em>worse</em>. Bit score does not change.</td>
+        </tr>
+        <tr>
+          <td><strong>"Why not normal distribution?"</strong></td>
+          <td>Alignment scores are maxima, not means; their distribution is Gumbel EVD; the right tail is fatter than
+            Normal, so significance must be computed differently.</td>
+        </tr>
+        <tr>
+          <td><strong>"Why bit score not raw score?"</strong></td>
+          <td>Raw scores depend on scoring matrix, gap penalties, and length — they cannot be compared across searches.
+            Bit score absorbs K and λ into the score itself.</td>
+        </tr>
+        <tr>
+          <td><strong>"How is gapped alignment handled?"</strong></td>
+          <td>Karlin–Altschul derivation assumes independence (breaks for gaps). Solution: simulate many random gapped
+            alignments, empirically fit a Gumbel to the scores, and use those empirical λ and K in the same equation.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>"Why is m × n not the exact alignment count?"</strong></td>
+          <td>Alignment lengths (positions not independent), edge effects (end alignments underestimated), and
+            scoring-matrix-dependent search space — corrected by K.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout key">
+      <span class="callout-title">🎯 The "if I only remember three things" version</span>
+      <ol>
+        <li><strong>Karlin–Altschul:</strong> <code>E = K·m·n·e<sup>−λS</sup></code> — the E-value depends exponentially
+          on score and linearly on lengths.</li>
+        <li><strong>E ↔ p:</strong> <code>p = 1 − e<sup>−E</sup></code>, and <code>E ≈ p</code> for small E.</li>
+        <li><strong>Random scores ≠ Normal:</strong> They follow the <em>Gumbel EVD</em> because alignment is a
+          maximization process. This has a fatter right tail than Normal.</li>
+      </ol>
+    </div>
+
+    <div class="footer">
+      Built from <code>Statistical_Significance_Seq_Align_SB.pdf</code> · BIO F242 (Introduction to Bioinformatics) ·
+      cross-referenced with the Merged Compre PYPs.
+    </div>
+
   </div>
-  <div class="callout info">
-    <span class="callout-title">p-value</span>
-    <em>Probability</em> that <strong>at least one</strong> random hit with score ≥ S occurs.<br>
-    (always between 0 and 1).
-  </div>
-</div>
-
-<h3>The bridge: rare independent events follow a Poisson distribution</h3>
-
-<p>A high-scoring random hit is a <em>rare</em> event. When rare events occur <em>independently</em>, the number of them in a fixed search follows the <strong>Poisson distribution</strong>:</p>
-
-<div class="formula center">
-  P(k) = (e<sup>−λ</sup> · λ<sup>k</sup>) / k!
-</div>
-
-<div class="symbol-list">
-  <div><span class="sym">λ</span> = expected number of occurrences = <strong>E-value</strong></div>
-  <div><span class="sym">k</span> = the actual observed number of hits with score ≥ S</div>
-</div>
-
-<div class="callout key">
-  <span class="callout-title">🔑 The two distributions, two roles</span>
-  • <strong>Gumbel Distribution</strong> describes the <em>shape</em> of scores (what values they take).<br>
-  • <strong>Poisson Distribution</strong> describes the <em>count</em> of those scores (how many of them appear).
-</div>
-
-<h3>Deriving the p-value</h3>
-
-<p>The p-value is the probability of seeing <em>at least one</em> random hit with score ≥ S. That equals 1 minus the probability of seeing <em>zero</em> such hits:</p>
-
-<div class="formula center">
-  p-value = 1 − P(0)<br>
-  P(0) = (e<sup>−E</sup> · E<sup>0</sup>) / 0! = e<sup>−E</sup>
-</div>
-
-<div class="formula center" style="font-size: 1.4rem; color: var(--green); border-left: 4px solid var(--green);">
-  p-value = 1 − e<sup>−E</sup>
-</div>
-
-<h3>When E ≈ p, and when they diverge</h3>
-
-<div class="callout success">
-  <span class="callout-title">✅ Small E (≪ 1): E ≈ p</span>
-  When <code>E</code> is very small, the exponential <code>e<sup>−E</sup> ≈ 1 − E</code>, so <code>p = 1 − (1−E) = E</code>. The two numbers are essentially identical.<br><br>
-  <strong>Quick check from the slides:</strong>
-  <ul>
-    <li>If <code>E = 0.01</code>, then <code>p = 1 − e<sup>−0.01</sup> ≈ 0.00995</code>. ⇒ <strong>E ≈ p</strong>. ✅</li>
-    <li>If <code>E = 5</code>, then <code>p = 1 − e<sup>−5</sup> ≈ 0.9933</code>. ⇒ <strong>Very different!</strong> The p-value can never exceed 1, while E can be 5, 10, 100, etc.</li>
-  </ul>
-</div>
-
-<!-- ====================== SECTION 10 ====================== -->
-<h2 id="bitscore">10 · Bit Score — The Normalized Score</h2>
-
-<p>The raw score <code>S</code> still suffers from one problem: its significance via <code>E = Kmn·e<sup>−λS</sup></code> depends on <code>K</code> and <code>λ</code> — which themselves depend on the scoring system. We want a score that you can read off a paper from 1998 and a paper from 2024 and they'll mean the same thing. That's the <strong>bit score</strong>.</p>
-
-<h3>The two-step transformation</h3>
-
-<div class="step">
-  <p><span class="step-num">1</span><strong>Strip out K and λ</strong> to get a "system-free" score S':</p>
-  <div class="formula center">S' = λS − ln(K)</div>
-</div>
-
-<div class="step">
-  <p><span class="step-num">2</span><strong>Convert to bits</strong> by dividing by ln(2) (so we get a log base 2):</p>
-  <div class="formula center">
-    S<sub>bit</sub> = (λS − ln K) / ln(2)
-  </div>
-</div>
-
-<h3>Interpretation: bit score as a log-odds ratio</h3>
-
-<div class="formula center">
-  Bit-score = log<sub>2</sub> ( Probability of alignment if related / Probability of alignment if random )
-</div>
-
-<div class="callout key">
-  <span class="callout-title">🔑 The doubling rule (very testable)</span>
-  Because the bit score is log<sub>2</sub>, <strong>every +1 in bit score doubles the probability of a statistically significant alignment.</strong><br>
-  A 30-bit alignment is twice as good as a 29-bit one. A 50-bit hit is 2<sup>20</sup> ≈ 10⁶ times stronger than a 30-bit one.
-</div>
-
-<h3>Final E-value using the bit score</h3>
-
-<p>Once the score has been normalized, the E-value becomes radically simpler — no <code>K</code> or <code>λ</code> in sight, because they've been absorbed into S':</p>
-
-<div class="formula center" style="font-size: 1.4rem; color: var(--green); border-left: 4px solid var(--green);">
-  E = m · n · 2<sup>−S'</sup>
-</div>
-
-<p>This is the form you can actually use for back-of-the-envelope calculations during an exam, when you're given a bit score and a database size.</p>
-
-<!-- ====================== SECTION 11 ====================== -->
-<h2 id="gapped">11 · Statistics for Gapped Alignments</h2>
-
-<p>Everything above was derived for <strong>ungapped</strong> local alignment, but real BLAST does <strong>gapped</strong> alignment. Why does this matter?</p>
-
-<div class="callout warn">
-  <span class="callout-title">⚠ The complication</span>
-  In gapped alignment:
-  <ul>
-    <li>Positions are <em>not independent</em> anymore — a gap "drags" the next residue along with it.</li>
-    <li>The clean mathematical assumptions used to derive the ungapped EVD <em>do not strictly hold</em>.</li>
-    <li>Therefore we need an <strong>empirical correction</strong> instead of a clean derivation.</li>
-  </ul>
-</div>
-
-<div class="callout success">
-  <span class="callout-title">✅ How it's handled in practice</span>
-  <ol>
-    <li>Generate a <em>large number</em> of random gapped alignments using the chosen scoring matrix and gap penalties.</li>
-    <li>Fit a Gumbel distribution to the resulting score distribution.</li>
-    <li>Read off the empirically estimated values of <code>λ</code> and <code>K</code> from the fit.</li>
-    <li>Plug those empirical <code>λ</code> and <code>K</code> back into the same Karlin–Altschul equation:
-      <div class="formula center" style="margin-top:8px;">E = K·m·n · e<sup>−λS</sup></div>
-    </li>
-  </ol>
-  <strong>Same formula, adjusted (empirical) parameter values.</strong>
-</div>
-
-<!-- ====================== SECTION 12 ====================== -->
-<h2 id="worked">12 · Worked Example — Reading a BLAST Output (from the past paper)</h2>
-
-<p>This is exactly the type of question asked in the BIO F242 Comprehensive Examination (2024–2025, Q5a, 4 marks): given a BLASTp output, explain every term and symbol and draw inferences.</p>
-
-<div class="qbox">
-  <div class="qtitle">📝 Past-Paper Question (Comprehensive Exam, 07.05.25, Q5a — 4 marks)</div>
-  "One of the blastp searches gave the following output with alignment. Explain each of the term and symbol mentioned in the output and draw inference."
-</div>
-
-<div class="seq-block">Score          Expect    Identities       Positives       Gaps
-72.8 bits(177) 3e-16     49/165 (30%)     76/165 (46%)    25/165 (15%)
-
-Query 12  VSLEKYKGKVSLVVNVASDCQLTDRNYLGLKELHKEFGPSHFSVLAFPCNQFGESEPRPS  71
-            + ++Y GK L VNVAS  LT + Y+ L L +E P +L FPCNQFG+ EP +
-Sbjct 31  IPFKQYAGKYVLFVNVASYGGLTGQ-YIELNALQEELAPFGLVILGFPCNQFGKQEPGEN  89
-
-Query 72  KEV---ESFARKNYGV--TFPIFHKIKILGSEGEPAFRFLVDSSK---------------  111
-            E+      + R  G   F +F K +   G + +   + FL +S
-Sbjct 90  SEILPTLKYVRPGGGFVPNFQLFEKGDVNGEKEQKFYTFLKNSCPPTSELLGTSDRLFWE  149
-
-Query 112 ----KEPRWNFWKYLVNPEGQVVKFWRPEEPIEVIRPDIAALVRQ                152
-              +  RWNF K+LV P+G + +W +   ++ DI + +R+
-Sbjct 150 PMKVHDIRWNFEKFLVGPDGIPIMRWHHRTTVSNVKMDILSYMRR                194</div>
-
-<h3>Step-by-step decoding</h3>
-
-<div class="step">
-  <p><span class="step-num">1</span><strong>Score: 72.8 bits (177)</strong></p>
-  <ul>
-    <li><code>72.8 bits</code> = the <strong>bit score</strong> S<sub>bit</sub>. This is the system-free, normalized score.</li>
-    <li><code>(177)</code> in parentheses = the <strong>raw score</strong> S (sum of substitution scores − gap penalties).</li>
-    <li>The bit score &gt; 50 — by the doubling rule, this is an enormously strong alignment.</li>
-  </ul>
-</div>
-
-<div class="step">
-  <p><span class="step-num">2</span><strong>Expect: 3e-16</strong></p>
-  <ul>
-    <li>This is the <strong>E-value</strong>.</li>
-    <li>Definition: the expected number of alignments scoring ≥ 72.8 bits that you'd get by chance in this database.</li>
-    <li>Plain English: "You'd have to do 3 × 10<sup>15</sup> independent searches to expect one fluke this strong."</li>
-    <li>Inference: cross-reference our memorized table — anything below <code>1e-20</code> is "strong homology"; <code>3e-16</code> is also firmly in the strong-homology zone.</li>
-  </ul>
-</div>
-
-<div class="step">
-  <p><span class="step-num">3</span><strong>Identities: 49/165 (30%)</strong></p>
-  <ul>
-    <li>49 of 165 aligned columns have the <em>exact same residue</em> in query and subject.</li>
-    <li>30% identity falls in the well-known <em>"twilight zone"</em> for proteins (~20–35%), but the very low E-value tells us the homology is still real.</li>
-  </ul>
-</div>
-
-<div class="step">
-  <p><span class="step-num">4</span><strong>Positives: 76/165 (46%)</strong></p>
-  <ul>
-    <li>76 of 165 columns are <em>similar</em> residues (positive score in BLOSUM62 — either identical or a conservative substitution).</li>
-    <li>This is the count of all "+" symbols and identical letters shown in the middle row of the alignment.</li>
-  </ul>
-</div>
-
-<div class="step">
-  <p><span class="step-num">5</span><strong>Gaps: 25/165 (15%)</strong></p>
-  <ul>
-    <li>25 of 165 alignment columns are gap (<code>−</code>) characters.</li>
-    <li>15% gapping is moderate — visible in the middle of the alignment as the long <code>---</code> stretch.</li>
-  </ul>
-</div>
-
-<div class="step">
-  <p><span class="step-num">6</span><strong>The alignment symbols</strong></p>
-  <ul>
-    <li><strong>Letter</strong> in the middle row (e.g., <code>Y</code>) = identical residue.</li>
-    <li><strong>+</strong> = positive-scoring substitution (similar amino acid).</li>
-    <li><strong>blank</strong> = non-similar substitution (negative or zero score).</li>
-    <li><strong>−</strong> in query or subject = gap (insertion/deletion).</li>
-    <li><strong>Numbers</strong> at start/end = residue position in the original sequence.</li>
-  </ul>
-</div>
-
-<div class="callout success">
-  <span class="callout-title">✅ Final inference (full-mark answer)</span>
-  This alignment is <strong>highly statistically significant</strong> (E = 3 × 10<sup>−16</sup>, bit score 72.8) despite only 30% identity. Roughly half of the positions show conservative or identical substitution (46% positives), and gaps make up 15% of the alignment. The conclusion is that the query and subject are <em>homologous proteins</em> — likely belonging to the same family (the FPCNQFG motif visible around position 60 is highly conserved, suggesting a functional/structural role).
-</div>
-
-<!-- ====================== SECTION 13 ====================== -->
-<h2 id="summary">13 · One-Page Summary &amp; Cheat-Sheet</h2>
-
-<h3>The logical flow (memorize this chain)</h3>
-
-<div class="flowchain">
-  Random sequences <span class="arrow">↓</span><br>
-  Gumbel EVD distribution <span class="arrow">↓</span><br>
-  P(S ≥ X) ≈ e<sup>−X</sup> <span class="arrow">↓</span><br>
-  E-value (expected count) — Karlin–Altschul <span class="arrow">↓</span><br>
-  Poisson model <span class="arrow">↓</span><br>
-  p-value (probability)
-</div>
-
-<h3>All key formulas in one place</h3>
-
-<table>
-  <thead><tr><th>Quantity</th><th>Formula</th><th>What it gives you</th></tr></thead>
-  <tbody>
-    <tr>
-      <td>EVD PDF</td>
-      <td><code>f(x) = e<sup>−x − e<sup>−x</sup></sup></code></td>
-      <td>Likelihood of each score value (the "shape")</td>
-    </tr>
-    <tr>
-      <td>EVD CDF</td>
-      <td><code>P(S &lt; X) = e<sup>−e<sup>−X</sup></sup></code></td>
-      <td>Probability score is below X</td>
-    </tr>
-    <tr>
-      <td>Tail probability</td>
-      <td><code>P(S ≥ X) = 1 − e<sup>−e<sup>−X</sup></sup> ≈ e<sup>−X</sup></code></td>
-      <td>Probability of a random score ≥ X</td>
-    </tr>
-    <tr>
-      <td><strong>Karlin–Altschul</strong></td>
-      <td><code>E = K · m · n · e<sup>−λS</sup></code></td>
-      <td>Expected # of random hits ≥ S</td>
-    </tr>
-    <tr>
-      <td>Bit score</td>
-      <td><code>S<sub>bit</sub> = (λS − ln K) / ln 2</code></td>
-      <td>Normalized score (system-free)</td>
-    </tr>
-    <tr>
-      <td>E from bit score</td>
-      <td><code>E = m · n · 2<sup>−S'</sup></code></td>
-      <td>E-value using normalized score</td>
-    </tr>
-    <tr>
-      <td>Poisson</td>
-      <td><code>P(k) = e<sup>−λ</sup>·λ<sup>k</sup> / k!</code></td>
-      <td>Count of rare independent events (λ = E)</td>
-    </tr>
-    <tr>
-      <td>P(0) hits</td>
-      <td><code>P(0) = e<sup>−E</sup></code></td>
-      <td>Probability of zero random hits</td>
-    </tr>
-    <tr>
-      <td><strong>p-value</strong></td>
-      <td><code>p = 1 − e<sup>−E</sup></code></td>
-      <td>Probability of ≥1 random hit</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3>Key relationships</h3>
-
-<table>
-  <thead><tr><th>Statement</th><th>Meaning</th></tr></thead>
-  <tbody>
-    <tr><td><code>E ≈ p-value</code> when E is very small</td><td>For E ≤ 0.01, the two numbers are essentially equal.</td></tr>
-    <tr><td><code>E ≠ p-value</code> when E is large</td><td>e.g., E = 5 ⇒ p ≈ 0.99. The p-value is capped at 1; the E-value is not.</td></tr>
-    <tr><td>Doubling rule</td><td>Every +1 of bit score doubles the significance.</td></tr>
-    <tr><td><code>E ∝ m·n</code></td><td>Doubling the database doubles the E-value.</td></tr>
-    <tr><td>Gapped alignments use empirical λ, K</td><td>Same formula, empirically-fit parameters.</td></tr>
-  </tbody>
-</table>
-
-<!-- ====================== SECTION 14 ====================== -->
-<h2 id="traps">14 · Common Traps, Edge Cases &amp; Expected Exam Variants</h2>
-
-<div class="callout danger">
-  <span class="callout-title">🪤 Trap 1: "E-value is a probability"</span>
-  No — the E-value is an <em>expected count</em>. It can be 5, 10, 100. Only the p-value is bounded between 0 and 1. Saying "an E-value of 5 means a 500% probability" is wrong.
-</div>
-
-<div class="callout danger">
-  <span class="callout-title">🪤 Trap 2: "Higher score = more significant"</span>
-  Higher <em>bit score</em> = more significant, yes. But higher <em>raw score</em> alone tells you nothing without knowing the scoring matrix and the database size. This is the entire point of normalization.
-</div>
-
-<div class="callout danger">
-  <span class="callout-title">🪤 Trap 3: "The threshold of significance is fixed"</span>
-  E ≤ 0.01 is a <em>convention</em>, not a law. For very large databases people often use E ≤ 1e-5; for short queries the threshold is sometimes relaxed. Always discuss it in context.
-</div>
-
-<div class="callout danger">
-  <span class="callout-title">🪤 Trap 4: Confusing K, λ, and m, n</span>
-  <ul>
-    <li><strong>K</strong> and <strong>λ</strong> are properties of the <em>scoring system</em> (matrix + gap penalties + AA composition).</li>
-    <li><strong>m</strong> and <strong>n</strong> are properties of the <em>search</em> (query and database lengths).</li>
-  </ul>
-</div>
-
-<div class="callout danger">
-  <span class="callout-title">🪤 Trap 5: "Normal distribution"</span>
-  Random alignment scores follow the <strong>Gumbel EVD</strong>, not the Normal distribution. Why? Because alignment scores are maxima (local alignment maximizes the score), and maxima of random variables follow extreme-value distributions.
-</div>
-
-<h3>Expected exam variants and how to handle each</h3>
-
-<table>
-  <thead><tr><th>Type of question</th><th>How to answer</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><strong>Explain a BLAST output</strong> (like Q5a 2024–25)</td>
-      <td>Decode each field: bits, raw score, E-value, identities, positives, gaps, alignment symbols. Then state the biological inference (significant homology / weak hit / not significant).</td>
-    </tr>
-    <tr>
-      <td><strong>Calculate E given S, m, n</strong></td>
-      <td>If bit score is given: use <code>E = m·n · 2<sup>−S'</sup></code>. If raw + K, λ given: use Karlin–Altschul. Show the substitution explicitly.</td>
-    </tr>
-    <tr>
-      <td><strong>Calculate p-value from E</strong></td>
-      <td>Use <code>p = 1 − e<sup>−E</sup></code>. Note whether E is small (so E ≈ p) or large (compute exactly).</td>
-    </tr>
-    <tr>
-      <td><strong>"What if database doubles?"</strong></td>
-      <td>E doubles (E ∝ n). Significance gets <em>worse</em>. Bit score does not change.</td>
-    </tr>
-    <tr>
-      <td><strong>"Why not normal distribution?"</strong></td>
-      <td>Alignment scores are maxima, not means; their distribution is Gumbel EVD; the right tail is fatter than Normal, so significance must be computed differently.</td>
-    </tr>
-    <tr>
-      <td><strong>"Why bit score not raw score?"</strong></td>
-      <td>Raw scores depend on scoring matrix, gap penalties, and length — they cannot be compared across searches. Bit score absorbs K and λ into the score itself.</td>
-    </tr>
-    <tr>
-      <td><strong>"How is gapped alignment handled?"</strong></td>
-      <td>Karlin–Altschul derivation assumes independence (breaks for gaps). Solution: simulate many random gapped alignments, empirically fit a Gumbel to the scores, and use those empirical λ and K in the same equation.</td>
-    </tr>
-    <tr>
-      <td><strong>"Why is m × n not the exact alignment count?"</strong></td>
-      <td>Alignment lengths (positions not independent), edge effects (end alignments underestimated), and scoring-matrix-dependent search space — corrected by K.</td>
-    </tr>
-  </tbody>
-</table>
-
-<div class="callout key">
-  <span class="callout-title">🎯 The "if I only remember three things" version</span>
-  <ol>
-    <li><strong>Karlin–Altschul:</strong> <code>E = K·m·n·e<sup>−λS</sup></code> — the E-value depends exponentially on score and linearly on lengths.</li>
-    <li><strong>E ↔ p:</strong> <code>p = 1 − e<sup>−E</sup></code>, and <code>E ≈ p</code> for small E.</li>
-    <li><strong>Random scores ≠ Normal:</strong> They follow the <em>Gumbel EVD</em> because alignment is a maximization process. This has a fatter right tail than Normal.</li>
-  </ol>
-</div>
-
-<div class="footer">
-  Built from <code>Statistical_Significance_Seq_Align_SB.pdf</code> · BIO F242 (Introduction to Bioinformatics) · cross-referenced with the Merged Compre PYPs.
-</div>
-
-</div>
 </body>
+
 </html>

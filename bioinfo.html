@@ -853,7 +853,8 @@
                     genes, or proteins. When we use molecular data (DNA, RNA, protein sequences) to infer these
                     relationships, we call it <strong>molecular phylogenetics</strong>. The output is a
                     <strong>phylogenetic tree</strong> — a branching diagram that visually represents how organisms or
-                    sequences are related through common ancestry.</p>
+                    sequences are related through common ancestry.
+                </p>
 
                 <p>Why does this matter? Several reasons that show up in exams and real research:</p>
 
@@ -900,7 +901,8 @@
                 <ul>
                     <li><span class="term">Terminal nodes (leaves/tips)</span> — represent <strong>taxa</strong> or
                         <strong>OTUs (Operational Taxonomic Units)</strong>. These are the things you're comparing:
-                        species, genes, populations.</li>
+                        species, genes, populations.
+                    </li>
                     <li><span class="term">Internal nodes</span> — represent <strong>hypothetical common
                             ancestors</strong> (divergence points).</li>
                     <li><span class="term">Branches (lineages)</span> — connect nodes; may or may not have meaningful
@@ -967,7 +969,8 @@
 
                 <ul>
                     <li><span class="term">Rooted tree</span>: Has a defined common ancestor and shows
-                        <strong>direction</strong> of evolution. You can read ancestral vs derived states.</li>
+                        <strong>direction</strong> of evolution. You can read ancestral vs derived states.
+                    </li>
                     <li><span class="term">Unrooted tree</span>: Shows only relationships, not direction. You cannot say
                         who came first.</li>
                 </ul>
@@ -993,7 +996,8 @@
 
                 <p>For N = 4: unrooted = 3, rooted = 15. For N = 10: unrooted = 2,027,025. For N = 30: ~3.58 × 10³⁶.
                     <strong>This is why exhaustive search is impossible for large datasets and we need heuristic
-                        methods.</strong></p>
+                        methods.</strong>
+                </p>
             </section>
 
             <!-- ═════════════════════════ PART 4 ═════════════════════════ -->
@@ -1074,7 +1078,8 @@ orang    c g g g a c</code></pre>
 
                     <ul>
                         <li><strong>Site 1</strong>: a,a,c,c → two residues, each in ≥2 taxa →
-                            <strong>informative</strong></li>
+                            <strong>informative</strong>
+                        </li>
                         <li><strong>Site 2</strong>: all g → constant → uninformative</li>
                         <li><strong>Site 3</strong>: t,a,g,g → g appears twice but t and a are singletons →
                             uninformative</li>
@@ -1117,7 +1122,8 @@ Orang: tagtt</code></pre>
                 <p>Where <em>D</em> = corrected distance, <em>D<sub>s</sub></em> = raw difference fraction.</p>
 
                 <p>Other models: <strong>Kimura</strong> (separates transitions vs transversions),
-                    <strong>Felsenstein</strong> (incorporates base frequencies).</p>
+                    <strong>Felsenstein</strong> (incorporates base frequencies).
+                </p>
             </section>
 
             <!-- ═════════════════════════ PART 7 ═════════════════════════ -->
@@ -1401,7 +1407,8 @@ D    11.5  14    0</code></pre>
                 <h2>Clades and <em>Monophyletic Groups</em></h2>
 
                 <p>A <span class="term">clade</span> = a common ancestor + ALL its descendants. Such a group is called
-                    <strong>monophyletic</strong>.</p>
+                    <strong>monophyletic</strong>.
+                </p>
 
                 <p>Clades are biologically meaningful because they reflect actual evolutionary history. Groups that
                     exclude some descendants (paraphyletic) or include unrelated members (polyphyletic) do <em>not</em>.
@@ -1816,7 +1823,8 @@ MH          21   21   20.5    0</code></pre>
                     <p><strong>(i) Gorilla is more closely related to bonobo than to orangutan</strong> —
                         <strong>TRUE</strong>. Gorilla and bonobo share a more recent common ancestor (the (gorilla,
                         bonobo) node) than gorilla and orangutan, which share the deeper (orangutan, (gorilla, bonobo))
-                        node.</p>
+                        node.
+                    </p>
 
                     <p><strong>(ii) Orangutan is equally related to gorilla and bonobo</strong> — <strong>TRUE</strong>.
                         Orangutan branches off before gorilla and bonobo diverge from each other. So orangutan's common
@@ -1826,7 +1834,8 @@ MH          21   21   20.5    0</code></pre>
                     <p><strong>(iii) Orangutan is equally related to gorilla and gibbon</strong> —
                         <strong>FALSE</strong>. Orangutan and gorilla share a more recent common ancestor (the
                         (orangutan, (gorilla, bonobo)) node) than orangutan and gibbon (the root). Orangutan is more
-                        closely related to gorilla.</p>
+                        closely related to gorilla.
+                    </p>
 
                     <p><strong>(iv) Gibbon is more closely related to orangutan than to bonobo</strong> —
                         <strong>FALSE</strong>. Gibbon is the outgroup — its common ancestor with EVERY other taxon
@@ -1850,7 +1859,8 @@ MH          21   21   20.5    0</code></pre>
                         <strong>Neighbor-Joining</strong> or <strong>Maximum Parsimony</strong> or <strong>Maximum
                             Likelihood</strong> output without an explicit outgroup. NJ is the most likely candidate
                         because: (a) it produces unrooted trees by default, (b) branch lengths are unequal (no molecular
-                        clock), and (c) it's the standard fast distance method for moderate-sized datasets.</p>
+                        clock), and (c) it's the standard fast distance method for moderate-sized datasets.
+                    </p>
 
                     <p><strong>Rooted phylogram (right):</strong> This has clear hierarchical structure with branch
                         lengths. This could be produced by: (a) <strong>UPGMA</strong> (always rooted), (b) NJ followed
@@ -1991,16 +2001,21 @@ MH          21   21   20.5    0</code></pre>
 
                     <ul>
                         <li><strong>Site 1:</strong> 0,0,1,0 (Out=0, A=0, B=1, C=0) → "1" only in B (1 taxon).
-                            <strong>Uninformative</strong> (autapomorphy).</li>
+                            <strong>Uninformative</strong> (autapomorphy).
+                        </li>
                         <li><strong>Site 2:</strong> 0,1,1,0 → "0" in Out and C (2 taxa), "1" in A and B (2 taxa).
-                            <strong>INFORMATIVE ✓</strong></li>
+                            <strong>INFORMATIVE ✓</strong>
+                        </li>
                         <li><strong>Site 3:</strong> 0,0,0,1 → "1" only in C. <strong>Uninformative</strong>.</li>
                         <li><strong>Site 4:</strong> 0,0,1,1 → "0" in Out and A (2 taxa), "1" in B and C (2 taxa).
-                            <strong>INFORMATIVE ✓</strong></li>
+                            <strong>INFORMATIVE ✓</strong>
+                        </li>
                         <li><strong>Site 5:</strong> 0,1,1,0 → same pattern as site 2: "0" in Out and C, "1" in A and B.
-                            <strong>INFORMATIVE ✓</strong></li>
+                            <strong>INFORMATIVE ✓</strong>
+                        </li>
                         <li><strong>Site 6:</strong> 0,1,1,0 → same pattern: "0" in Out and C, "1" in A and B.
-                            <strong>INFORMATIVE ✓</strong></li>
+                            <strong>INFORMATIVE ✓</strong>
+                        </li>
                     </ul>
 
                     <p><strong>Informative sites: 2, 4, 5, 6</strong> (four total).</p>
@@ -2022,7 +2037,8 @@ MH          21   21   20.5    0</code></pre>
                             (A,B) is "1", change from 0→1 on this branch = <strong>1 change</strong>.</p>
                         <p><em>Site 4 (Out=0, A=0, B=1, C=1):</em> A and B are sisters but have different states (0 and
                             1). C has state "1". Most parsimonious: 0→1 on branch to B AND 0→1 on branch to C =
-                            <strong>2 changes</strong>.</p>
+                            <strong>2 changes</strong>.
+                        </p>
                         <p><em>Sites 5 and 6:</em> Same as site 2 → <strong>1 change each</strong>.</p>
                         <p><strong>Total for Tree 1 = 1 + 2 + 1 + 1 = 5 changes</strong></p>
                     </div>
@@ -2032,7 +2048,8 @@ MH          21   21   20.5    0</code></pre>
                         <p><em>Site 2 (A=1, C=0, B=1):</em> A and C are sisters but A=1, C=0. B=1. Most parsimonious:
                             0→1 on branch to A AND 0→1 on branch to B = <strong>2 changes</strong>.</p>
                         <p><em>Site 4 (A=0, C=1, B=1):</em> A=0, C=1, B=1. 0→1 on branch to C and 0→1 on branch to B =
-                            <strong>2 changes</strong>.</p>
+                            <strong>2 changes</strong>.
+                        </p>
                         <p><em>Sites 5 and 6:</em> Same as site 2 → <strong>2 changes each</strong>.</p>
                         <p><strong>Total for Tree 2 = 2 + 2 + 2 + 2 = 8 changes</strong></p>
                     </div>
@@ -2040,7 +2057,8 @@ MH          21   21   20.5    0</code></pre>
                     <div class="callout">
                         <div class="callout-title">TREE 3: ((B,C), A) with Out as outgroup</div>
                         <p><em>Site 2 (B=1, C=0, A=1):</em> B and C sisters but differ. A=1. 0→1 on B and 0→1 on A =
-                            <strong>2 changes</strong>.</p>
+                            <strong>2 changes</strong>.
+                        </p>
                         <p><em>Site 4 (B=1, C=1, A=0):</em> B and C both =1, sisters. Ancestor of (B,C) = 1, single
                             change 0→1 on that branch = <strong>1 change</strong>.</p>
                         <p><em>Sites 5 and 6:</em> Same as site 2 → <strong>2 changes each</strong>.</p>
@@ -2087,7 +2105,8 @@ MH          21   21   20.5    0</code></pre>
                     <h3>3(d) — Does the human tree figure indicate humans are most complex/more evolved? (2 marks)</h3>
 
                     <p><strong>NO.</strong> This is a common misconception. A phylogenetic tree shows
-                        <strong>evolutionary relationships</strong>, not progress or hierarchy. Several reasons:</p>
+                        <strong>evolutionary relationships</strong>, not progress or hierarchy. Several reasons:
+                    </p>
 
                     <ol>
                         <li><strong>All extant species are equally "evolved"</strong> — every living organism today
