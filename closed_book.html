@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BIO F242 — Closed-Book Cheat Sheet & Mock Papers</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel-2: #1c2128;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --accent-2: #79c0ff;
+    --green: #3fb950;
+    --orange: #ffa657;
+    --red: #ff7b72;
+    --yellow: #d29922;
+    --purple: #bc8cff;
+    --pink: #f778ba;
+    --code-bg: #0a0c10;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif; line-height: 1.65; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 36px 28px 120px; }
+  header { border-bottom: 2px solid var(--border); padding-bottom: 18px; margin-bottom: 30px; }
+  header h1 { color: var(--accent-2); font-size: 2.1em; margin: 0 0 6px; letter-spacing: -0.02em; }
+  header .sub { color: var(--muted); font-size: 1.05em; }
+  header .meta { color: var(--orange); font-weight: 600; margin-top: 8px; }
+  h2 { color: var(--accent); border-left: 5px solid var(--accent); padding-left: 14px; margin-top: 56px; font-size: 1.7em; }
+  h3 { color: var(--accent-2); margin-top: 32px; font-size: 1.3em; }
+  h4 { color: var(--yellow); margin-top: 22px; font-size: 1.08em; }
+  p, li { font-size: 1.0em; }
+  code, .code { font-family: "Fira Code", "JetBrains Mono", Consolas, monospace; background: var(--code-bg); padding: 2px 6px; border-radius: 4px; color: var(--orange); font-size: 0.93em; border: 1px solid var(--border); }
+  pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; overflow-x: auto; color: var(--text); font-size: 0.93em; }
+  .callout { border-radius: 8px; padding: 14px 18px; margin: 18px 0; border-left: 5px solid; }
+  .formula { background: #0f2438; border-color: var(--accent); }
+  .rule { background: #2a1f0a; border-color: var(--yellow); }
+  .warn { background: #2a0f0f; border-color: var(--red); }
+  .tip { background: #0f2a18; border-color: var(--green); }
+  .key { background: #1d1130; border-color: var(--purple); }
+  .callout strong { color: var(--accent-2); }
+  .warn strong { color: var(--red); }
+  .rule strong { color: var(--yellow); }
+  .tip strong { color: var(--green); }
+  .key strong { color: var(--purple); }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 0.93em; background: var(--panel); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  th, td { padding: 8px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+  th { background: var(--panel-2); color: var(--accent-2); font-weight: 600; }
+  tr:nth-child(even) td { background: #14191f; }
+  .compare th:first-child { width: 22%; color: var(--yellow); }
+  .toc { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 18px 24px; margin-bottom: 30px; }
+  .toc h3 { margin-top: 0; color: var(--accent-2); }
+  .toc ol { columns: 2; column-gap: 30px; margin: 0; padding-left: 22px; }
+  .toc li { margin: 4px 0; }
+  .toc a { color: var(--text); text-decoration: none; }
+  .toc a:hover { color: var(--accent); text-decoration: underline; }
+  .mcq { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 18px 22px; margin: 16px 0; }
+  .mcq .q { color: var(--accent-2); font-weight: 600; margin-bottom: 8px; }
+  .mcq ul { list-style: upper-alpha; padding-left: 24px; margin: 8px 0; }
+  .mcq li { margin: 4px 0; }
+  .answer { color: var(--green); font-weight: 600; margin-top: 8px; padding: 8px 12px; background: #0f2a18; border-left: 3px solid var(--green); border-radius: 4px; }
+  .explanation { color: var(--muted); font-size: 0.92em; margin-top: 6px; font-style: italic; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-2 > div { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; }
+  .grid-2 h4 { margin-top: 0; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.78em; font-weight: 600; background: var(--accent); color: var(--bg); margin-right: 6px; vertical-align: middle; }
+  .badge.warn { background: var(--red); color: white; }
+  .badge.tip { background: var(--green); color: var(--bg); }
+  .badge.key { background: var(--purple); color: white; }
+  .badge.exam { background: var(--orange); color: var(--bg); }
+  hr.section-divider { border: none; border-top: 2px dashed var(--border); margin: 50px 0; }
+  .mock-header { background: linear-gradient(90deg, #1d1130 0%, #0f2a18 100%); border: 2px solid var(--purple); border-radius: 10px; padding: 18px 24px; margin: 28px 0; }
+  .mock-header h2 { border: none; padding: 0; margin: 0; color: var(--purple); }
+  .mock-header .info { color: var(--muted); margin-top: 6px; font-size: 0.95em; }
+  ul.tight li { margin: 3px 0; }
+  .small { font-size: 0.88em; color: var(--muted); }
+  .greek { font-family: "Cambria Math", "Latin Modern Math", serif; font-style: italic; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>📚 BIO F242 — Introduction to Bioinformatics</h1>
+  <div class="sub">Closed-Book Component • Theoretical MCQ Cheat Sheet + Mock Papers</div>
+  <div class="meta">⚠ Multiple-correct MCQs with negative marking — only mark options you are confident in.</div>
+</header>
+
+<div class="toc">
+  <h3>🗺 Table of Contents</h3>
+  <ol>
+    <li><a href="#part1">PART A: Rapid-Recall Cheat Sheet</a></li>
+    <li><a href="#central">1. Central Dogma & Molecular Biology</a></li>
+    <li><a href="#align">2. Sequence Alignment Fundamentals</a></li>
+    <li><a href="#dotplot">3. Dot Matrix / Dot Plot</a></li>
+    <li><a href="#dp">4. Dynamic Programming (NW & SW)</a></li>
+    <li><a href="#scoring">5. Scoring Matrices (PAM & BLOSUM)</a></li>
+    <li><a href="#gaps">6. Gap Penalties</a></li>
+    <li><a href="#stat">7. Statistical Significance (E-value)</a></li>
+    <li><a href="#msa">8. Multiple Sequence Alignment</a></li>
+    <li><a href="#phylo">9. Phylogenetic Analysis</a></li>
+    <li><a href="#ml">10. ML & Bootstrapping</a></li>
+    <li><a href="#gene">11. Gene Prediction</a></li>
+    <li><a href="#secstruct">12. Protein Secondary Structure (Chou-Fasman)</a></li>
+    <li><a href="#tert">13. Tertiary Structure Prediction</a></li>
+    <li><a href="#rna">14. RNA Structure & Nussinov</a></li>
+    <li><a href="#exp">15. Experimental Structure (NMR/X-ray)</a></li>
+    <li><a href="#micro">16. Microarrays</a></li>
+    <li><a href="#seq">17. DNA Sequencing (Sanger, Maxam–Gilbert, NGS)</a></li>
+    <li><a href="#chip">18. ChIP-seq & Applications</a></li>
+    <li><a href="#part2">PART B: Mock Paper 1</a></li>
+    <li><a href="#mock2">PART C: Mock Paper 2</a></li>
+    <li><a href="#mock3">PART D: Mock Paper 3 (Mixed Numerical+Theory)</a></li>
+    <li><a href="#traps">PART E: Top 30 Trap MCQ Statements</a></li>
+  </ol>
+</div>
+
+<!-- ============== PART A ============== -->
+<h1 id="part1" style="color:var(--accent-2); margin-top:50px; border-bottom: 3px solid var(--accent-2); padding-bottom:10px;">PART A — Rapid-Recall Cheat Sheet</h1>
+
+<!-- 1 Central dogma -->
+<h2 id="central">1️⃣ Central Dogma & Molecular Biology Basics</h2>
+<div class="callout key">
+  <strong>Core flow:</strong> DNA → (replication, self) ; DNA → RNA (transcription) ; RNA → Protein (translation) → Functional protein (folding/assembly/targeting).
+  Information transfer from protein → nucleic acid is <em>impossible</em> (Crick, 1958).
+</div>
+
+<table>
+<tr><th>Property</th><th>Prokaryotes</th><th>Eukaryotes</th></tr>
+<tr><td>mRNA</td><td>Polycistronic (mostly &gt;1 ORF)</td><td>Monocistronic (almost always 1 ORF)</td></tr>
+<tr><td>Start codon</td><td>AUG, also GUG/UUG (bacteria)</td><td>AUG only</td></tr>
+<tr><td>Introns/Splicing</td><td>Absent (typically)</td><td>Present; spliceosome (~150 proteins + 5 RNAs)</td></tr>
+<tr><td>Promoter</td><td>−35 / −10 (Pribnow/TATA-like, AT-rich)</td><td>TATA, CAAT, GC box; enhancers (distal)</td></tr>
+<tr><td>RNA Pol</td><td>Core αββ′ω + σ (specificity), ρ (termination)</td><td>RNA Pol I / II / III</td></tr>
+</table>
+
+<div class="callout rule">
+  <strong>Key facts:</strong>
+  <ul class="tight">
+    <li>Genetic code: <strong>3-letter codons</strong> from 4 bases → 64 codons → 20 AAs ⇒ <strong>degenerate</strong> (synonymous mostly at 3rd position — wobble).</li>
+    <li>Stop codons: <strong>UAA, UAG, UGA</strong>.</li>
+    <li>Translation components: mRNA + tRNA + aminoacyl-tRNA synthetase + ribosome.</li>
+    <li>tRNA features: <strong>Acceptor stem</strong> (AA attaches), <strong>TΨC loop</strong> (pseudouridine), <strong>D loop</strong> (dihydrouridine), <strong>Anticodon loop</strong>.</li>
+    <li>Alternative splicing: ~20,000 human genes → &gt;100,000 protein types; ~60% of human genes alternatively spliced.</li>
+  </ul>
+</div>
+
+<h4>DNA Structure</h4>
+<ul class="tight">
+  <li>Double-stranded, antiparallel (5′→3′ and 3′→5′).</li>
+  <li>Watson–Crick pairs: <strong>A=T (2 H-bonds)</strong>, <strong>G≡C (3 H-bonds)</strong>.</li>
+  <li>Purines: A, G. Pyrimidines: C, T (U in RNA).</li>
+  <li>Forms: <strong>B-DNA</strong> (most common, right-handed), <strong>A-DNA</strong> (dehydrated, right-handed), <strong>Z-DNA</strong> (left-handed, zig-zag).</li>
+  <li>Sequence in FASTA format starts with <code>&gt;</code> header line.</li>
+</ul>
+
+<h4>Genome size facts (memorise!)</h4>
+<table>
+<tr><th>Organism</th><th>Approx. genome size</th><th>Note</th></tr>
+<tr><td>ϕX-174 (virus)</td><td>5,386 bp</td><td>E. coli phage</td></tr>
+<tr><td>Coliphage MS2</td><td>3.5 × 10³ bp</td><td>Smallest genome</td></tr>
+<tr><td>Mycoplasma</td><td>5 × 10⁵ bp</td><td>Smallest cellular genome</td></tr>
+<tr><td>E. coli</td><td>4.64 × 10⁶ bp; 1 chromosome</td><td>—</td></tr>
+<tr><td>S. cerevisiae</td><td>1.2 × 10⁷ bp; 16 chr</td><td>—</td></tr>
+<tr><td>C. elegans</td><td>~10⁸ bp; 11/12 chr</td><td>Nematode</td></tr>
+<tr><td>D. melanogaster</td><td>1.7 × 10⁸ bp; 4 chr</td><td>Fruit fly</td></tr>
+<tr><td>Human</td><td>3 × 10⁹ bp; 23 chr</td><td>~20,000–35,000 ORFs</td></tr>
+<tr><td>A. cepa (onion)</td><td>1.5 × 10¹⁰ bp</td><td>Larger than human!</td></tr>
+</table>
+
+<hr class="section-divider">
+
+<!-- 2 alignment -->
+<h2 id="align">2️⃣ Sequence Alignment — Fundamentals</h2>
+
+<div class="callout formula">
+  <strong>Why align?</strong> To detect homology, infer function, build phylogenies, identify motifs/domains, predict structure, design primers.
+</div>
+
+<h4>Core terms</h4>
+<table>
+<tr><th>Term</th><th>Definition</th></tr>
+<tr><td>Match</td><td>Identical residues align (+ score)</td></tr>
+<tr><td>Mismatch</td><td>Different residues align (− score)</td></tr>
+<tr><td>Gap</td><td>Insertion or deletion (indel), shown as <code>-</code> (− score)</td></tr>
+<tr><td>Identity</td><td>% of <em>identical</em> aligned positions</td></tr>
+<tr><td>Similarity</td><td>% of <em>identical + conservatively substituted</em> positions (proteins)</td></tr>
+<tr><td>Homology</td><td><strong>Binary</strong> — sequences either share common ancestor OR not. Not a percentage.</td></tr>
+<tr><td>Orthologs</td><td>Same gene, different species (via speciation). Usually similar function.</td></tr>
+<tr><td>Paralogs</td><td>Same species, duplicated gene. May diverge in function.</td></tr>
+<tr><td>Xenologs</td><td>Acquired via horizontal/lateral gene transfer.</td></tr>
+<tr><td>Analogs</td><td>Similar function, <em>independent</em> evolutionary origin — NOT homologous.</td></tr>
+</table>
+
+<div class="callout warn">
+  <strong>⚠ Common trap:</strong> Homology ≠ Similarity. Two sequences can be 10% similar yet homologous, or 90% similar yet analogs. You can never say "X% homologous"; you say "X% similar / identical".
+</div>
+
+<h4>Global vs Local Alignment</h4>
+<table class="compare">
+<tr><th>Feature</th><th>Global (Needleman–Wunsch)</th><th>Local (Smith–Waterman)</th></tr>
+<tr><td>Span</td><td>End-to-end of both sequences</td><td>Best matching subregion only</td></tr>
+<tr><td>Best for</td><td>Similar length, closely related</td><td>Divergent sequences, conserved domains</td></tr>
+<tr><td>Initial row/col</td><td>Filled with cumulative gap penalty</td><td>All zeros</td></tr>
+<tr><td>Negative scores</td><td>Allowed</td><td>Replaced by 0</td></tr>
+<tr><td>Traceback start</td><td>Bottom-right corner</td><td>Highest score in matrix</td></tr>
+<tr><td>Traceback end</td><td>Top-left corner</td><td>First 0 encountered</td></tr>
+<tr><td>Use case</td><td>Whole-gene comparison</td><td>Motif/domain discovery, BLAST core</td></tr>
+</table>
+
+<div class="callout key">
+  <strong>Number of possible alignments</strong> for two sequences of length n: <span class="code">C(2n, n) ≈ 2²ⁿ / √(πn)</span>. For n=100: ≈ 10⁷⁷ alignments → need <strong>dynamic programming</strong>.
+</div>
+
+<hr class="section-divider">
+
+<!-- 3 dotplot -->
+<h2 id="dotplot">3️⃣ Dot Matrix / Dot Plot</h2>
+<div class="callout key">
+A 2D grid that puts a dot wherever residues of two sequences match. <strong>Visual</strong> method. No score, no quantitative output.
+</div>
+
+<h4>Interpretations (memorise — favourite MCQ source)</h4>
+<table>
+<tr><th>Pattern</th><th>Meaning</th></tr>
+<tr><td>Main diagonal (top-left to bottom-right)</td><td>Sequences are similar / identical regions</td></tr>
+<tr><td>Off-diagonal parallel lines</td><td><strong>Internal repeats</strong></td></tr>
+<tr><td>Shifted diagonal (broken)</td><td><strong>Insertion or deletion (mutation)</strong></td></tr>
+<tr><td>Anti-diagonal (perpendicular to main)</td><td><strong>Inverted repeat / palindrome</strong> (when comparing seq vs reverse-complement)</td></tr>
+<tr><td>Scattered isolated dots</td><td>Random matches (noise)</td></tr>
+</table>
+
+<div class="callout rule">
+  <strong>Window + Stringency:</strong> Slide a window of <em>w</em> residues; put a dot only if ≥ <em>stringency</em> matches in that window. Higher window/stringency → less noise but may miss weak similarities.
+</div>
+
+<hr class="section-divider">
+
+<!-- 4 DP -->
+<h2 id="dp">4️⃣ Dynamic Programming — Needleman–Wunsch & Smith–Waterman</h2>
+
+<div class="callout formula">
+  <strong>Bellman's principle:</strong> The best alignment up to (i,j) is the previous best + the local choice (match/mismatch/gap). Time complexity: <strong>O(m·n)</strong>; Space: <strong>O(m·n)</strong>. Bellman invented DP in the 1950s; Needleman & Wunsch first applied it to biological sequences in <strong>1970</strong>.
+</div>
+
+<h4>Needleman–Wunsch (Global) — Algorithm</h4>
+<ol>
+  <li><strong>Initialization:</strong> Create (m+1)×(n+1) matrix. F(0,0)=0; first row F(0,j) = j·gap; first column F(i,0) = i·gap.</li>
+  <li><strong>Matrix fill (recurrence):</strong>
+    <pre>F(i,j) = max {
+   F(i−1, j−1) + s(xi, yj)   // diagonal: match/mismatch
+   F(i−1, j)   + gap         // up:   gap in seq Y
+   F(i,   j−1) + gap         // left: gap in seq X
+}</pre>
+    Record arrow pointing to which cell gave the max.</li>
+  <li><strong>Traceback:</strong> Start at bottom-right F(m,n) and follow arrows back to F(0,0). Diagonal → match/mismatch; up → gap in Y (insertion in X); left → gap in X.</li>
+</ol>
+
+<h4>Smith–Waterman (Local) — Algorithm</h4>
+<ol>
+  <li><strong>Initialization:</strong> First row and column all <strong>zeros</strong>.</li>
+  <li><strong>Recurrence (extra zero term):</strong>
+    <pre>H(i,j) = max {
+   0,                                  // <-- KEY DIFFERENCE
+   H(i−1, j−1) + s(xi, yj),
+   H(i−1, j)   + gap,
+   H(i,   j−1) + gap
+}</pre></li>
+  <li><strong>Traceback:</strong> Start at the cell with the <strong>maximum value</strong> anywhere in the matrix, follow arrows until you hit a <strong>0</strong>.</li>
+</ol>
+
+<div class="callout warn">
+  <strong>⚠ MCQ traps:</strong>
+  <ul class="tight">
+    <li>NW does NOT zero out negatives; SW does.</li>
+    <li>SW traceback can start anywhere; NW must start at F(m,n).</li>
+    <li>Both use the <em>same</em> recurrence apart from the extra "0" in SW.</li>
+    <li>Both are O(m·n) — same complexity.</li>
+    <li>BOTH guarantee the <strong>optimal</strong> alignment (under the given scoring scheme). FASTA/BLAST are heuristic and don't guarantee optimality.</li>
+  </ul>
+</div>
+
+<hr class="section-divider">
+
+<!-- 5 scoring -->
+<h2 id="scoring">5️⃣ Scoring Matrices — PAM & BLOSUM</h2>
+
+<h4>Types of substitution matrices</h4>
+<ol class="tight">
+  <li><strong>Identity scoring</strong> — match=1, mismatch=0. Simplest. Rarely used for proteins.</li>
+  <li><strong>DNA scoring</strong> — distinguishes <strong>transitions</strong> (A↔G, C↔T; purine↔purine, pyrimidine↔pyrimidine; more frequent) from <strong>transversions</strong> (purine↔pyrimidine; less frequent).</li>
+  <li><strong>Chemical similarity</strong> — weighted by size, charge, polarity.</li>
+  <li><strong>Observed matrices</strong> — empirical (PAM, BLOSUM). Default for proteins.</li>
+</ol>
+
+<h4>PAM (Point Accepted Mutation) — Dayhoff, 1978</h4>
+<ul class="tight">
+  <li>Derived from <strong>global</strong> alignments of <strong>closely related</strong> (≥85% identity) proteins.</li>
+  <li><strong>PAM1</strong> = 1% accepted mutations per 100 residues.</li>
+  <li>Higher PAM numbers obtained by <strong>matrix multiplication</strong> (PAM1)ⁿ. Assumes <strong>Markov process</strong>.</li>
+  <li>Errors in PAM1 are magnified through PAM250.</li>
+  <li>Assumptions: P(X→Y) = P(Y→X); independence of sites; uniform mutation rate; AA frequencies stationary over evolutionary time.</li>
+</ul>
+
+<h4>BLOSUM (BLOcks SUbstitution Matrix) — Henikoff & Henikoff, 1992</h4>
+<ul class="tight">
+  <li>Derived from <strong>local</strong> alignments — conserved <strong>blocks</strong> (ungapped).</li>
+  <li><strong>BLOSUM62</strong>: sequences clustered at 62% identity. Default in BLAST.</li>
+  <li>Each BLOSUM matrix is constructed <em>independently</em> (no extrapolation).</li>
+  <li>Score = log-odds: S<sub>ij</sub> = 2·log₂(p<sub>ij</sub> / (p<sub>i</sub>·p<sub>j</sub>)) (half-bits).</li>
+</ul>
+
+<div class="callout formula">
+  <strong>The Golden Inverse Rule (high-yield MCQ!):</strong>
+  <table style="margin-top:6px;">
+    <tr><th>Sequence relationship</th><th>Best PAM</th><th>Best BLOSUM</th></tr>
+    <tr><td>Closely related (high identity, short)</td><td><strong>PAM1 (low)</strong></td><td><strong>BLOSUM100 (high)</strong></td></tr>
+    <tr><td>Distantly related (low identity, long)</td><td><strong>PAM250 (high)</strong></td><td><strong>BLOSUM30 (low)</strong></td></tr>
+  </table>
+  Mnemonic: <em>PAM</em> = <strong>P</strong>roportional, <em>BLOSUM</em> = <strong>B</strong>ackwards. ↑PAM number = ↑distance; ↑BLOSUM number = ↓distance.
+</div>
+
+<h4>BLOSUM vs PAM — Conceptual differences</h4>
+<table class="compare">
+<tr><th>Aspect</th><th>PAM</th><th>BLOSUM</th></tr>
+<tr><td>Alignment used</td><td>Global</td><td>Local (blocks)</td></tr>
+<tr><td>Sequence identity required</td><td>≥85% (then extrapolated)</td><td>Variable (used as clustering threshold)</td></tr>
+<tr><td>Construction</td><td>Markov model; extrapolated via matrix powers</td><td>Each matrix calculated independently from observed counts</td></tr>
+<tr><td>Errors</td><td>Compound at large PAM</td><td>Direct empirical estimate; more accurate</td></tr>
+<tr><td>Designed to</td><td>Track evolutionary origin</td><td>Find conserved domains</td></tr>
+<tr><td>Better for</td><td>Closely related (small PAM)</td><td>Distantly related; preferred in BLAST</td></tr>
+</table>
+
+<div class="callout rule">
+  <strong>Why log-odds?</strong> (✓ multiplication → addition; ✓ scores additive; ✓ positive = favoured substitution; ✓ negative = unfavourable; ✓ zero = random expectation.) All BLAST statistics derive from log-odds scores.
+</div>
+
+<hr class="section-divider">
+
+<!-- 6 gap -->
+<h2 id="gaps">6️⃣ Gap Penalties</h2>
+
+<table>
+<tr><th>Type</th><th>Formula</th><th>Example (gap len 4)</th><th>Comment</th></tr>
+<tr><td>Linear</td><td>w(k) = g·k</td><td>g = −2 → 4·(−2) = −8</td><td>Simple. Penalizes long gaps too harshly.</td></tr>
+<tr><td>Affine</td><td>w(k) = w<sub>o</sub> + (k−1)·w<sub>e</sub></td><td>w<sub>o</sub>=−3, w<sub>e</sub>=−1 → −3 + 3·(−1) = −6</td><td><strong>Biologically realistic</strong> (single insertion of multiple residues more likely than several separate gaps).</td></tr>
+</table>
+
+<div class="callout tip">
+  <strong>Choosing gap penalty:</strong> For <strong>closely related</strong> sequences → <em>higher</em> (stricter) gap penalty (gaps rare). For divergent → <em>lower</em> (more tolerant). Affine always preferred biologically.
+</div>
+
+<hr class="section-divider">
+
+<!-- 7 stat -->
+<h2 id="stat">7️⃣ Statistical Significance — E-value & Karlin–Altschul</h2>
+
+<div class="callout formula">
+  <strong>Karlin–Altschul equation:</strong>
+  <pre>E = K · m · n · e^(−λ·S)</pre>
+  where E = expected number of alignments with score ≥ S by chance; m, n = sequence/database lengths; K, λ = matrix-specific constants (correction for edge effects, scoring matrix); S = raw score.
+</div>
+
+<ul class="tight">
+  <li><strong>Higher S → lower E-value.</strong></li>
+  <li><strong>Random alignment scores</strong> follow the <strong>Gumbel Extreme Value Distribution (EVD)</strong>, NOT a normal distribution, because we take maximum values. EVD has a long <em>right tail</em>.</li>
+  <li><strong>PDF of EVD:</strong> f(x) = e<sup>−x − e<sup>−x</sup></sup>.</li>
+  <li>E-value is the <em>expected count</em> of hits ≥ S. Counts of rare independent events follow a <strong>Poisson distribution</strong> → P-value derives from this.</li>
+  <li><strong>p-value from E:</strong> P(X≥1) = 1 − e<sup>−E</sup>. For small E, p ≈ E.</li>
+</ul>
+
+<h4>Bit-score (universal unit)</h4>
+<div class="callout formula">
+<pre>S′ (bits) = (λ·S − ln K) / ln 2</pre>
+Every <strong>+1 bit</strong> → probability of statistically significant alignment <strong>doubles</strong> (or E-value halves). Bit scores are matrix-independent, allowing comparison across databases.
+</div>
+
+<h4>Interpretation of E-values</h4>
+<table>
+<tr><th>E-value</th><th>Meaning</th></tr>
+<tr><td>10</td><td>~10 random hits — meaningless</td></tr>
+<tr><td>1</td><td>~1 random hit — possibly meaningful</td></tr>
+<tr><td>0.01</td><td>Rare by chance — likely meaningful</td></tr>
+<tr><td>1e-20</td><td>Extremely unlikely — strong homology</td></tr>
+<tr><td>0</td><td>Effectively certain homology</td></tr>
+</table>
+
+<div class="callout warn">
+  <strong>⚠ E-value depends on database size!</strong> Same alignment in a larger DB has a larger E-value (more chances to find it by random). Lower E is better.
+</div>
+
+<hr class="section-divider">
+
+<!-- 8 MSA -->
+<h2 id="msa">8️⃣ Multiple Sequence Alignment (MSA)</h2>
+
+<h4>Why MSA?</h4>
+<ul class="tight">
+  <li>Conserved motif/domain discovery.</li>
+  <li>Phylogenetic analysis.</li>
+  <li>Secondary structure & 3D model (homology modeling) prediction.</li>
+  <li>Profile / PSSM / HMM building.</li>
+</ul>
+
+<h4>Methods</h4>
+<table>
+<tr><th>Method</th><th>Approach</th><th>Tools</th></tr>
+<tr><td>Dynamic programming (K-dim)</td><td>Exact, scales to K sequences — O(L^K). Practically infeasible for K&gt;3–5.</td><td>MSA (Lipman)</td></tr>
+<tr><td><strong>Progressive</strong></td><td>(1) Pairwise alignments → distance matrix → (2) guide tree → (3) align in tree order, sequence→sequence, sequence→profile, profile→profile.</td><td><strong>ClustalW</strong>, MUSCLE, Kalign</td></tr>
+<tr><td>Iterative (consistency)</td><td>Remove each sequence, realign to profile, iterate until convergence.</td><td>MUSCLE, T-Coffee, DIALIGN</td></tr>
+<tr><td>HMM-based</td><td>Probabilistic profile HMM.</td><td>HMMER, SAM</td></tr>
+</table>
+
+<div class="callout warn">
+  <strong>Problems with progressive (ClustalW) alignment:</strong>
+  <ul class="tight">
+    <li>Errors made early <strong>propagate</strong> and cannot be corrected later ("Once a gap, always a gap").</li>
+    <li>Tries global, not local — bad for sequences sharing only a domain.</li>
+    <li>Sensitive to choice of substitution matrix and gap penalty at every stage.</li>
+    <li>Performs poorly when one sequence has a large insertion relative to others.</li>
+  </ul>
+</div>
+
+<h4>SP (Sum-of-Pairs) score</h4>
+<p>Most common MSA scoring scheme: sum scores of all pairwise alignments in the MSA column-by-column. Used in DP-based and progressive methods.</p>
+
+<hr class="section-divider">
+
+<!-- 9 phylo -->
+<h2 id="phylo">9️⃣ Phylogenetic Analysis — Foundations</h2>
+
+<h4>Terminology</h4>
+<table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Taxon (taxa, plural)</td><td>Terminal node — a gene, organism, or species being compared</td></tr>
+<tr><td>Internal node</td><td>Hypothetical common ancestor (divergence point)</td></tr>
+<tr><td>Branch / lineage</td><td>Edge between nodes</td></tr>
+<tr><td>Branch length</td><td>Amount of evolutionary change along an edge</td></tr>
+<tr><td>Topology</td><td>Branching pattern of the tree</td></tr>
+<tr><td>Clade</td><td>Common ancestor + all of its descendants</td></tr>
+<tr><td>Outgroup</td><td>External taxon used to <strong>root</strong> a tree</td></tr>
+<tr><td>OTU</td><td>Operational Taxonomic Unit (terminal node)</td></tr>
+</table>
+
+<h4>Tree types — visualisation</h4>
+<table>
+<tr><th>Tree</th><th>What branch length means</th></tr>
+<tr><td><strong>Cladogram</strong></td><td>Nothing — only branching order matters</td></tr>
+<tr><td><strong>Phylogram (additive)</strong></td><td>Amount of genetic change</td></tr>
+<tr><td><strong>Chronogram (ultrametric)</strong></td><td>Time (all tips end at the same time)</td></tr>
+<tr><td><strong>Dendrogram</strong></td><td>Generic term — any branching diagram</td></tr>
+</table>
+
+<h4>Rooted vs unrooted</h4>
+<ul class="tight">
+  <li><strong>Rooted</strong>: shows direction of evolution, has a common ancestor. Required to make ancestor–descendant statements.</li>
+  <li><strong>Unrooted</strong>: only specifies relationships, not evolutionary direction.</li>
+  <li>An unrooted 4-taxon tree can be rooted in <strong>5 different positions</strong> (= number of branches) → 5 distinct rooted trees.</li>
+</ul>
+
+<h4>Tree-building methods</h4>
+<table class="compare">
+<tr><th></th><th>Distance-based</th><th>Character-based</th></tr>
+<tr><td>Data</td><td>Compressed to pairwise distance matrix (info loss)</td><td>Uses each alignment column directly (no compression)</td></tr>
+<tr><td>Speed</td><td>Fast</td><td>Slow (especially MP, ML)</td></tr>
+<tr><td>Accuracy</td><td>Lower</td><td>Higher</td></tr>
+<tr><td>Examples</td><td><strong>UPGMA</strong>, <strong>Neighbor-Joining (NJ)</strong></td><td><strong>Maximum Parsimony (MP)</strong>, <strong>Maximum Likelihood (ML)</strong>, Bayesian</td></tr>
+</table>
+
+<h4>UPGMA (Unweighted Pair Group Method with Arithmetic mean)</h4>
+<ul class="tight">
+  <li>Assumes a <strong>constant molecular clock</strong> — all branches evolve at equal rate.</li>
+  <li>Output: <strong>rooted</strong>, <strong>ultrametric</strong> tree.</li>
+  <li><strong>Steps:</strong> (1) each taxon = cluster; (2) join the 2 closest; (3) recompute distance to new cluster = <strong>arithmetic mean</strong>; (4) repeat.</li>
+  <li><strong>Drawbacks:</strong> assumes constant rate (often violated); irreversible clustering; inaccurate.</li>
+</ul>
+
+<h4>Neighbor-Joining (NJ) — Saitou & Nei</h4>
+<ul class="tight">
+  <li>Allows <strong>unequal</strong> evolutionary rates across branches.</li>
+  <li>Output: <strong>unrooted</strong> tree (rooting needs an outgroup).</li>
+  <li>Uses corrected distances (averages to other leaves) — not just nearest neighbour.</li>
+  <li>Generally <strong>more accurate</strong> than UPGMA.</li>
+</ul>
+
+<h4>Maximum Parsimony (MP)</h4>
+<ul class="tight">
+  <li>Principle: prefer the tree requiring the <strong>fewest</strong> evolutionary changes (Occam's razor).</li>
+  <li>Assumes: evolution is rare; events independent across lineages.</li>
+  <li>Best for <strong>strong sequence similarity</strong>; computationally expensive; fails when variation is high.</li>
+</ul>
+
+<div class="callout key">
+  <strong>Choosing method (flowchart):</strong>
+  <ol>
+    <li>Strong sequence similarity → <strong>Maximum Parsimony</strong></li>
+    <li>Clearly recognisable similarity → <strong>Distance methods (NJ)</strong></li>
+    <li>Weak / no recognisable similarity → <strong>Maximum Likelihood</strong></li>
+  </ol>
+</div>
+
+<hr class="section-divider">
+
+<!-- 10 ML -->
+<h2 id="ml">🔟 Maximum Likelihood & Bootstrapping</h2>
+
+<h4>Maximum Likelihood (ML) for phylogeny</h4>
+<div class="callout formula">
+  <strong>Likelihood = P(Data | Model).</strong> Goal: find parameter values that maximise this probability.
+  <br>Parameters: tree topology, branch lengths, nucleotide frequencies, substitution rates.
+  <br>Assumptions: each column is an independent observation; columns contain homologous bases.
+</div>
+<ul class="tight">
+  <li>Iterative: start with random parameters → adjust to improve likelihood → repeat until peak.</li>
+  <li>May get stuck at <strong>local maxima</strong> — does NOT guarantee global maximum.</li>
+  <li>Output: ML estimate of topology, branch lengths, other parameters, plus a likelihood value (model fit).</li>
+</ul>
+
+<h4>Bootstrapping (tree reliability)</h4>
+<ol class="tight">
+  <li>Randomly resample <strong>columns</strong> of the alignment <strong>with replacement</strong> (not sequences!).</li>
+  <li>Build a tree from each pseudo-alignment.</li>
+  <li>Repeat N times (N = 100, 500, 1000, 10000).</li>
+  <li>Bootstrap value of a clade = % of replicates in which the clade appears.</li>
+</ol>
+
+<table>
+<tr><th>Bootstrap value</th><th>Interpretation</th></tr>
+<tr><td>&gt; 90%</td><td>Strong support</td></tr>
+<tr><td>70–90%</td><td>Moderate support</td></tr>
+<tr><td>&lt; 70%</td><td>Weak / unreliable</td></tr>
+</table>
+
+<div class="callout warn">
+  <strong>What bootstrap means (MCQ trap):</strong>
+  <ul class="tight">
+    <li>✓ Stability of grouping under sampling variation.</li>
+    <li>✗ NOT the probability that the group is "true".</li>
+    <li>✗ NOT confidence in the evolutionary model itself.</li>
+  </ul>
+</div>
+
+<hr class="section-divider">
+
+<!-- 11 gene prediction -->
+<h2 id="gene">1️⃣1️⃣ Gene Prediction</h2>
+
+<h4>What's predicted?</h4>
+<ul class="tight">
+  <li>Coding region; encoding strand; gene start/end; exon-intron boundaries (in eukaryotes); regulatory sequences.</li>
+</ul>
+
+<h4>Three categories</h4>
+<table>
+<tr><th>Type</th><th>Idea</th><th>Strengths</th></tr>
+<tr><td><strong>Ab initio / Intrinsic</strong></td><td>Uses only the DNA sequence; detects statistical patterns (codon usage, hexamer frequencies, GC content, ORFs)</td><td>Works on novel genomes; no DB needed</td></tr>
+<tr><td><strong>Homology / Extrinsic</strong></td><td>Aligns genome to known gene/protein databases</td><td>High specificity</td></tr>
+<tr><td><strong>Hybrid / Comparative</strong></td><td>Combines ab initio + extrinsic evidence (e.g. RNA-seq evidence guiding HMMs)</td><td>Best overall accuracy</td></tr>
+</table>
+
+<h4>Features used</h4>
+<table>
+<tr><th>Signal features (discrete markers)</th><th>Content features (statistical, region-spread)</th></tr>
+<tr><td>Promoter (−35, −10 / TATA box); Start codon (ATG); Stop codons (TAA, TAG, TGA); Splice sites (donor GT, acceptor AG)</td><td>Codon usage bias; hexamer frequencies; ORF length; GC content / CpG islands</td></tr>
+</table>
+
+<h4>ORF-based gene prediction</h4>
+<ul class="tight">
+  <li>Scan DNA in all <strong>6 reading frames</strong> (3 forward, 3 reverse).</li>
+  <li>Find longest ORFs (start → stop).</li>
+  <li>Filter by min length (typically &gt;100 codons).</li>
+  <li><strong>Limitations:</strong> poor in eukaryotes (long introns); random long ORFs possible; misses short genes; ignores regulatory signals.</li>
+</ul>
+
+<h4>Markov Models</h4>
+<ul class="tight">
+  <li>Two separate models: coding vs non-coding. Compute P(sequence | model) for each; predict class by higher likelihood.</li>
+  <li><strong>Limitation:</strong> can't explicitly model gene structure (no exon/intron boundaries).</li>
+</ul>
+
+<h4>Hidden Markov Models (HMMs)</h4>
+<div class="callout formula">
+  Extends MM by introducing <strong>hidden states</strong> (exon, intron, intergenic, start codon, stop codon).<br>
+  <strong>Transition probabilities</strong> — likelihood of moving between states (e.g., exon → intron).<br>
+  <strong>Emission probabilities</strong> — probability of a state emitting a specific base.<br>
+  <strong>Viterbi algorithm</strong>: finds the most likely sequence of hidden states given an observation.<br>
+  Training: <strong>Maximum Likelihood Estimation</strong>.
+</div>
+
+<div class="callout key">
+  HMM <em>is</em> a machine learning model (sequence labelling task).
+  Tools using HMM-based gene prediction: GENSCAN, AUGUSTUS, GeneMark.
+</div>
+
+<hr class="section-divider">
+
+<!-- 12 secondary -->
+<h2 id="secstruct">1️⃣2️⃣ Protein Secondary Structure Prediction — Chou-Fasman</h2>
+
+<h4>Levels of protein structure</h4>
+<table>
+<tr><th>Level</th><th>What it is</th><th>Driving force</th></tr>
+<tr><td>Primary</td><td>AA sequence (~20–30k length)</td><td>Peptide bonds</td></tr>
+<tr><td>Secondary</td><td>Local backbone organisation: α-helix, β-sheet, turn, coil</td><td>Hydrogen bonds</td></tr>
+<tr><td>Tertiary</td><td>Interactions of secondary structures (full 3D fold)</td><td><strong>Hydrophobic effect</strong> (+ H-bonds, salt bridges, vdW, disulfides)</td></tr>
+<tr><td>Quaternary</td><td>Multiple subunit assembly</td><td>Same as tertiary</td></tr>
+</table>
+<p class="small">Analogy: alphabets → words → sentences → paragraphs.</p>
+
+<h4>Chou-Fasman conformational parameters</h4>
+<div class="callout formula">
+  P<sub>ij</sub> = <strong>(frequency of AA <em>i</em> in SS <em>j</em>) / (overall frequency of AA <em>i</em>)</strong>.
+  <br>Example: 50 proteins, 20,000 AAs total, 5,000 form helix. Of 2,000 Ala residues, 500 form helix.
+  <br>P(Ala, helix) = (500/5000) / (2000/20000) = 0.1 / 0.1 = <strong>1.0</strong>.
+</div>
+
+<h4>Selected propensities (memorise the extremes)</h4>
+<table>
+<tr><th>AA</th><th>Pα</th><th>Pβ</th><th>Pt</th><th>Note</th></tr>
+<tr><td>Glu (E)</td><td>1.51</td><td>0.37</td><td>0.74</td><td>Strong helix former</td></tr>
+<tr><td>Met (M)</td><td>1.45</td><td>1.05</td><td>0.60</td><td>Strong helix</td></tr>
+<tr><td>Ala (A)</td><td>1.42</td><td>0.83</td><td>0.66</td><td>Strong helix</td></tr>
+<tr><td>Val (V)</td><td>1.06</td><td>1.70</td><td>0.50</td><td>Strong sheet</td></tr>
+<tr><td>Ile (I)</td><td>1.08</td><td>1.60</td><td>0.50</td><td>Strong sheet</td></tr>
+<tr><td>Tyr (Y)</td><td>0.69</td><td>1.47</td><td>1.14</td><td>Sheet</td></tr>
+<tr><td>Pro (P)</td><td>0.57</td><td>0.55</td><td>1.52</td><td><strong>Helix breaker</strong>, turn former</td></tr>
+<tr><td>Gly (G)</td><td>0.57</td><td>0.75</td><td>1.56</td><td>Helix breaker, turn former</td></tr>
+</table>
+
+<h4>Chou-Fasman algorithm — α-helix vs β-sheet</h4>
+<table class="compare">
+<tr><th>Step</th><th>α-helix</th><th>β-sheet</th></tr>
+<tr><td>Nucleation window</td><td><strong>6 AA</strong></td><td><strong>5 AA</strong></td></tr>
+<tr><td>Threshold</td><td>≥ <strong>4</strong> residues with Pα &gt; 1 (need not be contiguous)</td><td>≥ <strong>3</strong> residues with Pβ &gt; 1 (need not be contiguous)</td></tr>
+<tr><td>Extension window</td><td>4 contiguous AA</td><td>4 contiguous AA</td></tr>
+<tr><td>Extension rule</td><td>Avg Pα ≥ 1 → continue</td><td>Avg Pβ ≥ 1 → continue</td></tr>
+<tr><td>Termination</td><td>Avg Pα of last tetrapeptide &lt; 1</td><td>Avg Pβ of last tetrapeptide &lt; 1</td></tr>
+<tr><td>Conflict resolution</td><td colspan="2">Compare average Pα and Pβ of conflicting region; assign whichever is higher.</td></tr>
+</table>
+
+<div class="callout tip">
+  <strong>Why 6-residue window for α?</strong> An α-helix completes one turn every ~3.6 residues; 6 residues ≈ 1.5 turns, enough to detect helical propensity reliably.
+</div>
+
+<h4>Other secondary-structure prediction methods</h4>
+<table>
+<tr><th>Tool</th><th>Method</th></tr>
+<tr><td>GOR</td><td>Information theory / Bayesian</td></tr>
+<tr><td>PSIPRED</td><td>Neural network on PSI-BLAST profile (1999)</td></tr>
+<tr><td>JPred</td><td>Neural network ensemble + solvent accessibility</td></tr>
+<tr><td>RaptorX-SS8</td><td>Conditional neural fields (3-state and 8-state)</td></tr>
+<tr><td>PredictProtein</td><td>Profile-based neural network</td></tr>
+</table>
+
+<hr class="section-divider">
+
+<!-- 13 tertiary -->
+<h2 id="tert">1️⃣3️⃣ Tertiary Structure Prediction</h2>
+
+<table class="compare">
+<tr><th></th><th>Homology (Comparative) modelling</th><th>Threading (Fold recognition)</th><th>Ab initio</th></tr>
+<tr><td>Idea</td><td>Use known structure of a homologue as template</td><td>Thread target sequence onto each known fold; score fit</td><td>Build from physics — no template</td></tr>
+<tr><td>Needs</td><td>Template ≥ 30% identity (ideally &gt;50%)</td><td>Library of folds</td><td>Force field, sampling</td></tr>
+<tr><td>Strength</td><td>Most accurate when good template exists</td><td>Works when sequence similarity is low but fold is known</td><td>Can predict novel folds</td></tr>
+<tr><td>Weakness</td><td>Useless for novel folds</td><td>Fold library required</td><td>Computationally massive; often inaccurate</td></tr>
+</table>
+
+<h4>Homology modeling steps (Sali, MODELLER)</h4>
+<ol class="tight">
+  <li><strong>Template identification</strong> — BLAST against PDB.</li>
+  <li><strong>Sequence alignment</strong> — most critical step; errors propagate to the model.</li>
+  <li><strong>Backbone generation</strong> — copy coordinates from template.</li>
+  <li><strong>Loop modeling</strong> — handle insertions/deletions; Structurally Variable Regions (<strong>SVRs</strong>); <strong>least reliable</strong> regions.</li>
+  <li><strong>Side-chain modeling</strong> — assign χ angles; avoid steric clashes.</li>
+  <li><strong>Evaluation</strong> — Ramachandran plot, energy, ligand fit.</li>
+</ol>
+
+<div class="callout key">
+  <strong>AlphaFold</strong> (DeepMind, EMBL-EBI) — Uses MSA + (co-)evolutionary information; predicts residue–residue contacts; constructs 3D models with very high accuracy. AlphaFold DB has 200+ million predicted structures. PDB has ~252,842 experimental structures vs ~1,068,577 Computed Structure Models. Drastically reduced the sequence–structure gap.
+</div>
+
+<hr class="section-divider">
+
+<!-- 14 RNA -->
+<h2 id="rna">1️⃣4️⃣ RNA Secondary Structure — Nussinov Algorithm</h2>
+
+<h4>RNA structural elements</h4>
+<table>
+<tr><th>Element</th><th>Description</th></tr>
+<tr><td>Stem (helix)</td><td>Continuous base-paired region</td></tr>
+<tr><td>Hairpin loop</td><td>Unpaired bases at the end of a stem (typically ≥4 nt)</td></tr>
+<tr><td>Bulge loop</td><td>Unpaired bases on ONE strand interrupting a stem</td></tr>
+<tr><td>Interior loop</td><td>Unpaired bases on BOTH strands</td></tr>
+<tr><td>Junction (multiloop)</td><td>≥3 stems converging</td></tr>
+<tr><td>Pseudoknot</td><td>Crossed base pairs — NOT predicted by standard Nussinov / Zuker</td></tr>
+</table>
+
+<h4>Base pairing rules</h4>
+<ul class="tight">
+  <li><strong>Watson-Crick:</strong> A=U, G≡C.</li>
+  <li><strong>Wobble:</strong> G·U (allowed in RNA; weaker).</li>
+  <li>A nucleotide can form at most <strong>one</strong> pair.</li>
+  <li>i and j are pairable only if |i − j| ≥ 4 (no immediate neighbours, hairpin loop must be ≥3 nt).</li>
+  <li>No crossings allowed (no pseudoknots in basic Nussinov): if (i,j) and (i′,j′) are pairs and i &lt; i′, then must have i &lt; i′ &lt; j′ &lt; j.</li>
+</ul>
+
+<h4>Nussinov recursion (Fill stage)</h4>
+<div class="callout formula">
+<pre>γ(i, j) = max {
+   γ(i+1, j),                          // i unpaired
+   γ(i, j−1),                          // j unpaired
+   γ(i+1, j−1) + δ(i, j),              // i pairs with j
+   max over k (i&lt;k&lt;j) [γ(i,k) + γ(k+1,j)]  // bifurcation
+}
+where δ(i,j) = 1 if (xi, xj) is a valid pair, else 0.</pre>
+Initialization: γ(i,i) = 0; γ(i+1,i) = 0.<br>
+Score (max pairs) is at γ(1, L) (top-right of the upper-triangle matrix).
+</div>
+
+<h4>Traceback</h4>
+Start at γ(1, L); at each step, determine which of the 4 cases gave the maximum and recurse on those subsequences. Records base pairs forming the secondary structure.
+
+<div class="callout warn">
+  <strong>Nussinov limitations:</strong>
+  <ul class="tight">
+    <li>Maximises base pairs only — ignores stacking, loop length penalties, nearest-neighbour thermodynamics.</li>
+    <li>Cannot predict pseudoknots.</li>
+    <li>For realistic free-energy prediction → use <strong>Zuker's algorithm</strong> (Mfold, RNAfold) with thermodynamic parameters.</li>
+  </ul>
+</div>
+
+<hr class="section-divider">
+
+<!-- 15 NMR / X-ray -->
+<h2 id="exp">1️⃣5️⃣ Experimental Structure Determination</h2>
+
+<table class="compare">
+<tr><th>Aspect</th><th>X-ray Crystallography</th><th>NMR Spectroscopy</th><th>Cryo-EM</th></tr>
+<tr><td>Sample state</td><td>Crystal</td><td>Solution (liquid)</td><td>Vitrified (frozen-hydrated)</td></tr>
+<tr><td>Resolution</td><td>"2-Å model" = data to 2 Å spacing</td><td>Ensemble; distance restraints</td><td>Sub-3 Å now achievable</td></tr>
+<tr><td>Size limit</td><td>Need crystals; few size restrictions</td><td>~60 kDa (~450 res); up to 100 kDa with isotope labelling</td><td>Large complexes preferred</td></tr>
+<tr><td>Output</td><td>Single static structure</td><td>Ensemble of models (dynamics info)</td><td>3D density map</td></tr>
+<tr><td>Key problem</td><td><strong>Phase problem</strong> (we measure intensity = amplitude², phase is lost)</td><td>Low sensitivity → large amounts; isotope labelling expensive</td><td>Particle alignment, radiation damage</td></tr>
+</table>
+
+<div class="callout key">
+  <strong>NMR pros:</strong> atomic-level probing; dynamics; protein–ligand interactions in solution. Each peak ≈ 1 atom.
+</div>
+<div class="callout rule">
+  <strong>The Phase Problem (X-ray):</strong> Detector records photon counts → intensity → amplitude². The relative phases of diffracted waves are LOST. Phase recovery requires methods like molecular replacement, isomorphous replacement (heavy-atom), or anomalous scattering (MAD/SAD).
+</div>
+
+<h4>PDB (Protein Data Bank)</h4>
+<ul class="tight">
+  <li>Repository for experimentally determined 3D structures.</li>
+  <li>File formats: PDB (legacy), mmCIF, PDBML/XML.</li>
+  <li>Records include HELIX, SHEET, ATOM lines.</li>
+  <li>ATOM line: serial, atom name, residue name, chain, residue number, X, Y, Z, occupancy, B-factor, element.</li>
+</ul>
+
+<hr class="section-divider">
+
+<!-- 16 Microarray -->
+<h2 id="micro">1️⃣6️⃣ Microarray Technology</h2>
+
+<div class="callout key">
+  <strong>Purpose:</strong> Quantitative measurement of gene expression — thousands of genes in parallel.
+</div>
+
+<h4>Two-channel (cDNA) microarray workflow</h4>
+<ol class="tight">
+  <li>Obtain cells → extract mRNA.</li>
+  <li>Reverse-transcribe to cDNA; label two samples with different fluorophores: <strong>Cy3 (green)</strong> for control, <strong>Cy5 (red)</strong> for sample.</li>
+  <li>Mix labelled cDNAs; hybridise to microarray chip (each spot = probe of one gene's DNA).</li>
+  <li>Wash unbound cDNA; laser-scan to detect fluorescence.</li>
+</ol>
+
+<h4>Spot colour interpretation</h4>
+<table>
+<tr><th>Colour</th><th>Meaning</th></tr>
+<tr><td>Green (only Cy3)</td><td>High in <strong>control</strong></td></tr>
+<tr><td>Red (only Cy5)</td><td>High in <strong>sample</strong></td></tr>
+<tr><td>Yellow (both)</td><td>Equally expressed</td></tr>
+<tr><td>Black (neither)</td><td>Not expressed</td></tr>
+</table>
+
+<h4>Microarray data analysis types</h4>
+<ul class="tight">
+  <li><strong>Differential expression</strong> — fold-change analysis.</li>
+  <li><strong>Classification (supervised)</strong> — identify disease, predict outcome.</li>
+  <li><strong>Clustering (unsupervised)</strong> — discover new classes (hierarchical, k-means).</li>
+</ul>
+
+<h4>Traditional methods microarray replaces</h4>
+Northern blotting; RT-PCR / qRT-PCR — single gene at a time.
+
+<hr class="section-divider">
+
+<!-- 17 sequencing -->
+<h2 id="seq">1️⃣7️⃣ DNA Sequencing</h2>
+
+<h4>First generation</h4>
+<table class="compare">
+<tr><th>Aspect</th><th>Sanger (Dideoxy)</th><th>Maxam-Gilbert</th></tr>
+<tr><td>Year / inventor</td><td>1977 — Fred Sanger (MRC, UK); 1980 dideoxy</td><td>1970s — Maxam &amp; Gilbert</td></tr>
+<tr><td>Principle</td><td><strong>Enzymatic</strong> chain termination using <strong>ddNTPs</strong> (lacks 3′-OH, blocks extension)</td><td><strong>Chemical</strong> cleavage at modified bases</td></tr>
+<tr><td>Requires</td><td>Template, primer, DNA polymerase, dNTPs, ddNTPs, detection (radio/fluor)</td><td>End-labelled DNA, modification reagents, piperidine</td></tr>
+<tr><td>Resolution</td><td>~700 bases per read (automated, ABI 3700)</td><td>Long stretches required</td></tr>
+<tr><td>Key reagents</td><td>ddATP, ddCTP, ddGTP, ddTTP (ratio dN:ddN ≈ 100:1)</td><td>G: dimethyl sulfate (methylates G); A+G: piperidine formate (depurination); C+T: hydrazine; C only: hydrazine + 1.5 M NaCl; A&gt;C: hot 1.2 N NaOH; backbone cleaved by hot piperidine</td></tr>
+<tr><td>Dominant for</td><td>~25 years; still used for validation</td><td>Largely obsolete</td></tr>
+</table>
+
+<h4>Automated Sanger</h4>
+PCR with fluorescently labelled chain-terminating ddNTPs → capillary gel electrophoresis (size separation) → laser excitation + detection → chromatogram output.
+
+<h4>Second/Next-Generation Sequencing (NGS)</h4>
+<p>Replaced cloning; massively parallel sequencing; reduced cost by miniaturising reactions and using new chemistry.</p>
+
+<table>
+<tr><th>Platform</th><th>Amplification</th><th>Detection</th></tr>
+<tr><td><strong>454 / Roche</strong> (Pyrosequencing)</td><td>Emulsion PCR (beads)</td><td>Pyrophosphate release → ATP sulfurylase → luciferase → light (sequencing-by-synthesis)</td></tr>
+<tr><td><strong>Illumina (Solexa)</strong></td><td><strong>Bridge PCR</strong> on flow cell (cluster generation)</td><td>Reversible terminator fluorescent dNTPs (sequencing-by-synthesis)</td></tr>
+<tr><td><strong>SOLiD (ABI)</strong></td><td>Emulsion PCR</td><td><strong>Sequencing-by-ligation</strong> with DNA ligase + colour-coded probes</td></tr>
+<tr><td>Polonator</td><td>Emulsion PCR</td><td>Sequencing-by-ligation (open-source)</td></tr>
+</table>
+
+<div class="callout warn">
+  <strong>NGS challenges:</strong> highest cost is storage + analysis (not the sequencing itself). A human 30–40× whole-genome run generates ~100 GB. Requires HPC, fast and parallel programs; standard tools fail at this scale.
+</div>
+
+<h4>NGS Applications</h4>
+<table>
+<tr><th>Application</th><th>Nucleic acid</th><th>Use</th></tr>
+<tr><td>RNA-Seq</td><td>polyA mRNA / total RNA</td><td>Quantify expression, find splice junctions</td></tr>
+<tr><td>Small RNA seq</td><td>miRNA</td><td>Align to miRBase</td></tr>
+<tr><td>ChIP-Seq</td><td>DNA bound to TF/histone</td><td>TF binding sites; histone modifications</td></tr>
+<tr><td>RIP-Seq</td><td>RNA bound to protein</td><td>RNA-binding protein sites</td></tr>
+<tr><td>Methylation</td><td>Bisulfite-converted DNA</td><td>Methylation peaks</td></tr>
+<tr><td>SNP calling</td><td>Genomic DNA</td><td>Variant discovery</td></tr>
+<tr><td>De novo seq</td><td>Genomic DNA</td><td>Assemble contigs, scaffolds, genomes</td></tr>
+<tr><td>Metagenomics</td><td>Mixed community DNA/RNA</td><td>Microbial diversity, phylogeny</td></tr>
+</table>
+
+<h4>Shotgun sequencing</h4>
+<ul class="tight">
+  <li>Cut genome into short fragments → sequence each → assemble via <strong>overlaps</strong> → contigs.</li>
+  <li>First applied to whole-genome sequencing in <strong>1995 (Haemophilus influenzae)</strong>.</li>
+  <li>Standard for prokaryotic genome sequencing; used for Drosophila & human.</li>
+</ul>
+
+<hr class="section-divider">
+
+<!-- 18 ChIP -->
+<h2 id="chip">1️⃣8️⃣ ChIP-seq & Epigenomics</h2>
+
+<div class="callout key">
+  <strong>ChIP-seq = Chromatin Immunoprecipitation + NGS.</strong> Identifies DNA regions bound by a protein (transcription factor, modified histone).
+</div>
+
+<h4>Workflow</h4>
+<ol class="tight">
+  <li>Crosslink DNA-protein in vivo.</li>
+  <li>Shear chromatin.</li>
+  <li>Immunoprecipitate with antibody against TF or histone mark.</li>
+  <li>Reverse crosslink → purify DNA.</li>
+  <li>End-repair, adaptor ligation, NGS.</li>
+  <li>Map reads to reference genome; identify peaks/motifs.</li>
+</ol>
+
+<h4>Common histone marks</h4>
+<ul class="tight">
+  <li><strong>H3K4me3</strong> — Histone H3 Lysine 4 tri-methylation → <em>active promoters</em>.</li>
+  <li><strong>H3K9me2/3</strong> — Lysine 9 di-/tri-methylation → <em>heterochromatin / silencing</em>.</li>
+  <li><strong>H3K27me3</strong> — Lysine 27 tri-methylation → <em>Polycomb repression</em>.</li>
+</ul>
+
+<hr class="section-divider">
+
+<!-- ===== PART B: Mock Paper 1 ===== -->
+<div class="mock-header" id="part2">
+  <h2>📝 PART B — MOCK PAPER 1 (20 MCQs)</h2>
+  <div class="info">Multi-correct • +2 for fully correct • −1 for any incorrect option marked • 0 if not attempted. Treat each option independently.</div>
+</div>
+
+<!-- Q1 -->
+<div class="mcq">
+  <div class="q">Q1. Which of the following statements about the Smith-Waterman algorithm are TRUE?</div>
+  <ul>
+    <li>The first row and first column of the DP matrix are initialised with zeros.</li>
+    <li>Negative scores in the matrix are replaced with zero.</li>
+    <li>The traceback always begins at the bottom-right corner.</li>
+    <li>It guarantees the optimal local alignment for a given scoring scheme.</li>
+  </ul>
+  <div class="answer">Correct: A, B, D</div>
+  <div class="explanation">C is wrong — SW traceback starts at the cell with the maximum value, not bottom-right (that's NW). SW <em>is</em> DP, so it guarantees optimality (unlike heuristics like BLAST/FASTA).</div>
+</div>
+
+<!-- Q2 -->
+<div class="mcq">
+  <div class="q">Q2. Which scoring matrices would be most appropriate for aligning two distantly related proteins?</div>
+  <ul>
+    <li>PAM1</li>
+    <li>PAM250</li>
+    <li>BLOSUM30</li>
+    <li>BLOSUM100</li>
+  </ul>
+  <div class="answer">Correct: B, C</div>
+  <div class="explanation">Remember the inverse rule. Distant = high PAM (250) and low BLOSUM (30). For closely related: PAM1 and BLOSUM100.</div>
+</div>
+
+<!-- Q3 -->
+<div class="mcq">
+  <div class="q">Q3. The central dogma of molecular biology (Crick, 1958) holds that:</div>
+  <ul>
+    <li>Information cannot be transferred from protein back to nucleic acid.</li>
+    <li>RNA can be reverse-transcribed into DNA.</li>
+    <li>Information transfer from protein to protein is permitted.</li>
+    <li>Once information has passed into protein, it cannot get out again.</li>
+  </ul>
+  <div class="answer">Correct: A, D</div>
+  <div class="explanation">B was discovered later (reverse transcriptase, retroviruses) and is consistent with the dogma. C is explicitly forbidden by Crick's statement.</div>
+</div>
+
+<!-- Q4 -->
+<div class="mcq">
+  <div class="q">Q4. Which statements about dot-matrix analysis are CORRECT?</div>
+  <ul>
+    <li>Parallel off-diagonal lines indicate internal repeats.</li>
+    <li>A perpendicular (anti-diagonal) line indicates an inverted repeat / palindrome.</li>
+    <li>The method outputs a numerical alignment score.</li>
+    <li>Increasing window size and stringency reduces noise.</li>
+  </ul>
+  <div class="answer">Correct: A, B, D</div>
+  <div class="explanation">C is wrong — dot plot is purely visual; it has no numerical score, alignment, or trace.</div>
+</div>
+
+<!-- Q5 -->
+<div class="mcq">
+  <div class="q">Q5. The Karlin–Altschul equation E = K·m·n·e<sup>−λS</sup> has which properties?</div>
+  <ul>
+    <li>E-value increases when the database size (n) is larger.</li>
+    <li>Higher raw scores S yield exponentially lower E-values.</li>
+    <li>The constants K and λ depend on the scoring matrix.</li>
+    <li>It assumes random alignment scores follow a normal distribution.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D is wrong — random alignment scores follow the <strong>Gumbel Extreme Value Distribution (EVD)</strong>, not normal — because we take maxima.</div>
+</div>
+
+<!-- Q6 -->
+<div class="mcq">
+  <div class="q">Q6. About UPGMA:</div>
+  <ul>
+    <li>It assumes a constant molecular clock.</li>
+    <li>It produces an unrooted tree.</li>
+    <li>Distance updates use the arithmetic mean.</li>
+    <li>It can correct for unequal evolutionary rates among lineages.</li>
+  </ul>
+  <div class="answer">Correct: A, C</div>
+  <div class="explanation">UPGMA gives a <strong>rooted</strong>, ultrametric tree (B false). It cannot handle unequal rates — that's Neighbor-Joining (D false).</div>
+</div>
+
+<!-- Q7 -->
+<div class="mcq">
+  <div class="q">Q7. Bootstrap analysis in phylogenetics involves:</div>
+  <ul>
+    <li>Sampling alignment columns with replacement to make pseudo-alignments.</li>
+    <li>Computing the probability that each clade is biologically true.</li>
+    <li>Building a tree from each pseudo-replicate and counting how often each clade appears.</li>
+    <li>Bootstrap values &gt;70% are universally accepted as strong support.</li>
+  </ul>
+  <div class="answer">Correct: A, C</div>
+  <div class="explanation">B is wrong — bootstrap is a measure of sampling stability, NOT truth probability. D is wrong — typically &gt;90% strong, 70–90% moderate, &lt;70% weak.</div>
+</div>
+
+<!-- Q8 -->
+<div class="mcq">
+  <div class="q">Q8. Which are TRUE about Chou-Fasman α-helix prediction?</div>
+  <ul>
+    <li>The nucleation window is 6 amino acids.</li>
+    <li>At least 4 of those 6 must have Pα &gt; 1 and they must be contiguous.</li>
+    <li>Extension proceeds while the average Pα of the next tetrapeptide is ≥ 1.</li>
+    <li>Proline is a known helix breaker.</li>
+  </ul>
+  <div class="answer">Correct: A, C, D</div>
+  <div class="explanation">B is wrong — the 4 residues with Pα&gt;1 need NOT be contiguous. The window itself is 6 consecutive AA.</div>
+</div>
+
+<!-- Q9 -->
+<div class="mcq">
+  <div class="q">Q9. The Nussinov algorithm:</div>
+  <ul>
+    <li>Maximises the number of valid base pairs in an RNA sequence.</li>
+    <li>Predicts pseudoknots accurately.</li>
+    <li>Considers nearest-neighbour stacking energies.</li>
+    <li>Uses dynamic programming with O(L³) time complexity.</li>
+  </ul>
+  <div class="answer">Correct: A, D</div>
+  <div class="explanation">B wrong — Nussinov forbids crossings (no pseudoknots). C wrong — stacking energies are added in Zuker's algorithm, not Nussinov.</div>
+</div>
+
+<!-- Q10 -->
+<div class="mcq">
+  <div class="q">Q10. Sanger dideoxy sequencing requires:</div>
+  <ul>
+    <li>A primer.</li>
+    <li>DNA polymerase.</li>
+    <li>Dideoxynucleotides (ddNTPs) that lack 3′-OH.</li>
+    <li>Hydrazine and piperidine.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D is from <strong>Maxam-Gilbert</strong> chemical sequencing.</div>
+</div>
+
+<!-- Q11 -->
+<div class="mcq">
+  <div class="q">Q11. Which are characteristics of Illumina (Solexa) sequencing?</div>
+  <ul>
+    <li>Bridge PCR is used for clonal amplification on the flow cell.</li>
+    <li>Sequencing-by-synthesis with reversible terminators.</li>
+    <li>Emulsion PCR in bead-based reactions.</li>
+    <li>Detects pyrophosphate via luciferase.</li>
+  </ul>
+  <div class="answer">Correct: A, B</div>
+  <div class="explanation">C is from 454/SOLiD (emulsion PCR). D is pyrosequencing (454).</div>
+</div>
+
+<!-- Q12 -->
+<div class="mcq">
+  <div class="q">Q12. About orthologs, paralogs and xenologs:</div>
+  <ul>
+    <li>Orthologs arise via speciation.</li>
+    <li>Paralogs arise via gene duplication in the same species.</li>
+    <li>Xenologs arise via horizontal gene transfer.</li>
+    <li>Analogs are a subset of homologs.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D is the classic trap. <strong>Analogs are NOT homologs</strong> — they have similar function from independent evolutionary origin.</div>
+</div>
+
+<!-- Q13 -->
+<div class="mcq">
+  <div class="q">Q13. Hidden Markov Models in gene prediction:</div>
+  <ul>
+    <li>Have hidden states corresponding to exons, introns, intergenic regions.</li>
+    <li>Use the Viterbi algorithm to find the most probable state path.</li>
+    <li>Use only emission probabilities, not transitions.</li>
+    <li>Can model gene structure better than plain Markov models.</li>
+  </ul>
+  <div class="answer">Correct: A, B, D</div>
+  <div class="explanation">C is wrong — HMMs use <strong>both</strong> transition probabilities (state-to-state) and emission probabilities (state-to-observation).</div>
+</div>
+
+<!-- Q14 -->
+<div class="mcq">
+  <div class="q">Q14. Which statements about microarrays are TRUE?</div>
+  <ul>
+    <li>Cy3 (green) typically labels the control sample.</li>
+    <li>A yellow spot indicates equal expression in control and sample.</li>
+    <li>Microarrays measure gene expression by hybridisation to labelled cDNA probes on the chip.</li>
+    <li>A black spot signals high expression in only the sample.</li>
+  </ul>
+  <div class="answer">Correct: A, B</div>
+  <div class="explanation">C — the chip carries DNA probes; the cDNA is in solution (and labelled). D — black means neither expressed.</div>
+</div>
+
+<!-- Q15 -->
+<div class="mcq">
+  <div class="q">Q15. Which are TRUE about gap penalties?</div>
+  <ul>
+    <li>Linear gap penalty: w(k) = g · k.</li>
+    <li>Affine gap penalty: w(k) = w<sub>o</sub> + (k − 1) · w<sub>e</sub>.</li>
+    <li>Affine gap penalty is biologically more realistic.</li>
+    <li>For closely related sequences, lower (more lenient) gap penalties are usually preferred.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D — for closely related sequences, gaps are rare so a stricter (higher magnitude) gap penalty is appropriate. For divergent: more lenient.</div>
+</div>
+
+<!-- Q16 -->
+<div class="mcq">
+  <div class="q">Q16. Which are correct about phylogenetic tree representations?</div>
+  <ul>
+    <li>A cladogram represents branching pattern only; branch lengths are not meaningful.</li>
+    <li>A phylogram's branch lengths reflect amount of genetic change.</li>
+    <li>A chronogram is an ultrametric tree with branch lengths proportional to time.</li>
+    <li>An unrooted tree explicitly shows the direction of evolution.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D — unrooted trees do NOT specify the direction of evolution; rooting requires an outgroup.</div>
+</div>
+
+<!-- Q17 -->
+<div class="mcq">
+  <div class="q">Q17. About BLOSUM62:</div>
+  <ul>
+    <li>It was built from sequences clustered at 62% identity threshold.</li>
+    <li>It is derived from local ungapped alignments (blocks).</li>
+    <li>Score entries are log-odds (in half-bits).</li>
+    <li>It is recommended for closely related sequences only.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D — BLOSUM62 is the default in BLAST and works well across moderately related sequences; it is not restricted to closely related.</div>
+</div>
+
+<!-- Q18 -->
+<div class="mcq">
+  <div class="q">Q18. ChIP-seq is used to identify:</div>
+  <ul>
+    <li>Transcription-factor binding sites genome-wide.</li>
+    <li>Histone modifications such as H3K4me3.</li>
+    <li>RNA secondary structures.</li>
+    <li>Single-nucleotide polymorphisms in coding regions.</li>
+  </ul>
+  <div class="answer">Correct: A, B</div>
+  <div class="explanation">C — RNA structures use RNA-seq/SHAPE/Nussinov-like methods. D — SNPs need DNA/exome resequencing.</div>
+</div>
+
+<!-- Q19 -->
+<div class="mcq">
+  <div class="q">Q19. Which assumptions does the PAM matrix make?</div>
+  <ul>
+    <li>P(X → Y) ≈ P(Y → X) over short evolutionary times.</li>
+    <li>Mutations at one site are independent of previous mutational events (Markov property).</li>
+    <li>Uniform probability of mutation across positions in the protein.</li>
+    <li>Amino acid frequencies change drastically over evolutionary time.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D is the opposite — PAM assumes <strong>overall AA frequencies remain constant</strong>.</div>
+</div>
+
+<!-- Q20 -->
+<div class="mcq">
+  <div class="q">Q20. Which are LIMITATIONS of the progressive alignment method (e.g., ClustalW)?</div>
+  <ul>
+    <li>Errors in early pairwise alignments propagate to all subsequent stages.</li>
+    <li>It produces only local alignments and cannot align entire sequences.</li>
+    <li>It is sensitive to the choice of substitution matrix and gap penalty at each stage.</li>
+    <li>It performs poorly when one sequence has a large insertion relative to the others.</li>
+  </ul>
+  <div class="answer">Correct: A, C, D</div>
+  <div class="explanation">B is the opposite — ClustalW does <em>global</em> alignment, which is exactly why it struggles when sequences share only a small region.</div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===== PART C: Mock Paper 2 ===== -->
+<div class="mock-header" id="mock2">
+  <h2>📝 PART C — MOCK PAPER 2 (20 MCQs)</h2>
+  <div class="info">Heavier emphasis on phylogenetics, structure prediction, sequencing technologies. Multi-correct, negative marking.</div>
+</div>
+
+<!-- Q1 -->
+<div class="mcq">
+  <div class="q">Q1. Which of these statements about Maxam-Gilbert sequencing are TRUE?</div>
+  <ul>
+    <li>It uses chemical cleavage rather than enzymatic chain termination.</li>
+    <li>Hydrazine modifies pyrimidines (C and T).</li>
+    <li>In the presence of 1.5 M NaCl, only cytosine reacts appreciably with hydrazine.</li>
+    <li>Piperidine cleaves the sugar-phosphate backbone at modified bases.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C, D — ALL TRUE</div>
+  <div class="explanation">All four are textbook facts about Maxam-Gilbert. Beware: in multi-correct questions, sometimes all options are correct.</div>
+</div>
+
+<!-- Q2 -->
+<div class="mcq">
+  <div class="q">Q2. About the Needleman-Wunsch algorithm:</div>
+  <ul>
+    <li>Time complexity is O(m · n).</li>
+    <li>It guarantees the globally optimal alignment for a given scoring scheme.</li>
+    <li>Was first applied to biological sequences in 1970.</li>
+    <li>Negative scores are clamped to zero during matrix fill.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D is wrong — only Smith-Waterman zeros out negatives.</div>
+</div>
+
+<!-- Q3 -->
+<div class="mcq">
+  <div class="q">Q3. Which statements about tRNA are TRUE?</div>
+  <ul>
+    <li>The acceptor stem is where the amino acid attaches.</li>
+    <li>The TΨC loop contains pseudouridine.</li>
+    <li>The anticodon loop contains the codon complementary to the mRNA codon.</li>
+    <li>Aminoacyl-tRNA synthetase attaches the amino acid to the tRNA.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C, D — ALL TRUE</div>
+</div>
+
+<!-- Q4 -->
+<div class="mcq">
+  <div class="q">Q4. Which of the following are FEATURES used for ab initio gene prediction?</div>
+  <ul>
+    <li>Codon usage bias.</li>
+    <li>Open reading frame length statistics.</li>
+    <li>GC content / CpG island distribution.</li>
+    <li>Sequence homology to known proteins in a database.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D is <strong>homology-based / extrinsic</strong>, not ab initio.</div>
+</div>
+
+<!-- Q5 -->
+<div class="mcq">
+  <div class="q">Q5. The Gumbel Extreme Value Distribution (EVD) appears in alignment statistics because:</div>
+  <ul>
+    <li>We take the MAXIMUM score of random alignments, not arbitrary samples.</li>
+    <li>It has a longer right tail than a normal distribution.</li>
+    <li>High random scores are very rare but more likely than predicted by a normal distribution.</li>
+    <li>It is symmetric about its mean.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D — EVD is asymmetric (skewed right). That's the whole point — it captures the heavy tail.</div>
+</div>
+
+<!-- Q6 -->
+<div class="mcq">
+  <div class="q">Q6. About the bit-score:</div>
+  <ul>
+    <li>Bit score = (λ · S − ln K) / ln 2.</li>
+    <li>An increase of 1 bit corresponds to doubling the probability of a statistically significant alignment.</li>
+    <li>Bit scores are matrix-independent and can be compared across databases.</li>
+    <li>Bit score increases with database size.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D — bit score is independent of database size (that's its whole purpose). The <em>E-value</em> depends on database size.</div>
+</div>
+
+<!-- Q7 -->
+<div class="mcq">
+  <div class="q">Q7. Which of the following hold for homology modeling?</div>
+  <ul>
+    <li>Sequence alignment is the most critical step; errors propagate to the final model.</li>
+    <li>Loop modelling is generally the least reliable region of the model.</li>
+    <li>A template with &lt;30% sequence identity is considered risky.</li>
+    <li>It can be used to predict completely novel folds.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D — homology modeling needs a template; cannot generate novel folds. That's the domain of ab initio.</div>
+</div>
+
+<!-- Q8 -->
+<div class="mcq">
+  <div class="q">Q8. Which amino acids are strong α-helix formers (high Pα)?</div>
+  <ul>
+    <li>Glutamic acid (E)</li>
+    <li>Methionine (M)</li>
+    <li>Alanine (A)</li>
+    <li>Proline (P)</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">Proline is the canonical <strong>helix breaker</strong> due to its rigid cyclic side chain. Glycine is the other major helix breaker.</div>
+</div>
+
+<!-- Q9 -->
+<div class="mcq">
+  <div class="q">Q9. Which of these are valid RNA base pairs in the Nussinov algorithm with G·U wobble allowed?</div>
+  <ul>
+    <li>A–U</li>
+    <li>G–C</li>
+    <li>G–U</li>
+    <li>A–C</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">A–C is not a standard or wobble pair.</div>
+</div>
+
+<!-- Q10 -->
+<div class="mcq">
+  <div class="q">Q10. Which problems is NMR spectroscopy good for?</div>
+  <ul>
+    <li>Studying protein dynamics at atomic resolution.</li>
+    <li>Structures of very large complexes (&gt;200 kDa) without isotope labelling.</li>
+    <li>Mapping ligand-binding interactions in solution.</li>
+    <li>Studying proteins in physiological (solution) conditions.</li>
+  </ul>
+  <div class="answer">Correct: A, C, D</div>
+  <div class="explanation">B — NMR struggles above ~60 kDa (natively) or ~100 kDa with labelling. Cryo-EM or X-ray better for very large complexes.</div>
+</div>
+
+<!-- Q11 -->
+<div class="mcq">
+  <div class="q">Q11. The Viterbi algorithm:</div>
+  <ul>
+    <li>Finds the single most likely path through hidden states given an observation sequence.</li>
+    <li>Is used by HMM-based gene predictors like GENSCAN.</li>
+    <li>Uses dynamic programming.</li>
+    <li>Sums probabilities over all possible paths.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D describes the <strong>Forward algorithm</strong>, not Viterbi. Viterbi takes the max, not the sum.</div>
+</div>
+
+<!-- Q12 -->
+<div class="mcq">
+  <div class="q">Q12. About the genetic code:</div>
+  <ul>
+    <li>It is degenerate: multiple codons encode the same amino acid.</li>
+    <li>The start codon in eukaryotes is AUG.</li>
+    <li>UAA, UAG, UGA are stop codons.</li>
+    <li>Most synonymous codons differ at the 1st position.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D — synonymous codons mostly differ at the <strong>3rd position</strong> (wobble position), not the 1st.</div>
+</div>
+
+<!-- Q13 -->
+<div class="mcq">
+  <div class="q">Q13. Which of these are TRUE about MSA?</div>
+  <ul>
+    <li>It is essential for phylogenetic tree construction.</li>
+    <li>Profile HMMs can be built from a good MSA.</li>
+    <li>ClustalW uses the consistency-based approach with a primary library.</li>
+    <li>T-Coffee uses consistency-based scoring (collection of pairwise alignments).</li>
+  </ul>
+  <div class="answer">Correct: A, B, D</div>
+  <div class="explanation">C — ClustalW is matrix-based progressive; T-Coffee is the consistency-based one.</div>
+</div>
+
+<!-- Q14 -->
+<div class="mcq">
+  <div class="q">Q14. Limitations of UPGMA:</div>
+  <ul>
+    <li>Assumes constant rate of evolution across all lineages.</li>
+    <li>Once a taxon is clustered it cannot be ungrouped (irreversible).</li>
+    <li>Less accurate than Neighbor-Joining or Maximum Likelihood.</li>
+    <li>Cannot produce a rooted tree.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D — UPGMA produces a <strong>rooted</strong> tree (that's actually one of its features). Its other limitations make it less preferred today.</div>
+</div>
+
+<!-- Q15 -->
+<div class="mcq">
+  <div class="q">Q15. Which statements about secondary structure prediction tools are TRUE?</div>
+  <ul>
+    <li>Chou-Fasman is a statistical method based on amino acid propensities from known structures.</li>
+    <li>GOR uses information theory / Bayesian inference.</li>
+    <li>PSIPRED uses neural networks on PSI-BLAST profiles.</li>
+    <li>Chou-Fasman achieves &gt;95% accuracy on modern protein datasets.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D — Chou-Fasman accuracy is ~50–60%. Modern neural-network methods (PSIPRED, JPred) reach ~80%+; AlphaFold even higher.</div>
+</div>
+
+<!-- Q16 -->
+<div class="mcq">
+  <div class="q">Q16. Differences between Sanger and Maxam-Gilbert sequencing:</div>
+  <ul>
+    <li>Sanger is enzymatic; Maxam-Gilbert is chemical.</li>
+    <li>Sanger uses chain termination by ddNTPs; Maxam-Gilbert breaks DNA at specific bases.</li>
+    <li>Sanger is the standard modern method; Maxam-Gilbert is largely obsolete.</li>
+    <li>Both require DNA synthesis using DNA polymerase.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D — only Sanger uses DNA polymerase. Maxam-Gilbert chemically degrades existing DNA.</div>
+</div>
+
+<!-- Q17 -->
+<div class="mcq">
+  <div class="q">Q17. Which statements about the central dogma in eukaryotes are TRUE?</div>
+  <ul>
+    <li>mRNA is mostly monocistronic.</li>
+    <li>Pre-mRNA undergoes splicing to remove introns.</li>
+    <li>~60% of human genes undergo alternative splicing.</li>
+    <li>Bacterial mRNA is also mostly monocistronic.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D — bacterial mRNA is mostly <strong>polycistronic</strong> (encodes multiple ORFs).</div>
+</div>
+
+<!-- Q18 -->
+<div class="mcq">
+  <div class="q">Q18. Which are characteristics of pyrosequencing (454)?</div>
+  <ul>
+    <li>Uses emulsion PCR on beads.</li>
+    <li>Detection by release of pyrophosphate → ATP → luciferase → light.</li>
+    <li>Read by reversible terminator chemistry.</li>
+    <li>It is a sequencing-by-synthesis approach.</li>
+  </ul>
+  <div class="answer">Correct: A, B, D</div>
+  <div class="explanation">C is Illumina, not 454.</div>
+</div>
+
+<!-- Q19 -->
+<div class="mcq">
+  <div class="q">Q19. Which factors affect a BLAST search's significance?</div>
+  <ul>
+    <li>Length of the query sequence.</li>
+    <li>Size of the database.</li>
+    <li>The scoring matrix used.</li>
+    <li>The colour of the query (Cy3 vs Cy5).</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D — irrelevant; BLAST is a text-based sequence search, not a microarray.</div>
+</div>
+
+<!-- Q20 -->
+<div class="mcq">
+  <div class="q">Q20. About the phase problem in X-ray crystallography:</div>
+  <ul>
+    <li>The diffraction pattern records intensity (amplitude²), not phase.</li>
+    <li>Phases cannot be measured directly from the X-ray detector.</li>
+    <li>Methods to recover phases include molecular replacement and heavy-atom (isomorphous) replacement.</li>
+    <li>It is solved by simply Fourier-transforming the diffraction pattern.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D — the Fourier transform needs both amplitudes <em>and</em> phases. The phase problem is precisely that we can't take an FT without recovering the phases first.</div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===== PART D: Mock Paper 3 ===== -->
+<div class="mock-header" id="mock3">
+  <h2>📝 PART D — MOCK PAPER 3 (15 Mixed: Theory + Light Numerical MCQs)</h2>
+  <div class="info">Quick calculations and definitional traps.</div>
+</div>
+
+<!-- Q1 -->
+<div class="mcq">
+  <div class="q">Q1. A linear gap penalty of −2 per gap and a gap of length 4 gives a total penalty of:</div>
+  <ul>
+    <li>−2</li>
+    <li>−6</li>
+    <li>−8</li>
+    <li>None of the above</li>
+  </ul>
+  <div class="answer">Correct: C</div>
+  <div class="explanation">w(k) = g·k = 4 × (−2) = −8.</div>
+</div>
+
+<!-- Q2 -->
+<div class="mcq">
+  <div class="q">Q2. For an affine gap penalty with opening cost = −3 and extension cost = −1, a gap of length 4 gives:</div>
+  <ul>
+    <li>−4</li>
+    <li>−6</li>
+    <li>−7</li>
+    <li>−12</li>
+  </ul>
+  <div class="answer">Correct: B</div>
+  <div class="explanation">w(k) = w<sub>o</sub> + (k − 1)·w<sub>e</sub> = −3 + 3·(−1) = −6.</div>
+</div>
+
+<!-- Q3 -->
+<div class="mcq">
+  <div class="q">Q3. Aligning ACGT vs ACT with match = +2, mismatch = −2, gap = −1 (Smith-Waterman). What is the best local alignment score?</div>
+  <ul>
+    <li>3</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+  </ul>
+  <div class="answer">Correct: B (≈ 5)</div>
+  <div class="explanation">Best local: A-C-T from seq1 (using gap), aligned with ACT → 3 matches (+6) − 1 gap (−1) = 5.</div>
+</div>
+
+<!-- Q4 -->
+<div class="mcq">
+  <div class="q">Q4. In a database of 100 proteins (20,000 AA total), 5,000 form α-helix. Of 1,000 Leucine residues, 400 form α-helix. The Chou-Fasman P(Leu, α) =</div>
+  <ul>
+    <li>0.4</li>
+    <li>0.8</li>
+    <li>1.6</li>
+    <li>2.5</li>
+  </ul>
+  <div class="answer">Correct: C</div>
+  <div class="explanation">P = (400/5000) / (1000/20000) = 0.08 / 0.05 = 1.6. Leu is a strong helix former (matches its actual Pα).</div>
+</div>
+
+<!-- Q5 -->
+<div class="mcq">
+  <div class="q">Q5. Number of possible global alignments of two sequences of length 10:</div>
+  <ul>
+    <li>C(20, 10) ≈ 184,756</li>
+    <li>≈ 2²⁰ / √(10π)</li>
+    <li>Exactly 100</li>
+    <li>Exponential in n</li>
+  </ul>
+  <div class="answer">Correct: A, B, D</div>
+  <div class="explanation">A and B are both approximations of the same formula C(2n,n) ≈ 2²ⁿ/√(πn). D is true (exponential growth). C is way off.</div>
+</div>
+
+<!-- Q6 -->
+<div class="mcq">
+  <div class="q">Q6. In an unrooted tree with 4 taxa (A, B, C, D), the number of possible rooted trees obtainable is:</div>
+  <ul>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+  </ul>
+  <div class="answer">Correct: C</div>
+  <div class="explanation">An unrooted tree with n taxa has 2n−3 branches. For n=4: 5 branches → 5 possible rooted trees (root at any branch).</div>
+</div>
+
+<!-- Q7 -->
+<div class="mcq">
+  <div class="q">Q7. The E-value of a BLAST hit is 1e-20. Which of the following are correct interpretations?</div>
+  <ul>
+    <li>The hit is extremely unlikely to occur by chance.</li>
+    <li>Strong homology is suggested.</li>
+    <li>The hit has roughly a 50% chance of being a true match.</li>
+    <li>The corresponding p-value is approximately 1e-20.</li>
+  </ul>
+  <div class="answer">Correct: A, B, D</div>
+  <div class="explanation">For small E, p ≈ E. C is wrong — very low E means essentially certain homology, not 50%.</div>
+</div>
+
+<!-- Q8 -->
+<div class="mcq">
+  <div class="q">Q8. The 4 ways to derive γ(i,j) in Nussinov are:</div>
+  <ul>
+    <li>γ(i+1, j) — i unpaired.</li>
+    <li>γ(i, j−1) — j unpaired.</li>
+    <li>γ(i+1, j−1) + δ(i,j) — i pairs with j.</li>
+    <li>max over k of γ(i,k) + γ(k+1,j) — bifurcation.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C, D — ALL TRUE</div>
+</div>
+
+<!-- Q9 -->
+<div class="mcq">
+  <div class="q">Q9. Yeast genome ~12,000 kb; ~6,000 ORFs averaging 500 AAs. Approximate fraction of yeast genome that is coding:</div>
+  <ul>
+    <li>~25%</li>
+    <li>~50%</li>
+    <li>~75%</li>
+    <li>~95%</li>
+  </ul>
+  <div class="answer">Correct: C</div>
+  <div class="explanation">Total coding bp = 6000 × 500 × 3 = 9 × 10⁶ bp = 9000 kb. Fraction = 9000 / 12000 = 75%. Yeast is gene-dense (low intron content). Human is ~1.5% coding for comparison.</div>
+</div>
+
+<!-- Q10 -->
+<div class="mcq">
+  <div class="q">Q10. A bootstrap value of 95% for a clade means:</div>
+  <ul>
+    <li>95% of bootstrap replicate trees show that clade.</li>
+    <li>The clade is supported strongly.</li>
+    <li>There is a 95% probability the clade is the "true" relationship.</li>
+    <li>The clade was found in 5% of replicates.</li>
+  </ul>
+  <div class="answer">Correct: A, B</div>
+  <div class="explanation">C is the classic trap — bootstrap is NOT a probability of truth. D is the opposite of the truth.</div>
+</div>
+
+<!-- Q11 -->
+<div class="mcq">
+  <div class="q">Q11. Which statements about ChIP-seq are TRUE?</div>
+  <ul>
+    <li>Immunoprecipitation enriches DNA bound to a specific protein.</li>
+    <li>H3K4me3 is associated with active promoters.</li>
+    <li>H3K27me3 is a mark of active transcription.</li>
+    <li>After immunoprecipitation, recovered DNA is high-throughput sequenced.</li>
+  </ul>
+  <div class="answer">Correct: A, B, D</div>
+  <div class="explanation">C — H3K27me3 is a <strong>repressive</strong> mark (Polycomb), not active.</div>
+</div>
+
+<!-- Q12 -->
+<div class="mcq">
+  <div class="q">Q12. PAM250 vs BLOSUM62 — which are TRUE?</div>
+  <ul>
+    <li>PAM250 corresponds to a larger evolutionary distance than PAM1.</li>
+    <li>BLOSUM62 corresponds to a larger evolutionary distance than BLOSUM100.</li>
+    <li>PAM is constructed by extrapolation; BLOSUM is constructed directly from observed substitutions.</li>
+    <li>BLOSUM62 is the default substitution matrix in BLAST.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C, D — ALL TRUE</div>
+</div>
+
+<!-- Q13 -->
+<div class="mcq">
+  <div class="q">Q13. Which of the following are true about Sanger automated sequencing read length?</div>
+  <ul>
+    <li>~700 bases per read on ABI 3700.</li>
+    <li>Uses capillary gel electrophoresis for size separation.</li>
+    <li>Fluorescently labelled ddNTPs allow detection by laser.</li>
+    <li>Generates millions of reads per run in parallel.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D — Sanger is low-throughput compared to NGS. Massive parallelism is the NGS hallmark.</div>
+</div>
+
+<!-- Q14 -->
+<div class="mcq">
+  <div class="q">Q14. Sequence A=T pairs with how many hydrogen bonds, and G≡C pairs with how many?</div>
+  <ul>
+    <li>A=T → 2 ; G≡C → 3</li>
+    <li>A=T → 3 ; G≡C → 2</li>
+    <li>Both have 2</li>
+    <li>Both have 3</li>
+  </ul>
+  <div class="answer">Correct: A</div>
+  <div class="explanation">A=T uses 2 H-bonds; G≡C uses 3. This is why GC-rich DNA has a higher melting temperature.</div>
+</div>
+
+<!-- Q15 -->
+<div class="mcq">
+  <div class="q">Q15. RNA-seq experiment outputs include:</div>
+  <ul>
+    <li>Quantification of gene expression (transcript abundance).</li>
+    <li>Detection of splice junctions and alternative isoforms.</li>
+    <li>Discovery of novel transcripts.</li>
+    <li>Direct measurement of histone modifications.</li>
+  </ul>
+  <div class="answer">Correct: A, B, C</div>
+  <div class="explanation">D — histone modifications need ChIP-seq.</div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===== PART E: Top traps ===== -->
+<div class="mock-header" id="traps">
+  <h2>🪤 PART E — Top 30 Trap Statements (Memorise these distinctions!)</h2>
+  <div class="info">For multi-correct exams, examiners love subtle reversals. This list is your last-minute insurance.</div>
+</div>
+
+<ol>
+  <li><span class="badge warn">TRAP</span> Higher PAM number = MORE evolutionary distance; higher BLOSUM number = LESS distance. <em>The relationship is inverse.</em></li>
+  <li><span class="badge warn">TRAP</span> Homology is NOT a percentage — sequences are either homologous or not. Only similarity/identity are measured in %.</li>
+  <li><span class="badge warn">TRAP</span> Analogs share function but NOT ancestry — they are NOT homologs.</li>
+  <li><span class="badge warn">TRAP</span> Dot plot does NOT produce a quantitative score or alignment — only a visual pattern.</li>
+  <li><span class="badge warn">TRAP</span> Smith-Waterman traceback starts at the MAXIMUM score, not the bottom-right. Needleman-Wunsch starts at bottom-right.</li>
+  <li><span class="badge warn">TRAP</span> Both NW and SW guarantee optimality (under the scoring scheme) — BLAST and FASTA do NOT (they are heuristic).</li>
+  <li><span class="badge warn">TRAP</span> In Chou-Fasman α-helix nucleation, the 4 (out of 6) residues with Pα&gt;1 need NOT be contiguous.</li>
+  <li><span class="badge warn">TRAP</span> The α-helix window is 6 AA; the β-sheet window is 5 AA. Extension window in BOTH is 4.</li>
+  <li><span class="badge warn">TRAP</span> Proline = helix breaker (rigid side chain); Glycine = helix breaker (too flexible). Both are excellent turn formers.</li>
+  <li><span class="badge warn">TRAP</span> Random alignment scores follow Gumbel EVD, NOT normal distribution.</li>
+  <li><span class="badge warn">TRAP</span> Bootstrap value is NOT the probability that the clade is "true" — it's the stability under resampling.</li>
+  <li><span class="badge warn">TRAP</span> Bootstrap resamples COLUMNS of the alignment with replacement, NOT sequences.</li>
+  <li><span class="badge warn">TRAP</span> UPGMA → rooted, ultrametric, constant-clock assumption. NJ → unrooted, allows unequal rates.</li>
+  <li><span class="badge warn">TRAP</span> An unrooted tree does NOT specify the direction of evolution.</li>
+  <li><span class="badge warn">TRAP</span> Nussinov does NOT predict pseudoknots. (Pseudoknots = crossing base pairs, forbidden by the algorithm.)</li>
+  <li><span class="badge warn">TRAP</span> Nussinov maximises base PAIR count only — ignores stacking and loop energies. Use Zuker for real free-energy minimisation.</li>
+  <li><span class="badge warn">TRAP</span> In Nussinov, immediate neighbours cannot pair (|i−j| ≥ 4, allowing a minimum 3-nt hairpin loop).</li>
+  <li><span class="badge warn">TRAP</span> Maximum Likelihood does NOT guarantee a global optimum — it can be stuck at local maxima.</li>
+  <li><span class="badge warn">TRAP</span> HMMs use BOTH transition AND emission probabilities.</li>
+  <li><span class="badge warn">TRAP</span> Viterbi algorithm = single most likely path. Forward algorithm = total probability summed over paths.</li>
+  <li><span class="badge warn">TRAP</span> Maxam-Gilbert uses chemical cleavage and does NOT require DNA polymerase. Sanger does.</li>
+  <li><span class="badge warn">TRAP</span> 454 (pyrosequencing) uses emulsion PCR. Illumina uses bridge PCR. SOLiD uses sequencing-by-ligation.</li>
+  <li><span class="badge warn">TRAP</span> Microarrays: green (Cy3) = control; red (Cy5) = sample; yellow = equal; black = neither.</li>
+  <li><span class="badge warn">TRAP</span> H3K4me3 = active promoter; H3K9me2/3 and H3K27me3 = repressive marks.</li>
+  <li><span class="badge warn">TRAP</span> Affine gap penalty: opening cost + (k−1) × extension cost — NOT k × extension cost.</li>
+  <li><span class="badge warn">TRAP</span> For closely related sequences, use a STRICTER (higher magnitude) gap penalty.</li>
+  <li><span class="badge warn">TRAP</span> The phase problem in X-ray crystallography means we lose the phase information of diffracted waves; intensity = amplitude² gives only amplitude.</li>
+  <li><span class="badge warn">TRAP</span> NMR upper limit ≈ 60 kDa native, ~100 kDa with isotope labelling. Cryo-EM handles very large complexes.</li>
+  <li><span class="badge warn">TRAP</span> ClustalW is matrix-based progressive; T-Coffee is consistency-based. MUSCLE iterative.</li>
+  <li><span class="badge warn">TRAP</span> The longest ORF doesn't always mean a gene — especially in eukaryotes (introns split ORFs). HMMs handle this; pure ORF scanning fails.</li>
+</ol>
+
+<hr class="section-divider">
+
+<!-- Last-minute summary -->
+<h2 id="finalcard">⚡ Last-Minute Power Card (final 15 minutes before exam)</h2>
+<div class="grid-2">
+  <div>
+    <h4>🧬 Numbers to know</h4>
+    <ul class="tight">
+      <li>20 amino acids; 64 codons; 4 nucleotides</li>
+      <li>3 stop codons: UAA, UAG, UGA</li>
+      <li>Start codon: AUG (also GUG, UUG in bacteria)</li>
+      <li>A=T: 2 H-bonds; G≡C: 3 H-bonds</li>
+      <li>Human genome: 3 × 10⁹ bp, ~20,000 genes</li>
+      <li>PAM1 = 1% mutation; BLOSUM62 default in BLAST</li>
+      <li>Chou-Fasman: α window=6, ≥4 with Pα&gt;1; β window=5, ≥3 with Pβ&gt;1; extension window=4</li>
+      <li>Bootstrap: &gt;90% strong, 70–90% moderate, &lt;70% weak</li>
+      <li>Sanger: ~700 bp/read; NGS: millions of reads</li>
+      <li>H. influenzae 1995 — first shotgun whole genome</li>
+    </ul>
+  </div>
+  <div>
+    <h4>🔑 One-liner identifications</h4>
+    <ul class="tight">
+      <li>NW = global, full traceback from corner</li>
+      <li>SW = local, zeros in negatives, start at max</li>
+      <li>BLAST/FASTA = heuristic word-based</li>
+      <li>PAM = global, extrapolated, Markov</li>
+      <li>BLOSUM = local, blocks, observed directly</li>
+      <li>Chou-Fasman = statistical SS prediction</li>
+      <li>Nussinov = max base pairs RNA</li>
+      <li>Zuker = min free energy RNA</li>
+      <li>UPGMA = rooted, constant clock</li>
+      <li>NJ = unrooted, unequal rates</li>
+      <li>MP = fewest changes</li>
+      <li>ML = highest P(Data|Model)</li>
+      <li>HMM = states + transitions + emissions + Viterbi</li>
+      <li>454 = emulsion PCR + pyrosequencing</li>
+      <li>Illumina = bridge PCR + reversible terminator SBS</li>
+      <li>SOLiD = sequencing by ligation</li>
+      <li>ChIP-seq = TF/histone binding sites genome-wide</li>
+      <li>cDNA microarray = Cy3/Cy5; gene expression</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout tip" style="margin-top:30px;">
+  <strong>🎯 Exam strategy for multi-correct with negative marking:</strong>
+  <ol class="tight">
+    <li>Mark only options you are <strong>certain</strong> are TRUE.</li>
+    <li>Leave doubtful options BLANK — losing 0 marks is better than losing 1.</li>
+    <li>Watch for "all of the above" — sometimes all 4 ARE correct (Q1 Mock 2!).</li>
+    <li>Watch for subtle reversals: "more" vs "less", "rooted" vs "unrooted", "global" vs "local".</li>
+    <li>Re-read the stem after each option — examiners change the verb ("includes" → "excludes").</li>
+    <li>For numerical: write the formula on rough paper first, then plug in. Don't trust mental math.</li>
+    <li>You have 1–1.5 min per MCQ — be ruthless with time.</li>
+  </ol>
+</div>
+
+<div style="text-align:center; margin-top:40px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted);">
+  🍀 <strong>All the best for your exam!</strong> Trust the cheat sheet, trust your prep, and DON'T over-mark in negative-marked MCQs. 🍀
+</div>
+
+</div>
+</body>
+</html>
