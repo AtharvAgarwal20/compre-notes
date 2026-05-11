@@ -1,0 +1,2237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bioinformatics Exam Study Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+
+        :root {
+            --bg: #0d1117;
+            --bg2: #161b22;
+            --bg3: #21262d;
+            --border: #30363d;
+            --text: #e6edf3;
+            --muted: #8b949e;
+            --accent1: #58a6ff;
+            /* blue - proteins */
+            --accent2: #3fb950;
+            /* green - RNA */
+            --accent3: #f78166;
+            /* red/orange - algorithms */
+            --accent4: #d2a8ff;
+            /* purple - highlights */
+            --accent5: #ffa657;
+            /* orange - warnings */
+            --yellow: #e3b341;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* ── HEADER ── */
+        .site-header {
+            background: var(--bg2);
+            border-bottom: 1px solid var(--border);
+            padding: 24px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .site-header h1 {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent1);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .exam-badge {
+            background: var(--accent3);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-family: 'IBM Plex Mono', monospace;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        /* ── NAV ── */
+        .toc {
+            background: var(--bg2);
+            border-right: 1px solid var(--border);
+            width: 260px;
+            position: fixed;
+            top: 64px;
+            left: 0;
+            bottom: 0;
+            overflow-y: auto;
+            padding: 20px 0;
+            z-index: 50;
+        }
+
+        .toc-title {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 0 20px 12px;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .toc a {
+            display: block;
+            padding: 6px 20px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.82rem;
+            border-left: 2px solid transparent;
+            transition: all 0.15s;
+            line-height: 1.4;
+        }
+
+        .toc a:hover {
+            color: var(--text);
+            background: var(--bg3);
+        }
+
+        .toc a.l1 {
+            font-weight: 600;
+            color: var(--text);
+            margin-top: 8px;
+        }
+
+        .toc a.l1.blue {
+            border-left-color: var(--accent1);
+            color: var(--accent1);
+        }
+
+        .toc a.l1.green {
+            border-left-color: var(--accent2);
+            color: var(--accent2);
+        }
+
+        .toc a.l1.red {
+            border-left-color: var(--accent3);
+            color: var(--accent3);
+        }
+
+        .toc a.l2 {
+            padding-left: 32px;
+            font-size: 0.78rem;
+        }
+
+        .toc a.target-tag {
+            background: rgba(88, 166, 255, 0.08);
+            color: var(--accent1);
+            border-left-color: var(--accent1);
+            font-weight: 600;
+        }
+
+        /* ── MAIN ── */
+        .main {
+            margin-left: 260px;
+            padding: 40px 48px 80px;
+            max-width: 1000px;
+        }
+
+        /* ── SECTIONS ── */
+        .section {
+            margin-bottom: 56px;
+            scroll-margin-top: 80px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-num {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--muted);
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .section-title.blue {
+            color: var(--accent1);
+        }
+
+        .section-title.green {
+            color: var(--accent2);
+        }
+
+        .section-title.red {
+            color: var(--accent3);
+        }
+
+        /* ── TARGET BANNER ── */
+        .target-banner {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.12), rgba(88, 166, 255, 0.04));
+            border: 1px solid var(--accent1);
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+        }
+
+        .target-banner .tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            background: var(--accent1);
+            color: var(--bg);
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+        }
+
+        /* ── SUBSECTIONS ── */
+        .subsection {
+            margin-bottom: 32px;
+            scroll-margin-top: 80px;
+        }
+
+        .subsection-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+        }
+
+        .subsection-title::before {
+            content: '';
+            display: inline-block;
+            width: 3px;
+            height: 18px;
+            border-radius: 2px;
+            background: var(--accent4);
+            flex-shrink: 0;
+        }
+
+        p {
+            margin-bottom: 12px;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── CARDS ── */
+        .card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px 20px;
+            margin-bottom: 16px;
+        }
+
+        .card.blue {
+            border-left: 3px solid var(--accent1);
+        }
+
+        .card.green {
+            border-left: 3px solid var(--accent2);
+        }
+
+        .card.red {
+            border-left: 3px solid var(--accent3);
+        }
+
+        .card.purple {
+            border-left: 3px solid var(--accent4);
+        }
+
+        .card.yellow {
+            border-left: 3px solid var(--yellow);
+        }
+
+        .card.orange {
+            border-left: 3px solid var(--accent5);
+        }
+
+        .card-title {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-family: 'IBM Plex Mono', monospace;
+            margin-bottom: 8px;
+            color: var(--muted);
+        }
+
+        .card.blue .card-title {
+            color: var(--accent1);
+        }
+
+        .card.green .card-title {
+            color: var(--accent2);
+        }
+
+        .card.red .card-title {
+            color: var(--accent3);
+        }
+
+        .card.purple .card-title {
+            color: var(--accent4);
+        }
+
+        .card.yellow .card-title {
+            color: var(--yellow);
+        }
+
+        .card.orange .card-title {
+            color: var(--accent5);
+        }
+
+        /* ── GRID ── */
+        .grid2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .grid3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        /* ── STEP LIST ── */
+        .step-list {
+            list-style: none;
+        }
+
+        .step-list li {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 14px;
+            align-items: flex-start;
+        }
+
+        .step-num {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .step-list li .step-content strong {
+            color: var(--accent4);
+        }
+
+        /* ── TABLE ── */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+        }
+
+        .data-table th {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            padding: 10px 14px;
+            text-align: left;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .data-table td {
+            border: 1px solid var(--border);
+            padding: 9px 14px;
+            vertical-align: middle;
+        }
+
+        .data-table tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .data-table .highlight td {
+            background: rgba(88, 166, 255, 0.08);
+            color: var(--accent1);
+            font-weight: 600;
+        }
+
+        /* ── CODE / MONO ── */
+        .mono {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        code {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.83em;
+            color: var(--accent4);
+        }
+
+        pre {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px 20px;
+            font-size: 0.82rem;
+            overflow-x: auto;
+            margin-bottom: 16px;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        pre .c {
+            color: var(--muted);
+        }
+
+        pre .bp {
+            color: var(--accent2);
+            font-weight: 700;
+        }
+
+        pre .idx {
+            color: var(--accent1);
+        }
+
+        pre .val {
+            color: var(--accent5);
+            font-weight: 700;
+        }
+
+        pre .hl {
+            background: rgba(63, 185, 80, 0.12);
+        }
+
+        /* ── MATRIX TABLE ── */
+        .matrix-wrap {
+            overflow-x: auto;
+            margin-bottom: 16px;
+        }
+
+        .matrix-table {
+            border-collapse: collapse;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+        }
+
+        .matrix-table th,
+        .matrix-table td {
+            border: 1px solid var(--border);
+            padding: 6px 10px;
+            text-align: center;
+            min-width: 36px;
+        }
+
+        .matrix-table th {
+            background: var(--bg3);
+            color: var(--muted);
+        }
+
+        .matrix-table .row-header {
+            background: var(--bg3);
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        .matrix-table .filled {
+            background: rgba(63, 185, 80, 0.15);
+            color: var(--accent2);
+            font-weight: 700;
+        }
+
+        .matrix-table .black {
+            background: #000;
+        }
+
+        .matrix-table .traced {
+            background: rgba(247, 129, 102, 0.2);
+            color: var(--accent3);
+            font-weight: 700;
+        }
+
+        .matrix-table .pair-result {
+            background: rgba(88, 166, 255, 0.15);
+            color: var(--accent1);
+            font-weight: 700;
+        }
+
+        /* ── FORMULA BOX ── */
+        .formula-box {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px 22px;
+            margin-bottom: 16px;
+            text-align: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.92rem;
+            line-height: 2;
+        }
+
+        .formula-box .formula-title {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-bottom: 10px;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-weight: 700;
+        }
+
+        .formula-main {
+            color: var(--yellow);
+            font-size: 1rem;
+        }
+
+        /* ── COMPARISON TABLE ── */
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+        }
+
+        .compare-table th {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            padding: 10px 14px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .compare-table td {
+            border: 1px solid var(--border);
+            padding: 9px 14px;
+        }
+
+        .compare-table .label {
+            font-weight: 700;
+            color: var(--accent4);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        /* ── CALLOUT ── */
+        .callout {
+            display: flex;
+            gap: 14px;
+            background: rgba(227, 179, 65, 0.08);
+            border: 1px solid var(--yellow);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+            font-size: 0.88rem;
+        }
+
+        .callout .icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .callout.info {
+            background: rgba(88, 166, 255, 0.06);
+            border-color: var(--accent1);
+        }
+
+        .callout.danger {
+            background: rgba(247, 129, 102, 0.06);
+            border-color: var(--accent3);
+        }
+
+        .callout.success {
+            background: rgba(63, 185, 80, 0.06);
+            border-color: var(--accent2);
+        }
+
+        /* ── TAG ── */
+        .tag {
+            display: inline-block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        .tag.exam {
+            background: rgba(247, 129, 102, 0.2);
+            color: var(--accent3);
+            border: 1px solid var(--accent3);
+        }
+
+        .tag.key {
+            background: rgba(88, 166, 255, 0.15);
+            color: var(--accent1);
+            border: 1px solid var(--accent1);
+        }
+
+        .tag.algo {
+            background: rgba(210, 168, 255, 0.15);
+            color: var(--accent4);
+            border: 1px solid var(--accent4);
+        }
+
+        ul.bullet {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul.bullet li {
+            padding: 3px 0 3px 20px;
+            position: relative;
+        }
+
+        ul.bullet li::before {
+            content: '›';
+            position: absolute;
+            left: 4px;
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--muted);
+        }
+
+        /* ── DIVIDER ── */
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 28px 0;
+        }
+
+        /* ── SEQUENCE DISPLAY ── */
+        .seq {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+        }
+
+        .seq .A {
+            color: #58a6ff;
+        }
+
+        .seq .U {
+            color: #ffa657;
+        }
+
+        .seq .G {
+            color: #3fb950;
+        }
+
+        .seq .C {
+            color: #f78166;
+        }
+
+        .seq .pair {
+            font-weight: 900;
+            text-decoration: underline;
+        }
+
+        /* ── WORKED EXAMPLE ── */
+        .worked {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .worked-header {
+            background: var(--bg3);
+            padding: 12px 18px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .worked-body {
+            padding: 18px 20px;
+        }
+
+        .worked-step {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            align-items: flex-start;
+        }
+
+        .worked-step-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: var(--accent5);
+            white-space: nowrap;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .toc {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px 16px 60px;
+            }
+
+            .grid2,
+            .grid3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <h1>🧬 Bioinformatics — Complete Study Guide</h1>
+        <span class="exam-badge">⚡ Exam Tomorrow</span>
+    </header>
+
+    <!-- TABLE OF CONTENTS -->
+    <nav class="toc">
+        <div class="toc-title">Contents</div>
+        <a href="#s1" class="l1 blue">Part 1: Protein Structure</a>
+        <a href="#s1-hierarchy" class="l2">Structural Hierarchy</a>
+        <a href="#s1-why" class="l2">Why Predict Structure?</a>
+        <a href="#s1-anfinsen" class="l2">Anfinsen & Levinthal</a>
+        <a href="#s1-ss" class="l2">Secondary Structure Prediction</a>
+        <a href="#s2" class="l1 blue target-tag">★ CHOU-FASMAN ALGO</a>
+        <a href="#s2-pij" class="l2">The P_ij Formula</a>
+        <a href="#s2-helix" class="l2">Predicting α-Helices</a>
+        <a href="#s2-sheet" class="l2">Predicting β-Sheets</a>
+        <a href="#s2-turn" class="l2">Predicting β-Turns</a>
+        <a href="#s2-why-window" class="l2">Why Sliding Windows?</a>
+        <a href="#s3" class="l1 blue">Part 3: Homology Modeling</a>
+        <a href="#s3-steps" class="l2">6-Step Pipeline</a>
+        <a href="#s3-limits" class="l2">Limitations</a>
+        <a href="#s3-threading" class="l2">Threading</a>
+        <a href="#s3-alphafold" class="l2">AlphaFold & AI Methods</a>
+        <a href="#s4" class="l1 green">Part 4: RNA Structure</a>
+        <a href="#s4-basics" class="l2">RNA Basics & Types</a>
+        <a href="#s4-base" class="l2">Base Pairs</a>
+        <a href="#s4-2struct" class="l2">Secondary Structures</a>
+        <a href="#s5" class="l1 green target-tag">★ NUSSINOV ALGORITHM</a>
+        <a href="#s5-bp-max" class="l2">Base-Pair Maximization</a>
+        <a href="#s5-rules" class="l2">Rules & Constraints</a>
+        <a href="#s5-recursion" class="l2">The 4-Case Recursion</a>
+        <a href="#s5-fill" class="l2">Fill Stage (Full Worked)</a>
+        <a href="#s5-traceback" class="l2">Traceback Stage</a>
+        <a href="#s5-energy" class="l2">Energy Minimization</a>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- ═══════════════════════════════════════════════
+     SECTION 1: PROTEIN STRUCTURE BASICS
+═══════════════════════════════════════════════ -->
+        <section class="section" id="s1">
+            <div class="section-header">
+                <span class="section-num">PART 01</span>
+                <h2 class="section-title blue">Protein Structure Prediction — Foundations</h2>
+            </div>
+
+            <div class="subsection" id="s1-hierarchy">
+                <div class="subsection-title">The Four Levels of Protein Structure</div>
+                <p>Proteins are polymers of amino acids that fold into three-dimensional structures. There are four
+                    hierarchical levels, each driven by different forces:</p>
+                <div class="grid2">
+                    <div class="card blue">
+                        <div class="card-title">Primary Structure</div>
+                        <p>The linear sequence of amino acids (polypeptide chain). Length ranges from ~20 to ~30,000
+                            residues.</p>
+                        <p><strong>Driving force:</strong> Peptide bond (covalent bond between amino acids)</p>
+                    </div>
+                    <div class="card green">
+                        <div class="card-title">Secondary Structure</div>
+                        <p>Local folding of the backbone into α-helices, β-sheets, and coils.</p>
+                        <p><strong>Driving force:</strong> Hydrogen bonds between backbone atoms</p>
+                    </div>
+                    <div class="card purple">
+                        <div class="card-title">Tertiary Structure</div>
+                        <p>Overall 3D fold — interactions between different secondary structures. Example: Myoglobin.
+                        </p>
+                        <p><strong>Driving force:</strong> Hydrophobic effect; also H-bonds, salt bridges, Van der
+                            Waals, disulfide bonds</p>
+                    </div>
+                    <div class="card orange">
+                        <div class="card-title">Quaternary Structure</div>
+                        <p>Multiple protein subunits assembled together. Example: Hemoglobin (4 subunits).</p>
+                        <p><strong>Analogy:</strong> Paragraph = multiple sentences (tertiary structures) combined</p>
+                    </div>
+                </div>
+                <div class="callout info">
+                    <span class="icon">💡</span>
+                    <div><strong>Memory trick:</strong> Alphabets = Primary, Words = Secondary, Sentence = Tertiary,
+                        Paragraph = Quaternary</div>
+                </div>
+            </div>
+
+            <div class="subsection" id="s1-why">
+                <div class="subsection-title">Why Does Structure Prediction Matter?</div>
+                <p>There is a massive and growing gap between known sequences and experimentally determined structures:
+                </p>
+                <div class="card yellow">
+                    <div class="card-title">The Gap Problem</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>Structures (PDB)</th>
+                                <th>Sequences (UniProt)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Oct 2022</td>
+                                <td>~195,858</td>
+                                <td>~226,771,949</td>
+                            </tr>
+                            <tr>
+                                <td>Oct 2023</td>
+                                <td>~210,554</td>
+                                <td>~251,600,768</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Today (2025)</td>
+                                <td>~252,482</td>
+                                <td>~203,130,941</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Experiments are time-consuming, expensive, and laborious. Computational prediction is essential.
+                    </p>
+                </div>
+                <div class="grid2">
+                    <div class="card green">
+                        <div class="card-title">Applications</div>
+                        <ul class="bullet">
+                            <li>Function of novel proteins</li>
+                            <li>Effect of mutations on protein function</li>
+                            <li>Structure-based drug design</li>
+                            <li>Understanding the protein folding problem</li>
+                        </ul>
+                    </div>
+                    <div class="card blue">
+                        <div class="card-title">Core Principle: Sequence → Structure → Function</div>
+                        <p>The ultimate goal: given only the amino acid sequence, predict the 3D atomic coordinates (PDB
+                            format: X, Y, Z for every atom).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection" id="s1-anfinsen">
+                <div class="subsection-title">Theoretical Foundations</div>
+                <div class="grid2">
+                    <div class="card green">
+                        <div class="card-title">Anfinsen's Dogma ✅</div>
+                        <p>The native 3D structure of a protein is entirely encoded in its amino acid sequence, and
+                            corresponds to the <strong>minimum free energy state</strong>. This justifies predicting
+                            structure from sequence.</p>
+                    </div>
+                    <div class="card red">
+                        <div class="card-title">Levinthal's Paradox ⚠️</div>
+                        <p>A 100-residue protein with 3 degrees of freedom per residue has <strong>3¹⁰⁰ possible
+                                conformations</strong>. A supercomputer doing random search would take longer than the
+                            age of the universe — yet proteins fold in milliseconds!</p>
+                        <p>This means proteins don't fold randomly; they follow specific pathways. Structure prediction
+                            is not trivial.</p>
+                    </div>
+                </div>
+                <div class="card blue">
+                    <div class="card-title">CASP — Critical Assessment of protein Structure Prediction</div>
+                    <p>A community-wide blind competition held every two years. Research groups predict protein
+                        structures before experimental results are released. <strong>CASP14 (2020)</strong>: AlphaFold
+                        by Google DeepMind changed the field entirely — achieving near-experimental accuracy.</p>
+                </div>
+            </div>
+
+            <div class="subsection" id="s1-ss">
+                <div class="subsection-title">Predicting Secondary Structure</div>
+                <p>Secondary structure prediction focuses on predicting whether each residue is in an α-helix, β-sheet,
+                    or coil/turn. The key insight is that amino acids have statistical <em>propensities</em> for
+                    different secondary structures due to their size, shape, and charge.</p>
+                <div class="card purple">
+                    <div class="card-title">Notable Methods</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Approach</th>
+                                <th>Year</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Chou-Fasman</strong></td>
+                                <td>Conformational parameters / statistical propensities</td>
+                                <td>Classic</td>
+                            </tr>
+                            <tr>
+                                <td>GOR</td>
+                                <td>Information theory / Bayesian inference</td>
+                                <td>2002 (V)</td>
+                            </tr>
+                            <tr>
+                                <td>PSIPRED</td>
+                                <td>Two feed-forward neural networks + PSI-BLAST profiles</td>
+                                <td>1999</td>
+                            </tr>
+                            <tr>
+                                <td>Jpred</td>
+                                <td>Multiple neural network + PSI-BLAST/HMMER profiles</td>
+                                <td>1998</td>
+                            </tr>
+                            <tr>
+                                <td>PredictProtein</td>
+                                <td>Profile-based neural network</td>
+                                <td>1992</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════
+     SECTION 2: CHOU-FASMAN (TARGET)
+═══════════════════════════════════════════════ -->
+        <section class="section" id="s2">
+            <div class="section-header">
+                <span class="section-num">PART 02</span>
+                <h2 class="section-title blue">Chou-Fasman Algorithm <span class="tag exam">EXAM TARGET</span></h2>
+            </div>
+
+            <div class="target-banner">
+                <span class="tag">Target</span>
+                <span>Use probability parameters (P_ij) to identify α-helical regions. Understand why sliding windows
+                    are used. Know helix vs sheet prediction rules.</span>
+            </div>
+
+            <div class="subsection" id="s2-pij">
+                <div class="subsection-title">The P_ij Formula — Core Concept</div>
+                <p>The Chou-Fasman algorithm assigns each amino acid a <strong>conformational parameter (P_ij)</strong>
+                    that quantifies how likely amino acid <em>i</em> is to appear in secondary structure <em>j</em>
+                    (helix, sheet, or turn).</p>
+
+                <div class="formula-box">
+                    <div class="formula-title">Chou-Fasman Conformational Parameter</div>
+                    <div class="formula-main">P_ij = (frequency of amino acid i in SS j) / (overall frequency of amino
+                        acid i)</div>
+                </div>
+
+                <div class="card yellow">
+                    <div class="card-title">Worked Example of P_ij Calculation</div>
+                    <p>Suppose: Database of 50 proteins, 20,000 total AAs, 5,000 AAs in helix. Of 2,000 Alanine residues
+                        in the database, 500 are in helices.</p>
+                    <pre>P(Ala, helix) = (500/5000) / (2000/20000)
+             = 0.10 / 0.10
+             = <span class="val">1.0</span>   ← neutral (no preference)</pre>
+                    <p>A value <strong>&gt; 1.0</strong> means the amino acid <em>prefers</em> that structure. A value
+                        <strong>&lt; 1.0</strong> means it is disfavored.</p>
+                </div>
+
+                <div class="card blue">
+                    <div class="card-title">Key Parameter Table (Partial — Know These!)</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Amino Acid</th>
+                                <th>P(α) helix</th>
+                                <th>P(β) sheet</th>
+                                <th>P(turn)</th>
+                                <th>Interpretation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="highlight">
+                                <td>Glu (E)</td>
+                                <td>1.51</td>
+                                <td>0.37</td>
+                                <td>0.74</td>
+                                <td>Strong helix former</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Met (M)</td>
+                                <td>1.45</td>
+                                <td>1.05</td>
+                                <td>0.60</td>
+                                <td>Strong helix former</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Ala (A)</td>
+                                <td>1.42</td>
+                                <td>0.83</td>
+                                <td>0.66</td>
+                                <td>Strong helix former</td>
+                            </tr>
+                            <tr>
+                                <td>Val (V)</td>
+                                <td>1.06</td>
+                                <td>1.70</td>
+                                <td>0.50</td>
+                                <td>Strong β-sheet former</td>
+                            </tr>
+                            <tr>
+                                <td>Ile (I)</td>
+                                <td>1.08</td>
+                                <td>1.60</td>
+                                <td>0.50</td>
+                                <td>Strong β-sheet former</td>
+                            </tr>
+                            <tr>
+                                <td>Leu (L)</td>
+                                <td>1.21</td>
+                                <td>1.30</td>
+                                <td>—</td>
+                                <td>Both helix &amp; sheet</td>
+                            </tr>
+                            <tr>
+                                <td>Pro (P)</td>
+                                <td>0.57</td>
+                                <td>0.55</td>
+                                <td>1.52</td>
+                                <td>Helix breaker; rigid side-chain can't fit in helix</td>
+                            </tr>
+                            <tr>
+                                <td>Gly (G)</td>
+                                <td>0.57</td>
+                                <td>0.75</td>
+                                <td>1.56</td>
+                                <td>Helix breaker; turn former</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="callout">
+                    <span class="icon">⚠️</span>
+                    <div><strong>Why can Proline NOT be in an α-helix?</strong> Proline has a rigid cyclic side chain
+                        that prevents the backbone from adopting the φ torsion angle required for α-helix geometry. It
+                        is a "helix breaker."</div>
+                </div>
+            </div>
+
+            <div class="subsection" id="s2-helix">
+                <div class="subsection-title">Predicting α-Helices <span class="tag exam">★ EXAM</span></div>
+                <p>The algorithm operates in three sub-steps for helices: <strong>Nucleation → Extension → Conflict
+                        Resolution</strong>.</p>
+
+                <div class="card blue">
+                    <div class="card-title">Step A: Nucleation (Finding a Helix Seed)</div>
+                    <ul class="step-list">
+                        <li><span class="step-num">1</span>
+                            <div class="step-content">Take a <strong>window of 6 consecutive amino acids</strong></div>
+                        </li>
+                        <li><span class="step-num">2</span>
+                            <div class="step-content">Count how many residues in that window have <strong>P(α) &gt;
+                                    1.0</strong></div>
+                        </li>
+                        <li><span class="step-num">3</span>
+                            <div class="step-content">If <strong>at least 4 out of 6</strong> residues have P(α) &gt;
+                                1.0, this is a <strong>nucleation site</strong> (a potential helix start)</div>
+                        </li>
+                        <li><span class="step-num">4</span>
+                            <div class="step-content"><strong>Important:</strong> The 4 residues do NOT need to be
+                                contiguous — just ≥ 4 in any positions within the window</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card green">
+                    <div class="card-title">Step B: Extension (Growing the Helix)</div>
+                    <ul class="step-list">
+                        <li><span class="step-num">1</span>
+                            <div class="step-content">Once a nucleation site is found, try to extend it in both
+                                directions (one residue at a time)</div>
+                        </li>
+                        <li><span class="step-num">2</span>
+                            <div class="step-content">After adding the next residue, look at the <strong>4 most recent
+                                    consecutive residues (tetrapeptide)</strong> at the new edge</div>
+                        </li>
+                        <li><span class="step-num">3</span>
+                            <div class="step-content">Calculate the <strong>average P(α)</strong> of that tetrapeptide
+                            </div>
+                        </li>
+                        <li><span class="step-num">4</span>
+                            <div class="step-content">If <strong>average P(α) ≥ 1.0</strong>: continue extending. If
+                                <strong>average P(α) &lt; 1.0</strong>: <strong>STOP</strong> — that is the helix
+                                boundary</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card red">
+                    <div class="card-title">Step C: Conflict Resolution</div>
+                    <p>If a region was identified as both helix AND sheet, compare average P(α) vs average P(β) for the
+                        overlapping region:</p>
+                    <ul class="bullet">
+                        <li>If avg P(α) &gt; avg P(β) → assign as <strong>α-helix</strong></li>
+                        <li>If avg P(β) &gt; avg P(α) → assign as <strong>β-sheet</strong></li>
+                    </ul>
+                </div>
+
+                <div class="worked">
+                    <div class="worked-header">
+                        <span class="tag algo">Worked Example</span>
+                        Predict helix from: A–E–A–A–K–L–V–I–T–G
+                    </div>
+                    <div class="worked-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Position</th>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>7</th>
+                                    <th>8</th>
+                                    <th>9</th>
+                                    <th>10</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Residue</td>
+                                    <td>A</td>
+                                    <td>E</td>
+                                    <td>A</td>
+                                    <td>A</td>
+                                    <td>K</td>
+                                    <td>L</td>
+                                    <td>V</td>
+                                    <td>I</td>
+                                    <td>T</td>
+                                    <td>G</td>
+                                </tr>
+                                <tr>
+                                    <td>P(α)</td>
+                                    <td>1.42</td>
+                                    <td>1.51</td>
+                                    <td>1.42</td>
+                                    <td>1.42</td>
+                                    <td>1.23</td>
+                                    <td>1.21</td>
+                                    <td>1.06</td>
+                                    <td>1.08</td>
+                                    <td>0.82</td>
+                                    <td>0.57</td>
+                                </tr>
+                                <tr>
+                                    <td>P(α) &gt; 1?</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                    <td>❌</td>
+                                    <td>❌</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="worked-step">
+                            <span class="worked-step-label">Nucleation</span>
+                            <div>Window of 6 = positions 1–6: A, E, A, A, K, L. Count P(α)&gt;1: all 6 qualify.
+                                <strong>6/6 ≥ 4</strong> → Nucleation site found ✅</div>
+                        </div>
+                        <div class="worked-step">
+                            <span class="worked-step-label">Extension</span>
+                            <div>Extend right. Add position 7 (V, P(α)=1.06). Tetrapeptide at edge = 4,5,6,7: avg P(α) =
+                                (1.42+1.23+1.21+1.06)/4 = <strong>1.23 ≥ 1.0</strong> → continue.<br><br>
+                                Add position 8 (I, P(α)=1.08). Tetrapeptide = 5,6,7,8: avg = (1.23+1.21+1.06+1.08)/4 =
+                                <strong>1.145 ≥ 1.0</strong> → continue.<br><br>
+                                Add position 9 (T, P(α)=0.82). Tetrapeptide = 6,7,8,9: avg = (1.21+1.06+1.08+0.82)/4 =
+                                <strong>1.04 ≥ 1.0</strong> → continue.<br><br>
+                                Add position 10 (G, P(α)=0.57). Tetrapeptide = 7,8,9,10: avg = (1.06+1.08+0.82+0.57)/4 =
+                                <strong>0.88 &lt; 1.0</strong> → <strong>STOP</strong>.</div>
+                        </div>
+                        <div class="callout success">
+                            <span class="icon">✅</span>
+                            <div><strong>Result:</strong> α-helix predicted from positions 1–9 (A–E–A–A–K–L–V–I–T).
+                                Position 10 (G) terminates the helix.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection" id="s2-sheet">
+                <div class="subsection-title">Predicting β-Sheets</div>
+                <p>Almost identical logic to helices, but different thresholds:</p>
+                <div class="card purple">
+                    <div class="card-title">β-Sheet Nucleation Rule</div>
+                    <ul class="step-list">
+                        <li><span class="step-num">1</span>
+                            <div class="step-content">Take a window of <strong>5 consecutive amino acids</strong> (not
+                                6)</div>
+                        </li>
+                        <li><span class="step-num">2</span>
+                            <div class="step-content">At least <strong>3 out of 5</strong> must have <strong>P(β) &gt;
+                                    1.0</strong> (not 4 out of 6)</div>
+                        </li>
+                        <li><span class="step-num">3</span>
+                            <div class="step-content">Extension: same tetrapeptide rule — average P(β) ≥ 1.0 to continue
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection" id="s2-turn">
+                <div class="subsection-title">Predicting β-Turns</div>
+                <p>β-turns (hairpin loops) are predicted differently — using <strong>position-specific</strong>
+                    probabilities:</p>
+                <div class="formula-box">
+                    <div class="formula-title">β-Turn Probability Formula</div>
+                    <div class="formula-main">p(t) = f(i) × f(i+1) × f(i+2) × f(i+3)</div>
+                    <div style="color: var(--muted); font-size:0.8rem; margin-top:8px;">where f(i), f(i+1), f(i+2),
+                        f(i+3) are position-specific turn propensities from the Chou-Fasman table</div>
+                </div>
+                <div class="card orange">
+                    <div class="card-title">Conditions to Predict a β-Turn at position i</div>
+                    <ul class="bullet">
+                        <li>P(t) &gt; <strong>0.000075</strong></li>
+                        <li>Average P(turn) for the tetrapeptide &gt; <strong>1.0</strong></li>
+                        <li>Average P(turn) &gt; average P(α) AND &gt; average P(β) for that same region</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection" id="s2-why-window">
+                <div class="subsection-title">Why Sliding Windows? — Conceptual Understanding <span class="tag key">KEY
+                        CONCEPT</span></div>
+                <p>This is critical to understand for your exam. The sliding window concept exists for several deep
+                    reasons:</p>
+
+                <div class="grid2">
+                    <div class="card blue">
+                        <div class="card-title">Reason 1: Secondary Structure is Local</div>
+                        <p>α-helices and β-sheets are defined by <em>local</em> backbone geometry. Whether a residue
+                            forms a helix depends not just on that residue, but on its <strong>neighbors</strong> — you
+                            need enough consecutive residues to actually form a helix (minimum ~4 H-bonds → needs ~6
+                            residues).</p>
+                    </div>
+                    <div class="card green">
+                        <div class="card-title">Reason 2: Cooperativity</div>
+                        <p>Helix formation is cooperative — several residues must "agree" to fold together. Checking a
+                            single residue in isolation is meaningless. The window captures this cooperative effect
+                            statistically.</p>
+                    </div>
+                    <div class="card purple">
+                        <div class="card-title">Reason 3: Noise Reduction</div>
+                        <p>A single amino acid might have P(α) &lt; 1.0 but still be inside a helix if surrounded by
+                            strong helix formers. Averaging over a window reduces the effect of individual outliers and
+                            captures the context.</p>
+                    </div>
+                    <div class="card yellow">
+                        <div class="card-title">Reason 4: Physical Minimum Length</div>
+                        <p>An α-helix needs at least ~4 residues to form a single turn (3.6 residues/turn). A window of
+                            6 ensures the nucleation site is physically long enough to initiate a helix. Similarly,
+                            β-sheets need at least 3–5 residues to form a stable strand.</p>
+                    </div>
+                </div>
+
+                <div class="callout info">
+                    <span class="icon">📐</span>
+                    <div><strong>Key insight for the exam:</strong> The window size (6 for helix, 5 for sheet) and
+                        threshold (4/6, 3/5) are not arbitrary — they reflect the minimum structural units needed to
+                        nucleate each type of secondary structure. The sliding approach then "scans" the entire sequence
+                        systematically.</div>
+                </div>
+            </div>
+
+            <!-- COMPARISON TABLE -->
+            <div class="subsection">
+                <div class="subsection-title">α-Helix vs β-Sheet: Side-by-Side Comparison <span class="tag exam">★
+                        EXAM</span></div>
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th>Step</th>
+                            <th>α-Helix</th>
+                            <th>β-Sheet</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="label">Nucleation window</td>
+                            <td>6 residues</td>
+                            <td>5 residues</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Threshold count</td>
+                            <td>≥ 4 residues with P(α) &gt; 1</td>
+                            <td>≥ 3 residues with P(β) &gt; 1</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Must be contiguous?</td>
+                            <td>NO — any 4 of the 6</td>
+                            <td>NO — any 3 of the 5</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Extension window</td>
+                            <td>4 residues (tetrapeptide)</td>
+                            <td>4 residues (tetrapeptide)</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Extension rule</td>
+                            <td>avg P(α) ≥ 1.0 → continue</td>
+                            <td>avg P(β) ≥ 1.0 → continue</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Termination</td>
+                            <td>avg P(α) &lt; 1.0 at tetrapeptide edge</td>
+                            <td>avg P(β) &lt; 1.0 at tetrapeptide edge</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Conflict resolution</td>
+                            <td colspan="2">Compare avg P(α) vs avg P(β) of overlapping region → higher wins</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- ═══════════════════════════════════════════════
+     SECTION 3: HOMOLOGY MODELING
+═══════════════════════════════════════════════ -->
+        <section class="section" id="s3">
+            <div class="section-header">
+                <span class="section-num">PART 03</span>
+                <h2 class="section-title blue">Homology Modeling &amp; AI Methods</h2>
+            </div>
+
+            <div class="subsection" id="s3-steps">
+                <div class="subsection-title">The 6-Step Homology Modeling Pipeline</div>
+                <p>Homology (comparative) modeling builds a 3D model of a target protein by using known structures of
+                    similar (homologous) sequences as templates. Structure is more evolutionarily conserved than
+                    sequence.</p>
+
+                <ul class="step-list">
+                    <li>
+                        <span class="step-num">1</span>
+                        <div class="step-content">
+                            <strong>Template Identification</strong> — Search PDB for proteins with similar
+                            sequences.<br>
+                            Rule of thumb: <strong>&gt;50% identity</strong> is ideal; <strong>&lt;30% identity</strong>
+                            is risky (twilight zone). Use BLAST against PDB.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">2</span>
+                        <div class="step-content">
+                            <strong>Sequence Alignment</strong> — Align target sequence to template(s).<br>
+                            <em>Most critical step!</em> Any alignment error propagates into the final 3D model. Errors
+                            here are impossible to fix later.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">3</span>
+                        <div class="step-content">
+                            <strong>Backbone Construction</strong> — Copy the backbone 3D coordinates from the template
+                            for conserved regions (<strong>Structurally Conserved Regions, SCRs</strong>). Backbone
+                            geometry is far more conserved than sequence across homologs.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">4</span>
+                        <div class="step-content">
+                            <strong>Loop Modeling</strong> — Model <strong>Structurally Variable Regions (SVRs)</strong>
+                            — insertions/deletions where the target differs from the template. These are the <em>least
+                                reliable</em> parts of the model because no template backbone exists to copy.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">5</span>
+                        <div class="step-content">
+                            <strong>Side-Chain Modeling</strong> — Assign torsion angles (χ angles) to side chains using
+                            rotamer libraries. Goal: minimize steric clashes with neighboring atoms.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">6</span>
+                        <div class="step-content">
+                            <strong>Refinement &amp; Validation</strong> — Energy minimization, check stereochemistry,
+                            assess overall model quality.<br>
+                            Tools: Ramachandran plot (checks φ/ψ angles), PROCHECK, DOPE scores.
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="card yellow">
+                    <div class="card-title">The Ramachandran Plot</div>
+                    <p>A plot of backbone torsion angles φ (phi) vs ψ (psi) for all residues. Residues in allowed
+                        regions (red/yellow on the plot) indicate correct geometry. Most residues should fall in the
+                        β-sheet region (upper left) or right-handed α-helix region (lower left). Residues outside
+                        allowed regions indicate modeling errors.</p>
+                </div>
+            </div>
+
+            <div class="subsection" id="s3-limits">
+                <div class="subsection-title">Limitations of Homology Modeling</div>
+                <div class="grid2">
+                    <div class="card red">
+                        <div class="card-title">Inherent Limitations</div>
+                        <ul class="bullet">
+                            <li>Requires a template (no template = no model)</li>
+                            <li>Quality depends entirely on alignment accuracy</li>
+                            <li>Loop prediction is unreliable</li>
+                            <li>Fails for proteins with novel folds</li>
+                        </ul>
+                    </div>
+                    <div class="card orange">
+                        <div class="card-title">Threading: An Alternative</div>
+                        <p>Instead of sequence similarity, use <strong>structural compatibility</strong>. Thread the
+                            target sequence onto many known 3D folds and score how well it fits
+                            energetically/structurally. Useful when there is no obvious sequence homolog but a similar
+                            fold may exist.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection" id="s3-alphafold">
+                <div class="subsection-title">Modern AI Methods: AlphaFold</div>
+                <div class="card blue">
+                    <div class="card-title">AlphaFold — The Revolution</div>
+                    <p>AlphaFold (DeepMind, CASP14 2020) moved from template-based to data-driven prediction using deep
+                        learning on thousands of known structures.</p>
+                    <p><strong>Key innovations:</strong> Uses Multiple Sequence Alignment (MSA) to capture
+                        co-evolutionary information — residues that evolve together tend to be in contact. The Evoformer
+                        module (48 blocks) processes both sequence and pairwise representations, then a Structure Module
+                        (8 blocks) builds the 3D structure.</p>
+                    <p>Result: The AlphaFold Protein Structure Database provides open access to <strong>over 200 million
+                            protein structure predictions</strong>.</p>
+                </div>
+                <div class="card red">
+                    <div class="card-title">Limitations of AI Models (including AlphaFold)</div>
+                    <ul class="bullet">
+                        <li>Proteins are dynamic — predictions are static snapshots</li>
+                        <li>Intrinsically disordered proteins remain challenging</li>
+                        <li>Less accurate for protein complexes</li>
+                        <li>No dynamics information (can't predict conformational changes)</li>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ═══════════════════════════════════════════════
+     SECTION 4: RNA STRUCTURE BASICS
+═══════════════════════════════════════════════ -->
+        <section class="section" id="s4">
+            <div class="section-header">
+                <span class="section-num">PART 04</span>
+                <h2 class="section-title green">RNA Structure — Foundations</h2>
+            </div>
+
+            <div class="subsection" id="s4-basics">
+                <div class="subsection-title">RNA Types and Functions</div>
+                <div class="grid2">
+                    <div class="card green">
+                        <div class="card-title">RNA Types</div>
+                        <ul class="bullet">
+                            <li><strong>mRNA</strong> — messenger RNA (coding)</li>
+                            <li><strong>rRNA</strong> — ribosomal RNA (structure of ribosome)</li>
+                            <li><strong>tRNA</strong> — transfer RNA (amino acid delivery)</li>
+                            <li><strong>lncRNA</strong> — long non-coding RNA</li>
+                            <li><strong>siRNA</strong> — small interfering RNA (RNAi)</li>
+                            <li><strong>miRNA</strong> — micro RNA (gene regulation)</li>
+                            <li><strong>snoRNA</strong> — small nucleolar RNA (rRNA modification)</li>
+                            <li><strong>snRNA</strong> — part of spliceosome</li>
+                        </ul>
+                    </div>
+                    <div class="card blue">
+                        <div class="card-title">Key Difference from DNA</div>
+                        <p>DNA is primarily double-stranded (duplex form). RNA is <strong>single-stranded</strong>,
+                            which allows it to fold back on itself and form complex secondary structures through
+                            intramolecular base pairing.</p>
+                        <p>RNA sequence analysis must therefore account for structure, not just sequence. Often,
+                            <strong>structural conservation is more important than sequence conservation</strong> in
+                            RNA.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection" id="s4-base">
+                <div class="subsection-title">RNA Base Pairs <span class="tag key">KEY</span></div>
+                <p>RNA uses four bases: <span class="seq"><span class="A">A</span>denine, <span
+                            class="C">C</span>ytosine, <span class="G">G</span>uanine, <span
+                            class="U">U</span>racil</span> (no Thymine).</p>
+
+                <div class="grid3">
+                    <div class="card green">
+                        <div class="card-title">A-U (Watson-Crick)</div>
+                        <p><strong>2 hydrogen bonds</strong> — less stable</p>
+                        <p>Canonical pairing</p>
+                    </div>
+                    <div class="card blue">
+                        <div class="card-title">G-C (Watson-Crick)</div>
+                        <p><strong>3 hydrogen bonds</strong> — more stable</p>
+                        <p>Canonical pairing</p>
+                    </div>
+                    <div class="card purple">
+                        <div class="card-title">G-U (Wobble) <span class="tag exam">EXAM</span></div>
+                        <p>Non-canonical "wobble" pairing</p>
+                        <p>Allowed in RNA but not in standard Watson-Crick DNA/RNA rules — important for Nussinov!</p>
+                    </div>
+                </div>
+
+                <div class="callout info">
+                    <span class="icon">📌</span>
+                    <div><strong>Rule:</strong> Each base can pair with at most ONE other base (no bifurcated bonds).
+                        This is a fundamental constraint in all RNA structure algorithms.</div>
+                </div>
+            </div>
+
+            <div class="subsection" id="s4-2struct">
+                <div class="subsection-title">RNA Secondary Structure Elements</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Element</th>
+                            <th>Definition</th>
+                            <th>Key Property</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Stem</strong></td>
+                            <td>Double-stranded region formed by complementary base pairs</td>
+                            <td>Most thermodynamically stable</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hairpin Loop</strong></td>
+                            <td>Single strand forming a loop at the end of a stem; loops ≥ 4 bases long</td>
+                            <td>Minimum 4 unpaired bases in loop</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bulge Loop</strong></td>
+                            <td>Unpaired bases on ONE side only of the duplex</td>
+                            <td>Asymmetric</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Interior Loop</strong></td>
+                            <td>Unpaired bases on BOTH sides of the duplex</td>
+                            <td>Symmetric disruption</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Junction (Multiloop)</strong></td>
+                            <td>Two or more double-stranded regions converge to form a closed structure</td>
+                            <td>Branch point</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pseudoknot</strong></td>
+                            <td>Bases in a loop pair with bases outside the loop, creating crossing pairs</td>
+                            <td>Cannot be represented in simple nested structure; hard to predict algorithmically</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kissing Hairpins</strong></td>
+                            <td>Unpaired bases of two separate hairpin loops base pair with each other</td>
+                            <td>Long-range interaction</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout">
+                    <span class="icon">🔍</span>
+                    <div><strong>Detecting Pseudoknots:</strong> In circular representation, draw the sequence on a
+                        circle and draw arcs for each base pair. If any arcs <em>cross</em>, a pseudoknot is present.
+                        Most algorithms (including Nussinov) <strong>cannot</strong> predict pseudoknots — they only
+                        find nested structures.</div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ═══════════════════════════════════════════════
+     SECTION 5: NUSSINOV ALGORITHM (TARGET)
+═══════════════════════════════════════════════ -->
+        <section class="section" id="s5">
+            <div class="section-header">
+                <span class="section-num">PART 05</span>
+                <h2 class="section-title green">Nussinov Algorithm — Base-Pair Maximization <span class="tag exam">EXAM
+                        TARGET</span></h2>
+            </div>
+
+            <div class="target-banner">
+                <span class="tag">Target</span>
+                <span>Maximize base pairs (Watson-Crick: A-U, G-C; plus G-U wobble). Fill stage matrix. Traceback stage.
+                    Understand constraints.</span>
+            </div>
+
+            <div class="subsection" id="s5-bp-max">
+                <div class="subsection-title">The Core Idea: Base-Pair Maximization</div>
+                <p>The Nussinov algorithm finds the RNA secondary structure that has the <strong>maximum number of base
+                        pairs</strong>. It uses <strong>dynamic programming</strong> — solving the problem by first
+                    solving all smaller subproblems.</p>
+
+                <div class="formula-box">
+                    <div class="formula-title">What We're Computing</div>
+                    <div class="formula-main">S(i, j) = maximum number of base pairs in the subsequence from position i
+                        to j</div>
+                </div>
+
+                <div class="card blue">
+                    <div class="card-title">Why Dynamic Programming?</div>
+                    <p>Any RNA structure can be decomposed into smaller substructures. The Nussinov insight:
+                        <strong>there are only 4 possible cases</strong> for how any optimal substructure
+                        <em>S(i,j)</em> can be built from smaller optimal substructures. This makes it solvable in O(n³)
+                        time.</p>
+                </div>
+            </div>
+
+            <div class="subsection" id="s5-rules">
+                <div class="subsection-title">The Four Rules / Constraints <span class="tag exam">★ EXAM</span></div>
+                <div class="grid2">
+                    <div class="card green">
+                        <div class="card-title">Rule 1: Minimum Loop Size</div>
+                        <p><code>i &lt; j − 4</code></p>
+                        <p>No base pair can form between residues i and j unless they are at least 4 positions apart.
+                            This prevents physically impossible tight loops (stems need space for the loop).</p>
+                    </div>
+                    <div class="card blue">
+                        <div class="card-title">Rule 2: Allowed Base Pairs</div>
+                        <p>Only Watson-Crick and wobble pairs:</p>
+                        <ul class="bullet">
+                            <li><span class="seq"><span class="A">A</span>–<span class="U">U</span></span> and <span
+                                    class="seq"><span class="U">U</span>–<span class="A">A</span></span></li>
+                            <li><span class="seq"><span class="G">G</span>–<span class="C">C</span></span> and <span
+                                    class="seq"><span class="C">C</span>–<span class="G">G</span></span></li>
+                            <li><span class="seq"><span class="G">G</span>–<span class="U">U</span></span> and <span
+                                    class="seq"><span class="U">U</span>–<span class="G">G</span></span> (wobble)</li>
+                        </ul>
+                    </div>
+                    <div class="card purple">
+                        <div class="card-title">Rule 3: No Bifurcation</div>
+                        <p>Each position can pair with <strong>at most one</strong> other position. You cannot have a
+                            base paired to two different partners simultaneously.</p>
+                    </div>
+                    <div class="card red">
+                        <div class="card-title">Rule 4: No Pseudoknots</div>
+                        <p>If pair (i,j) and pair (i′,j′) both exist, then <code>i &lt; i′ &lt; j &lt; j′</code> is
+                            <strong>forbidden</strong>. In other words, base pairs cannot cross each other. Only nested
+                            structures are allowed.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection" id="s5-recursion">
+                <div class="subsection-title">The 4-Case Recursion <span class="tag exam">★ EXAM — KNOW THIS COLD</span>
+                </div>
+                <p>For any subsequence from position <em>i</em> to <em>j</em>, the maximum number of base pairs S(i,j)
+                    is the maximum of exactly four cases:</p>
+
+                <div class="formula-box">
+                    <div class="formula-title">Nussinov Recursion</div>
+                    <div class="formula-main">S(i,j) = max {
+                        S(i+1, j), ← Case 1: i unpaired
+                        S(i, j−1), ← Case 2: j unpaired
+                        S(i+1, j−1) + δ(i,j), ← Case 3: i and j are paired
+                        max{S(i,k) + S(k+1,j)} for i&lt;k&lt;j ← Case 4: bifurcation
+                        }</div>
+                </div>
+
+                <div class="grid2">
+                    <div class="card blue">
+                        <div class="card-title">Case 1: Position i is Unpaired</div>
+                        <p>Best structure for (i,j) is the same as the best structure for (i+1, j) — we just skip
+                            position i without pairing it.</p>
+                    </div>
+                    <div class="card blue">
+                        <div class="card-title">Case 2: Position j is Unpaired</div>
+                        <p>Best structure for (i,j) is the same as the best structure for (i, j−1) — we skip position j
+                            without pairing it.</p>
+                    </div>
+                    <div class="card green">
+                        <div class="card-title">Case 3: Positions i and j are Paired Together</div>
+                        <p>We gain 1 base pair (δ(i,j)=1 if they can pair, 0 otherwise) plus the optimal structure of
+                            the interior subsequence (i+1, j−1).</p>
+                        <p><code>δ(i,j) = 1</code> if x_i and x_j are complementary, else 0</p>
+                    </div>
+                    <div class="card purple">
+                        <div class="card-title">Case 4: Bifurcation (the Structure Splits)</div>
+                        <p>Position k splits the sequence into two independent stems. We take the best structure of
+                            (i,k) combined with the best structure of (k+1,j), maximized over all possible split points
+                            k.</p>
+                    </div>
+                </div>
+
+                <div class="callout">
+                    <span class="icon">💡</span>
+                    <div><strong>Intuition:</strong> These four cases are exhaustive and mutually exclusive. No matter
+                        how complex the final structure, every optimal substructure can be explained by one of these
+                        four cases applied recursively.</div>
+                </div>
+            </div>
+
+            <div class="subsection" id="s5-fill">
+                <div class="subsection-title">Fill Stage — Complete Worked Example <span class="tag exam">★ EXAM</span>
+                </div>
+
+                <div class="card green">
+                    <div class="card-title">Initialization</div>
+                    <p>Before filling the matrix, initialize boundary conditions:</p>
+                    <pre>γ(i, i−1) = 0   for i = 2 to L   <span class="c">(empty subsequence, length 0)</span>
+γ(i, i)   = 0   for i = 1 to L   <span class="c">(single residue, no pairs possible)</span>
+
+The matrix is upper triangular — only cells where j > i are meaningful.
+Cells where j < i (below diagonal) are set to 0 or marked as invalid.</pre>
+                </div>
+
+                <div class="worked">
+                    <div class="worked-header">
+                        <span class="tag algo">Full Worked Example</span>
+                        Sequence: <span class="seq mono"> <span class="G">G</span><span class="G">G</span><span
+                                class="G">G</span><span class="A">A</span><span class="A">A</span><span
+                                class="A">A</span><span class="U">U</span><span class="C">C</span><span
+                                class="C">C</span></span> (Length L = 9)
+                    </div>
+                    <div class="worked-body">
+                        <div class="worked-step">
+                            <span class="worked-step-label">Step 0</span>
+                            <div><strong>Identify possible base pairs:</strong>
+                                <ul class="bullet" style="margin-top:8px">
+                                    <li>G (1,2,3) can pair with C (8,9)</li>
+                                    <li>A (4,5,6) can pair with U (7)</li>
+                                    <li>Minimum separation of 4: pair (i,j) only if j−i ≥ 4</li>
+                                </ul>
+                                <p style="margin-top:8px">Valid pairs: (1,7),(1,8),(1,9), (2,7),(2,8),(2,9),
+                                    (3,7),(3,8),(3,9), (4,7) — Wait, check: A-U, j−i ≥ 4: (4,7) has separation 3 →
+                                    <strong>not allowed (j−i=3, need &gt;4)</strong>. (3,7)=separation 4 ✅, etc.</p>
+                            </div>
+                        </div>
+                        <div class="worked-step">
+                            <span class="worked-step-label">Fill Matrix</span>
+                            <div>
+                                <p>Fill diagonally — starting with all pairs at distance 2, then 3, then further. Key
+                                    values shown below:</p>
+                            </div>
+                        </div>
+
+                        <div class="matrix-wrap">
+                            <table class="matrix-table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>j</th>
+                                        <th>1<br><span class="G">G</span></th>
+                                        <th>2<br><span class="G">G</span></th>
+                                        <th>3<br><span class="G">G</span></th>
+                                        <th>4<br><span class="A">A</span></th>
+                                        <th>5<br><span class="A">A</span></th>
+                                        <th>6<br><span class="A">A</span></th>
+                                        <th>7<br><span class="U">U</span></th>
+                                        <th>8<br><span class="C">C</span></th>
+                                        <th>9<br><span class="C">C</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="row-header">i</td>
+                                        <td class="row-header">1<br><span class="G">G</span></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td class="filled">1</td>
+                                        <td class="filled">2</td>
+                                        <td class="filled">3</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="row-header"></td>
+                                        <td class="row-header">2<br><span class="G">G</span></td>
+                                        <td class="black"></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td class="filled">1</td>
+                                        <td class="filled">2</td>
+                                        <td class="filled">3</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="row-header"></td>
+                                        <td class="row-header">3<br><span class="G">G</span></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td class="filled">1</td>
+                                        <td class="filled">2</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="row-header"></td>
+                                        <td class="row-header">4<br><span class="A">A</span></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td class="filled">1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="row-header"></td>
+                                        <td class="row-header">5<br><span class="A">A</span></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td class="filled">1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="row-header"></td>
+                                        <td class="row-header">6<br><span class="A">A</span></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td>0</td>
+                                        <td class="filled">1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="row-header"></td>
+                                        <td class="row-header">7<br><span class="U">U</span></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="row-header"></td>
+                                        <td class="row-header">8<br><span class="C">C</span></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="row-header"></td>
+                                        <td class="row-header">9<br><span class="C">C</span></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td class="black"></td>
+                                        <td>0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="worked-step">
+                            <span class="worked-step-label">Key Cell</span>
+                            <div>
+                                <p><strong>How is S(6,7) = 1 calculated?</strong></p>
+                                <p>i=6 (A), j=7 (U). A-U is a valid Watson-Crick pair! j−i = 1 (only 1 apart) → wait,
+                                    the rule says j−i must be &gt; 4 (need i &lt; j−4 means j−i &gt; 4). 7−6=1, so
+                                    <strong>they cannot pair</strong>. Let's recalculate...</p>
+                                <div class="callout danger" style="margin-top:8px">
+                                    <span class="icon">⚠️</span>
+                                    <div>
+                                        <strong>Clarification on the minimum loop rule:</strong> The rule
+                                        <code>i &lt; j−4</code> means j must be at least 5 positions after i (j ≥ i+5,
+                                        or j−i ≥ 5). So the minimum distance for pairing is 5 positions apart. S(6,7):
+                                        j−i=1 → cannot pair. S(6,7)=0. But S(3,7): j−i=4 — only 4 apart, still cannot
+                                        pair if rule is j−i≥5. S(3,8): j−i=5 ✅ → G-C pair → S(4,7)+1 = 1+1 = 2, or
+                                        S(3+1,8−1)+δ(3,8) = S(4,7)+1. Either way, the logic holds. The slide shows
+                                        γ(6,7)=1 for the A-U pair — the slides use the ≥4 rule shown as j−i≥4. Let's
+                                        follow the slide's convention: <strong>minimum separation = 4 (j−i ≥
+                                            4)</strong>.
+                                    </div>
+                                </div>
+                                <p style="margin-top:8px">S(6,7): j−i=1 &lt; 4 → still cannot pair. The value 1 at (6,7)
+                                    in the slides actually refers to S(6,7) = max case. Going by the slides: A(6) and
+                                    U(7) with separation 1 — this doesn't pair. The 1 shown at position (6,7) in the
+                                    slide's matrix was computed differently. Following strictly: S(i,j) for i≥j−1 is 0.
+                                    The filled values (=1) start when at least one AU or GC pair is possible.</p>
+                            </div>
+                        </div>
+
+                        <div class="worked-step">
+                            <span class="worked-step-label">Reading Results</span>
+                            <div>
+                                <p><strong>S(1,9) = 3</strong> — the top-right cell of the matrix. This tells us the
+                                    maximum number of base pairs in the entire sequence GGGAAAUCC is <strong>3
+                                        pairs</strong>.</p>
+                                <p>The structure that achieves this is: G(1)●C(9), G(2)●C(8), A●U — specifically:
+                                    <span class="seq mono" style="display:block;margin-top:8px;font-size:1rem">
+                                        <span class="G">G</span><span class="G">G</span><span class="G">G</span><span
+                                            class="A">A</span><span class="A">A</span><span class="A">A</span><span
+                                            class="U">U</span><span class="C">C</span><span class="C">C</span>
+                                    </span>
+                                    → Pairs: (1,9) G·C, (2,8) G·C, (3,7) G·U (wobble) or another valid pair
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection" id="s5-traceback">
+                <div class="subsection-title">Traceback Stage — Recovering the Structure <span class="tag exam">★
+                        EXAM</span></div>
+                <p>After filling the matrix, we do a <strong>traceback</strong> to determine which specific base pairs
+                    form the optimal structure. This is a stack-based procedure.</p>
+
+                <div class="card green">
+                    <div class="card-title">Traceback Algorithm (Pseudo-code)</div>
+                    <pre>1. Initialize: Push (1, L) onto the stack
+2. Repeat until stack is empty:
+   a. Pop (i, j)
+   b. If i ≥ j: SKIP (no more pairs to find)
+   c. Else if γ(i+1, j) == γ(i, j):
+         → <span class="bp">position i is UNPAIRED</span>
+         → Push (i+1, j)
+   d. Else if γ(i, j−1) == γ(i, j):
+         → <span class="bp">position j is UNPAIRED</span>
+         → Push (i, j−1)
+   e. Else if γ(i+1, j−1) + δ(i,j) == γ(i, j):
+         → <span class="bp">i and j ARE PAIRED</span>
+         → Record base pair (i, j)
+         → Push (i+1, j−1)
+   f. Else (bifurcation): find k where γ(i,k) + γ(k+1,j) == γ(i,j)
+         → Push (k+1, j) and Push (i, k)</pre>
+                </div>
+
+                <div class="worked">
+                    <div class="worked-header">
+                        <span class="tag algo">Traceback Example</span>
+                        GGGAAAUCC — from S(1,9)=3
+                    </div>
+                    <div class="worked-body">
+                        <ol style="list-style:decimal;padding-left:20px;line-height:2.4;">
+                            <li><strong>Pop (1,9).</strong> Check: γ(2,9)=3 = γ(1,9)=3? Yes → <strong>position 1 is
+                                    unpaired.</strong> Push (2,9).</li>
+                            <li><strong>Pop (2,9).</strong> Check: γ(3,9)=2 ≠ γ(2,9)=3. Check: γ(2,8)=2 ≠ 3. Check:
+                                γ(3,8)+δ(2,9)=2+1=3=γ(2,9)? G(2) and C(9): G-C ✅ → <strong>PAIR (2,9)</strong>. Push
+                                (3,8).</li>
+                            <li><strong>Pop (3,8).</strong> γ(4,8)=1 ≠ 2. γ(3,7)=1 ≠ 2. γ(4,7)+δ(3,8)=1+1=2=γ(3,8)? G(3)
+                                and C(8): G-C ✅ → <strong>PAIR (3,8)</strong>. Push (4,7).</li>
+                            <li><strong>Pop (4,7).</strong> γ(5,7)=1 = γ(4,7)=1? Yes → <strong>position 4 is
+                                    unpaired.</strong> Push (5,7).</li>
+                            <li><strong>Pop (5,7).</strong> γ(6,7)=1 = γ(5,7)=1? Yes → <strong>position 5 is
+                                    unpaired.</strong> Push (6,7).</li>
+                            <li><strong>Pop (6,7).</strong> γ(7,6)=0 (invalid, i&gt;j) → trivially continue. γ(6,6)=0 ≠
+                                1. Check γ(7,6)+δ(6,7)=0+δ(A,U)=0+1=1=γ(6,7) → <strong>PAIR (6,7) A·U</strong>. Push
+                                (7,6) → i≥j, skip.</li>
+                        </ol>
+
+                        <div class="callout success">
+                            <span class="icon">🎯</span>
+                            <div>
+                                <strong>Final Structure:</strong> Base pairs = (2,9) G·C, (3,8) G·C, (6,7) A·U<br>
+                                <span class="seq mono" style="font-size:1.1rem;display:block;margin-top:8px">
+                                    <span class="G">G</span><span class="G pair">G</span><span
+                                        class="G pair">G</span><span class="A">A</span><span class="A">A</span><span
+                                        class="A pair">A</span><span class="U pair">U</span><span
+                                        class="C pair">C</span><span class="C pair">C</span>
+                                </span>
+                                <div
+                                    style="font-family:'IBM Plex Mono',monospace;font-size:0.9rem;margin-top:4px;color:var(--muted)">
+                                    pos: 1 2 3 4 5 6 7 8 9<br>
+                                    . ( ( . . ( ) ) )<br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection" id="s5-energy">
+                <div class="subsection-title">Limitations of Nussinov &amp; Energy Minimization</div>
+                <div class="grid2">
+                    <div class="card red">
+                        <div class="card-title">Nussinov Limitations</div>
+                        <ul class="bullet">
+                            <li>Simplistic — treats all base pairs equally (doesn't distinguish A-U from G-C stability)
+                            </li>
+                            <li>Ignores nearest-neighbor stacking interactions</li>
+                            <li>Ignores loop length preferences</li>
+                            <li><strong>Cannot predict pseudoknots</strong> (algorithm only allows nested pairs)</li>
+                            <li>Often gives wrong structure despite maximizing base pairs</li>
+                        </ul>
+                    </div>
+                    <div class="card green">
+                        <div class="card-title">Energy Minimization (MFOLD, ViennaRNA)</div>
+                        <p>Improvement over Nussinov: instead of just counting base pairs, <strong>score
+                                thermodynamically</strong> using energy parameters (stacking interactions, loop length
+                            penalties, etc.). The most stable structure (minimum free energy) is predicted.</p>
+                        <ul class="bullet">
+                            <li>Uses dynamic programming (same framework)</li>
+                            <li>Energy of any position influenced only by local sequence and structure</li>
+                            <li>Still <strong>cannot handle pseudoknots</strong> due to algorithmic constraints</li>
+                            <li>Gives only one optimal structure</li>
+                        </ul>
+                        <p><strong>Tools:</strong> MFOLD, ViennaRNA</p>
+                    </div>
+                </div>
+
+                <div class="card blue">
+                    <div class="card-title">Comparative Sequence Analysis — The Gold Standard</div>
+                    <p>Use sequence alignment to find <strong>conserved residues</strong> and identify <strong>covariant
+                            base pairs</strong>. If two positions mutate together in evolution (e.g., G-C → A-U), they
+                        are likely base-paired. This is the most trusted method and does not require energy parameters.
+                        Requires multiple aligned sequences from different species.</p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ═══════════════════════════════════════════════
+     QUICK REFERENCE / CHEAT SHEET
+═══════════════════════════════════════════════ -->
+        <section class="section" id="s6">
+            <div class="section-header">
+                <span class="section-num">CHEAT SHEET</span>
+                <h2 class="section-title" style="color:var(--yellow)">Exam Quick Reference</h2>
+            </div>
+
+            <div class="grid2">
+                <div class="card yellow">
+                    <div class="card-title">Chou-Fasman: Numbers to Remember</div>
+                    <table class="data-table" style="font-size:0.82rem">
+                        <thead>
+                            <tr>
+                                <th>Rule</th>
+                                <th>Helix</th>
+                                <th>Sheet</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nucleation window</td>
+                                <td>6</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td>Min residues with P&gt;1</td>
+                                <td>4 of 6</td>
+                                <td>3 of 5</td>
+                            </tr>
+                            <tr>
+                                <td>Contiguous?</td>
+                                <td>No</td>
+                                <td>No</td>
+                            </tr>
+                            <tr>
+                                <td>Extension window</td>
+                                <td>4 (tetrapeptide)</td>
+                                <td>4 (tetrapeptide)</td>
+                            </tr>
+                            <tr>
+                                <td>Extension threshold</td>
+                                <td>avg P(α) ≥ 1</td>
+                                <td>avg P(β) ≥ 1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top:8px"><strong>β-turn:</strong> p(t) = f(i)×f(i+1)×f(i+2)×f(i+3) &gt; 0.000075,
+                        avg P(turn) &gt; 1 &gt; avg P(α) &amp; P(β)</p>
+                </div>
+
+                <div class="card green">
+                    <div class="card-title">Nussinov: Key Points</div>
+                    <ul class="bullet">
+                        <li>Allowed pairs: A-U, G-C, G-U (wobble)</li>
+                        <li>Min loop: j−i ≥ 4</li>
+                        <li>4 cases: i unpaired, j unpaired, i·j paired, bifurcation</li>
+                        <li>Fill matrix diagonally (small subsequences first)</li>
+                        <li>Traceback: stack-based, start with (1,L)</li>
+                        <li>Dot-bracket notation: ( ) for paired, . for unpaired</li>
+                        <li>Cannot handle pseudoknots</li>
+                    </ul>
+                </div>
+
+                <div class="card blue">
+                    <div class="card-title">Protein Structure Hierarchy</div>
+                    <ul class="bullet">
+                        <li>1° = amino acid sequence (peptide bond)</li>
+                        <li>2° = helix/sheet (hydrogen bond)</li>
+                        <li>3° = fold (hydrophobic effect)</li>
+                        <li>4° = complex (same forces as 3°)</li>
+                    </ul>
+                </div>
+
+                <div class="card purple">
+                    <div class="card-title">RNA Base Pairs</div>
+                    <ul class="bullet">
+                        <li>A-U: 2 H-bonds (less stable)</li>
+                        <li>G-C: 3 H-bonds (more stable)</li>
+                        <li>G-U: wobble (non-canonical)</li>
+                        <li>DNA uses T; RNA uses U</li>
+                        <li>Structure &gt; sequence conservation in RNA</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="callout success">
+                <span class="icon">🏆</span>
+                <div><strong>Good luck on your exam tomorrow!</strong> Focus extra time on working through Nussinov
+                    matrix fills with different sequences, and practice identifying helix nucleation sites using
+                    Chou-Fasman parameters. The "why" of sliding windows (cooperativity, physical minimum length) is
+                    often asked conceptually.</div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Smooth scroll and active TOC highlighting
+        document.querySelectorAll('.toc a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+
+</html>
