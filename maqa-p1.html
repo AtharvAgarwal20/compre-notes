@@ -131,20 +131,25 @@
       font-size: 13px
     }
 
-    /* ── Navigation TOC ─────────────────────── */
+    /* ── Navigation TOC (side rail) ─────────── */
     nav.toc {
+      position: fixed;
+      top: 24px;
+      left: 20px;
+      width: 220px;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
       background: var(--paper-deep);
-      border-bottom: 1px solid var(--rule);
-      padding: 28px 32px;
-      position: sticky;
-      top: 0;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 20px 18px;
       z-index: 50;
-      box-shadow: 0 2px 12px rgba(25, 22, 20, 0.06);
+      box-shadow: 0 2px 12px rgba(25, 22, 20, 0.08);
     }
 
     .toc-inner {
-      max-width: 900px;
-      margin: 0 auto
+      max-width: none;
+      margin: 0
     }
 
     .toc-title {
@@ -153,28 +158,109 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--ink-soft);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--rule);
     }
 
     .toc-list {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px 18px;
+      flex-direction: column;
+      gap: 6px;
       font-family: 'Newsreader', serif;
-      font-size: 15px
+      font-size: 14px;
+      line-height: 1.35;
     }
 
     .toc-list a {
       color: var(--ink);
       text-decoration: none;
-      border-bottom: 1px dotted var(--ink-soft);
-      padding: 2px 0;
+      border-left: 2px solid transparent;
+      padding: 2px 0 2px 8px;
       transition: all 0.2s
     }
 
     .toc-list a:hover {
       color: var(--accent);
-      border-bottom-style: solid
+      border-left-color: var(--accent);
+      background: rgba(139, 46, 31, 0.04);
+    }
+
+    /* Hamburger toggle + backdrop: hidden on wide screens (side rail is always visible there). */
+    .toc-toggle {
+      display: none;
+    }
+
+    .toc-backdrop {
+      display: none;
+    }
+
+    /* Below this width the side rail would overlap content; collapse into a hamburger-driven slide-in panel. */
+    @media (max-width: 1240px) {
+      .toc-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        width: 44px;
+        height: 44px;
+        background: var(--ink);
+        color: var(--gold);
+        border: 1px solid var(--gold);
+        border-radius: 4px;
+        z-index: 60;
+        cursor: pointer;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 22px;
+        line-height: 1;
+        padding: 0;
+        box-shadow: 0 2px 8px rgba(25, 22, 20, 0.25);
+      }
+
+      .toc-toggle:hover {
+        background: var(--accent);
+        color: var(--paper);
+      }
+
+      .toc-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(25, 22, 20, 0.45);
+        z-index: 55;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+      }
+
+      .toc-backdrop.open {
+        display: block;
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      nav.toc {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: min(300px, 85vw);
+        height: 100vh;
+        max-height: 100vh;
+        overflow-y: auto;
+        border: none;
+        border-right: 1px solid var(--rule);
+        border-radius: 0;
+        padding: 70px 22px 32px;
+        box-shadow: 4px 0 16px rgba(25, 22, 20, 0.18);
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        z-index: 58;
+      }
+
+      nav.toc.open {
+        transform: translateX(0);
+      }
     }
 
     /* ── Lecture sections ───────────────────── */
@@ -709,7 +795,11 @@
     </div>
   </header>
 
-  <nav class="toc">
+  <button class="toc-toggle" type="button" aria-label="Open table of contents" aria-controls="toc-nav"
+    aria-expanded="false">☰</button>
+  <div class="toc-backdrop" aria-hidden="true"></div>
+
+  <nav class="toc" id="toc-nav">
     <div class="toc-inner">
       <div class="toc-title">▤ Table of Contents</div>
       <div class="toc-list">
@@ -3748,7 +3838,8 @@
       <p>Monitors, controls, and improves processes through statistical techniques. SPC identifies when processes are
         <strong>out of control</strong> due to <em>special-cause variation</em> (variation caused by specific
         identifiable circumstances, not inherent to the process). Once identified, practitioners can seek to remove that
-        variation.</p>
+        variation.
+      </p>
       <p>SPC is, in essence, an automated detector for assignable causes — a kind of "is something unusual happening
         right now?" alarm system.</p>
 
@@ -3942,7 +4033,8 @@
 
       <p>Use a p-chart when each item is classified as conforming or non-conforming and you record the
         <em>proportion</em> defective in each sample. The underlying distribution is <strong>binomial</strong>,
-        approximated as normal when n is large and p is not too small.</p>
+        approximated as normal when n is large and p is not too small.
+      </p>
 
       <div class="formula">
         <span class="label">p-chart limits</span>
@@ -4223,7 +4315,8 @@
 
       <p>For a normal distribution, 99.74 % of the values lie within ±3σ of the mean — i.e., within a total spread of
         <strong>6σ</strong>. This is called the <strong>process spread</strong>: a virtually complete range of what the
-        process can produce.</p>
+        process can produce.
+      </p>
 
       <p>The customer's <strong>specification width</strong> is T = USL − LSL (Upper Specification Limit minus Lower
         Specification Limit). If 6σ &lt; T, the process spread fits inside the specification: most parts will be
@@ -4287,7 +4380,8 @@
           errors in the decisions</strong>. A capability study, a control chart, an acceptance-sampling plan — all rest
         on the assumption that the measurements feeding them are accurate. <strong>MSA</strong> is the discipline of
         <em>qualifying</em> a measurement system for its intended use by quantifying its accuracy, precision, and
-        stability.</p>
+        stability.
+      </p>
 
       <div class="defn">
         <div class="defn-label">Definition</div>
@@ -4737,6 +4831,30 @@
     Deep-Theory Compendium · Lectures 1 – 5 · Every concept, every formula, every numerical, every "why".<br>
     Take a breath. You know this. Go in there and own the paper.
   </footer>
+
+  <script>
+    (function () {
+      const toggle = document.querySelector('.toc-toggle');
+      const nav = document.querySelector('nav.toc');
+      const backdrop = document.querySelector('.toc-backdrop');
+      if (!toggle || !nav || !backdrop) return;
+
+      function setOpen(isOpen) {
+        nav.classList.toggle('open', isOpen);
+        backdrop.classList.toggle('open', isOpen);
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        toggle.setAttribute('aria-label', isOpen ? 'Close table of contents' : 'Open table of contents');
+        toggle.textContent = isOpen ? '✕' : '☰';
+      }
+
+      toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+      backdrop.addEventListener('click', () => setOpen(false));
+      nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && nav.classList.contains('open')) setOpen(false);
+      });
+    })();
+  </script>
 
 </body>
 
