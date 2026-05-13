@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MF F220 — Metrology & Quality Assurance · Complete Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#191614;
+  --ink-soft:#3a342f;
+  --paper:#f6f1e7;
+  --paper-deep:#ede5d3;
+  --rule:#cdbfa3;
+  --accent:#8b2e1f;
+  --accent-2:#3c5a3a;
+  --gold:#a07c2c;
+  --highlight:#fff5b8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{
+  font-family:'Newsreader', Georgia, serif;
+  font-size:18px;
+  line-height:1.7;
+  color:var(--ink);
+  background:var(--paper);
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(160,124,44,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(139,46,31,0.03) 0%, transparent 50%);
+}
+.container{max-width:880px;margin:0 auto;padding:40px 32px 120px}
+
+/* ── Top Banner ─────────────────────────── */
+header.banner{
+  background:var(--ink);
+  color:var(--paper);
+  padding:60px 32px 50px;
+  border-bottom:4px double var(--gold);
+  position:relative;
+  overflow:hidden;
+}
+header.banner::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(90deg, transparent 0 80px, rgba(246,241,231,0.04) 80px 81px);
+  pointer-events:none;
+}
+.banner-inner{max-width:880px;margin:0 auto;position:relative}
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:14px
+}
+.banner h1{
+  font-family:'Fraunces', serif;
+  font-weight:900;font-size:clamp(38px,6vw,68px);
+  line-height:0.95;letter-spacing:-0.02em;
+  font-variation-settings:"opsz" 144, "SOFT" 100;
+}
+.banner h1 em{font-style:italic;color:var(--gold);font-weight:400}
+.banner-sub{
+  margin-top:18px;font-family:'Newsreader',serif;
+  font-style:italic;font-size:20px;color:#d6c9a8;max-width:680px
+}
+.banner-meta{
+  margin-top:32px;display:flex;flex-wrap:wrap;gap:24px 40px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:0.15em;text-transform:uppercase;color:#bba886;
+}
+.banner-meta span strong{display:block;color:var(--paper);font-weight:500;margin-top:4px;letter-spacing:0.08em;font-size:13px}
+
+/* ── Navigation TOC ─────────────────────── */
+nav.toc{
+  background:var(--paper-deep);
+  border-bottom:1px solid var(--rule);
+  padding:28px 32px;
+  position:sticky;top:0;z-index:50;
+  box-shadow:0 2px 12px rgba(25,22,20,0.06);
+}
+.toc-inner{max-width:880px;margin:0 auto}
+.toc-title{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px;
+}
+.toc-list{
+  display:flex;flex-wrap:wrap;gap:8px 18px;
+  font-family:'Newsreader',serif;font-size:15px
+}
+.toc-list a{
+  color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--ink-soft);
+  padding:2px 0;transition:all 0.2s
+}
+.toc-list a:hover{color:var(--accent);border-bottom-style:solid}
+
+/* ── Lecture sections ───────────────────── */
+.lecture{margin:80px 0 0}
+.lecture-head{
+  display:flex;align-items:flex-end;gap:24px;
+  margin-bottom:32px;padding-bottom:22px;
+  border-bottom:2px solid var(--ink);
+}
+.lecture-num{
+  font-family:'Fraunces',serif;font-weight:900;font-style:italic;
+  font-size:90px;line-height:0.8;color:var(--accent);
+  font-variation-settings:"opsz" 144;
+}
+.lecture-title h2{
+  font-family:'Fraunces',serif;font-weight:600;
+  font-size:34px;line-height:1.1;letter-spacing:-0.015em;
+}
+.lecture-title .label{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:8px
+}
+
+h3{
+  font-family:'Fraunces',serif;font-weight:600;
+  font-size:26px;margin:50px 0 16px;
+  line-height:1.2;color:var(--ink);
+  letter-spacing:-0.01em;
+  position:relative;
+  padding-left:22px;
+}
+h3::before{
+  content:"";position:absolute;left:0;top:14px;
+  width:10px;height:10px;background:var(--accent);
+  transform:rotate(45deg);
+}
+h4{
+  font-family:'Fraunces',serif;font-weight:600;
+  font-size:20px;margin:32px 0 12px;color:var(--ink-soft);
+  font-style:italic;
+}
+
+p{margin:14px 0;color:var(--ink-soft)}
+p strong{color:var(--ink);font-weight:600}
+em{color:var(--accent);font-style:italic}
+
+ul,ol{margin:14px 0 14px 28px;color:var(--ink-soft)}
+li{margin:8px 0}
+li strong{color:var(--ink)}
+
+/* ── Definition box ─────────────────────── */
+.defn{
+  border-left:4px solid var(--accent);
+  background:rgba(139,46,31,0.05);
+  padding:18px 22px;margin:24px 0;
+  border-radius:0 4px 4px 0;
+}
+.defn .defn-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:6px;font-weight:700
+}
+.defn .defn-term{
+  font-family:'Fraunces',serif;font-weight:600;font-size:20px;
+  margin-bottom:6px;color:var(--ink)
+}
+
+/* ── Formula box ────────────────────────── */
+.formula{
+  background:var(--ink);color:var(--paper);
+  padding:22px 28px;margin:22px 0;
+  border-radius:4px;font-family:'JetBrains Mono',monospace;
+  font-size:17px;text-align:center;line-height:1.8;
+  letter-spacing:0.02em;
+  border:1px solid #2a2520;
+  box-shadow:inset 0 0 0 1px rgba(160,124,44,0.2);
+}
+.formula .label{
+  display:block;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:10px;
+}
+.inline-math{font-family:'JetBrains Mono',monospace;font-size:0.95em;background:rgba(160,124,44,0.12);padding:1px 6px;border-radius:3px;color:var(--ink)}
+
+/* ── Numerical solved example ───────────── */
+.solved{
+  background:#fbf6e9;
+  border:1px solid var(--rule);
+  border-top:4px solid var(--accent-2);
+  padding:24px 28px;margin:30px 0;
+  border-radius:0 0 6px 6px;
+  position:relative;
+}
+.solved::before{
+  content:"WORKED EXAMPLE";
+  position:absolute;top:-1px;left:24px;
+  transform:translateY(-100%);
+  background:var(--accent-2);color:var(--paper);
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:0.2em;padding:4px 10px;
+  border-radius:3px 3px 0 0;font-weight:700;
+}
+.solved .problem{
+  font-style:italic;color:var(--ink);
+  border-bottom:1px dashed var(--rule);
+  padding-bottom:14px;margin-bottom:16px;
+}
+.solved .step{margin:10px 0}
+.solved .step-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--accent-2);font-weight:700;margin-right:8px
+}
+.answer{
+  background:var(--ink);color:var(--gold);
+  padding:10px 16px;margin-top:14px;
+  font-family:'JetBrains Mono',monospace;font-size:14px;
+  border-left:4px solid var(--gold);
+  letter-spacing:0.02em;
+}
+
+/* ── Practice problem ───────────────────── */
+.practice{
+  border:2px dashed var(--accent);
+  padding:20px 24px;margin:30px 0;
+  background:rgba(139,46,31,0.03);
+  border-radius:6px;
+}
+.practice .ptag{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;margin-bottom:8px;
+  display:block;
+}
+.practice details{margin-top:14px}
+.practice summary{
+  cursor:pointer;font-family:'JetBrains Mono',monospace;
+  font-size:12px;color:var(--accent);
+  text-transform:uppercase;letter-spacing:0.15em;
+  padding:6px 0;font-weight:700;
+}
+.practice details[open] summary{margin-bottom:10px;border-bottom:1px solid var(--rule)}
+
+/* ── Comparison table ───────────────────── */
+table{
+  width:100%;border-collapse:collapse;margin:24px 0;
+  font-size:15px;
+}
+th{
+  background:var(--ink);color:var(--paper);
+  padding:12px 14px;text-align:left;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:0.12em;text-transform:uppercase;font-weight:500;
+}
+td{
+  padding:11px 14px;border-bottom:1px solid var(--rule);
+  vertical-align:top;color:var(--ink-soft);
+}
+tr:nth-child(even) td{background:rgba(205,191,163,0.12)}
+td strong{color:var(--ink)}
+
+/* ── Callout / key idea ─────────────────── */
+.key{
+  background:linear-gradient(180deg, transparent 60%, var(--highlight) 60%);
+  padding:0 2px;font-weight:500;color:var(--ink);
+}
+.notebox{
+  background:#fff8e1;border:1px solid #d4b96a;
+  padding:14px 18px;margin:20px 0;
+  border-radius:4px;font-size:15.5px;
+}
+.notebox strong{color:var(--accent)}
+.notebox::before{
+  content:"⚑ Note  ";font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:0.2em;color:var(--accent);
+  font-weight:700;text-transform:uppercase;
+}
+
+/* ── Symbol/notation table ─────────────── */
+.notation{
+  display:grid;grid-template-columns:auto 1fr;gap:6px 18px;
+  font-family:'JetBrains Mono',monospace;font-size:14px;
+  background:var(--paper-deep);padding:16px 20px;margin:18px 0;
+  border-radius:4px;border-left:3px solid var(--gold);
+}
+.notation .sym{color:var(--accent);font-weight:700}
+.notation .meaning{color:var(--ink-soft);font-family:'Newsreader',serif;font-size:16px}
+
+/* ── Two-col grid ───────────────────────── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:20px 0}
+.two-col > div{
+  background:var(--paper-deep);padding:18px 20px;
+  border-radius:4px;border-top:3px solid var(--gold);
+}
+.two-col h4{margin-top:0}
+@media (max-width:640px){.two-col{grid-template-columns:1fr}}
+
+/* ── Section divider ────────────────────── */
+.divider{
+  text-align:center;margin:50px 0;
+  font-family:'JetBrains Mono',monospace;color:var(--rule);
+  letter-spacing:0.5em;font-size:14px
+}
+
+footer{
+  border-top:4px double var(--gold);
+  margin-top:100px;padding:40px 32px;
+  background:var(--ink);color:#bba886;
+  text-align:center;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:0.15em;text-transform:uppercase;
+}
+footer strong{display:block;color:var(--gold);font-size:14px;margin-bottom:8px}
+
+/* ── Special elements ───────────────────── */
+.ascii-diag{
+  font-family:'JetBrains Mono',monospace;font-size:13px;
+  background:var(--ink);color:var(--gold);
+  padding:18px 24px;margin:20px 0;
+  border-radius:4px;white-space:pre;overflow-x:auto;
+  line-height:1.5;
+}
+sub,sup{font-size:0.75em}
+</style>
+</head>
+<body>
+
+<header class="banner">
+  <div class="banner-inner">
+    <div class="eyebrow">MF F220 · BITS Pilani · Pre-Exam Compendium</div>
+    <h1>Metrology<br>&amp; <em>Quality Assurance</em></h1>
+    <p class="banner-sub">A complete, deep-dive companion to Lectures 1 through 5 — every definition, every formula, every worked numerical, written for the night before the exam.</p>
+    <div class="banner-meta">
+      <span>Course<strong>MF F220</strong></span>
+      <span>Coverage<strong>5 Lectures · ~250 slides</strong></span>
+      <span>Mode<strong>Exam Review</strong></span>
+      <span>Instructor<strong>Dr. Tribeni Roy</strong></span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <div class="toc-title">▤ Table of Contents</div>
+    <div class="toc-list">
+      <a href="#L1">L1 · Metrology Foundations</a>
+      <a href="#errors">Errors</a>
+      <a href="#tolerances">Limits, Fits, Tolerances</a>
+      <a href="#iso">ISO System</a>
+      <a href="#L2">L2 · Gauges &amp; Measurement</a>
+      <a href="#slip">Slip Gauges</a>
+      <a href="#angular">Angular Measurement</a>
+      <a href="#surface">Surface Quality</a>
+      <a href="#L3">L3 · Optics &amp; Interferometry</a>
+      <a href="#L4">L4 · Quality Management</a>
+      <a href="#L5">L5 · SPC &amp; Control Charts</a>
+      <a href="#capability">Process Capability</a>
+      <a href="#reliability">Reliability</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!--    LECTURE 1                                                    -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="lecture" id="L1">
+  <div class="lecture-head">
+    <div class="lecture-num">01</div>
+    <div class="lecture-title">
+      <div class="label">Lecture One</div>
+      <h2>Foundations of Metrology — Errors, Tolerances &amp; the ISO System</h2>
+    </div>
+  </div>
+
+  <h3>1.1 What is Metrology?</h3>
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Metrology</div>
+    Metrology is the <strong>science of measurement</strong>. In this course the focus is on measurement of <em>geometry, surface attributes,</em> and the <em>quality of manufactured products</em>.
+  </div>
+
+  <p>Metrology bridges the gap between the <strong>designer's vision</strong> and the <strong>actual product</strong>. It has become an indispensable part of modern infrastructure because trading in national &amp; international markets requires conformance to written standards and mutual recognition of measurements/tests.</p>
+
+  <p>Beyond industry, metrology establishes standards in <strong>health sciences, safety and environment</strong>, and most importantly produces the <span class="key">international standards of measurement</span> used by every country in science and industry.</p>
+
+  <h4>The Three Branches of Metrology</h4>
+  <div class="two-col">
+    <div>
+      <h4>Legal Metrology</h4>
+      <p>Any application of metrology subject to <strong>national laws or regulations</strong>. Its main objective is <strong>uniformity of measurement</strong> in a particular country. Example: the labelled net weight on a packaged food item (the "900 g" stamped on a sauce jar).</p>
+    </div>
+    <div>
+      <h4>Dynamic Metrology</h4>
+      <p>Measurement of <strong>small variations of a continuous nature</strong>. Records continuous measurements over a surface and offers obvious advantages over individual discrete measurements. Example: continuous ECG-style surface profile recording.</p>
+    </div>
+    <div>
+      <h4>Deterministic Metrology</h4>
+      <p>Part measurement is <strong>substituted by process measurement</strong>. Example: 3-D error compensation in CNC systems. Used in high-precision machinery for micro- and nano-technology accuracies.</p>
+    </div>
+    <div>
+      <h4>(Why all three?)</h4>
+      <p>Each branch is a different <em>philosophy</em> of measurement. Legal protects consumers, dynamic captures phenomena that vary in time/space, deterministic eliminates inspection bottlenecks by controlling the process itself.</p>
+    </div>
+  </div>
+
+  <h3>1.2 Need for Inspection</h3>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Inspection</div>
+    A procedure in which a part or product characteristic (such as a dimension) is <strong>examined to determine whether it conforms to the design specification</strong>.
+  </div>
+
+  <p>Inspection is carried out to isolate and evaluate a specific design or quality attribute of a component. It gained importance because of <strong>mass production</strong>, which involved <em>interchangeability of parts</em>.</p>
+
+  <h4>Measurement vs Gauging</h4>
+  <table>
+    <thead><tr><th>Measurement Technique</th><th>Gauging Technique</th></tr></thead>
+    <tbody>
+      <tr><td>Measures the <strong>actual dimension</strong> of the part</td><td>Does <strong>not</strong> reveal the actual value</td></tr>
+      <tr><td>Slower</td><td>Faster</td></tr>
+      <tr><td>Returns a number</td><td>Returns only "within limits" or "not"</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Eight Reasons Inspection Exists</h4>
+  <ol>
+    <li>Ascertain conformance to the established/desired standard.</li>
+    <li>Accomplish <strong>interchangeability of manufacture</strong>.</li>
+    <li>Sustain customer goodwill — no defective product should reach customers.</li>
+    <li>Find inadequacies in manufacture; results are reported back to the manufacturing department.</li>
+    <li>Ensure good-quality raw materials, tools and equipment are purchased.</li>
+    <li>Coordinate Quality Control, Production, Purchasing and other departments.</li>
+    <li>Decide whether <strong>rework on defective parts</strong> is feasible.</li>
+    <li>Promote a <strong>spirit of competition</strong> to manufacture quality products in bulk.</li>
+  </ol>
+
+  <h3>1.3 Accuracy and Precision</h3>
+
+  <div class="defn">
+    <div class="defn-label">Definition · Accuracy</div>
+    <div class="defn-term">Accuracy</div>
+    The degree of <strong>agreement</strong> of the measured dimension with its <strong>true magnitude</strong>. True value = the mean of an infinite number of measurements when the average deviation due to contributing factors tends to zero.
+  </div>
+
+  <div class="defn">
+    <div class="defn-label">Definition · Precision</div>
+    <div class="defn-term">Precision</div>
+    The degree of <strong>repetitiveness</strong> of the measuring process. If an instrument is not precise, repeated readings of the <em>same dimension</em> give different results. Precision = repeatability.
+  </div>
+
+  <p>The classic dartboard illustration: a tightly grouped cluster <em>off</em> the bullseye is <strong>precise but not accurate</strong>; scattered shots whose <em>average</em> hits the bullseye are <strong>accurate but not precise</strong>; a tight cluster on the bullseye is <strong>both</strong>; scattered shots all around miss both criteria.</p>
+
+  <ul>
+    <li><strong>Accuracy</strong> → how close the measurement is to the true value.</li>
+    <li><strong>Precision</strong> → quality of measurement; says nothing about correctness.</li>
+    <li>These map directly to <strong>systematic errors</strong> (accuracy) and <strong>random errors</strong> (precision).</li>
+  </ul>
+
+  <h4>Sensitivity, Consistency, Range</h4>
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Sensitivity</div>
+    The ability of the measuring equipment to <strong>detect small variations</strong> in the quantity being measured. Higher accuracy demands higher sensitivity. The <em>permitted degree of sensitivity determines the accuracy of the instrument.</em>
+  </div>
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Consistency</div>
+    Successive readings of the measured quantity from the instrument are the <strong>same</strong> all the time.
+  </div>
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Range</div>
+    The <strong>difference between the lower and higher values</strong> the instrument can measure.
+  </div>
+
+  <p>A highly accurate instrument possesses <em>both</em> sensitivity and consistency. <strong>Cost increases exponentially with accuracy</strong> — the Accuracy-vs-Cost curve drops off steeply.</p>
+
+  <h3 id="errors">1.4 Errors in Measurement</h3>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Error</div>
+    The difference between the true value and the mean value of a set of readings on the same component — or equivalently, the difference between the <strong>indicated value</strong> and the <strong>true value</strong>.
+  </div>
+
+  <div class="formula">
+    <span class="label">Absolute &amp; Relative Error</span>
+    E = V<sub>m</sub> − V<sub>t</sub><br>
+    Relative Error (%) = (E / V<sub>t</sub>) × 100%
+  </div>
+
+  <p>An error of ±2 g is negligible for a 1 kg measurement but huge for a 10 g measurement — this is why <strong>relative error matters more</strong> than absolute. Accuracy is always assessed in terms of error; lower error magnitude = more accurate instrument.</p>
+
+  <h4>Systematic (Controllable) Errors</h4>
+  <p>Deviate by a <strong>fixed amount</strong> from the true value. <strong>Controllable</strong> in both magnitude and direction. When systematic errors are minimum, the measurement is said to be extremely accurate.</p>
+
+  <p><strong>Four sub-types:</strong></p>
+  <ul>
+    <li><strong>Calibration errors</strong> — small variation from nominal in the length standards themselves (slip gauges, engraved scales). Caused also by inertia and <em>hysteresis</em>.
+      <div class="defn" style="margin-left:24px">
+        <div class="defn-label">Definition</div>
+        <div class="defn-term">Hysteresis</div>
+        Difference between indications of the measuring instrument when the quantity is measured in <strong>ascending</strong> vs <strong>descending</strong> order.
+      </div>
+    </li>
+    <li><strong>Ambient conditions</strong> — must be maintained at the internationally accepted reference: <span class="key">temperature 20 °C, pressure 760 mmHg</span>. A 1 °C rise increases the length of C25 steel by 0.3 µm — significant for precision work. Strain-gauge measurements include temperature compensation.</li>
+    <li><strong>Workpiece deformation</strong> — elastic deformation under stylus pressure depends on applied load, area of contact, and material properties.</li>
+    <li><strong>Avoidable errors</strong> — datum errors, reading errors, parallax error, misalignment, zero errors.</li>
+  </ul>
+
+  <h4>Random Errors</h4>
+  <p>Provide a measure of <strong>random deviations</strong> when measurements are carried out repeatedly. Specific causes cannot be determined — they are <strong>unpredictable and uncontrollable</strong> and follow a <strong>normal (Gaussian) distribution</strong> when plotted.</p>
+
+  <div class="formula">
+    <span class="label">Statistics of Random Errors</span>
+    v̄ = (v₁ + v₂ + … + v<sub>n</sub>) / n<br><br>
+    σ = ± √[ Σ (v − v̄)² / n ]
+  </div>
+
+  <div class="notebox"><strong>Visualising the two together:</strong> Plot a normal distribution of trial readings. The horizontal distance from the curve's <em>mean</em> to the <em>true value</em> is the <strong>systematic error</strong>; the horizontal spread of the curve (the standard deviation) represents the <strong>random error</strong>.</div>
+
+  <h3>1.5 Calibration</h3>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Calibration</div>
+    A comparison between a <strong>known measurement (the standard)</strong> and the measurement obtained using your instrument. The accuracy of the standard should ideally be <strong>10 ×</strong> the accuracy of the device being tested.
+  </div>
+
+  <p>An instrument should be calibrated:</p>
+  <ul>
+    <li>According to the <strong>manufacturer's recommendation</strong>.</li>
+    <li>After any <strong>mechanical or electrical shock</strong>.</li>
+    <li><strong>Periodically</strong>.</li>
+  </ul>
+
+  <h3 id="tolerances">1.6 Limits, Fits &amp; Tolerances</h3>
+
+  <h4>The 5 M's &amp; Two Types of Variation</h4>
+  <p>Manufacturing rests on five M's — <strong>Man, Machine, Materials, Money, Management</strong>. Variations in the first three drive process changes. All are subject to two kinds of variation:</p>
+  <table>
+    <thead><tr><th>Natural Variation</th><th>Characteristic Variation</th></tr></thead>
+    <tbody>
+      <tr><td>Random in nature</td><td>From identifiable, controllable causes</td></tr>
+      <tr><td>Cumulative effect of many small uncontrollable causes</td><td>Improperly adjusted machines, operator error, tool wear, defective raw materials</td></tr>
+      <tr><td>Generally small — acceptable level</td><td>Usually large compared to natural variability</td></tr>
+      <tr><td>"common causes"</td><td>"<strong>assignable causes</strong>"</td></tr>
+    </tbody>
+  </table>
+
+  <p>Eliminating assignable causes brings variability inside <strong>prescribed limits</strong>. This requires <strong>money</strong> (economy of inspection) and <strong>management</strong> action.</p>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Tolerance</div>
+    Because no component can be made <em>precisely</em> to a given dimension, the designer specifies <strong>two limits — upper (maximum) and lower (minimum)</strong> — between which the actual dimension must lie. The total permissible variation = tolerance.
+  </div>
+
+  <h4>Classification of Tolerance</h4>
+  <ul>
+    <li><strong>Unilateral tolerance</strong> — distribution is on <em>one side</em> of the basic size only. Used in drilling, where hole dimensions tend to deviate in <em>one direction</em> (always oversize). Examples: 40<sup>+0.02</sup><sub>+0.01</sub>, 40<sup>+0.02</sup><sub>+0.00</sub>, 40<sup>−0.01</sup><sub>−0.02</sub>.</li>
+    <li><strong>Bilateral tolerance</strong> — distribution on <em>both sides</em> of the basic size, not necessarily equally disposed. Preferred in <strong>mass production</strong> where machines are set to the basic size. Example: 40 ± 0.02.</li>
+    <li><strong>Compound tolerance</strong> — determined by tolerances on <em>more than one</em> dimension acting together. <strong>Should be avoided</strong> in practice.</li>
+    <li><strong>Geometric tolerance</strong> — total amount the dimension of a manufactured part can vary; underlines the <strong>shape of a feature</strong> as against its size.</li>
+  </ul>
+
+  <h4>Geometric Tolerance — Three Families</h4>
+  <ul>
+    <li><strong>Form tolerances</strong> (independent): straightness, circularity, flatness, cylindricity, line/surface profile.</li>
+    <li><strong>Orientation tolerances</strong> (related): perpendicularity, parallelism, angularity.</li>
+    <li><strong>Position tolerances</strong> (related): position, symmetry, concentricity, runout, total runout.</li>
+  </ul>
+
+  <p>Geometric tolerance is read from a <strong>feature control frame</strong>: ⊚ Ø0.01 | X means "concentricity, with a 0.01 mm tolerance zone, datum X". So the two centres of a stepped cylinder must lie within Ø0.01 of each other, referenced to datum X.</p>
+
+  <h4>Tolerance Accumulation</h4>
+  <p>If three parts A (30<sup>+0.02</sup><sub>−0.01</sub>), B (20<sup>+0.02</sup><sub>−0.01</sub>) and C (10<sup>+0.02</sup><sub>−0.01</sub>) are stacked:</p>
+  <ul>
+    <li>Nominal L = 30 + 20 + 10 = 60 mm</li>
+    <li>Cumulative upper tolerance = +0.02 + 0.02 + 0.02 = <strong>+0.06</strong></li>
+    <li>Cumulative lower tolerance = −0.01 − 0.01 − 0.01 = <strong>−0.03</strong></li>
+    <li>Result: 60<sup>+0.06</sup><sub>−0.03</sub></li>
+  </ul>
+  <p>To minimise this buildup, use <strong>progressive (baseline) dimensioning</strong> — dimension every feature from one common reference instead of chain dimensioning.</p>
+
+  <h3>1.7 Shaft, Hole, MML &amp; LML</h3>
+
+  <p><strong>Shaft</strong> designates <em>all external features</em> of a part (cylindrical or not). <strong>Hole</strong> designates <em>all internal features</em> (cylindrical or not).</p>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Maximum &amp; Minimum Metal Limits</div>
+    <strong>MML</strong> = the limit at which the part has the <em>maximum possible amount of metal</em>. <strong>LML</strong> = the limit at which the part has the <em>least amount of metal</em>.<br><br>
+    For a <strong>shaft</strong>: MML = upper limit (HLS), LML = lower limit (LLS).<br>
+    For a <strong>hole</strong>: MML = lower limit (LLH), LML = upper limit (HLH).
+  </div>
+
+  <p>Example: Shaft 40 ± 0.05 → MML = 40.05, LML = 39.95. Hole 45 ± 0.05 → MML = 44.95, LML = 45.05.</p>
+
+  <h3>1.8 Fits</h3>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Fit</div>
+    The relationship between two mating parts (hole and shaft) with respect to the <strong>difference in their dimensions before assembly</strong>.
+  </div>
+
+  <p>Three basic types:</p>
+
+  <h4>(a) Clearance Fit</h4>
+  <ul>
+    <li>Largest permissible diameter of shaft &lt; diameter of smallest hole.</li>
+    <li>Always provides clearance; difference is <strong>always positive</strong>.</li>
+    <li>Small clearances → precise fit, assembled without tools.</li>
+    <li>Large clearances → relative motion possible (shaft rotating in a bush).</li>
+  </ul>
+
+  <h4>(b) Interference Fit</h4>
+  <ul>
+    <li>Minimum permissible diameter of shaft &gt; maximum allowable diameter of hole.</li>
+    <li>A <strong>tight</strong>, essentially permanent fit; difference <strong>always negative</strong>.</li>
+    <li>Used where accurate location is critical (e.g., alignment of dowel pins).</li>
+  </ul>
+
+  <h4>(c) Transition Fit</h4>
+  <ul>
+    <li>Diameter of <em>largest</em> hole &gt; diameter of <em>smallest</em> shaft, AND diameter of <em>smallest</em> hole &lt; diameter of <em>largest</em> shaft.</li>
+    <li>Tolerance zones <strong>overlap</strong> — may give clearance OR interference depending on individual sizes.</li>
+  </ul>
+
+  <div class="notation">
+    <span class="sym">HLH − LLS &gt; 0 AND LLH − HLS &gt; 0</span><span class="meaning">→ Clearance fit</span>
+    <span class="sym">HLH − LLS &lt; 0 AND LLH − HLS &lt; 0</span><span class="meaning">→ Interference fit</span>
+    <span class="sym">One positive, one negative</span><span class="meaning">→ Transition fit</span>
+  </div>
+
+  <h4>Common Fit Classes (memorise the examples)</h4>
+  <table>
+    <thead><tr><th>Description</th><th>Class</th><th>Application</th></tr></thead>
+    <tbody>
+      <tr><td colspan="3"><strong>Clearance fits</strong></td></tr>
+      <tr><td>Slide</td><td>H7/h6</td><td>Sealing rings, covers, movable gears</td></tr>
+      <tr><td>Easy slide</td><td>H7/g7</td><td>Lathe spindle, piston, slide valves</td></tr>
+      <tr><td>Running</td><td>H8/f8</td><td>Lubricated bearings (oil/grease), pumps, gear boxes</td></tr>
+      <tr><td>Slack running</td><td>H8/c11</td><td>Oil seals, multi-spline shafts</td></tr>
+      <tr><td>Loose running</td><td>H8/d9</td><td>Loose pulleys, loose bearings with low revolution</td></tr>
+      <tr><td colspan="3"><strong>Interference fits</strong></td></tr>
+      <tr><td>Force / Press</td><td>H8/r6</td><td>Crankpins, wheel axles</td></tr>
+      <tr><td>Driving</td><td>H7/p6</td><td>Stepped pulleys on drive shafts</td></tr>
+      <tr><td>Shrink</td><td>H7/u6, H8/u7</td><td>Worm wheel hubs, IC engine piston pin</td></tr>
+      <tr><td>Freeze</td><td>H7/u6, H8/u7</td><td>Exhaust valve seat inserts, brass bushes</td></tr>
+      <tr><td colspan="3"><strong>Transition fits</strong></td></tr>
+      <tr><td>Push / Snug</td><td>H7/k6</td><td>Pulleys, ball bearing inner rings</td></tr>
+      <tr><td>Wringing</td><td>H7/n6</td><td>Gears of machine tools</td></tr>
+    </tbody>
+  </table>
+
+  <h3>1.9 Allowance</h3>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Allowance</div>
+    The <strong>intentional difference between MML of hole and MML of shaft</strong> (i.e., LLH − HLS). It is the prescribed difference between the maximum-metal limits of the mating parts to obtain the desired fit.
+  </div>
+  <div class="formula">
+    <span class="label">Allowance</span>
+    Allowance = LLH − HLS
+  </div>
+  <ul>
+    <li><strong>Positive allowance</strong> → clearance fit (minimum clearance).</li>
+    <li><strong>Negative allowance</strong> → interference fit (maximum interference).</li>
+  </ul>
+
+  <!-- ───── WORKED NUMERICAL #1 ───── -->
+  <div class="solved">
+    <div class="problem"><strong>Problem 1.1</strong> &nbsp;Tolerances for a hole-shaft pair of nominal size 50 mm are:<br>
+      Hole = 50<sup>+0.02</sup><sub>+0.00</sub> mm, Shaft = 50<sup>−0.05</sup><sub>−0.08</sub> mm.<br>
+      Find (i) max &amp; min clearance, (ii) tolerance on shaft &amp; hole, (iii) allowance, (iv) MML of both, (v) type of fit.</div>
+    <div class="step"><span class="step-label">Step 1 · Extract limits</span>
+      HLH = 50.02, LLH = 50.00, HLS = 49.95, LLS = 49.92</div>
+    <div class="step"><span class="step-label">Step 2 · Clearances</span>
+      Max clearance = HLH − LLS = 50.02 − 49.92 = <strong>0.10 mm</strong><br>
+      Min clearance = LLH − HLS = 50.00 − 49.95 = <strong>0.05 mm</strong></div>
+    <div class="step"><span class="step-label">Step 3 · Tolerances</span>
+      Hole tolerance = 50.02 − 50.00 = <strong>0.02 mm</strong><br>
+      Shaft tolerance = 49.95 − 49.92 = <strong>0.03 mm</strong></div>
+    <div class="step"><span class="step-label">Step 4 · Allowance</span>
+      Allowance = LLH − HLS = 50.00 − 49.95 = <strong>+0.05 mm</strong></div>
+    <div class="step"><span class="step-label">Step 5 · MML</span>
+      MML of hole = LLH = <strong>50.00 mm</strong>; MML of shaft = HLS = <strong>49.95 mm</strong></div>
+    <div class="step"><span class="step-label">Step 6 · Type of fit</span>
+      Both HLH−LLS and LLH−HLS are positive (and allowance is positive) → <strong>Clearance fit</strong>.</div>
+    <div class="answer">Cmax 0.10 · Cmin 0.05 · Hole-tol 0.02 · Shaft-tol 0.03 · Allowance +0.05 · Clearance fit</div>
+  </div>
+
+  <!-- ───── WORKED NUMERICAL #2 ───── -->
+  <div class="solved">
+    <div class="problem"><strong>Problem 1.2</strong> &nbsp;For a hole-shaft pair: Hole = 30<sup>+0.02</sup><sub>+0.00</sub>, Shaft = 30<sup>−0.02</sup><sub>−0.05</sub>. Find tolerance and allowance.</div>
+    <div class="step"><span class="step-label">Limits</span>HLH = 30.02, LLH = 30.00, HLS = 29.98, LLS = 29.95</div>
+    <div class="step"><span class="step-label">Tolerances</span>Hole = 0.02; Shaft = 0.03</div>
+    <div class="step"><span class="step-label">Allowance</span>= LLH − HLS = 30.00 − 29.98 = <strong>+0.02 mm</strong> (clearance fit)</div>
+    <div class="answer">Tolerance: Hole 0.02 · Shaft 0.03 · Allowance +0.02</div>
+  </div>
+
+  <h3>1.10 Hole-Basis vs Shaft-Basis System</h3>
+
+  <div class="two-col">
+    <div>
+      <h4>Hole Basis</h4>
+      <ul>
+        <li>Hole size is kept <strong>constant</strong>; shaft varies to give different fits.</li>
+        <li>Fundamental (lower) deviation of hole = 0 → LLH = basic size.</li>
+        <li><strong>Widely adopted in industry</strong> — varying shafts is cheaper than varying holes.</li>
+        <li>Standard drills/reamers can be re-used.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Shaft Basis</h4>
+      <ul>
+        <li>Shaft size is kept constant; hole varies.</li>
+        <li>Fundamental (upper) deviation of shaft = 0.</li>
+        <li>Not preferred — needs many sizes of reamers/broaches/gauges.</li>
+        <li>Used when a standard shaft fixes the rest (couplings, bearings, collars, gears, bushings).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ───── WORKED NUMERICAL #3 ───── -->
+  <div class="solved">
+    <div class="problem"><strong>Problem 1.3</strong> &nbsp;A clearance fit is needed for a 40 mm shaft &amp; bearing. Hole tolerance = 0.006 mm, shaft tolerance = 0.004 mm (unilateral). Allowance = 0.002 mm. Find limits in (a) Hole basis, (b) Shaft basis.</div>
+    <div class="step"><span class="step-label">(a) Hole basis</span>Hole's lower deviation is zero → <strong>LLH = 40.000</strong>.<br>
+      HLH = 40.000 + 0.006 = <strong>40.006</strong>.<br>
+      HLS = LLH − Allowance = 40.000 − 0.002 = <strong>39.998</strong>.<br>
+      LLS = HLS − shaft-tol = 39.998 − 0.004 = <strong>39.994</strong>.</div>
+    <div class="step"><span class="step-label">(b) Shaft basis</span>Shaft's upper deviation is zero → <strong>HLS = 40.000</strong>.<br>
+      LLS = 40.000 − 0.004 = <strong>39.996</strong>.<br>
+      LLH = HLS + Allowance = 40.000 + 0.002 = <strong>40.002</strong>.<br>
+      HLH = LLH + hole-tol = 40.002 + 0.006 = <strong>40.008</strong>.</div>
+    <div class="answer">Hole-basis: Hole 40.000–40.006, Shaft 39.994–39.998 · Shaft-basis: Hole 40.002–40.008, Shaft 39.996–40.000</div>
+  </div>
+
+  <h3 id="iso">1.11 ISO System of Limits &amp; Fits</h3>
+
+  <p>The ISO system comprises <strong>18 grades of fundamental tolerance</strong> indicating the degree of manufacturing accuracy — designated <span class="key">IT01, IT0, IT1, IT2, … IT16</span>. The higher the number, the coarser the tolerance.</p>
+
+  <table>
+    <thead><tr><th>Fundamental Tolerance</th><th>Typical Applications</th></tr></thead>
+    <tbody>
+      <tr><td>IT01 – IT4</td><td>Production of gauges, plug gauges, measuring instruments</td></tr>
+      <tr><td>IT5 – IT7</td><td>Precision engineering — ball bearings, grinding, fine boring, broaching</td></tr>
+      <tr><td>IT8 – IT11</td><td>General engineering — turning, boring, milling, planing, rolling, extrusion, drilling, precision tube drawing</td></tr>
+      <tr><td>IT12 – IT14</td><td>Sheet-metal working, press working</td></tr>
+      <tr><td>IT15 – IT16</td><td>Casting, stamping, rubber moulding, general cutting, flame cutting</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Standard Tolerance Unit</h4>
+  <p>For grades IT5–IT16 the unit <span class="inline-math">i</span> (in µm) is computed from the basic size's diameter step:</p>
+  <div class="formula">
+    <span class="label">Standard tolerance unit (µm)</span>
+    i = 0.453 ∛D + 0.001 D<br>
+    where D = √(D<sub>max</sub> × D<sub>min</sub>) — geometric mean of the diameter step
+  </div>
+
+  <p><strong>Standard diameter steps (mm):</strong> 1–3, 3–6, 6–10, 10–18, 18–30, 30–50, 50–80, 80–120, 120–180, 180–250, 250–315, 315–400, 400–500, 500–630, 630–800, 800–1000.</p>
+
+  <h4>Tolerance Values</h4>
+  <p>For IT01, IT0, IT1 — direct formulae:</p>
+  <div class="formula">
+    IT01 :  0.3 + 0.008 D<br>
+    IT0  :  0.5 + 0.012 D<br>
+    IT1  :  0.8 + 0.020 D
+  </div>
+
+  <p>IT2–IT4 follow a geometric progression. IT5–IT16 are integer multiples of <span class="inline-math">i</span>:</p>
+  <table>
+    <thead><tr><th>Grade IT</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th></tr></thead>
+    <tbody><tr><td>Value</td><td>7i</td><td>10i</td><td>16i</td><td>25i</td><td>40i</td><td>64i</td><td>100i</td><td>160i</td><td>250i</td><td>400i</td><td>640i</td><td>1000i</td></tr></tbody>
+  </table>
+
+  <h4>Reading a Designation like 40 H7/d9</h4>
+  <ul>
+    <li><strong>40</strong> — basic size (mm).</li>
+    <li><strong>Capital letters</strong> (A, B, … H, … ZC) denote <strong>holes</strong>; capital letter "H" means fundamental deviation = 0 → hole-basis system.</li>
+    <li><strong>Small letters</strong> (a, b, … h, … zc) denote <strong>shafts</strong>; letter "h" means fundamental (upper) deviation = 0.</li>
+    <li>The <strong>number after the letter</strong> is the tolerance grade (IT7 for the hole, IT9 for the shaft).</li>
+    <li>For shaft "d" the fundamental deviation is <strong>negative</strong> (shaft is below basic size) → clearance fit.</li>
+  </ul>
+
+  <!-- ───── WORKED NUMERICAL #4 ───── -->
+  <div class="solved">
+    <div class="problem"><strong>Problem 1.4 (very important)</strong> &nbsp;For a 40 mm shaft-and-hole pair designated <strong>40 H8/d9</strong>, given <span class="inline-math">i = 0.453 ∛D + 0.001 D</span>, 40 mm lies in diameter range 30–50 mm; IT8 = 25i, IT9 = 40i; upper deviation of shaft = −16 D<sup>0.44</sup>. (a) Find class of fit. (b) Sketch the fit with dimensions.</div>
+
+    <div class="step"><span class="step-label">Step 1 · Geometric mean D</span>
+      D = √(30 × 50) = √1500 = <strong>38.73 mm</strong></div>
+    <div class="step"><span class="step-label">Step 2 · Tolerance unit i</span>
+      ∛38.73 ≈ 3.382 → i = 0.453 × 3.382 + 0.001 × 38.73 = 1.532 + 0.039 ≈ <strong>1.56 µm</strong></div>
+    <div class="step"><span class="step-label">Step 3 · IT8 and IT9</span>
+      IT8 = 25i = 25 × 1.56 = <strong>39 µm = 0.039 mm</strong> (hole tolerance)<br>
+      IT9 = 40i = 40 × 1.56 = <strong>63 µm = 0.063 mm</strong> (shaft tolerance)</div>
+    <div class="step"><span class="step-label">Step 4 · Hole limits (H8)</span>
+      Lower deviation of H = 0 → LLH = 40.000, HLH = 40.000 + 0.039 = <strong>40.039 mm</strong></div>
+    <div class="step"><span class="step-label">Step 5 · Fundamental deviation of shaft d</span>
+      Upper dev = −16 × D<sup>0.44</sup> = −16 × 38.73<sup>0.44</sup>.<br>
+      38.73<sup>0.44</sup> ≈ e<sup>0.44 × ln 38.73</sup> = e<sup>0.44 × 3.657</sup> = e<sup>1.609</sup> ≈ 5.0<br>
+      Upper deviation ≈ −80 µm = <strong>−0.080 mm</strong></div>
+    <div class="step"><span class="step-label">Step 6 · Shaft limits (d9)</span>
+      HLS = 40 − 0.080 = <strong>39.920 mm</strong><br>
+      LLS = HLS − IT9 = 39.920 − 0.063 = <strong>39.857 mm</strong></div>
+    <div class="step"><span class="step-label">Step 7 · Clearance check</span>
+      Min clearance = LLH − HLS = 40.000 − 39.920 = <strong>+0.080 mm</strong><br>
+      Max clearance = HLH − LLS = 40.039 − 39.857 = <strong>+0.182 mm</strong><br>
+      Both positive → <strong>CLEARANCE FIT</strong>.</div>
+    <div class="answer">Class: Clearance · Hole 40.000–40.039 · Shaft 39.857–39.920 · Cmin 0.080 · Cmax 0.182</div>
+  </div>
+
+  <div class="practice">
+    <span class="ptag">▷ Practice Problem 1.A</span>
+    A hole-shaft system has dimension <strong>60 H7/m6</strong>. Given i = 0.45 ∛D + 0.001 D, D-range 50–80, IT6 mult = 10, IT7 mult = 16, and Fundamental deviation for fit 'm' = (IT7 − IT6). Find class of fit and dimensions.
+    <details><summary>Solution outline</summary>
+      D = √(50 × 80) = √4000 = 63.25 mm. i = 0.45 × ∛63.25 + 0.001 × 63.25 = 0.45 × 3.984 + 0.063 ≈ 1.857 µm.<br>
+      IT6 = 10i ≈ 19 µm = 0.019 mm. IT7 = 16i ≈ 30 µm = 0.030 mm.<br>
+      Hole H7: LLH = 60.000, HLH = 60.030.<br>
+      Fundamental deviation 'm' (lower deviation, positive — m is above zero line for shaft) = IT7 − IT6 = 0.030 − 0.019 = 0.011 mm.<br>
+      Shaft m6: LLS = 60 + 0.011 = 60.011, HLS = LLS + IT6 = 60.011 + 0.019 = 60.030.<br>
+      Check: HLH − LLS = 60.030 − 60.011 = +0.019 (clearance possible). LLH − HLS = 60.000 − 60.030 = −0.030 (interference possible). <strong>→ Transition fit.</strong>
+    </details>
+  </div>
+
+</section>
+
+<div class="divider">◆ ◆ ◆</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!--    LECTURE 2                                                    -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="lecture" id="L2">
+  <div class="lecture-head">
+    <div class="lecture-num">02</div>
+    <div class="lecture-title">
+      <div class="label">Lecture Two</div>
+      <h2>Gauges, Linear &amp; Angular Measurement, Surface Quality</h2>
+    </div>
+  </div>
+
+  <h3>2.1 Design of Gauges &amp; Taylor's Principle</h3>
+
+  <p>In mass production it is impractical to <em>measure</em> every part. Instead, <strong>gauges</strong> — scale-less inspection tools — quickly check whether a dimension lies inside the permissible limits. Gauges come in two sizes corresponding to <span class="key">MML and LML</span> of the component, called <strong>GO</strong> and <strong>NOT-GO</strong> (or NO-GO) gauges.</p>
+
+  <div class="defn">
+    <div class="defn-label">Principle</div>
+    <div class="defn-term">Taylor's Principle</div>
+    The <strong>GO gauge</strong> is designed to check <strong>maximum-metal conditions</strong> (LLH and HLS) and should simultaneously check as <em>many</em> related dimensions (roundness, size, location) as possible.<br><br>
+    The <strong>NOT-GO gauge</strong> is designed to check <strong>minimum-metal conditions</strong> (HLH and LLS) and should check <strong>only one dimension at a time</strong>. A separate NOT-GO is required for each dimension.<br><br>
+    During inspection the GO side should enter the hole / pass over the shaft <em>under its own weight</em>, with no undue force. The NOT-GO side should <em>not</em> enter / pass.
+  </div>
+
+  <h4>Key Design Notes</h4>
+  <ul>
+    <li>The form of GO gauges is a <strong>replica</strong> of the mating part's form.</li>
+    <li>GO gauges can check several related dimensions simultaneously → "complex gauges".</li>
+    <li>During inspection, GO gauges must be put into conditions of <strong>maximum impassability</strong>.</li>
+    <li>NOT-GO gauges check a <strong>single feature</strong> at a time.</li>
+    <li>NOT-GO gauges must be put into conditions of <strong>maximum passability</strong>.</li>
+  </ul>
+
+  <h3>2.2 Gauge Tolerance &amp; Wear Allowance</h3>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Gauge Maker's Tolerance</div>
+    The tolerance permitted in the <strong>manufacture of gauges</strong> themselves. Standard industry practice: <strong>gauge tolerance ≈ 10 % of the work tolerance</strong>. A <strong>wear allowance ≈ 10 % of the gauge tolerance</strong> is added to the GO gauge.
+  </div>
+
+  <p><strong>Why only the GO gauge gets a wear allowance?</strong> Because the GO gauge is the one repeatedly <em>passing</em> over or into the part — it wears. The NOT-GO ideally never enters at all, so it does not wear appreciably.</p>
+
+  <p><strong>Direction of wear allowance:</strong></p>
+  <ul>
+    <li>For a <strong>plug (hole) gauge</strong>, the GO plug wears smaller as it slides in and out of holes; to compensate, it is initially made <em>larger</em> than LLH — wear allowance is added <strong>away from MML of hole</strong> (toward the HLH side).</li>
+    <li>For a <strong>snap (shaft) gauge</strong>, the GO snap wears larger as it slides over shafts; to compensate, it is initially made <em>smaller</em> than HLS — wear allowance is subtracted from HLS (toward the LLS side).</li>
+  </ul>
+
+  <!-- ───── WORKED NUMERICAL: GAUGE DESIGN ───── -->
+  <div class="solved">
+    <div class="problem"><strong>Problem 2.1 (Gauge Design — present British system)</strong> &nbsp;Design GO and NOT-GO gauges for the pair <strong>40 H8/d9</strong>. Use the values found earlier: Hole 40.000 – 40.039, Shaft 39.857 – 39.920. Wear allowance = 10 % of gauge tolerance.</div>
+    <div class="step"><span class="step-label">Work tolerances</span>
+      Hole = 0.039 mm; Shaft = 0.063 mm</div>
+    <div class="step"><span class="step-label">Gauge tolerances (10 %)</span>
+      Plug-gauge tolerance = 0.0039 ≈ <strong>0.004 mm</strong><br>
+      Snap-gauge tolerance = 0.0063 ≈ <strong>0.006 mm</strong></div>
+    <div class="step"><span class="step-label">Wear allowance (10 % of gauge-tolerance)</span>
+      Plug: 0.0004 mm · Snap: 0.0006 mm (added/subtracted on GO only)</div>
+    <div class="step"><span class="step-label">GO Plug gauge (checks LLH = 40.000)</span>
+      Lower limit = LLH + wear = 40.000 + 0.0004 = <strong>40.0004</strong><br>
+      Upper limit = 40.0004 + plug-tol = <strong>40.0044</strong></div>
+    <div class="step"><span class="step-label">NOT-GO Plug gauge (checks HLH = 40.039)</span>
+      Upper limit = <strong>40.039</strong>; Lower limit = 40.039 − 0.004 = <strong>40.035</strong></div>
+    <div class="step"><span class="step-label">GO Snap gauge (checks HLS = 39.920)</span>
+      Upper limit = HLS − wear = 39.920 − 0.0006 = <strong>39.9194</strong><br>
+      Lower limit = 39.9194 − snap-tol = <strong>39.9134</strong></div>
+    <div class="step"><span class="step-label">NOT-GO Snap gauge (checks LLS = 39.857)</span>
+      Lower limit = <strong>39.857</strong>; Upper limit = 39.857 + 0.006 = <strong>39.863</strong></div>
+    <div class="answer">GO Plug 40.0004–40.0044 · NOT-GO Plug 40.035–40.039 · GO Snap 39.9134–39.9194 · NOT-GO Snap 39.857–39.863</div>
+  </div>
+
+  <h3>2.3 Linear Measurement — Line vs End Standards</h3>
+
+  <p>Distances must be measured (i) between two lines, (ii) between two surfaces, or (iii) between a line and a surface.</p>
+
+  <div class="two-col">
+    <div>
+      <h4>Line Standard</h4>
+      <p>Distance is the length between <strong>two engraved lines</strong>. Examples: yard, metre.</p>
+    </div>
+    <div>
+      <h4>End Standard</h4>
+      <p>Distance is the length between <strong>two flat parallel surfaces</strong>. Examples: slip gauges, micrometer anvils, Vernier caliper jaws.</p>
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>Characteristic</th><th>Line standard</th><th>End standard</th></tr></thead>
+    <tbody>
+      <tr><td>Principle</td><td>Between two engraved lines</td><td>Between two flat parallel surfaces</td></tr>
+      <tr><td>Accuracy</td><td>±0.2 mm (limited; needs magnifier for higher)</td><td>±0.0005 mm achievable</td></tr>
+      <tr><td>Ease &amp; speed</td><td>Quick and easy</td><td>Depends on operator skill, time-consuming</td></tr>
+      <tr><td>Wear</td><td>Markings not subject to wear; leading-end wear possible (under-sizing)</td><td>Measuring surfaces <strong>do</strong> wear</td></tr>
+      <tr><td>Alignment</td><td>Not easy — no built-in datum</td><td>Easy — built-in datum</td></tr>
+      <tr><td>Manufacture</td><td>Simple</td><td>Complex</td></tr>
+      <tr><td>Cost</td><td>Low</td><td>High</td></tr>
+      <tr><td>Parallax</td><td>Subject to parallax</td><td>No parallax (depends on operator feel)</td></tr>
+      <tr><td>Wringing</td><td>Does not exist</td><td>Slip gauges can be <strong>wrung</strong> together</td></tr>
+      <tr><td>Examples</td><td>Steel scale, yard, metre</td><td>Slip gauges, micrometer anvils, calipers</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Design Considerations for Linear Instruments</h4>
+  <ul>
+    <li>Accuracy depends on <strong>original accuracy of the line graduations</strong> — excessive thickness/poor definition reduces accuracy.</li>
+    <li>Any scale instrument is suspect unless it provides <strong>compensation against wear</strong>.</li>
+    <li>Attachments increase versatility but may add <strong>accumulated error</strong>.</li>
+    <li>Calipers depend on the <strong>feel of the user</strong> — training matters.</li>
+    <li><strong>Principle of Alignment</strong>: the line of measurement and the line of the dimension being measured should be <em>coincident</em>.</li>
+    <li>Digital and dial versions improve readability; <strong>readability</strong> is itself a measure of reliability.</li>
+    <li>A micrometer has a <em>finer least count</em> (~0.01 mm) than a steel rule (~0.1 mm), so other things equal, it is more reliable — but it has <em>smaller range</em>.</li>
+    <li>Contact force should be optimum to avoid <strong>distortion</strong>.</li>
+  </ul>
+
+  <h4>Important Measuring Devices &amp; Setups</h4>
+  <ul>
+    <li><strong>Surface plate</strong> — hard, solid, horizontal flat plate used as the <em>datum</em> for inspection, marking-out, precision tooling set-up. Modern surface plates are <strong>granite</strong> rather than cast iron: not vulnerable to rust, non-magnetic, free from burrs (fine grain structure).</li>
+    <li><strong>V-block</strong> — for inspection of cylindrical jobs. Made of high-grade steel, hardened above 60 Rc, ground to high precision. The job's axis is parallel to both base and sides of the V.</li>
+    <li><strong>Depth gauge</strong> — measures holes, grooves, recesses. Has a blade (or rod) that drops to the bottom of the feature while the head rests on the reference surface.</li>
+    <li><strong>Combination set</strong> — three devices: (1) combination square = square head + steel rule, (2) protractor head, (3) centre head. Uses: height/depth gauging, angle measurement, finding centres of round jobs.</li>
+    <li><strong>Calipers (firm-joint)</strong> — inside, outside, transfer — used in three steps: open caliper to job, lock setting, then transfer to a steel rule.</li>
+  </ul>
+
+  <h3 id="slip">2.4 Slip Gauges</h3>
+
+  <p>Slip gauges (a.k.a. gauge blocks) are <strong>end standards</strong> that counter wear with hardened material and provide a very high degree of accuracy.</p>
+
+  <ul>
+    <li>Made of <strong>hardened alloy steel</strong> — economical; coefficient of thermal expansion matches typical steel components.</li>
+    <li>Hardening makes them <strong>wear-resistant</strong>.</li>
+    <li>After hardening they are <strong>stabilised at a sub-zero temperature</strong> to relieve heat-treatment stresses.</li>
+    <li>Finishing produces a high degree of <strong>accuracy, flatness and surface finish</strong> on the measuring faces.</li>
+    <li>The block's height is engraved on a rectangular face, with a symbol indicating the two measured planes.</li>
+    <li><strong>Most important requirements:</strong> length between measuring surfaces, <strong>flatness</strong>, and <strong>surface condition</strong> of the measuring faces.</li>
+    <li><strong>Carbide gauge blocks</strong> exist for superior wear resistance and low thermal expansion — expensive, used where wear is severe.</li>
+    <li>Slip gauges are classified into <strong>grades</strong> by guaranteed accuracy — calibration, inspection, reference, etc.</li>
+  </ul>
+
+  <h4>Wringing — How a Stack Acts as One Block</h4>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Wringing</div>
+    Phenomenon of <strong>adhesion of two flat smooth surfaces</strong> brought into close contact. The stack acts as a single block — high enough adhesion that even a sizable perpendicular pull cannot separate them.
+  </div>
+
+  <p><strong>Why does wringing work?</strong> Two combined factors:</p>
+  <ol>
+    <li><strong>Atmospheric pressure</strong> (~ 1 bar) presses the blocks together from outside.</li>
+    <li><strong>Molecular adhesion</strong> at the surfaces — the lapping super-finishing process removes molecules at the molecular level, making the lapped surface highly receptive to the molecules of the mating surface.</li>
+  </ol>
+
+  <p>The thin film of dirt/air between two clean wrung blocks has <em>negligible thickness</em>, so the stack length ≈ sum of individual heights.</p>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Wringability</div>
+    The ability of two surfaces to adhere tightly to each other in the absence of external means. Minimum requirements: surface finish ≤ <strong>0.025 µm</strong>, flatness ≤ <strong>0.13 µm</strong>.
+  </div>
+
+  <h4>Technique of Wringing (4 steps)</h4>
+  <ol>
+    <li>Overlap gauging surfaces by about <strong>one-fourth</strong> of their length.</li>
+    <li>Slide one block <strong>perpendicularly</strong> across the other with moderate pressure.</li>
+    <li>Gently rotate one block until it is aligned with the other.</li>
+    <li>The blocks are now wrung; lift them as a single piece.</li>
+  </ol>
+
+  <h3 id="angular">2.5 Angular Measurement</h3>
+
+  <p>Used for measuring angles of interchangeable parts, gears, jigs, fixtures; tapers of bores; flank angle and included angle of gears; also straightness/parallelism/flatness via instruments like the <strong>autocollimator</strong> (the reading is a measure of the <em>error of alignment</em>).</p>
+
+  <h4>Devices, in order of increasing sophistication</h4>
+
+  <p><strong>(1) Simple Protractor</strong> — least count typically 1° (for small) or ½° (for large). Limited use in engineering metrology.</p>
+
+  <p><strong>(2) Universal Bevel Protractor</strong> — main scale (degrees) + Vernier scale (minutes) + a rotatable blade; gives angle readings to within a few minutes of arc. Has an acute-angle attachment for awkward features.</p>
+
+  <p><strong>(3) Sine Bar</strong> — uses the sine principle. The upper surface forms the hypotenuse of a triangle defined by two rollers separated by a known distance L. With slip gauges of height h under one roller on a flat datum:</p>
+  <div class="formula">
+    <span class="label">Sine Bar</span>
+    sin θ = h / L
+  </div>
+  <p><strong>Limitation:</strong> not recommended for angles greater than <strong>45°</strong> — any error in sine bar geometry or slip-gauge height gets magnified.</p>
+
+  <p><strong>(4) Angle Gauges</strong> — built like slip gauges but to give angles. Made of high-grade wear-resistant steel; come as a standard set of blocks that can be <strong>wrung</strong> together to build an angle. The unique trick: angle gauges <strong>can be added <em>and</em> subtracted</strong> (a feature impossible with slip gauges), e.g., 30° block <em>plus</em> 5° = 35°; 30° <em>minus</em> 5° = 25°. So a small set of ~10 blocks can build many angles. Used for tool/die-room inspection and shop-floor setting (revolving centre of magnetic chuck, grinding-notch alignment, etc.).</p>
+
+  <p><strong>(5) Autocollimator</strong> — optical instrument for measuring very small angles with extreme sensitivity. Used for precision alignment, detection of angular movement, verification of angle standards. A collimated light beam from inside the device strikes a plane reflector tilted by angle θ; the reflected beam is deflected by 2θ and focused onto a graduated reticle/eyepiece (or photodetector). The deflection between incident and reflected beams is the measure of the reflector's angular tilt.</p>
+
+  <h3 id="surface">2.6 Surface Quality Inspection</h3>
+
+  <p>Real surfaces are never ideal — a succession of hills and valleys of varying height and spacing. Sources of these irregularities:</p>
+  <ul>
+    <li><strong>Feed marks</strong> from cutting tools.</li>
+    <li><strong>Chatter marks</strong> from vibrations during machining.</li>
+    <li><strong>Material rupture</strong> during cutting.</li>
+    <li><strong>Workpiece deformation</strong> under cutting forces.</li>
+    <li><strong>Machine-tool irregularities</strong>, e.g., lack of straightness in guideways.</li>
+  </ul>
+
+  <p>Roughness produced by a <em>single-point cutting tool</em> is uniformly spaced and directional; finish-machined surfaces are irregular and non-directional.</p>
+
+  <h4>Vocabulary of a Surface Profile</h4>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Roughness</div>
+    The <strong>finer</strong> irregularities of the surface texture. <em>Spacing</em> = distance between successive peaks/ridges of the predominant pattern; <em>height</em> = arithmetic average deviation (µm) measured perpendicular to the centre line.
+  </div>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Waviness</div>
+    More <strong>widely spaced</strong> component of surface texture, on which roughness is superimposed. Waviness is an error in <em>form</em> due to incorrect geometry of the tool producing the surface. Spacing = width between successive wave peaks/valleys; height = peak-to-valley distance.
+  </div>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Lay</div>
+    The <strong>direction of the predominant surface pattern</strong>, determined by the production process used.
+  </div>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Surface Texture</div>
+    The repetitive or random deviations from the nominal surface that form the surface pattern.
+  </div>
+
+  <h4>Three Quantitative Measures</h4>
+  <div class="formula">
+    <span class="label">Centre-Line Average (Ra)</span>
+    Ra = ( A₁ + A₂ + … + A<sub>N</sub> ) / L<br>
+    — mean of areas (above and below mean-line, all taken positive), divided by sampling length
+  </div>
+  <div class="formula">
+    <span class="label">Root-Mean-Square (RMS)</span>
+    h<sub>RMS</sub> = √[ ( h₁² + h₂² + … ) / n ]
+  </div>
+  <div class="formula">
+    <span class="label">Ten-Point Height (Rz)</span>
+    Rz = ( (h₁+h₃+h₅+h₇+h₉) − (h₂+h₄+h₆+h₈+h₁₀) ) / 5 · (1000 / vertical magnification)<br>
+    — sum of 5 highest peaks minus sum of 5 lowest valleys, divided by 5
+  </div>
+
+  <!-- ───── WORKED NUMERICAL: SURFACE ROUGHNESS ───── -->
+  <div class="solved">
+    <div class="problem"><strong>Problem 2.2</strong> &nbsp;Heights of 10 successive peaks &amp; troughs from a datum: <strong>5, 2, 6, 2, 7, 1, 6, 1, 6, 2 µm</strong>. Find R<sub>a</sub>, R<sub>RMS</sub> and R<sub>z</sub>.</div>
+    <div class="step"><span class="step-label">R<sub>a</sub></span>
+      Sum = 5+2+6+2+7+1+6+1+6+2 = 38. R<sub>a</sub> = 38/10 = <strong>3.8 µm</strong></div>
+    <div class="step"><span class="step-label">R<sub>RMS</sub></span>
+      Σh² = 25+4+36+4+49+1+36+1+36+4 = 196<br>
+      R<sub>RMS</sub> = √(196/10) = √19.6 = <strong>4.43 µm</strong></div>
+    <div class="step"><span class="step-label">R<sub>z</sub> (treat odd-indexed as peaks, even as valleys)</span>
+      Peaks (h₁,h₃,h₅,h₇,h₉) = 5,6,7,6,6 → sum = 30<br>
+      Valleys (h₂,h₄,h₆,h₈,h₁₀) = 2,2,1,1,2 → sum = 8<br>
+      R<sub>z</sub> = (30 − 8)/5 = <strong>4.4 µm</strong></div>
+    <div class="answer">R<sub>a</sub> = 3.8 µm · R<sub>RMS</sub> = 4.43 µm · R<sub>z</sub> = 4.4 µm</div>
+  </div>
+
+  <h4>Two Approaches to Surface Finish Measurement</h4>
+  <div class="two-col">
+    <div>
+      <h4>(a) Comparison</h4>
+      <p>Simpler but <strong>subjective</strong>. Visual observation is deceptive — two surfaces that look identical may differ greatly. Touch is somewhat better but still subjective and operator-dependent.</p>
+    </div>
+    <div>
+      <h4>(b) Direct (stylus) measurement</h4>
+      <p>The <strong>stylus system</strong> is the most popular. A stylus drawn across the surface generates electrical signals proportional to the asperities. Output is recorded (hardcopy or digital) and quantified.</p>
+    </div>
+  </div>
+
+  <h4>Wavelength, Frequency and Cut-off</h4>
+  <p>The stylus's vertical motion frequency depends on traverse speed:</p>
+  <div class="formula">
+    <span class="label">Stylus motion</span>
+    f = v / λ &nbsp;&nbsp;&nbsp;(f = frequency, v = traverse speed, λ = surface wavelength)
+  </div>
+  <ul>
+    <li>For single-point tool surfaces: cut-off wavelength <strong>should not exceed one feed spacing</strong>.</li>
+    <li>For most fine irregular surfaces: cut-off length <strong>0.8 mm</strong>.</li>
+  </ul>
+
+  <table>
+    <thead><tr><th>Finishing process</th><th>Cut-off length (mm)</th></tr></thead>
+    <tbody>
+      <tr><td>Superfinishing, lapping, honing, diamond boring, polishing, buffing</td><td>0.25 – 0.8</td></tr>
+      <tr><td>Grinding</td><td>0.25 – 0.8</td></tr>
+      <tr><td>Turning, reaming, broaching</td><td>0.8 – 2.5</td></tr>
+      <tr><td>Boring, milling, shaping</td><td>0.8 – 8.0</td></tr>
+      <tr><td>Planning</td><td>2.5 – 25</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Self-study items mentioned:</strong> Vernier instruments (caliper, dial caliper, electronic digital caliper, depth gauge, height gauge), micrometer instruments, Taylor Hobson Talysurf, profilometer, coordinate measuring systems (CMM).</p>
+
+</section>
+
+<div class="divider">◆ ◆ ◆</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!--    LECTURE 3                                                    -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="lecture" id="L3">
+  <div class="lecture-head">
+    <div class="lecture-num">03</div>
+    <div class="lecture-title">
+      <div class="label">Lecture Three</div>
+      <h2>Optical Measurement &amp; Interferometry</h2>
+    </div>
+  </div>
+
+  <h3>3.1 Why Optics?</h3>
+  <p>Light waves provide the <strong>best standard for length</strong>. Optical measurement is simple, easy, accurate and reliable. Because optical instruments target precision measurement, the projected image must be <strong>clear, sharp and dimensionally accurate</strong>, and the mechanical/electronic controls must be compatible with the main optical system.</p>
+
+  <h4>Essentials of an Optical Instrument</h4>
+  <ul>
+    <li>A <strong>light source</strong>.</li>
+    <li>A <strong>condensing/collimating lens system</strong> to direct light past the workpiece into the optical system.</li>
+    <li>A suitable <strong>stage or table</strong> for positioning the workpiece — preferably with motion in two directions and possibly rotation about a vertical axis.</li>
+    <li>The <strong>projection optics</strong>: lenses and mirrors.</li>
+    <li>A <strong>viewing screen or eyepiece</strong>.</li>
+    <li><strong>Measuring &amp; recording devices</strong>.</li>
+  </ul>
+
+  <p>When two light waves interact, they produce <strong>interference</strong>. Instruments designed around it are <strong>interferometers</strong>. Interferometry allows extremely accurate comparison of surface geometry with a master (e.g., the optical flat) and is used with lasers for precision measurement.</p>
+
+  <p>Optical measurement has four principal application areas: <strong>magnification</strong>, <strong>alignment</strong>, <strong>interferometry</strong>, and as an <strong>absolute standard of length</strong>.</p>
+
+  <h3>3.2 Tool Maker's Microscope (TMM)</h3>
+
+  <p>A multifunctional shop-floor instrument that provides high magnification <em>plus</em> a convenient way to take readings — enabling both <strong>absolute and comparative</strong> measurements. Used to measure the <strong>shape, size, angle and position</strong> of small components within its range. Cross-wires are aligned with the measuring point to read coordinates.</p>
+
+  <p>Typical lenses (Mitutoyo TMM):</p>
+  <table>
+    <thead><tr><th>Lens</th><th>Magnification</th><th>Working distance (mm)</th></tr></thead>
+    <tbody>
+      <tr><td>Eyepiece</td><td>10×</td><td>—</td></tr>
+      <tr><td>Eyepiece</td><td>20×</td><td>—</td></tr>
+      <tr><td>Objective</td><td>2×</td><td>65</td></tr>
+      <tr><td>Objective</td><td>5×</td><td>33</td></tr>
+      <tr><td>Objective</td><td>10×</td><td>14</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.3 Optical Interference</h3>
+
+  <p>A ray of light is composed of an <strong>infinite number of waves of equal wavelength</strong>; the wavelength determines the colour.</p>
+
+  <h4>Superposition</h4>
+  <ul>
+    <li>Two rays with amplitudes y<sub>A</sub> and y<sub>B</sub> <em>in phase</em> → resultant amplitude y<sub>R</sub> = y<sub>A</sub> + y<sub>B</sub>.</li>
+    <li>Out of phase by α → y<sub>R</sub> = (y<sub>A</sub> + y<sub>B</sub>) cos (α / 2).</li>
+    <li>Phase shift = <strong>180°</strong> with equal wavelength and amplitude → <span class="key">complete destructive interference — darkness</span>.</li>
+  </ul>
+
+  <p>One property of light: light from a single source can be split into two component rays. From two coherent point sources A and B, on a screen we observe alternating <strong>bright</strong> (O₁, O₃, …) and <strong>dark</strong> (O₂, O₄, …) fringes.</p>
+
+  <h3>3.4 Interferometry</h3>
+
+  <p>The number of fringes that appear in a given length on the screen is a measure of the distance between the two point sources — this is the basis for linear measurement. The technique is called <strong>interferometry</strong>; the instrument is an <strong>interferometer</strong>.</p>
+
+  <h4>Optical-Flat Fringes</h4>
+  <p>An optical flat (a precisely flat reference glass) is laid over a surface at a very small angle θ. Light reflecting off the two surfaces interferes, producing alternating dark/bright <strong>fringes</strong>. Each fringe represents one <strong>half-wavelength</strong> of height variation. The <em>shape</em> of the fringes reveals the surface condition:</p>
+
+  <table>
+    <thead><tr><th>Fringe pattern</th><th>Surface condition</th></tr></thead>
+    <tbody>
+      <tr><td>A — straight, parallel, even</td><td>Block is nearly flat along its length</td></tr>
+      <tr><td>B — fringes curve toward line of contact</td><td>Surface is convex and high in the centre</td></tr>
+      <tr><td>C — fringes curve away from contact</td><td>Surface is concave and low in the centre</td></tr>
+      <tr><td>D — straight on one end, becoming curved</td><td>Surface flat at one end but becoming convex</td></tr>
+      <tr><td>E — progressively sloped fringes</td><td>Surface progressively lower toward bottom-left corner</td></tr>
+      <tr><td>F — two distinct contact points</td><td>Two points of contact higher than the rest</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.5 Laser Interferometer</h3>
+
+  <p>Laser-based interferometers are increasingly popular in metrology. A laser can be represented by a <strong>sine wave</strong> whose wavelength is fixed for a given colour and whose amplitude is the intensity. From a measurement perspective, laser interferometry can handle both <strong>small diameters</strong> and <strong>large displacements</strong>.</p>
+
+  <h4>Typical Layout</h4>
+  <p>A laser source emits a beam to a beam-splitter P. Part goes to a fixed mirror Q, part to a moving retro-reflector R. The two returning beams recombine at a semi-reflector S, fall on <strong>photodiodes</strong>, are amplified, fed to a digital counter, which counts the fringe transitions caused by motion of R. Each fringe represents a known fraction of the laser wavelength, allowing nanometre-level resolution over metres of travel.</p>
+
+  <h4>White-Light Interferometer</h4>
+  <p>A specialised laser interferometer using a broad-spectrum source for 3-D topography measurement; outputs fringe patterns that reveal surface conditions across a wide range of materials and shapes.</p>
+
+  <p>Measurement systems used for <strong>automated production</strong> in the slides include CMMs (e.g., Bruker Alicona µCMM) and large-volume optical measuring stations used for inspecting whole car bodies.</p>
+
+  <p><strong>Self-study:</strong> Profile Projector.</p>
+
+</section>
+
+<div class="divider">◆ ◆ ◆</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!--    LECTURE 4                                                    -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="lecture" id="L4">
+  <div class="lecture-head">
+    <div class="lecture-num">04</div>
+    <div class="lecture-title">
+      <div class="label">Lecture Four</div>
+      <h2>Quality Management — Philosophy &amp; Practice</h2>
+    </div>
+  </div>
+
+  <h3>4.1 What is Quality?</h3>
+  <div class="defn">
+    <div class="defn-label">Working Definition</div>
+    <div class="defn-term">Quality</div>
+    The <strong>ability to meet a customer's expectations</strong>. (Slides show how a "quality" item depends on context — a Mercedes, a piece of fruit, a washing machine, a smartphone, a tee-shirt, a defensive spike — quality is always defined by what the customer expected of it.)
+  </div>
+
+  <h3>4.2 What is Management?</h3>
+  <div class="defn">
+    <div class="defn-label">Working Definition</div>
+    <div class="defn-term">Management</div>
+    The act of <strong>getting people together to accomplish desired goals and objectives</strong> using available resources <em>efficiently</em> and <em>effectively</em>.
+  </div>
+
+  <h3>4.3 What is Quality Management?</h3>
+  <div class="defn">
+    <div class="defn-label">Working Definition</div>
+    <div class="defn-term">Quality Management</div>
+    A process that ensures the <strong>quality of the product throughout its life cycle</strong>.
+  </div>
+
+  <h4>The Four Pillars</h4>
+  <ol>
+    <li><strong>Quality Planning</strong> — the first step. Requirements are identified, a criterion is set, and procedures are recognised as part of the plan.</li>
+    <li><strong>Quality Control</strong> — review of product/service quality. <strong>Inspection and testing</strong> identify problems and defects needing correction.</li>
+    <li><strong>Quality Assurance</strong> — guarantees that defects/mistakes are <em>prevented</em> in manufacturing or service delivery; produces consistent results. (Assurance = <em>prevention</em>; Control = <em>detection</em>.)</li>
+    <li><strong>Quality Improvement</strong> — there is always room. Measure results; identify improvements; raise the bar.</li>
+  </ol>
+
+  <h3>4.4 Manufacturing the TOYOTA Way</h3>
+
+  <h4>Just-In-Time (JIT)</h4>
+  <p>Originated at Toyota; adopted by McDonald's, Apple, etc. Materials and components arrive <strong>exactly when needed</strong>, eliminating storage inventory and waste.</p>
+
+  <h4>Kanban (literally "sign-board")</h4>
+  <p>A visual control system for production: cards or signals flow with goods to indicate state — <strong>Backlog → To-Do → Ongoing → Done</strong>, mirroring <em>goods-in / goods-in-production / goods-out</em>.</p>
+
+  <h4>Kaizen (Continuous Improvement) &amp; the 5 S's</h4>
+  <p>Kaizen is the philosophy of <strong>small, continuous, structured improvements</strong>. The 5 S framework:</p>
+  <ul>
+    <li><strong>Seiri</strong> — sort: remove unnecessary items from the workspace.</li>
+    <li><strong>Seiton</strong> — set in order: organize tools/materials for easy access.</li>
+    <li><strong>Seiso</strong> — shine: clean the workspace to spot issues early.</li>
+    <li><strong>Seiketsu</strong> — standardize: create routines to maintain the organization.</li>
+    <li><strong>Shitsuke</strong> — sustain: build the habits that keep improvements going.</li>
+  </ul>
+  <p>Other Kaizen pillars: <em>elimination of waste, standardization, teamwork, self-discipline, improved morale, quality circles, improvement suggestions</em>.</p>
+
+  <table>
+    <thead><tr><th>Without Kaizen</th><th>With Kaizen</th></tr></thead>
+    <tbody>
+      <tr><td>No structure to improvement; few set procedures</td><td>Consistent, ongoing process of improvement</td></tr>
+      <tr><td>Goals not defined or vague</td><td>Clearly defined, measurable goals</td></tr>
+      <tr><td>Changes made infrequently; little reflection on effectiveness</td><td>Constant review of successes; the improvement process itself is evaluated</td></tr>
+      <tr><td>No plan; improvement is haphazard</td><td>Consistency leads to new, higher goals</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.5 Total Quality Management (TQM)</h3>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Total Quality Management</div>
+    A <strong>comprehensive approach to improving quality</strong>. TQM revolves around three main themes: <em>the customer, the process, and the people</em>.
+  </div>
+
+  <h4>The Eight Tenets of TQM</h4>
+  <ul>
+    <li><strong>Focus on Customer</strong></li>
+    <li><strong>Employee Involvement</strong></li>
+    <li><strong>Process Centered</strong></li>
+    <li><strong>Integrated System</strong></li>
+    <li><strong>Strategic &amp; Systematic Approach</strong></li>
+    <li><strong>Decision-making Based on Facts</strong></li>
+    <li><strong>Communication</strong></li>
+    <li><strong>Continuous Improvement</strong></li>
+  </ul>
+
+  <h4>The TQM Mantras</h4>
+  <ul>
+    <li><strong>First time and every time</strong></li>
+    <li><strong>Nothing less, nothing more</strong></li>
+    <li><strong>Zero waste</strong></li>
+    <li><strong>Zero inventory</strong></li>
+    <li><strong>Just-in-time (JIT)</strong></li>
+  </ul>
+
+  <h4>Productivity &amp; TQM</h4>
+  <ul>
+    <li><strong>Traditional view:</strong> quality cannot be improved without significant losses in productivity.</li>
+    <li><strong>TQM view:</strong> improved quality <em>leads to</em> improved productivity.</li>
+  </ul>
+
+  <h4>Traditional vs Continuous (TQM) Approach</h4>
+  <table>
+    <thead><tr><th>Traditional approach</th><th>Continuous (TQM) approach</th></tr></thead>
+    <tbody>
+      <tr><td>Market-share focus</td><td>Customer focus</td></tr>
+      <tr><td>Individuals</td><td>Cross-functional teams</td></tr>
+      <tr><td>Focus on 'who' and 'why'</td><td>Focus on 'what' and 'how'</td></tr>
+      <tr><td>Short-term focus</td><td>Long-term focus</td></tr>
+      <tr><td>Status-quo focus</td><td>Continuous improvement</td></tr>
+      <tr><td>Product focus</td><td>Process improvement focus</td></tr>
+      <tr><td>Innovation (big leaps)</td><td>Incremental improvements</td></tr>
+      <tr><td>Fire-fighting</td><td>Problem solving</td></tr>
+    </tbody>
+  </table>
+
+  <div class="practice">
+    <span class="ptag">▷ Case Study (lecture-style)</span>
+    A fast-growing startup launches a delivery app. App rating drops from 4.5 → 3.2. Frequent checkout crashes. Customers complain orders fail but money is deducted. Developers say "we're shipping features fast". Customer support is overwhelmed.<br><br>
+    <em>Questions:</em> (i) What are the root causes? (ii) Who is responsible — developers, testers, or management? (iii) How would you apply TQM principles?
+    <details><summary>Thinking points</summary>
+      Apply Fishbone (cause-effect) thinking around Man, Machine, Method, Material, Measurement, Environment. Likely root causes: insufficient testing (Method/Process), no integrated CI/CD (Integrated System), management pressure for features over stability (Strategic approach), no customer feedback loop (Focus on customer).<br><br>
+      Responsibility is <strong>shared</strong> — TQM rejects the "who is at fault" mode; it is a <em>process</em> problem. Management owns the framework, developers own code quality, QA owns acceptance criteria.<br><br>
+      TQM remedies: institute a customer-focused process review, build cross-functional teams (dev + QA + ops + customer support), introduce continuous incremental improvement, decision-making from data (crash logs, support ticket trends), apply Kaizen and possibly the 5 S's to the deploy workflow.
+    </details>
+  </div>
+
+</section>
+
+<div class="divider">◆ ◆ ◆</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!--    LECTURE 5                                                    -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="lecture" id="L5">
+  <div class="lecture-head">
+    <div class="lecture-num">05</div>
+    <div class="lecture-title">
+      <div class="label">Lecture Five</div>
+      <h2>Statistical Quality Control &amp; Control Charts</h2>
+    </div>
+  </div>
+
+  <h3>5.1 Performance Standards</h3>
+
+  <p>An ideal output of a quality policy is a <strong>defect-free product</strong> that meets or exceeds customer needs. <strong>Continuous improvement</strong> is the only way to stay abreast of changing customer needs.</p>
+
+  <p>Although the ultimate goal may be zero defects, <strong>numerical standards for performance measurement should be avoided</strong>:</p>
+  <ul>
+    <li>Setting unachievable numbers has an <strong>unintended negative emotional impact</strong>.</li>
+    <li>Not meeting the standard — even while progressing — <strong>demoralises everyone</strong>.</li>
+    <li>Numerical goals shift emphasis to the <strong>short term</strong>, sacrificing long-term benefits.</li>
+  </ul>
+
+  <p><strong>How then to measure performance?</strong></p>
+  <ul>
+    <li>By making continuous improvement in the goal and measuring the <strong>trend</strong>, not the absolute number.</li>
+    <li><strong>Benchmarking</strong> — identify high-performance companies (or intra-company departments) and use <em>their</em> performance as the improvement target.</li>
+  </ul>
+
+  <h3>5.2 Six Sigma Quality</h3>
+
+  <p>Process output is represented by a normal distribution. The Empirical Rule (68-95-99.7) covers ±1σ, ±2σ, ±3σ; further out the percentages stretch into the very long tail.</p>
+
+  <table>
+    <thead><tr><th>Sigma level</th><th>Defects per million</th><th>Yield</th></tr></thead>
+    <tbody>
+      <tr><td>6 σ</td><td>3.4</td><td>99.99966 %</td></tr>
+      <tr><td>5 σ</td><td>230</td><td>99.977 %</td></tr>
+      <tr><td>4 σ</td><td>6,210</td><td>99.38 %</td></tr>
+      <tr><td>3 σ</td><td>66,800</td><td>93.32 %</td></tr>
+      <tr><td>2 σ</td><td>308,000</td><td>69.15 %</td></tr>
+      <tr><td>1 σ</td><td>690,000</td><td>30.85 %</td></tr>
+    </tbody>
+  </table>
+
+  <h4>DMAIC — the Six-Sigma Improvement Cycle</h4>
+  <p><strong>D</strong>efine → <strong>M</strong>easure → <strong>A</strong>nalyze → <strong>I</strong>mprove → <strong>C</strong>ontrol.</p>
+
+  <h4>Tools for Continuous Quality Improvement</h4>
+  <ul>
+    <li>Pareto diagrams</li>
+    <li>Flow charts</li>
+    <li>Cause &amp; Effect diagrams (Ishikawa/Fishbone)</li>
+    <li>Scatter plots</li>
+    <li>Multivariable charts</li>
+    <li>Matrix and 3-D plots</li>
+  </ul>
+
+  <h3>5.3 ISO 9000 Family</h3>
+
+  <p>Without quality programs the global economy would not exist as it does — quality programs drive down costs and increase competitiveness. Total quality systems are no longer optional; they are required. ISO developed standards to support this:</p>
+
+  <ul>
+    <li><strong>ISO 9000</strong> — Quality Management Systems: Fundamentals and Vocabulary.</li>
+    <li><strong>ISO 9001</strong> — Quality Management Systems: Requirements (revised 2015). Generic standard applicable to both <strong>manufacturing and service</strong> industries; non-applicable requirements may be omitted. Organisations may be certified and registered <strong>only</strong> to ISO 9001.</li>
+    <li><strong>ISO 9004</strong> — Quality Management Systems: Guidelines for Performance Improvements.</li>
+  </ul>
+
+  <h3>5.4 Statistical Techniques in Quality Control</h3>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Statistics</div>
+    The science dealing with the <strong>collection, classification, analysis, and inference</strong> from data or information.
+  </div>
+
+  <h4>Two Big Branches</h4>
+  <ul>
+    <li><strong>Descriptive statistics</strong> — describes the characteristics of a product or process from collected data.</li>
+    <li><strong>Inferential statistics</strong> — draws conclusions about unknown population parameters from sample information.</li>
+  </ul>
+
+  <h4>Four Key Techniques</h4>
+  <ul>
+    <li><strong>Hypothesis testing</strong> — evaluate a null hypothesis H₀ and an alternative H₁. Conclusion: reject H₀ or fail to reject H₀.</li>
+    <li><strong>Regression analysis</strong> — find a mathematical expression for the functional relationship between one response and one or more independent variables.</li>
+    <li><strong>Statistical Process Control (SPC)</strong> — monitor, control, and improve processes statistically. SPC identifies when processes are out of control due to <em>special cause variation</em>.</li>
+    <li><strong>Design and Analysis of Experiments (DOE)</strong> — plan, conduct, analyse and interpret controlled tests to evaluate factors that may influence a response variable.</li>
+  </ul>
+
+  <h3>5.5 Statistical Process Control — Foundations</h3>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">SPC</div>
+    The use of statistical techniques to <strong>monitor a production process to detect and prevent poor quality</strong>.
+  </div>
+
+  <ul>
+    <li><strong>Sample</strong> — a subset of items produced, used for inspection.</li>
+    <li><strong>Control charts</strong> — show whether the process is within statistical control limits.</li>
+  </ul>
+
+  <h4>Two Kinds of Variation</h4>
+  <table>
+    <thead><tr><th>Random (Common-cause)</th><th>Non-Random (Special-cause)</th></tr></thead>
+    <tbody>
+      <tr><td>Inherent in a process</td><td>Identifiable and correctable</td></tr>
+      <tr><td>Natural occurrences</td><td>Examples: equipment out of adjustment, defective materials, change in part/material, broken machinery, operator fatigue, poor work methods, lack of training</td></tr>
+      <tr><td>Depends on equipment, engineering, operator, system of measurement</td><td>(These are "<strong>assignable causes</strong>" that SPC seeks to detect)</td></tr>
+    </tbody>
+  </table>
+
+  <h4>SPC contributes to the TQM goal of continuous improvement</h4>
+
+  <h4>Attribute vs Variable Data</h4>
+  <ul>
+    <li><strong>Attribute</strong> — characteristic evaluated with a <em>discrete</em> response (good/bad, yes/no).</li>
+    <li><strong>Variable</strong> — characteristic that is <em>continuous</em> and measurable (weight, length, diameter).</li>
+  </ul>
+
+  <h4>SPC in Services</h4>
+  <p>Service defect = failure to meet customer requirements; monitor <strong>time and customer satisfaction</strong>.</p>
+  <ul>
+    <li><strong>Hospitals</strong> — timeliness of care, staff response, lab accuracy, cleanliness, courtesy, paperwork accuracy, speed of admission/checkout.</li>
+    <li><strong>Grocery stores</strong> — wait time at checkout, out-of-stock frequency, food quality, cleanliness, complaints, register errors.</li>
+    <li><strong>Airlines</strong> — flight delays, lost luggage, agent/attendant courtesy, accurate flight information, cabin cleanliness.</li>
+    <li><strong>Fast food</strong> — service time, complaints, cleanliness, food quality, order accuracy, employee courtesy.</li>
+    <li><strong>Catalog-order</strong> — order accuracy, operator knowledge/courtesy, packaging, delivery time, phone wait.</li>
+    <li><strong>Insurance</strong> — billing accuracy, claims timeliness, agent availability/response.</li>
+  </ul>
+
+  <h4>Where to Use Control Charts</h4>
+  <ul>
+    <li>Process tends to go out of control.</li>
+    <li>Process is harmful/costly if it goes out of control.</li>
+    <li>At the <em>beginning</em> of a process — wasteful to start with bad supplies.</li>
+    <li>Before a <em>costly or irreversible</em> point — once past it, rework is hard.</li>
+    <li>Before/after assembly or painting operations that might cover defects.</li>
+    <li>Before the <em>outgoing</em> final product/service is delivered.</li>
+  </ul>
+
+  <h3>5.6 Anatomy of a Control Chart</h3>
+
+  <p>A control chart is a graphical tool for monitoring an ongoing process. It has:</p>
+  <ul>
+    <li><strong>Centreline</strong> = process average.</li>
+    <li><strong>Upper Control Limit (UCL)</strong> and <strong>Lower Control Limit (LCL)</strong> — usually at ±3σ.</li>
+  </ul>
+
+  <p>A process is <strong>in control</strong> if:</p>
+  <ol>
+    <li>No sample points fall <strong>outside</strong> the limits.</li>
+    <li>Most points are <strong>near</strong> the process average.</li>
+    <li>About <strong>equal</strong> number of points above and below the centreline.</li>
+    <li>Points appear <strong>randomly</strong> distributed (no patterns or runs).</li>
+  </ol>
+
+  <h4>Two Families</h4>
+  <ul>
+    <li><strong>Attribute charts</strong> — p-chart (proportion defective), c-chart (count of defects per unit).</li>
+    <li><strong>Variable charts</strong> — X̄-chart (sample mean), R-chart (sample range).</li>
+  </ul>
+
+  <h3>5.7 Attribute Control Charts</h3>
+
+  <h4>p-Chart (proportion of nonconforming items)</h4>
+  <div class="formula">
+    <span class="label">p-chart limits</span>
+    UCL = p̄ + z·σ<sub>p</sub><br>
+    LCL = p̄ − z·σ<sub>p</sub><br><br>
+    σ<sub>p</sub> = √[ p̄(1 − p̄) / n ]
+  </div>
+  <div class="notation">
+    <span class="sym">z</span><span class="meaning">number of standard deviations (typically 3)</span>
+    <span class="sym">p̄</span><span class="meaning">sample proportion defective; estimate of process average</span>
+    <span class="sym">n</span><span class="meaning">size of each sample</span>
+  </div>
+
+  <!-- ───── WORKED NUMERICAL: p-CHART ───── -->
+  <div class="solved">
+    <div class="problem"><strong>Problem 5.1 (p-chart)</strong> &nbsp;25 samples of 50 containers each are inspected. Total nonconforming = 90. Construct a p-chart.</div>
+    <div class="step"><span class="step-label">p̄</span>
+      p̄ = 90 / (25 × 50) = 90 / 1250 = <strong>0.072</strong></div>
+    <div class="step"><span class="step-label">σ<sub>p</sub></span>
+      σ<sub>p</sub> = √(0.072 × 0.928 / 50) = √0.001336 = <strong>0.0366</strong></div>
+    <div class="step"><span class="step-label">3σ limits</span>
+      UCL = 0.072 + 3 × 0.0366 = 0.072 + 0.1098 = <strong>0.1818</strong><br>
+      LCL = 0.072 − 0.1098 = −0.0378 → <strong>0</strong> (proportion can't be negative)</div>
+    <div class="answer">p̄ = 0.072 · UCL = 0.1818 · LCL = 0</div>
+  </div>
+
+  <h4>c-Chart (count of nonconformities per inspection unit)</h4>
+  <p>Use when each unit can have <em>multiple</em> defects (a fabric, a casting). The defect count follows a Poisson distribution, so σ<sub>c</sub> = √c̄.</p>
+  <div class="formula">
+    <span class="label">c-chart limits</span>
+    UCL = c̄ + z · σ<sub>c</sub><br>
+    LCL = c̄ − z · σ<sub>c</sub><br><br>
+    σ<sub>c</sub> = √c̄ &nbsp;&nbsp;(c̄ = mean number of defects per unit)
+  </div>
+
+  <!-- ───── WORKED NUMERICAL: c-CHART ───── -->
+  <div class="solved">
+    <div class="problem"><strong>Problem 5.2 (c-chart)</strong> &nbsp;25 fabric samples (100 m² each) have nonconformity counts summing to 189. Construct a c-chart.</div>
+    <div class="step"><span class="step-label">c̄</span>
+      c̄ = 189 / 25 = <strong>7.56</strong></div>
+    <div class="step"><span class="step-label">σ<sub>c</sub></span>
+      σ<sub>c</sub> = √7.56 = <strong>2.75</strong></div>
+    <div class="step"><span class="step-label">3σ limits</span>
+      UCL = 7.56 + 3 × 2.75 = 7.56 + 8.25 = <strong>15.81</strong><br>
+      LCL = 7.56 − 8.25 = −0.69 → <strong>0</strong></div>
+    <div class="answer">c̄ = 7.56 · UCL = 15.81 · LCL = 0</div>
+  </div>
+
+  <h3>5.8 Variable Control Charts</h3>
+
+  <p>Variables are measurable on a numerical scale (length, thickness, diameter, breaking strength, temperature). We need to control both:</p>
+  <ul>
+    <li>The <strong>mean value</strong> of the quality characteristic — the <em>central tendency</em> — using the <strong>X̄-chart</strong>.</li>
+    <li>The <strong>variability</strong> — the <em>process dispersion</em> — using the <strong>R-chart</strong>.</li>
+  </ul>
+  <p>Variables provide <em>more information</em> than attributes.</p>
+
+  <div class="formula">
+    <span class="label">Sample &amp; grand averages</span>
+    X̄ = (Σ X<sub>i</sub>) / n &nbsp;(sample mean)<br>
+    R = X<sub>max</sub> − X<sub>min</sub> &nbsp;(sample range)<br><br>
+    X̿ = (Σ X̄<sub>i</sub>) / g &nbsp;(grand mean over g samples)<br>
+    R̄ = (Σ R<sub>i</sub>) / g
+  </div>
+
+  <h4>Control Limits (3σ from grand average)</h4>
+  <p>Direct method:</p>
+  <div class="formula">X̿ ± 3 σ<sub>X̄</sub></div>
+  <p>Using <strong>ASTM table constants</strong> (A₂, D₃, D₄ functions of sample size n):</p>
+  <div class="formula">
+    <span class="label">X̄-chart (when R-chart is used to estimate σ)</span>
+    UCL<sub>X̄</sub> = X̿ + A₂ · R̄<br>
+    LCL<sub>X̄</sub> = X̿ − A₂ · R̄
+  </div>
+  <div class="formula">
+    <span class="label">R-chart</span>
+    UCL<sub>R</sub> = D₄ · R̄<br>
+    LCL<sub>R</sub> = D₃ · R̄
+  </div>
+
+  <h4>Useful ASTM constants (memorise the small-n rows)</h4>
+  <table>
+    <thead><tr><th>n</th><th>A₂</th><th>D₃</th><th>D₄</th><th>d₂</th></tr></thead>
+    <tbody>
+      <tr><td>2</td><td>1.880</td><td>0</td><td>3.267</td><td>1.128</td></tr>
+      <tr><td>3</td><td>1.023</td><td>0</td><td>2.575</td><td>1.693</td></tr>
+      <tr><td>4</td><td>0.729</td><td>0</td><td>2.282</td><td>2.059</td></tr>
+      <tr><td>5</td><td>0.577</td><td>0</td><td>2.114</td><td>2.326</td></tr>
+      <tr><td>6</td><td>0.483</td><td>0</td><td>2.004</td><td>2.534</td></tr>
+      <tr><td>7</td><td>0.419</td><td>0.076</td><td>1.924</td><td>2.704</td></tr>
+      <tr><td>8</td><td>0.373</td><td>0.136</td><td>1.864</td><td>2.847</td></tr>
+      <tr><td>9</td><td>0.337</td><td>0.184</td><td>1.816</td><td>2.970</td></tr>
+      <tr><td>10</td><td>0.308</td><td>0.223</td><td>1.777</td><td>3.078</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ───── WORKED NUMERICAL: X-bar / R ───── -->
+  <div class="solved">
+    <div class="problem"><strong>Problem 5.3 (X̄ &amp; R charts, Example 7-1)</strong> &nbsp;Coils are manufactured; 25 samples of size n = 5 are taken. Σ X̄ = 521.00, Σ R = 87. Construct X̄ and R control charts.</div>
+    <div class="step"><span class="step-label">Centrelines</span>
+      X̿ = 521 / 25 = <strong>20.84</strong><br>
+      R̄ = 87 / 25 = <strong>3.48</strong></div>
+    <div class="step"><span class="step-label">Constants for n = 5</span>
+      A₂ = 0.577, D₃ = 0, D₄ = 2.114</div>
+    <div class="step"><span class="step-label">X̄-chart limits</span>
+      UCL = 20.84 + 0.577 × 3.48 = 20.84 + 2.008 = <strong>22.85</strong><br>
+      LCL = 20.84 − 2.008 = <strong>18.83</strong></div>
+    <div class="step"><span class="step-label">R-chart limits</span>
+      UCL<sub>R</sub> = 2.114 × 3.48 = <strong>7.36</strong> (slide shows 7.358)<br>
+      LCL<sub>R</sub> = 0 × 3.48 = <strong>0</strong></div>
+    <div class="answer">X̄: CL 20.84, UCL 22.85, LCL 18.83 · R: CL 3.48, UCL 7.36, LCL 0</div>
+  </div>
+
+  <h4>Interpretation of Shifts</h4>
+  <ul>
+    <li>A shift in the <strong>process mean</strong> (from µ₀ to µ₁) is detected by the <strong>X̄-chart</strong>.</li>
+    <li>A change in process <strong>dispersion</strong> (σ₀ → σ₁) is detected by the <strong>R-chart</strong>.</li>
+  </ul>
+
+  <h3 id="capability">5.9 Process Capability Analysis</h3>
+
+  <p>Once the process is statistically <em>in control</em>, capability tells you whether it can meet the customer's specifications.</p>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Process Capability</div>
+    The variation in the product quality characteristic that <strong>remains after removal of all special causes</strong>. It measures the inherent ability of the (in-control) process to meet customer expectations.
+  </div>
+
+  <p>Convention: <strong>process spread = 6σ</strong>, covering 99.74 % of a normal distribution's values. Compare this spread to the specification width (tolerance T = USL − LSL).</p>
+
+  <div class="formula">
+    <span class="label">Process Capability Index (Cp)</span>
+    C<sub>p</sub> = 2T / 6σ = T / 3σ
+  </div>
+
+  <p><strong>Industry benchmarks for Cp:</strong></p>
+  <ul>
+    <li><strong>1.00</strong> — typical USA acceptance level.</li>
+    <li><strong>1.33</strong> — typical Japan acceptance level.</li>
+    <li><strong>1.66</strong> — Japanese watch-making industry; pushing toward <strong>2.0</strong>.</li>
+  </ul>
+
+  <p>As Cp rises, defect rate falls — moving from total inspection at Cp ≈ 1 to "no defect" zones at Cp ≥ 5.</p>
+
+  <h3>5.10 Measurement System Analysis (MSA)</h3>
+
+  <p>If decisions are based on measurements, then errors in measurements lead to errors in decisions. <strong>MSA qualifies a measurement system</strong> by quantifying its accuracy, precision, and stability.</p>
+
+  <h4>Accuracy vs Precision (revisited as dart-pattern)</h4>
+  <ul>
+    <li><strong>Accurate &amp; Precise</strong> — tight cluster centred on the true value (ideal).</li>
+    <li><strong>Accurate, not precise</strong> — wide spread but mean ≈ true value.</li>
+    <li><strong>Not accurate, precise</strong> — tight cluster offset from true value.</li>
+    <li><strong>Not accurate, not precise</strong> — scattered everywhere.</li>
+  </ul>
+  <p>Efforts to improve a measurement system aim at improving <strong>both</strong> accuracy and precision.</p>
+
+  <h4>Requirements of a Good Measurement System</h4>
+  <ul>
+    <li>Statistical <strong>stability</strong> over time.</li>
+    <li>Variability <strong>small</strong> compared to the process variability.</li>
+    <li>Variability <strong>small</strong> compared to the specification limits (tolerance).</li>
+    <li><strong>Resolution</strong> of the measuring device must be small relative to the smaller of (specification tolerance, process spread).</li>
+  </ul>
+
+  <h3>5.11 Acceptance Sampling Plan</h3>
+
+  <p>An <strong>acceptance sampling plan</strong> classifies a product as conforming/non-conforming (attribute) — or measures the degree of conformance numerically (variable) — based on a sample of items, then decides whether to accept or reject the whole lot.</p>
+
+  <ul>
+    <li>The terms <strong>defect / defective</strong> are used interchangeably with <em>nonconformity / nonconforming item</em> in many plans.</li>
+    <li>Applied at <strong>incoming raw materials</strong>, <strong>in-process</strong> stages, or <strong>final product/service</strong> inspection.</li>
+    <li>Used between companies and vendors, between manufacturers and customers, or even between departments inside one company.</li>
+  </ul>
+
+  <h4>What it does NOT do</h4>
+  <ul>
+    <li>Acceptance sampling <strong>does not control or improve</strong> the quality level of the process.</li>
+    <li>Because of sampling variability, plans will accept some lots and reject others of the <em>same true quality</em>.</li>
+    <li>The only real route to improvement is <strong>process control &amp; improvement</strong>.</li>
+  </ul>
+
+  <h4>Why use it then?</h4>
+  <ul>
+    <li>If inspection is <strong>destructive</strong>, 100 % inspection is impossible.</li>
+    <li>Sampling is <strong>economical</strong> and causes less handling damage.</li>
+    <li>Provides strong <strong>motivation to improve quality</strong> — a rejected lot is a serious cost signal.</li>
+  </ul>
+
+  <h3 id="reliability">5.12 Reliability Assessment of Systems</h3>
+
+  <div class="defn">
+    <div class="defn-label">Definition</div>
+    <div class="defn-term">Reliability</div>
+    The ability of a product to <strong>function effectively over a certain period under certain conditions</strong>. It is closely related to quality of <em>performance</em>; higher reliability → greater customer satisfaction.
+  </div>
+
+  <h4>Reliability &amp; Life Tests</h4>
+  <ul>
+    <li>Plans are usually <strong>destructive</strong>.</li>
+    <li>Involve observing items until a preset number of failures occur, or for a preset time, or both.</li>
+    <li>Usually done at the <strong>prototype stage</strong> — can be expensive depending on unit cost.</li>
+    <li>Longer accumulated test time → more precise estimate of reliability or mean life — but cost is a constraint.</li>
+    <li>Testing is done under <strong>simulated conditions</strong> that should mimic actual operating conditions as closely as possible.</li>
+  </ul>
+
+  <h4>Three Types of Reliability Tests</h4>
+  <ul>
+    <li><strong>Failure-Terminated Test</strong> — terminates when a preassigned number of failures occur in the sample.</li>
+    <li><strong>Time-Terminated Test</strong> — terminates when a preassigned time is reached.</li>
+    <li><strong>Sequential Reliability Test</strong> — no prior decision on number of failures or duration; accumulating results drive the decision to accept the lot, reject the lot, or continue testing.</li>
+  </ul>
+
+</section>
+
+<div class="divider">◆ ◆ ◆</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!--    QUICK REVISION + EXAM TIPS                                   -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="lecture" id="revision">
+  <div class="lecture-head">
+    <div class="lecture-num">★</div>
+    <div class="lecture-title">
+      <div class="label">Final Sprint</div>
+      <h2>Quick Revision Cheat-Sheet &amp; Practice Set</h2>
+    </div>
+  </div>
+
+  <h3>Twelve Formulae to Know Cold</h3>
+  <div class="formula">
+1. &nbsp;Absolute error: E = V<sub>m</sub> − V<sub>t</sub>
+2. &nbsp;Relative error (%): (E / V<sub>t</sub>) × 100
+3. &nbsp;Std deviation of n readings: σ = √[Σ(v−v̄)²/n]
+4. &nbsp;Allowance = LLH − HLS
+5. &nbsp;Tolerance unit: i = 0.453 ∛D + 0.001 D  (µm)
+6. &nbsp;Geometric mean: D = √(D<sub>max</sub> × D<sub>min</sub>)
+7. &nbsp;Sine bar: sin θ = h / L
+8. &nbsp;Ra = (A₁ + A₂ + … + A<sub>N</sub>) / L
+9. &nbsp;Stylus: f = v / λ
+10. p-chart: UCL/LCL = p̄ ± 3√[p̄(1−p̄)/n]
+11. c-chart: UCL/LCL = c̄ ± 3√c̄
+12. X̄-chart: X̿ ± A₂ R̄ ;  R-chart: D₃ R̄ … D₄ R̄ ;  Cp = T/3σ
+  </div>
+
+  <h3>Common Conceptual MCQs (likely exam targets)</h3>
+  <ol>
+    <li><strong>GO gauge checks</strong> — Maximum metal limit (LLH for hole, HLS for shaft).</li>
+    <li><strong>NOT-GO checks</strong> — Minimum metal limit (HLH for hole, LLS for shaft).</li>
+    <li><strong>Wear allowance</strong> applies to GO only and points toward the LML side of the work tolerance.</li>
+    <li><strong>Hole basis</strong> ⇒ H, LLH = basic size, fundamental dev = 0; <strong>shaft basis</strong> ⇒ h, HLS = basic, upper dev = 0.</li>
+    <li><strong>Standard reference conditions</strong> — 20 °C, 760 mmHg.</li>
+    <li><strong>Sine bar limit</strong> — angles &gt; 45° not recommended.</li>
+    <li><strong>Wringability</strong> requires surface finish ≤ 0.025 µm and flatness ≤ 0.13 µm.</li>
+    <li><strong>Six-Sigma yield</strong> — 99.99966 %, 3.4 dpm.</li>
+    <li><strong>Cp = 1.33</strong> is the typical Japanese benchmark.</li>
+    <li><strong>p-chart</strong> uses proportion defective; <strong>c-chart</strong> uses count of defects per unit.</li>
+    <li><strong>Random error</strong> → precision; <strong>systematic error</strong> → accuracy.</li>
+    <li><strong>Hysteresis</strong> — difference of indications ascending vs descending.</li>
+  </ol>
+
+  <h3>Six Quick Practice Questions</h3>
+
+  <div class="practice">
+    <span class="ptag">▷ Q1 — Tolerance Stack</span>
+    Three blocks A (40<sup>+0.03</sup><sub>−0.01</sub>), B (25<sup>+0.02</sup><sub>−0.01</sub>), C (15<sup>+0.01</sup><sub>−0.00</sub>) are stacked. Find the dimension of the total assembly.
+    <details><summary>Answer</summary>
+      Nominal L = 40 + 25 + 15 = 80. Upper tol = +0.03 + 0.02 + 0.01 = +0.06. Lower tol = −0.01 − 0.01 + 0.00 = −0.02. So <strong>80<sup>+0.06</sup><sub>−0.02</sub> mm.</strong>
+    </details>
+  </div>
+
+  <div class="practice">
+    <span class="ptag">▷ Q2 — Allowance &amp; Fit Type</span>
+    For Hole = 25<sup>+0.021</sup><sub>+0.000</sub> mm, Shaft = 25<sup>−0.020</sup><sub>−0.041</sub> mm, find allowance and identify the fit.
+    <details><summary>Answer</summary>
+      HLH = 25.021, LLH = 25.000, HLS = 24.980, LLS = 24.959. Allowance = LLH − HLS = 25.000 − 24.980 = <strong>+0.020 mm</strong>. Min clear = 0.020, max clear = 0.062 — both positive → <strong>Clearance fit.</strong>
+    </details>
+  </div>
+
+  <div class="practice">
+    <span class="ptag">▷ Q3 — Surface Roughness</span>
+    A surface profile has peak/valley sequence 4, 1, 5, 0, 6, 1, 5, 2, 4, 2 (in µm). Find Ra, RMS and Rz.
+    <details><summary>Answer</summary>
+      Σ = 30 → Ra = <strong>3.0 µm.</strong><br>
+      Σh² = 16+1+25+0+36+1+25+4+16+4 = 128 → RMS = √(128/10) = √12.8 = <strong>3.58 µm.</strong><br>
+      Peaks (odd) = 4+5+6+5+4 = 24, Valleys (even) = 1+0+1+2+2 = 6, Rz = (24−6)/5 = <strong>3.6 µm.</strong>
+    </details>
+  </div>
+
+  <div class="practice">
+    <span class="ptag">▷ Q4 — Sine Bar</span>
+    A sine bar of length 200 mm is used; the slip gauges placed under one roller stack to 50 mm. Find the angle measured.
+    <details><summary>Answer</summary>
+      sin θ = h / L = 50/200 = 0.25 → θ = sin⁻¹(0.25) ≈ <strong>14.48°.</strong>
+    </details>
+  </div>
+
+  <div class="practice">
+    <span class="ptag">▷ Q5 — p-Chart</span>
+    Forty samples of n = 100 are inspected; total defectives = 200. Compute UCL and LCL of the p-chart at 3σ.
+    <details><summary>Answer</summary>
+      p̄ = 200 / (40 × 100) = 0.05. σ<sub>p</sub> = √(0.05 × 0.95 / 100) = √0.000475 = 0.02179.<br>
+      UCL = 0.05 + 3(0.02179) = <strong>0.1154.</strong> LCL = 0.05 − 0.0654 = negative → <strong>0.</strong>
+    </details>
+  </div>
+
+  <div class="practice">
+    <span class="ptag">▷ Q6 — X̄ / R Chart Limits</span>
+    With n = 4, X̿ = 100 mm and R̄ = 5 mm, compute the 3σ control limits.
+    <details><summary>Answer</summary>
+      For n = 4: A₂ = 0.729, D₃ = 0, D₄ = 2.282.<br>
+      UCL<sub>X̄</sub> = 100 + 0.729 × 5 = <strong>103.65.</strong><br>
+      LCL<sub>X̄</sub> = 100 − 3.645 = <strong>96.36.</strong><br>
+      UCL<sub>R</sub> = 2.282 × 5 = <strong>11.41.</strong><br>
+      LCL<sub>R</sub> = 0.
+    </details>
+  </div>
+
+  <div class="practice">
+    <span class="ptag">▷ Q7 — Process Capability</span>
+    Specification width is 0.060 mm and process σ = 0.008 mm. Compute Cp and judge against US/Japan benchmarks.
+    <details><summary>Answer</summary>
+      T = 0.060 mm; Cp = T / (6σ) = 0.060 / (6 × 0.008) = 0.060 / 0.048 = <strong>1.25.</strong><br>
+      Above US baseline of 1.00 but below Japanese baseline of 1.33 — capable but not yet at Japanese standard.
+    </details>
+  </div>
+
+  <h3>Survival Strategy for the Exam</h3>
+  <ul>
+    <li><strong>Numerical problems first</strong> — gauges, fits, tolerances, control charts. They give the most marks per minute.</li>
+    <li>For 40 H8/d9–style problems: write D = √(D<sub>max</sub>·D<sub>min</sub>) → compute i → multiply by IT factor → lookup deviation → draw the schematic to scale.</li>
+    <li>For gauge design: remember <em>10 % rule</em> twice (tolerance, then wear on GO only) and direction of wear (away from MML).</li>
+    <li>For control charts: identify <em>type of data</em> (attribute vs variable) before picking the chart; always check whether LCL clips to 0.</li>
+    <li>For theory: definitions are quick marks — write them word-for-word from the slides.</li>
+    <li>If asked about <strong>accuracy vs precision</strong>, draw the dartboard. If asked about <strong>random vs systematic</strong>, draw the Gaussian with the offset mean.</li>
+  </ul>
+
+  <div class="notebox">
+    <strong>Last reminders:</strong> The course textbooks are Dotson (Fundamentals of Dimensional Metrology, 6e) and Mitra (Fundamentals of Quality Control and Improvement, 3e). Mid-sem and Compre carry 30 % + 35 % = 65 % of grade — concept questions are usually picked verbatim from the slides; numerical questions follow the same shape as the worked examples here.
+  </div>
+
+</section>
+
+</div><!-- /container -->
+
+<footer>
+  <strong>MF F220 · Metrology &amp; Quality Assurance</strong>
+  Complete Compendium · Lectures 1 – 5 · Built for the night before the exam.<br>
+  Good luck — you've got this.
+</footer>
+
+</body>
+</html>
