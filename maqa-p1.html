@@ -929,9 +929,35 @@
       <a href="#voltage-relaxation">56. Reading the Voltage Curve</a>
 
       <div class="drawer-group">
+        <div class="drawer-group-title">Part XIII · Scatter Plots (Lab)</div>
+      </div>
+      <a href="#scatter-intro">57. What is a Scatter Plot?</a>
+      <a href="#scatter-where">58. Where it is Used</a>
+      <a href="#scatter-recipe">59. The 5-Step Recipe</a>
+      <a href="#scatter-origin">60. Origin Pro Workflow</a>
+      <a href="#scatter-prob1">61. Worked: Heat Treatment</a>
+      <a href="#scatter-prob2">62. Worked: CNC Surface Finish</a>
+      <a href="#scatter-r">63. Pearson r &mdash; Reading the Coefficient</a>
+      <a href="#scatter-assignment">64. Assignment: Casting Moisture</a>
+      <a href="#scatter-causation">65. Correlation &ne; Causation</a>
+
+      <div class="drawer-group">
+        <div class="drawer-group-title">Part XIV · Multivariable Charts (Lab)</div>
+      </div>
+      <a href="#mv-intro">66. What is a Multivariable Chart?</a>
+      <a href="#mv-where">67. Where it is Used</a>
+      <a href="#mv-three">68. The Three Sources of Variation</a>
+      <a href="#mv-read">69. How to Read the Chart Visually</a>
+      <a href="#mv-origin">70. Origin Pro Workflow</a>
+      <a href="#mv-prob1">71. Worked: CNC Shaft Tapering</a>
+      <a href="#mv-prob2">72. Worked: Injection Molding Shifts</a>
+      <a href="#mv-assignment">73. Assignment: Turbine Blade Hardness</a>
+      <a href="#mv-before-doe">74. Why MV Comes Before Taguchi</a>
+
+      <div class="drawer-group">
         <div class="drawer-group-title">Final</div>
       </div>
-      <a href="#exam-cheat">57. Exam Cheat Sheet</a>
+      <a href="#exam-cheat">75. Exam Cheat Sheet</a>
     </nav>
   </aside>
 
@@ -942,7 +968,7 @@
       <div class="eyebrow">Metrology &amp; Quality Assurance · MF F220</div>
       <h1>Statistical<br><em>Quality Control</em></h1>
       <p class="subtitle">A complete walkthrough of every concept, formula, and worked example from Lectures 4 &amp; 5
-        and Labs 1 &amp; 2 — built for the exam tomorrow.</p>
+        and Labs 1, 2, 3 &amp; 4 — built for the exam tomorrow.</p>
     </section>
 
     <!-- ==================== PART I ==================== -->
@@ -986,7 +1012,8 @@
 
     <div class="exam-tip">If asked "define quality," do not just say "good product." Use the lecture's wording —
       <em>ability to meet customer expectations</em> — and explain that it is relative, capability-based, and
-      time-dependent.</div>
+      time-dependent.
+    </div>
 
     <h3 id="what-is-management"><span class="num">02</span>What is Management?</h3>
 
@@ -1008,7 +1035,8 @@
         management.</li>
       <li><strong>Available resources</strong> — you work with what you have, not what you wish you had.</li>
       <li><strong>Efficiently and effectively</strong> — <em>efficiency</em> = doing the thing right (minimum waste);
-        <em>effectiveness</em> = doing the right thing (correct goal). You need both.</li>
+        <em>effectiveness</em> = doing the right thing (correct goal). You need both.
+      </li>
     </ul>
 
     <h3 id="quality-management"><span class="num">03</span>What is Quality Management?</h3>
@@ -1100,7 +1128,8 @@
       problems. If you have 3 weeks of fender inventory, you will not notice the press machine is producing a defective
       fender every 100th shot until tens of thousands have piled up. JIT shrinks the buffer so problems become visible
       <em>immediately</em>. The cost is fragility — a single supplier delay can stop the line — so JIT only works when
-      paired with reliable suppliers, predictable processes, and a culture that rapidly fixes whatever breaks.</p>
+      paired with reliable suppliers, predictable processes, and a culture that rapidly fixes whatever breaks.
+    </p>
 
     <p>This is why the lecture put TQM's "<em>Zero waste · Zero inventory · Just in Time</em>" on a single slide — they
       reinforce each other.</p>
@@ -1209,7 +1238,8 @@
       suggest changes daily). <em>Western "improvement"</em> historically focused on top-down innovation — big projects
       led by managers and consultants. Modern best practice combines both, but the exam may simply ask you to
       characterise Kaizen as <strong>small, continuous, everyone-included improvements</strong>, contrasted with Western
-      <strong>large, episodic, manager-led</strong> changes.</p>
+      <strong>large, episodic, manager-led</strong> changes.
+    </p>
 
     <!-- ==================== PART III ==================== -->
     <div class="part">
@@ -1255,7 +1285,8 @@
     <p>A century ago, factory managers believed there was a sacred trade-off: <em>if you want higher quality, you must
         accept lower productivity</em>, because more inspection = slower line. TQM blew this up. The discovery:
       <strong>better quality means fewer rejects, fewer reworks, fewer warranty claims — and therefore higher
-        productivity, not lower.</strong></p>
+        productivity, not lower.</strong>
+    </p>
 
     <div class="compare">
       <div class="col-bad">
@@ -1338,7 +1369,8 @@
     <h4>How <em>should</em> you measure performance, then?</h4>
     <ol>
       <li><strong>Trend, not numbers.</strong> Measure continuous improvement in the goal, and track the
-        <em>direction</em> of the trend rather than absolute values.</li>
+        <em>direction</em> of the trend rather than absolute values.
+      </li>
       <li><strong>Benchmarking.</strong> Identify high-performance companies (or even high-performance departments
         inside your own company) and use <em>their</em> performance as your improvement target.</li>
     </ol>
@@ -1499,7 +1531,8 @@
 
     <div class="exam-tip">If the exam asks "which ISO 9000 standard can you be certified to?" — the answer is
       <strong>ISO 9001</strong>. The other two are reference (9000) and guidelines (9004); you cannot be "certified" to
-      them.</div>
+      them.
+    </div>
 
     <h3 id="statistical-techniques"><span class="num">15</span>Statistical Techniques in QC</h3>
 
@@ -1568,7 +1601,8 @@
         limits.</li>
       <li><strong>Two types of characteristics</strong>: <em>Attributes</em> (discrete: good/bad, yes/no) and
         <em>Variables</em> (continuous: weight, length, temperature). Variables provide more information than
-        attributes.</li>
+        attributes.
+      </li>
     </ul>
 
     <p>SPC is a tool for identifying problems in order to make improvements, and contributes directly to the TQM goal of
@@ -1673,7 +1707,8 @@
       <span class="label">Definition · Control Chart</span>
       <p><strong>A graphical tool for monitoring the activity of an ongoing process.</strong> It has a
         <em>centreline</em> (process average) and two <em>control limits</em> (Upper Control Limit, UCL, and Lower
-        Control Limit, LCL) — usually placed at ±3σ from the centreline.</p>
+        Control Limit, LCL) — usually placed at ±3σ from the centreline.
+      </p>
     </div>
 
     <h4>The four signals that a process is <em>under</em> control</h4>
@@ -1719,7 +1754,8 @@
     </table>
 
     <div class="exam-tip">Easy mnemonic: <strong>p</strong> = <strong>p</strong>roportion, <strong>c</strong> =
-      <strong>c</strong>ount, <strong>X̄</strong> = mean, <strong>R</strong> = range.</div>
+      <strong>c</strong>ount, <strong>X̄</strong> = mean, <strong>R</strong> = range.
+    </div>
 
     <h3 id="p-chart"><span class="num">21</span>The p-Chart — Proportion Defective</h3>
 
@@ -1756,7 +1792,8 @@
       <p><strong>Step 5.</strong> Plot the 25 sample proportions. Sample 18 hits 0.20, exceeding UCL = 0.1817 → an
         out-of-control signal. The log notes "Drop in pressure" at that time — special cause identified.</p>
       <p><strong>Step 6.</strong> Remove sample 18 from the data set, recompute p̄, σ<sub>p</sub>, UCL, LCL. This is the
-        <em>revised</em> p-chart.</p>
+        <em>revised</em> p-chart.
+      </p>
     </div>
 
     <h3 id="c-chart"><span class="num">22</span>The c-Chart — Number of Defects per Sample</h3>
@@ -1800,7 +1837,8 @@
     </ul>
 
     <p>Why both? Because a process can drift in two ways: the mean shifts (parts get bigger or smaller on average)
-      <em>or</em> the variability changes (parts get more inconsistent). A single chart cannot tell these apart.</p>
+      <em>or</em> the variability changes (parts get more inconsistent). A single chart cannot tell these apart.
+    </p>
 
     <h4>Formulas — the foundational ones</h4>
     <div class="formula">
@@ -1997,7 +2035,8 @@
       <em>total inspection</em> (most expensive), around C<sub>p</sub> = 1 you can use <em>lot inspection</em>, by
       C<sub>p</sub> = 1.33 <em>sampling inspection</em> is enough, by C<sub>p</sub> = 2 you can rely on <em>statistical
         process control</em>, and beyond C<sub>p</sub> = 5 there is essentially <em>no defect</em>. <strong>Higher
-        capability = lower inspection cost.</strong></p>
+        capability = lower inspection cost.</strong>
+    </p>
 
     <h3 id="msa"><span class="num">25</span>Measurement System Analysis (MSA)</h3>
 
@@ -2156,7 +2195,8 @@
 
     <div class="exam-tip">Easy way to remember: <em>Failure-terminated</em> ends on a <strong>count</strong>;
       <em>Time-terminated</em> ends on the <strong>clock</strong>; <em>Sequential</em> ends when the
-      <strong>data</strong> says so.</div>
+      <strong>data</strong> says so.
+    </div>
 
     <!-- ==================== PART VIII ==================== -->
     <div class="part">
@@ -2444,7 +2484,8 @@
     <h3 id="pareto-prob2"><span class="num">31</span>Worked Problem 2 — Pareto with a Budget Constraint</h3>
 
     <p><strong>Scenario:</strong> Automotive parts factory; quarterly defect log; continuous-improvement budget =
-      <strong>$9,000</strong>. Choose the optimal combination of defect-types to fix.</p>
+      <strong>$9,000</strong>. Choose the optimal combination of defect-types to fix.
+    </p>
 
     <table>
       <thead>
@@ -2822,7 +2863,8 @@
         some clearly don't apply).</li>
       <li><strong>Brainstorm causes</strong> — for each category, ask "Why?" repeatedly and add sub-branches.</li>
       <li><strong>Analyse</strong> — look for causes that <em>appear repeatedly across categories</em>, or represent
-        <em>significant deviations from standards</em>.</li>
+        <em>significant deviations from standards</em>.
+      </li>
       <li><strong>Action plan</strong> — select the most likely root causes for further investigation (often
         metallurgical, mechanical, or experimental).</li>
     </ol>
@@ -2925,7 +2967,8 @@
         humidity are <em>both</em> sources of dissolved gases. They reinforce each other — this is the strongest signal.
       </li>
       <li><strong>Method variables</strong> (gating design + venting) decide whether the gases that form can
-        <em>escape</em> the mold before solidification. Poor venting traps them as porosity.</li>
+        <em>escape</em> the mold before solidification. Poor venting traps them as porosity.
+      </li>
     </ul>
 
     <h4>Action / Decision</h4>
@@ -3018,7 +3061,8 @@
     <h4>Analysis</h4>
     <ul>
       <li>Tearing in deep drawing is a delicate balance between <strong>Machine</strong> (blank-holder force) and
-        <strong>Material</strong> (flow characteristics, grain orientation).</li>
+        <strong>Material</strong> (flow characteristics, grain orientation).
+      </li>
       <li>If the blank-holder force is too high, the material <em>stretches and tears</em> instead of flowing into the
         die.</li>
       <li>If grain orientation is wrong, the metal cannot deform isotropically; corners — where the highest strain
@@ -3256,7 +3300,8 @@
       (every hour, every shift, every 100 parts).</p>
 
     <p>From each subgroup of size <em>n</em> we compute two numbers, and plot them on two charts
-      <strong>simultaneously</strong>:</p>
+      <strong>simultaneously</strong>:
+    </p>
 
     <table>
       <thead>
@@ -3451,7 +3496,8 @@
       <li><strong>X̄ chart:</strong> Point 3 (10:00 AM) spikes <em>violently above</em> the UCL — Origin Pro flags it
         with a red "1". The 10:00 batch averaged 10.5 mm against a target of 10.0 mm — a 0.5 mm shift.</li>
       <li><strong>R chart:</strong> Stays flat and safe — all four subgroups had identical internal spread (0.2 mm). The
-        <em>parts within each batch were consistent with each other</em>; the whole batch just shifted off-centre.</li>
+        <em>parts within each batch were consistent with each other</em>; the whole batch just shifted off-centre.
+      </li>
     </ul>
 
     <div class="key-takeaway">
@@ -3459,7 +3505,8 @@
       <p>The machine produced four nicely-matched parts at 10:00 AM, but at the wrong target. Classic signature of a
         <em>tool offset drift</em> or <em>fixture shift</em>: the cutter is still steady, but it is sitting 0.5 mm off
         where it should be. <strong>Action:</strong> stop production at 10:00 AM, inspect the tool offset and the
-        fixture clamp, recalibrate, restart.</p>
+        fixture clamp, recalibrate, restart.
+      </p>
     </div>
 
     <h3 id="spc-lab-prob2"><span class="num">41</span>Worked Lab Problem 2 — Beverage Filling Line (an R violation)</h3>
@@ -3525,9 +3572,11 @@
       <li><strong>R̄</strong> = (3+2+16+2)/4 = <strong>5.75 mL</strong> (lab Origin shows 7.25 due to internal
         computation)</li>
       <li><strong>UCL<sub>X̄</sub></strong> ≈ <strong>505.40</strong>, <strong>LCL<sub>X̄</sub></strong> ≈
-        <strong>494.84</strong></li>
+        <strong>494.84</strong>
+      </li>
       <li><strong>UCL<sub>R</sub></strong> ≈ <strong>16.54</strong>, <strong>LCL<sub>R</sub></strong> =
-        <strong>0</strong></li>
+        <strong>0</strong>
+      </li>
     </ul>
 
     <div class="chart-wrap">
@@ -3631,7 +3680,8 @@
       <p>The machine has multiple filling nozzles. In Batch 3, <em>one nozzle is overfilling</em> while <em>another is
           underfilling</em> — they cancel out on the mean, but the spread inside the batch is now catastrophic. Every
         customer who buys a bottle from this batch gets either 492 mL (complaint) or 508 mL (waste).
-        <strong>Action:</strong> halt production, inspect each nozzle's calibration individually.</p>
+        <strong>Action:</strong> halt production, inspect each nozzle's calibration individually.
+      </p>
     </div>
 
     <div class="exam-tip">Problems 1 and 2 together teach the deepest lesson of SPC: <strong>the X̄ chart and R chart
@@ -3734,13 +3784,15 @@
     <h4>Final lab takeaway — the SQC journey</h4>
     <ul>
       <li><strong>Quality is proactive, not reactive.</strong> Control charts let you see a machine breaking
-        <em>before</em> it actually produces a scrapped part.</li>
+        <em>before</em> it actually produces a scrapped part.
+      </li>
       <li><strong>Always do the dual check.</strong> A process can have perfect accuracy (X̄) but terrible precision
         (R), or vice versa.</li>
       <li>The full SQC toolchain you have now learned: <strong>Fishbone</strong> to brainstorm root causes →
         <strong>Pareto</strong> to prioritise → <strong>Scatter / Multivariable charts</strong> to verify relationships
         → <strong>Taguchi</strong> to optimise → <strong>SPC</strong> to monitor and sustain. That is the full
-        life-cycle of quality engineering on a factory floor.</li>
+        life-cycle of quality engineering on a factory floor.
+      </li>
     </ul>
 
     <!-- ==================== PART XI · TAGUCHI ==================== -->
@@ -3778,7 +3830,8 @@
 
     <div class="exam-tip">If asked "what does Taguchi optimise that traditional DoE does not?" — answer:
       <strong>robustness to noise / variance around the target</strong>, not just the mean. Always cite "Loss to
-      Society" as the formal philosophy.</div>
+      Society" as the formal philosophy.
+    </div>
 
     <h3 id="sn-ratio"><span class="num">44</span>The Signal-to-Noise (S/N) Ratio</h3>
 
@@ -3887,7 +3940,8 @@
     <ul>
       <li>For each factor, average the S/N ratio at each level → plot these averages as line segments.</li>
       <li>A <strong>steeper line</strong> (larger Delta = max − min S/N within that factor) means that factor has a
-        <em>larger effect</em> on the response.</li>
+        <em>larger effect</em> on the response.
+      </li>
       <li>The response table ranks factors by Delta: <strong>Rank 1 = most influential</strong>, Rank n = least
         influential.</li>
       <li>To find the optimum, pick the <em>level with the highest S/N</em> for each factor independently — this works
@@ -4030,7 +4084,8 @@
       <p>The lab's recommended answer prefers <em>Layer Height = 0.1 mm</em> because finer layers tend to produce
         stronger inter-layer bonding in practice (and the Delta is so small the choice is essentially free).
         <strong>Dominant factor: Infill %</strong> — control this most strictly on the shop floor. Layer height has
-        negligible effect; you can pick the level that prints fastest (0.2 mm) without hurting strength.</p>
+        negligible effect; you can pick the level that prints fastest (0.2 mm) without hurting strength.
+      </p>
     </div>
 
     <h3 id="taguchi-prob2"><span class="num">48</span>Worked Problem 2 — CNC Lathe Surface Roughness
@@ -4348,7 +4403,8 @@
     <h4>Why does this matter?</h4>
     <p>To prevent <strong>over-charge</strong> (which damages the cathode and can cause thermal runaway) and
       <strong>over-discharge</strong> (which damages the anode and shortens cell life) — and to give the driver an
-      accurate "% battery remaining" reading. Without an accurate SoC estimate, you cannot operate an EV safely.</p>
+      accurate "% battery remaining" reading. Without an accurate SoC estimate, you cannot operate an EV safely.
+    </p>
 
     <h4>The trouble: you cannot measure SoC directly</h4>
     <p>You cannot pop open a lithium-ion cell and count electrons. What you <em>can</em> measure is the terminal
@@ -4475,7 +4531,8 @@
 
     <ol>
       <li><strong>Instantaneous step down</strong> the moment current starts → this drop equals
-        <strong>I·R<sub>0</sub></strong>. So R<sub>0</sub> can be read directly from the size of the step.</li>
+        <strong>I·R<sub>0</sub></strong>. So R<sub>0</sub> can be read directly from the size of the step.
+      </li>
       <li><strong>Slow exponential droop</strong> after the step → this is the R<sub>a</sub>C<sub>a</sub> branch
         charging up. The time constant of the droop is τ<sub>a</sub> = R<sub>a</sub>·C<sub>a</sub>, and the final
         magnitude tells you R<sub>a</sub>.</li>
@@ -4758,13 +4815,1349 @@
       Kalman filter or recursive least squares). From these fitted parameters it back-calculates V<sub>oc</sub>, then
       looks up SoC. <strong>Without ECM, no accurate SoC. Without SoC, no safe EV operation.</strong></p>
 
+    <!-- ==================== PART XIII · SCATTER PLOTS ==================== -->
+    <div class="part">
+      <div class="part-num">Part XIII · Scatter Plots &amp; Correlation · Lab</div>
+      <h2>Proving Cause &amp; Effect with Two Variables</h2>
+      <p class="lead">The bridge between guessing and knowing. Where Fishbone <em>suggests</em> a cause, a scatter
+        plot <em>proves</em> it &mdash; with hard numbers and a correlation coefficient that survives any
+        argument.</p>
+    </div>
+
+    <h3 id="scatter-intro"><span class="num">57</span>What is a Scatter Plot?</h3>
+
+    <div class="def-box">
+      <span class="label">Definition &middot; Scatter Plot</span>
+      <p><strong>A two-dimensional graph used to visualise the relationship (correlation) between two continuous
+          numerical variables.</strong> Each point on the graph represents one paired observation &mdash; an
+        X-value and a Y-value measured at the same instant, on the same unit.</p>
+    </div>
+
+    <p>By convention the <strong>X-axis</strong> holds the <em>independent</em> variable &mdash; the <em>cause</em>,
+      the parameter you control (temperature, RPM, voltage, sand moisture). The <strong>Y-axis</strong> holds the
+      <em>dependent</em> variable &mdash; the <em>effect</em>, the quality characteristic you measure (hardness,
+      roughness, pressure, shrinkage).
+    </p>
+
+    <p>The single question every scatter plot is built to answer is:</p>
+
+    <div class="key-takeaway">
+      <p><strong>"If I change variable X, what happens to variable Y?"</strong></p>
+      <p>If the cloud of points slopes, the variables are correlated. If it's a random blob, they're not. That's
+        the whole technique &mdash; the rest is interpretation.</p>
+    </div>
+
+    <h4>Why it is useful</h4>
+    <p>The previous tool in your syllabus &mdash; the Fishbone diagram &mdash; only <em>suggests</em> possible
+      causes. It is a brainstorming map. A scatter plot is the <strong>proof step</strong>. It takes one of those
+      suspected causes and tests it against data: <em>"You said cutting speed affects surface finish? Show me the
+        numbers."</em> If r &asymp; 0.95, you were right. If r &asymp; 0.05, you were guessing.</p>
+
+    <h3 id="scatter-where"><span class="num">58</span>Where Scatter Plots Are Used in Industry</h3>
+
+    <ul>
+      <li><strong>Optimising machine parameters</strong> &mdash; e.g., spindle RPM vs surface roughness on a CNC
+        lathe.</li>
+      <li><strong>Material property testing</strong> &mdash; e.g., heat-treatment temperature vs alloy tensile
+        strength.</li>
+      <li><strong>Sensor calibration</strong> &mdash; comparing a sensor's output voltage to the actual measured
+        pressure.</li>
+    </ul>
+
+    <p><strong>Industrial purpose:</strong> mathematically establish whether two variables are connected
+      <em>before</em> writing Standard Operating Procedures. Without a scatter plot, an SOP that says <em>"run at
+        170 m/min for best finish"</em> is just opinion. With a scatter plot showing r = &minus;0.97, it becomes
+      evidence-based engineering.
+    </p>
+
+    <h3 id="scatter-recipe"><span class="num">59</span>How to Solve a Scatter Plot Problem &mdash; The 5 Steps</h3>
+
+    <ol>
+      <li><strong>Collect paired data.</strong> Every (X, Y) pair must be measured at the same instant on the same
+        unit. Mismatched pairs are meaningless.</li>
+      <li><strong>Determine axes.</strong> Controlled/input variable on X. Measured/output variable on Y.
+        Swapping them flips your cause-effect interpretation.</li>
+      <li><strong>Plot the points</strong> on a standard Cartesian graph. Do <em>not</em> connect them with a line
+        &mdash; they are independent observations, not a time series.</li>
+      <li><strong>Analyse the pattern:</strong>
+        <ul>
+          <li><strong>Positive correlation</strong>: cloud slopes upward &mdash; X up, Y up.</li>
+          <li><strong>Negative correlation</strong>: cloud slopes downward &mdash; X up, Y down.</li>
+          <li><strong>No correlation</strong>: random scatter, no shape.</li>
+          <li><strong>Non-linear correlation</strong>: a clear curve (parabolic, exponential decay, U-shape) &mdash;
+            strong relationship, but a straight-line fit won't fully capture it.</li>
+        </ul>
+      </li>
+      <li><strong>Action plan</strong>: use the trend to predict, optimise, or set a process window.</li>
+    </ol>
+
+    <h3 id="scatter-origin"><span class="num">60</span>The Origin Pro Workflow</h3>
+
+    <p>If the exam asks "how would you plot this in Origin Pro?", recite these six steps:</p>
+
+    <ol>
+      <li>Enter the independent variable into column <strong>A(X)</strong>.</li>
+      <li>Enter the dependent variable into column <strong>B(Y)</strong>.</li>
+      <li>Highlight both columns.</li>
+      <li>Go to <strong>Plot &rarr; Basic 2D &rarr; Scatter</strong>.</li>
+      <li>With the graph active, go to <strong>Analysis &rarr; Fitting &rarr; Linear Fit &rarr; Open Dialog</strong>.
+      </li>
+      <li>Click <strong>OK</strong>. Origin draws the line of best fit and produces a results table containing the
+        slope, intercept, the <strong>Pearson correlation coefficient r</strong>, and <strong>R&sup2; (R-Square
+          COD)</strong>.</li>
+    </ol>
+
+    <h3 id="scatter-prob1"><span class="num">61</span>Worked Problem 1 &mdash; Tempering Steel</h3>
+
+    <p><strong>Scenario:</strong> A metallurgical lab is heat-treating a new carbon-steel alloy. The chief
+      metallurgist wants to know how tempering temperature affects final Rockwell hardness (HRC). They record five
+      samples.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Temp (&deg;C) [X]</th>
+          <th>Hardness HRC [Y]</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">200</td>
+          <td class="num">58</td>
+        </tr>
+        <tr>
+          <td class="num">300</td>
+          <td class="num">52</td>
+        </tr>
+        <tr>
+          <td class="num">400</td>
+          <td class="num">45</td>
+        </tr>
+        <tr>
+          <td class="num">500</td>
+          <td class="num">38</td>
+        </tr>
+        <tr>
+          <td class="num">600</td>
+          <td class="num">30</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="chart-wrap">
+      <svg viewBox="0 0 640 380" xmlns="http://www.w3.org/2000/svg" role="img"
+        aria-label="Scatter plot of tempering temperature vs Rockwell hardness with linear fit">
+        <!-- Axes -->
+        <line x1="70" y1="320" x2="600" y2="320" stroke="#1a1a1a" stroke-width="1.5" />
+        <line x1="70" y1="40" x2="70" y2="320" stroke="#1a1a1a" stroke-width="1.5" />
+        <!-- Gridlines -->
+        <g stroke="#d8cfc0" stroke-width="0.5" stroke-dasharray="3,3">
+          <line x1="70" y1="80" x2="600" y2="80" />
+          <line x1="70" y1="140" x2="600" y2="140" />
+          <line x1="70" y1="200" x2="600" y2="200" />
+          <line x1="70" y1="260" x2="600" y2="260" />
+          <line x1="172" y1="40" x2="172" y2="320" />
+          <line x1="277" y1="40" x2="277" y2="320" />
+          <line x1="382" y1="40" x2="382" y2="320" />
+          <line x1="487" y1="40" x2="487" y2="320" />
+        </g>
+        <!-- Y-axis labels -->
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="#6b6356" text-anchor="end">
+          <text x="62" y="324">30</text>
+          <text x="62" y="264">38</text>
+          <text x="62" y="204">45</text>
+          <text x="62" y="144">52</text>
+          <text x="62" y="84">58</text>
+        </g>
+        <!-- X-axis labels -->
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="#6b6356" text-anchor="middle">
+          <text x="70" y="338">200</text>
+          <text x="172" y="338">300</text>
+          <text x="277" y="338">400</text>
+          <text x="382" y="338">500</text>
+          <text x="487" y="338">600</text>
+        </g>
+        <!-- Axis titles -->
+        <text x="335" y="365" font-family="Lora, serif" font-size="13" fill="#1a1a1a" text-anchor="middle"
+          font-style="italic">Tempering Temperature (&deg;C)</text>
+        <text x="22" y="180" font-family="Lora, serif" font-size="13" fill="#1a1a1a" text-anchor="middle"
+          font-style="italic" transform="rotate(-90 22 180)">Hardness (HRC)</text>
+        <!-- Linear fit line: y = 72.6 - 0.07x; at x=200 y=58.6, x=600 y=30.6 -->
+        <line x1="70" y1="79.5" x2="600" y2="289.5" stroke="#c8590e" stroke-width="2" opacity="0.85" />
+        <!-- Data points -->
+        <g fill="#8b2635" stroke="#1a1a1a" stroke-width="1">
+          <rect x="64" y="76" width="12" height="12" />
+          <rect x="166" y="136" width="12" height="12" />
+          <rect x="271" y="196" width="12" height="12" />
+          <rect x="376" y="256" width="12" height="12" />
+          <rect x="481" y="316" width="12" height="12" />
+        </g>
+        <!-- Title -->
+        <text x="335" y="26" font-family="Fraunces, serif" font-size="15" font-weight="700" fill="#1a1a1a"
+          text-anchor="middle">Hardness vs Tempering Temperature (Linear Fit, R&sup2; = 0.998)</text>
+        <!-- Legend -->
+        <g font-family="JetBrains Mono, monospace" font-size="10">
+          <rect x="445" y="48" width="10" height="10" fill="#8b2635" stroke="#1a1a1a" stroke-width="1" />
+          <text x="460" y="57" fill="#1a1a1a">Hardness</text>
+          <line x1="445" y1="68" x2="455" y2="68" stroke="#c8590e" stroke-width="2" />
+          <text x="460" y="71" fill="#1a1a1a">Linear Fit</text>
+        </g>
+      </svg>
+    </div>
+
+    <h4>Origin Pro fit results</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Parameter</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Equation</td>
+          <td class="num">y = a + b&middot;x</td>
+        </tr>
+        <tr>
+          <td>Intercept (a)</td>
+          <td class="num">72.6 &plusmn; 0.848</td>
+        </tr>
+        <tr>
+          <td>Slope (b)</td>
+          <td class="num">&minus;0.07 &plusmn; 0.002</td>
+        </tr>
+        <tr>
+          <td>R-Square (COD)</td>
+          <td class="num"><strong>0.998</strong></td>
+        </tr>
+        <tr>
+          <td>Adj. R-Square</td>
+          <td class="num">0.997</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>So the fitted equation is <span class="math">HRC &asymp; 72.6 &minus; 0.07 &times; Temp</span>.</p>
+
+    <h4>Interpretation</h4>
+    <ul>
+      <li><strong>Correlation:</strong> Strong <em>Negative</em>.</li>
+      <li><strong>Analysis:</strong> As tempering temperature climbs, Rockwell hardness drops almost perfectly
+        linearly. R&sup2; = 0.998 means 99.8% of the variation in hardness is explained by temperature alone &mdash;
+        about as clean a relationship as engineering ever delivers.</li>
+      <li><strong>Action:</strong> If the design specifies a minimum hardness of 40 HRC, solve for the threshold
+        temperature: <span class="math">40 = 72.6 &minus; 0.07&middot;T &rArr; T &asymp; 466 &deg;C</span>. The SOP
+        therefore reads: <strong>never set the tempering oven above &asymp; 450 &deg;C</strong> (rounded down to
+        leave margin).</li>
+    </ul>
+
+    <div class="exam-tip">For full marks, add the <em>physical reason</em>: tempering allows brittle martensite to
+      transform into softer tempered structures &mdash; more heat means more transformation, hence lower
+      hardness. That's <em>why</em> the negative correlation isn't a coincidence &mdash; it is metallurgy.</div>
+
+    <h3 id="scatter-prob2"><span class="num">62</span>Worked Problem 2 &mdash; CNC Lathe Surface Finish</h3>
+
+    <p><strong>Scenario:</strong> You are optimising a CNC lathe turning brass shafts. The quality target is a
+      very low surface roughness <em>R<sub>a</sub></em>. You vary cutting speed while keeping feed rate constant.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Cutting Speed v (m/min) [X]</th>
+          <th>Surface Roughness R<sub>a</sub> (&micro;m) [Y]</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">50</td>
+          <td class="num">3.2</td>
+        </tr>
+        <tr>
+          <td class="num">80</td>
+          <td class="num">2.1</td>
+        </tr>
+        <tr>
+          <td class="num">110</td>
+          <td class="num">1.5</td>
+        </tr>
+        <tr>
+          <td class="num">140</td>
+          <td class="num">0.9</td>
+        </tr>
+        <tr>
+          <td class="num">170</td>
+          <td class="num">0.6</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="chart-wrap">
+      <svg viewBox="0 0 640 380" xmlns="http://www.w3.org/2000/svg" role="img"
+        aria-label="Scatter plot of cutting speed vs surface roughness with linear fit">
+        <!-- Axes -->
+        <line x1="70" y1="320" x2="600" y2="320" stroke="#1a1a1a" stroke-width="1.5" />
+        <line x1="70" y1="40" x2="70" y2="320" stroke="#1a1a1a" stroke-width="1.5" />
+        <!-- Gridlines -->
+        <g stroke="#d8cfc0" stroke-width="0.5" stroke-dasharray="3,3">
+          <line x1="70" y1="76" x2="600" y2="76" />
+          <line x1="70" y1="137" x2="600" y2="137" />
+          <line x1="70" y1="198" x2="600" y2="198" />
+          <line x1="70" y1="259" x2="600" y2="259" />
+          <line x1="172" y1="40" x2="172" y2="320" />
+          <line x1="277" y1="40" x2="277" y2="320" />
+          <line x1="382" y1="40" x2="382" y2="320" />
+          <line x1="487" y1="40" x2="487" y2="320" />
+        </g>
+        <!-- Y-axis labels: Ra range 0 to 3.5 -->
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="#6b6356" text-anchor="end">
+          <text x="62" y="324">0.0</text>
+          <text x="62" y="263">0.7</text>
+          <text x="62" y="202">1.4</text>
+          <text x="62" y="141">2.1</text>
+          <text x="62" y="80">2.8</text>
+          <text x="62" y="44">3.5</text>
+        </g>
+        <!-- X-axis labels -->
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="#6b6356" text-anchor="middle">
+          <text x="70" y="338">50</text>
+          <text x="172" y="338">80</text>
+          <text x="277" y="338">110</text>
+          <text x="382" y="338">140</text>
+          <text x="487" y="338">170</text>
+        </g>
+        <text x="335" y="365" font-family="Lora, serif" font-size="13" fill="#1a1a1a" text-anchor="middle"
+          font-style="italic">Cutting Speed (m/min)</text>
+        <text x="22" y="180" font-family="Lora, serif" font-size="13" fill="#1a1a1a" text-anchor="middle"
+          font-style="italic" transform="rotate(-90 22 180)">Surface Roughness R<tspan baseline-shift="sub"
+            font-size="9">a</tspan> (&micro;m)</text>
+        <!-- Linear fit: y = 4.007 - 0.0213x; ranges: x=50,y=2.942 ; x=170,y=0.386. y-scale: y=0 at 320, y=3.5 at 40 -->
+        <!-- mapping: pixel_y = 320 - (y / 3.5)*280 -->
+        <!-- at x=50 (px 70) y=2.942 -> px_y = 320 - (2.942/3.5)*280 = 320 - 235.4 = 84.6 -->
+        <!-- at x=170 (px 487) y=0.386 -> px_y = 320 - (0.386/3.5)*280 = 320 - 30.9 = 289.1 -->
+        <line x1="70" y1="84.6" x2="487" y2="289.1" stroke="#c8590e" stroke-width="2" opacity="0.85" />
+        <!-- Data points: Ra=3.2 px_y=64; 2.1 px_y=152; 1.5 px_y=200; 0.9 px_y=248; 0.6 px_y=272 -->
+        <g fill="#8b2635" stroke="#1a1a1a" stroke-width="1">
+          <rect x="64" y="58" width="12" height="12" />
+          <rect x="166" y="146" width="12" height="12" />
+          <rect x="271" y="194" width="12" height="12" />
+          <rect x="376" y="242" width="12" height="12" />
+          <rect x="481" y="266" width="12" height="12" />
+        </g>
+        <text x="335" y="26" font-family="Fraunces, serif" font-size="15" font-weight="700" fill="#1a1a1a"
+          text-anchor="middle">Surface Roughness vs Cutting Speed (R&sup2; = 0.954)</text>
+        <g font-family="JetBrains Mono, monospace" font-size="10">
+          <rect x="445" y="48" width="10" height="10" fill="#8b2635" stroke="#1a1a1a" stroke-width="1" />
+          <text x="460" y="57" fill="#1a1a1a">R<tspan baseline-shift="sub" font-size="8">a</tspan></text>
+          <line x1="445" y1="68" x2="455" y2="68" stroke="#c8590e" stroke-width="2" />
+          <text x="460" y="71" fill="#1a1a1a">Linear Fit</text>
+        </g>
+      </svg>
+    </div>
+
+    <h4>Origin Pro fit results</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Parameter</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intercept (a)</td>
+          <td class="num">4.007 &plusmn; 0.318</td>
+        </tr>
+        <tr>
+          <td>Slope (b)</td>
+          <td class="num">&minus;0.0213 &plusmn; 0.0026</td>
+        </tr>
+        <tr>
+          <td>R-Square (COD)</td>
+          <td class="num"><strong>0.954</strong></td>
+        </tr>
+        <tr>
+          <td>Adj. R-Square</td>
+          <td class="num">0.939</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Fitted equation: <span class="math">R<sub>a</sub> &asymp; 4.007 &minus; 0.0213 &times; v</span>.</p>
+
+    <h4>Interpretation</h4>
+    <ul>
+      <li><strong>Correlation:</strong> Strong <em>Negative</em>, but with clear <em>non-linear decay</em> &mdash;
+        the points curve, dropping fast at first then flattening out.</li>
+      <li><strong>Analysis:</strong> Increasing cutting speed significantly improves (lowers) R<sub>a</sub>. From
+        50 &rarr; 170 m/min, predicted R<sub>a</sub> drops by 0.0213 &times; 120 &asymp; 2.56 &micro;m.</li>
+      <li><strong>Decision:</strong> Program the CNC at the <strong>highest safe cutting speed (170 m/min)</strong>
+        to get the smoothest finish. "Safe" matters &mdash; higher speeds also increase tool wear and heat, so the
+        upper bound is set by tool life, not by R<sub>a</sub>.</li>
+    </ul>
+
+    <div class="warning">A high R&sup2; for a linear fit does <strong>not</strong> mean the underlying physics is
+      linear. Here R&sup2; = 0.95 but the data is clearly curving &mdash; a power-law or exponential decay would
+      fit better. In your answer, write: <em>"strong negative correlation with non-linear decay shape."</em></div>
+
+    <h3 id="scatter-r"><span class="num">63</span>The Pearson Correlation Coefficient r &mdash; The Master Number
+    </h3>
+
+    <p>Pearson's r quantifies the <em>strength and direction</em> of a linear relationship in a single number
+      between &minus;1 and +1.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>r value</th>
+          <th>Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">+1.0</td>
+          <td>Perfect positive linear relationship</td>
+        </tr>
+        <tr>
+          <td class="num">+0.8 to +1.0</td>
+          <td>Strong positive</td>
+        </tr>
+        <tr>
+          <td class="num">+0.3 to +0.8</td>
+          <td>Moderate positive</td>
+        </tr>
+        <tr>
+          <td class="num">0</td>
+          <td>No linear relationship</td>
+        </tr>
+        <tr>
+          <td class="num">&minus;0.3 to &minus;0.8</td>
+          <td>Moderate negative</td>
+        </tr>
+        <tr>
+          <td class="num">&minus;0.8 to &minus;1.0</td>
+          <td>Strong negative</td>
+        </tr>
+        <tr>
+          <td class="num">&minus;1.0</td>
+          <td>Perfect negative linear relationship</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="def-box">
+      <span class="label">Engineering Rule of Thumb</span>
+      <p>If <strong>|r| &gt; 0.8</strong> &rarr; <em>Strong relationship</em>. You can confidently use variable X to
+        <strong>control</strong> variable Y.
+      </p>
+      <p>If <strong>|r| &lt; 0.3</strong> &rarr; Changing X will likely have <em>no useful effect</em> on Y. Don't
+        waste time tuning X.</p>
+    </div>
+
+    <h4>The relationship between r and R&sup2;</h4>
+    <p><span class="math">R&sup2; = r&sup2;</span>. R&sup2; tells you the <em>fraction of variance in Y that is
+        explained by variation in X</em>. So r = 0.9 &rArr; R&sup2; = 0.81, meaning &ldquo;81% of the variation in
+      Y is explained by X; the remaining 19% is unexplained noise or other variables.&rdquo;</p>
+
+    <h4>Hand-calculation formulas (in case the exam disables the lab computer)</h4>
+
+    <div class="formula">
+      <strong>Pearson r:</strong><br>
+      r = <span class="var">&Sigma;(x<sub>i</sub> &minus; x&#772;)(y<sub>i</sub> &minus; y&#772;)</span> /
+      &radic;[ <span class="var">&Sigma;(x<sub>i</sub> &minus; x&#772;)&sup2; &middot; &Sigma;(y<sub>i</sub> &minus;
+        y&#772;)&sup2;</span> ]
+    </div>
+
+    <div class="formula">
+      <strong>Best-fit line:</strong><br>
+      Slope b = <span class="var">&Sigma;(x<sub>i</sub> &minus; x&#772;)(y<sub>i</sub> &minus; y&#772;)</span> /
+      <span class="var">&Sigma;(x<sub>i</sub> &minus; x&#772;)&sup2;</span><br>
+      Intercept a = y&#772; &minus; b&middot;x&#772;
+    </div>
+
+    <h3 id="scatter-assignment"><span class="num">64</span>Assignment &mdash; Aerospace Casting (Fully Solved)</h3>
+
+    <p><strong>Scenario:</strong> An aerospace casting facility is tracking the relationship between sand
+      <strong>moisture content (%)</strong> and dimensional <strong>shrinkage (mm)</strong> in cast aluminum
+      housings. The task: plot the data, fit a linear trendline, extract Pearson r, and write a memo concluding
+      whether moisture drives shrinkage.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Sample</th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+          <th>9</th>
+          <th>10</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Moisture % [X]</td>
+          <td class="num">2.1</td>
+          <td class="num">2.5</td>
+          <td class="num">2.8</td>
+          <td class="num">3.2</td>
+          <td class="num">3.5</td>
+          <td class="num">3.9</td>
+          <td class="num">4.2</td>
+          <td class="num">4.6</td>
+          <td class="num">5.0</td>
+          <td class="num">5.5</td>
+        </tr>
+        <tr>
+          <td>Shrinkage mm [Y]</td>
+          <td class="num">0.45</td>
+          <td class="num">0.52</td>
+          <td class="num">0.58</td>
+          <td class="num">0.65</td>
+          <td class="num">0.70</td>
+          <td class="num">0.78</td>
+          <td class="num">0.85</td>
+          <td class="num">0.91</td>
+          <td class="num">0.98</td>
+          <td class="num">1.05</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>Step 1 &mdash; Compute the means</h4>
+    <p><span class="math">x&#772; = 37.3 / 10 = 3.73 %</span></p>
+    <p><span class="math">y&#772; = 7.47 / 10 = 0.747 mm</span></p>
+
+    <h4>Step 2 &mdash; Build the deviation table</h4>
+
+    <table>
+      <thead>
+        <tr>
+          <th>i</th>
+          <th>x &minus; x&#772;</th>
+          <th>y &minus; y&#772;</th>
+          <th>(x&minus;x&#772;)(y&minus;y&#772;)</th>
+          <th>(x&minus;x&#772;)&sup2;</th>
+          <th>(y&minus;y&#772;)&sup2;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td class="num">&minus;1.63</td>
+          <td class="num">&minus;0.297</td>
+          <td class="num">0.4841</td>
+          <td class="num">2.6569</td>
+          <td class="num">0.0882</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td class="num">&minus;1.23</td>
+          <td class="num">&minus;0.227</td>
+          <td class="num">0.2792</td>
+          <td class="num">1.5129</td>
+          <td class="num">0.0515</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td class="num">&minus;0.93</td>
+          <td class="num">&minus;0.167</td>
+          <td class="num">0.1553</td>
+          <td class="num">0.8649</td>
+          <td class="num">0.0279</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td class="num">&minus;0.53</td>
+          <td class="num">&minus;0.097</td>
+          <td class="num">0.0514</td>
+          <td class="num">0.2809</td>
+          <td class="num">0.0094</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td class="num">&minus;0.23</td>
+          <td class="num">&minus;0.047</td>
+          <td class="num">0.0108</td>
+          <td class="num">0.0529</td>
+          <td class="num">0.0022</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td class="num">0.17</td>
+          <td class="num">0.033</td>
+          <td class="num">0.0056</td>
+          <td class="num">0.0289</td>
+          <td class="num">0.0011</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td class="num">0.47</td>
+          <td class="num">0.103</td>
+          <td class="num">0.0484</td>
+          <td class="num">0.2209</td>
+          <td class="num">0.0106</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td class="num">0.87</td>
+          <td class="num">0.163</td>
+          <td class="num">0.1418</td>
+          <td class="num">0.7569</td>
+          <td class="num">0.0266</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td class="num">1.27</td>
+          <td class="num">0.233</td>
+          <td class="num">0.2959</td>
+          <td class="num">1.6129</td>
+          <td class="num">0.0543</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td class="num">1.77</td>
+          <td class="num">0.303</td>
+          <td class="num">0.5363</td>
+          <td class="num">3.1329</td>
+          <td class="num">0.0918</td>
+        </tr>
+        <tr>
+          <td><strong>&Sigma;</strong></td>
+          <td>&mdash;</td>
+          <td>&mdash;</td>
+          <td class="num"><strong>2.009</strong></td>
+          <td class="num"><strong>11.121</strong></td>
+          <td class="num"><strong>0.364</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>Step 3 &mdash; Pearson r</h4>
+    <div class="formula">
+      r = 2.009 / &radic;(11.121 &times; 0.364) = 2.009 / &radic;4.048 = 2.009 / 2.012 &asymp; <strong
+        style="color:var(--accent-soft)">+0.998</strong>
+    </div>
+
+    <h4>Step 4 &mdash; Slope and intercept of the regression line</h4>
+    <div class="formula">
+      b = 2.009 / 11.121 &asymp; 0.181<br>
+      a = 0.747 &minus; 0.181 &times; 3.73 &asymp; 0.074<br>
+      <strong>Shrinkage &asymp; 0.074 + 0.181 &times; Moisture %</strong>
+    </div>
+
+    <div class="key-takeaway">
+      <p><strong>Memo to the foundry supervisor:</strong></p>
+      <p>With Pearson <strong>r &asymp; +0.998</strong> (R&sup2; &asymp; 0.997), the linear relationship between
+        sand moisture content and casting shrinkage is essentially perfect. Approximately 99.7% of the variation in
+        shrinkage is explained by variation in moisture content. Because |r| &raquo; 0.8, moisture is conclusively
+        a <em>driving variable</em> for shrinkage.</p>
+      <p><strong>Recommended action:</strong> tighten the foundry SOP to hold sand moisture below 3.0%, keeping
+        shrinkage below &asymp; 0.62 mm &mdash; within design tolerance for the aluminum housings.</p>
+    </div>
+
+    <h3 id="scatter-causation"><span class="num">65</span>The Killer Final Point &mdash; Correlation &ne; Causation
+    </h3>
+
+    <div class="warning">
+      <strong>Critical warning:</strong> Just because two variables move together on a graph does <em>not</em>
+      guarantee that one causes the other. They might both be reacting to a hidden third variable.
+    </div>
+
+    <p>Classic counter-example: ice-cream sales and drowning deaths both rise in summer. There's no causation
+      between them &mdash; both are driven by ambient temperature.</p>
+
+    <p>Manufacturing version: machine vibration and surface defects might rise simultaneously not because
+      vibration causes defects, but because high ambient temperature causes both. Reducing vibration won't help.
+      <strong>Always combine statistical plots with engineering logic.</strong>
+    </p>
+
+    <div class="key-takeaway">
+      <p><strong>Scatter Plots in one line:</strong> the bridge between guessing and knowing. They prove, with a
+        single number r, whether changing X will actually move Y &mdash; but only engineering judgement decides
+        <em>whether the relationship is causal</em>.
+      </p>
+    </div>
+
+
+    <!-- ==================== PART XIV · MULTIVARIABLE CHARTS ==================== -->
+    <div class="part">
+      <div class="part-num">Part XIV · Multivariable Charts · Lab</div>
+      <h2>Where Does the Variation Actually Come From?</h2>
+      <p class="lead">Total process variation is almost always dominated by <em>one</em> source. Multivariable
+        charts plot the data hierarchically so the dominant source becomes <em>visible</em> &mdash; before any
+        ANOVA, before any Taguchi, before anyone wastes a week tweaking the wrong knob.</p>
+    </div>
+
+    <h3 id="mv-intro"><span class="num">66</span>What is a Multivariable Chart?</h3>
+
+    <div class="def-box">
+      <span class="label">Definition &middot; Multivariable Chart</span>
+      <p><strong>A visual tool used to analyse the variation in a process by breaking it down into three distinct
+          categories: Positional (within-part), Cyclical (part-to-part), and Temporal
+          (time-to-time).</strong></p>
+    </div>
+
+    <p>The <strong>main idea</strong> is that overall process variation is almost always <em>dominated by ONE
+        major source</em>. Rather than dive straight into expensive ANOVA mathematics, we plot the data
+      hierarchically so we can <em>physically see</em> where the largest spread is. The eye is faster than the
+      calculator.</p>
+
+    <h4>Why it is useful</h4>
+    <p>It <strong>rapidly narrows the search area</strong> for root-cause analysis. The chart tells the engineer
+      &ldquo;look at tool wear&rdquo; or &ldquo;look at ambient temperature&rdquo; instead of leaving them to
+      blindly tweak every machine parameter at once.</p>
+
+    <h3 id="mv-where"><span class="num">67</span>Where Multivariable Charts Are Used in Industry</h3>
+
+    <p>Critical anywhere there is complex tooling with multiple potential variation sources:</p>
+
+    <ul>
+      <li><strong>CNC Machining</strong> &mdash; is a shaft <em>tapered</em> along its length (positional) or is
+        the average diameter <em>shrinking</em> across the batch as the tool dulls (cyclical)?</li>
+      <li><strong>Injection Molding</strong> &mdash; comparing Cavity 1 vs Cavity 2 (positional inside the mold)
+        against Shift 1 vs Shift 2 (temporal).</li>
+      <li><strong>Coating / Plating</strong> &mdash; measuring paint or plating thickness at the edge vs the
+        centre of an aerospace panel (positional within a single panel).</li>
+    </ul>
+
+    <p><strong>Industrial purpose:</strong> prevent engineers from adjusting the <em>wrong</em> parameters by
+      proving exactly <em>when</em> and <em>where</em> the variation occurs.</p>
+
+    <h3 id="mv-three"><span class="num">68</span>The Three Sources of Variation &mdash; Define Each Precisely</h3>
+
+    <div class="def-box">
+      <span class="label">1. Positional &middot; Within-Part</span>
+      <p>Variation appearing on a <em>single unit</em>, at different physical locations on that unit.</p>
+      <p><em>Examples:</em> a cylinder that is out of round &middot; a shaft thicker at the top than the bottom
+        &middot; paint thickness at the edge of a panel differing from at the centre.</p>
+    </div>
+
+    <div class="def-box">
+      <span class="label">2. Cyclical &middot; Part-to-Part</span>
+      <p>Variation between <em>consecutive units</em> produced in the same batch.</p>
+      <p><em>Example:</em> Part 1 is perfectly sized, Part 2 is slightly smaller, Part 3 is smaller still &mdash;
+        a classic signature of <strong>tool wear</strong> accumulating across a batch.</p>
+    </div>
+
+    <div class="def-box">
+      <span class="label">3. Temporal &middot; Time-to-Time</span>
+      <p>Variation occurring <em>hour-to-hour, shift-to-shift, day-to-day</em>.</p>
+      <p><em>Example:</em> the morning shift produces different dimensions than the night shift because ambient
+        factory temperature has changed.</p>
+    </div>
+
+    <div class="exam-tip">Memory hook: <strong>P&middot;C&middot;T</strong>. Positional = "where on one part."
+      Cyclical = "next part vs this part." Temporal = "different time."</div>
+
+    <h3 id="mv-read"><span class="num">69</span>How to Read a Multivariable Chart Visually</h3>
+
+    <p>This <em>is</em> the whole technique. When you look at the plotted chart, check three spreads:</p>
+
+    <ul>
+      <li><strong>Long vertical spread within a single time-point or part</strong> (the L-C-R or
+        Cavity-1-through-4 lines stretch far apart vertically at one X-position) &rarr; <strong>Positional
+          variation is dominant.</strong></li>
+      <li><strong>Large jumps between consecutive parts at the same time</strong> (Blade A and Blade B are far
+        apart within the same batch) &rarr; <strong>Cyclical variation is dominant.</strong></li>
+      <li><strong>Whole cluster of points shifts up or down between time periods</strong> (an entire batch sits at
+        a totally different height from another batch) &rarr; <strong>Temporal variation is dominant.</strong>
+      </li>
+    </ul>
+
+    <div class="key-takeaway">
+      <p><strong>Decision rule:</strong> whichever spread is biggest is your culprit. It's that simple.</p>
+    </div>
+
+    <h3 id="mv-origin"><span class="num">70</span>The Origin Pro Workflow</h3>
+
+    <p>The data must be structured in <strong>three columns</strong>:</p>
+    <ul>
+      <li><strong>A(X)</strong> &mdash; the outer axis (Part number or Time / Shift).</li>
+      <li><strong>B(Y)</strong> &mdash; the inner Category (Left/Centre/Right, or Cavity 1/2/3/4).</li>
+      <li><strong>C(Y)</strong> &mdash; the actual Measurement value.</li>
+    </ul>
+
+    <ol>
+      <li>Highlight all three columns.</li>
+      <li>Go to <strong>Plot &rarr; Categorical &rarr; Grouped Scatter</strong>.</li>
+      <li>Assign the X-axis to your Part/Time column, and the Grouping/Color to your Category column.</li>
+      <li>Double-click a plotted point &rarr; open the <strong>Drop Lines</strong> or <strong>Line</strong> tab
+        &rarr; tick <strong>&ldquo;Connect Data Points within Group&rdquo;</strong>. This draws the
+        vertical/horizontal spans that reveal the variation pattern.</li>
+    </ol>
+
+    <h3 id="mv-prob1"><span class="num">71</span>Worked Problem 1 &mdash; CNC Shaft Tapering</h3>
+
+    <p><strong>Scenario:</strong> A CNC lathe produces steel drive shafts. Target diameter = 20.0 mm. QC measures
+      three positions (Left, Centre, Right) on three consecutive parts.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Part</th>
+          <th>Left (mm)</th>
+          <th>Centre (mm)</th>
+          <th>Right (mm)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Part 1</td>
+          <td class="num">20.10</td>
+          <td class="num">20.05</td>
+          <td class="num">19.90</td>
+        </tr>
+        <tr>
+          <td>Part 2</td>
+          <td class="num">20.08</td>
+          <td class="num">20.04</td>
+          <td class="num">19.88</td>
+        </tr>
+        <tr>
+          <td>Part 3</td>
+          <td class="num">20.09</td>
+          <td class="num">20.06</td>
+          <td class="num">19.91</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="chart-wrap">
+      <svg viewBox="0 0 640 380" xmlns="http://www.w3.org/2000/svg" role="img"
+        aria-label="Multivariable chart: diameter vs part number, grouped by position">
+        <!-- Axes -->
+        <line x1="80" y1="320" x2="600" y2="320" stroke="#1a1a1a" stroke-width="1.5" />
+        <line x1="80" y1="40" x2="80" y2="320" stroke="#1a1a1a" stroke-width="1.5" />
+        <!-- Gridlines -->
+        <g stroke="#d8cfc0" stroke-width="0.5" stroke-dasharray="3,3">
+          <line x1="80" y1="80" x2="600" y2="80" />
+          <line x1="80" y1="136" x2="600" y2="136" />
+          <line x1="80" y1="192" x2="600" y2="192" />
+          <line x1="80" y1="248" x2="600" y2="248" />
+        </g>
+        <!-- Y-axis labels: 19.85 to 20.15 -->
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="#6b6356" text-anchor="end">
+          <text x="74" y="324">19.85</text>
+          <text x="74" y="268">19.90</text>
+          <text x="74" y="212">19.95</text>
+          <text x="74" y="156">20.00</text>
+          <text x="74" y="100">20.05</text>
+          <text x="74" y="44">20.10</text>
+        </g>
+        <!-- X-axis labels: 3 parts -->
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="#6b6356" text-anchor="middle">
+          <text x="200" y="338">Part 1</text>
+          <text x="340" y="338">Part 2</text>
+          <text x="480" y="338">Part 3</text>
+        </g>
+        <text x="340" y="365" font-family="Lora, serif" font-size="13" fill="#1a1a1a" text-anchor="middle"
+          font-style="italic">Part Number</text>
+        <text x="22" y="180" font-family="Lora, serif" font-size="13" fill="#1a1a1a" text-anchor="middle"
+          font-style="italic" transform="rotate(-90 22 180)">Diameter (mm)</text>
+        <!-- y mapping: pixel_y = 320 - ((value - 19.85)/0.30)*280 -->
+        <!-- Left:  20.10 -> 320 - (0.25/0.30)*280 = 320 - 233.3 = 86.7
+                    20.08 -> 320 - (0.23/0.30)*280 = 320 - 214.7 = 105.3
+                    20.09 -> 320 - 224 = 96 -->
+        <!-- Centre:20.05 -> 320 - (0.20/0.30)*280 = 320 - 186.7 = 133.3
+                    20.04 -> 320 - (0.19/0.30)*280 = 320 - 177.3 = 142.7
+                    20.06 -> 320 - (0.21/0.30)*280 = 320 - 196   = 124 -->
+        <!-- Right: 19.90 -> 320 - (0.05/0.30)*280 = 320 - 46.7  = 273.3
+                    19.88 -> 320 - (0.03/0.30)*280 = 320 - 28    = 292
+                    19.91 -> 320 - (0.06/0.30)*280 = 320 - 56    = 264 -->
+        <!-- Connecting lines per group -->
+        <polyline points="200,86.7 340,105.3 480,96" stroke="#1a1a1a" stroke-width="1.5" fill="none" opacity="0.7" />
+        <polyline points="200,133.3 340,142.7 480,124" stroke="#8b2635" stroke-width="1.5" fill="none" opacity="0.7" />
+        <polyline points="200,273.3 340,292 480,264" stroke="#2d6a3e" stroke-width="1.5" fill="none" opacity="0.7" />
+        <!-- Left points: black squares -->
+        <g fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1">
+          <rect x="194" y="80.7" width="12" height="12" />
+          <rect x="334" y="99.3" width="12" height="12" />
+          <rect x="474" y="90" width="12" height="12" />
+        </g>
+        <!-- Centre points: burgundy circles -->
+        <g fill="#8b2635" stroke="#1a1a1a" stroke-width="1">
+          <circle cx="200" cy="133.3" r="6" />
+          <circle cx="340" cy="142.7" r="6" />
+          <circle cx="480" cy="124" r="6" />
+        </g>
+        <!-- Right points: green triangles -->
+        <g fill="#2d6a3e" stroke="#1a1a1a" stroke-width="1">
+          <polygon points="200,267.3 207,279.3 193,279.3" />
+          <polygon points="340,286 347,298 333,298" />
+          <polygon points="480,258 487,270 473,270" />
+        </g>
+        <text x="340" y="26" font-family="Fraunces, serif" font-size="15" font-weight="700" fill="#1a1a1a"
+          text-anchor="middle">Diameter vs Part Number &mdash; Positional Dominates</text>
+        <!-- Legend -->
+        <g font-family="JetBrains Mono, monospace" font-size="10">
+          <rect x="510" y="46" width="10" height="10" fill="#1a1a1a" />
+          <text x="525" y="55" fill="#1a1a1a">Left</text>
+          <circle cx="515" cy="68" r="5" fill="#8b2635" />
+          <text x="525" y="71" fill="#1a1a1a">Centre</text>
+          <polygon points="515,81 519,89 511,89" fill="#2d6a3e" />
+          <text x="525" y="89" fill="#1a1a1a">Right</text>
+        </g>
+      </svg>
+    </div>
+
+    <h4>Compute the three spreads</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Source</th>
+          <th>Calculation</th>
+          <th>Typical Spread</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Positional</strong> (Left &minus; Right on each part)</td>
+          <td class="num">0.20 / 0.20 / 0.18 mm</td>
+          <td class="num"><strong>&asymp; 0.20 mm</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Cyclical</strong> (Left across parts: 20.10 / 20.08 / 20.09)</td>
+          <td class="num">range 0.02 mm</td>
+          <td class="num">&asymp; 0.02 mm</td>
+        </tr>
+        <tr>
+          <td><strong>Temporal</strong></td>
+          <td>only one time period &mdash; N/A</td>
+          <td>&mdash;</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>Positional &asymp; 10&times; larger than Cyclical.</strong> The vertical spread inside each part
+      dwarfs the horizontal spread across parts.</p>
+
+    <div class="key-takeaway">
+      <p><strong>Conclusion:</strong> Dominant source = <em>Positional</em>.</p>
+      <p><strong>Correct action:</strong> Do <em>not</em> change the cutting tool (that would address cyclical
+        wear, which isn't the problem). Realign the CNC <strong>tailstock</strong>. A misaligned tailstock applies
+        an off-axis force during turning, causing a consistent left-to-right taper that repeats on <em>every</em>
+        part &mdash; exactly the pattern we observe.</p>
+    </div>
+
+    <h3 id="mv-prob2"><span class="num">72</span>Worked Problem 2 &mdash; Injection Molding Shift Variance</h3>
+
+    <p><strong>Scenario:</strong> A plastic injection-molding machine has a 4-cavity die producing identical
+      polymer gears. We measure thickness from Cavities 1, 2, 3, 4 across three manufacturing shifts (Morning,
+      Afternoon, Night).</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Shift</th>
+          <th>Cavity 1</th>
+          <th>Cavity 2</th>
+          <th>Cavity 3</th>
+          <th>Cavity 4</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Morning</td>
+          <td class="num">5.01</td>
+          <td class="num">5.02</td>
+          <td class="num">5.00</td>
+          <td class="num">5.01</td>
+        </tr>
+        <tr>
+          <td>Afternoon</td>
+          <td class="num">5.02</td>
+          <td class="num">5.03</td>
+          <td class="num">5.01</td>
+          <td class="num">5.02</td>
+        </tr>
+        <tr>
+          <td>Night</td>
+          <td class="num">5.45</td>
+          <td class="num">5.46</td>
+          <td class="num">5.44</td>
+          <td class="num">5.45</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="chart-wrap">
+      <svg viewBox="0 0 640 380" xmlns="http://www.w3.org/2000/svg" role="img"
+        aria-label="Multivariable chart: gear thickness vs shift, grouped by cavity">
+        <!-- Axes -->
+        <line x1="80" y1="320" x2="600" y2="320" stroke="#1a1a1a" stroke-width="1.5" />
+        <line x1="80" y1="40" x2="80" y2="320" stroke="#1a1a1a" stroke-width="1.5" />
+        <!-- Gridlines -->
+        <g stroke="#d8cfc0" stroke-width="0.5" stroke-dasharray="3,3">
+          <line x1="80" y1="78" x2="600" y2="78" />
+          <line x1="80" y1="138" x2="600" y2="138" />
+          <line x1="80" y1="198" x2="600" y2="198" />
+          <line x1="80" y1="258" x2="600" y2="258" />
+        </g>
+        <!-- Y-axis labels: 4.9 to 5.5 -->
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="#6b6356" text-anchor="end">
+          <text x="74" y="324">4.9</text>
+          <text x="74" y="264">5.0</text>
+          <text x="74" y="204">5.1</text>
+          <text x="74" y="144">5.2</text>
+          <text x="74" y="84">5.3</text>
+          <text x="74" y="44">5.4</text>
+        </g>
+        <!-- X-axis labels: shifts -->
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="#6b6356" text-anchor="middle">
+          <text x="180" y="338">Morning</text>
+          <text x="340" y="338">Afternoon</text>
+          <text x="500" y="338">Night</text>
+        </g>
+        <text x="340" y="365" font-family="Lora, serif" font-size="13" fill="#1a1a1a" text-anchor="middle"
+          font-style="italic">Shift</text>
+        <text x="22" y="180" font-family="Lora, serif" font-size="13" fill="#1a1a1a" text-anchor="middle"
+          font-style="italic" transform="rotate(-90 22 180)">Thickness (mm)</text>
+        <!-- y mapping: pixel_y = 320 - ((value - 4.9)/0.6)*280; 5.0->260, 5.1->200, 5.2->140, 5.3->80, 5.4->20 ; so 5.45 -> -10 (clipped to ~14) -->
+        <!-- recompute: ratio = (val-4.9)/0.6; 5.01 -> 0.11/0.6 = 0.1833 -> 320 - 51.3 = 268.7
+                                   5.02 -> 0.12/0.6 = 0.20  -> 320 - 56 = 264
+                                   5.00 -> 0.10/0.6 = 0.1667 -> 320 - 46.7 = 273.3
+                                   5.03 -> 0.13/0.6 = 0.2167 -> 320 - 60.7 = 259.3
+                                   5.44 -> 0.54/0.6 = 0.9 -> 320 - 252 = 68
+                                   5.45 -> 0.55/0.6 = 0.917 -> 320 - 256.7 = 63.3
+                                   5.46 -> 0.56/0.6 = 0.933 -> 320 - 261.3 = 58.7 -->
+        <!-- Lines per cavity: cav1 (5.01,5.02,5.45) cav2 (5.02,5.03,5.46) cav3 (5.00,5.01,5.44) cav4 (5.01,5.02,5.45) -->
+        <polyline points="180,268.7 340,264 500,63.3" stroke="#1a1a1a" stroke-width="1.5" fill="none" opacity="0.6" />
+        <polyline points="180,264 340,259.3 500,58.7" stroke="#8b2635" stroke-width="1.5" fill="none" opacity="0.6" />
+        <polyline points="180,273.3 340,268.7 500,68" stroke="#2d6a3e" stroke-width="1.5" fill="none" opacity="0.6" />
+        <polyline points="180,268.7 340,264 500,63.3" stroke="#c8590e" stroke-width="1.5" fill="none" opacity="0.4"
+          stroke-dasharray="4,2" />
+        <!-- Points -->
+        <g stroke="#1a1a1a" stroke-width="1">
+          <!-- Cav1 black squares (offset slightly) -->
+          <rect x="172" y="262.7" width="10" height="10" fill="#1a1a1a" />
+          <rect x="332" y="258" width="10" height="10" fill="#1a1a1a" />
+          <rect x="492" y="57.3" width="10" height="10" fill="#1a1a1a" />
+          <!-- Cav2 burgundy circles -->
+          <circle cx="183" cy="264" r="5" fill="#8b2635" />
+          <circle cx="343" cy="259.3" r="5" fill="#8b2635" />
+          <circle cx="503" cy="58.7" r="5" fill="#8b2635" />
+          <!-- Cav3 green triangles -->
+          <polygon points="180,267 186,279 174,279" fill="#2d6a3e" />
+          <polygon points="340,262.4 346,274.4 334,274.4" fill="#2d6a3e" />
+          <polygon points="500,62 506,74 494,74" fill="#2d6a3e" />
+          <!-- Cav4 orange diamonds -->
+          <polygon points="178,268.7 186,275.7 178,282.7 170,275.7" fill="#c8590e" />
+          <polygon points="338,264 346,271 338,278 330,271" fill="#c8590e" />
+          <polygon points="498,63.3 506,70.3 498,77.3 490,70.3" fill="#c8590e" />
+        </g>
+        <text x="340" y="26" font-family="Fraunces, serif" font-size="15" font-weight="700" fill="#1a1a1a"
+          text-anchor="middle">Thickness vs Shift &mdash; Temporal Dominates</text>
+        <!-- Big arrow showing temporal jump -->
+        <text x="555" y="170" font-family="JetBrains Mono, monospace" font-size="10" fill="#c8590e" font-weight="700"
+          text-anchor="middle">+0.44 mm</text>
+        <text x="555" y="184" font-family="JetBrains Mono, monospace" font-size="10" fill="#c8590e" font-weight="700"
+          text-anchor="middle">jump!</text>
+        <!-- Legend -->
+        <g font-family="JetBrains Mono, monospace" font-size="10">
+          <rect x="100" y="46" width="10" height="10" fill="#1a1a1a" />
+          <text x="115" y="55" fill="#1a1a1a">Cav 1</text>
+          <circle cx="105" cy="68" r="5" fill="#8b2635" />
+          <text x="115" y="71" fill="#1a1a1a">Cav 2</text>
+          <polygon points="105,81 110,90 100,90" fill="#2d6a3e" />
+          <text x="115" y="89" fill="#1a1a1a">Cav 3</text>
+          <polygon points="105,98 111,103 105,108 99,103" fill="#c8590e" />
+          <text x="115" y="107" fill="#1a1a1a">Cav 4</text>
+        </g>
+      </svg>
+    </div>
+
+    <h4>Compute the three spreads</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Source</th>
+          <th>Calculation</th>
+          <th>Typical Spread</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Positional</strong> (Cavity-to-Cavity within a shift)</td>
+          <td class="num">e.g., Night: 5.46 &minus; 5.44</td>
+          <td class="num">&asymp; 0.02 mm</td>
+        </tr>
+        <tr>
+          <td><strong>Cyclical</strong></td>
+          <td>not meaningful here &mdash; cavities are positional</td>
+          <td>&mdash;</td>
+        </tr>
+        <tr>
+          <td><strong>Temporal</strong> (Shift average jump)</td>
+          <td class="num">Morning 5.010 &rarr; Night 5.450</td>
+          <td class="num"><strong>&asymp; 0.44 mm</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>Temporal &asymp; 22&times; larger than Positional.</strong> The cluster of cavity points sits at the
+      same height in Morning and Afternoon, then jumps massively at Night.</p>
+
+    <div class="key-takeaway">
+      <p><strong>Conclusion:</strong> Dominant source = <em>Temporal</em>.</p>
+      <p><strong>Correct action:</strong> Do <em>not</em> swap out cavities &mdash; all four are working perfectly.
+        Investigate the <strong>Night shift specifically</strong>: ambient factory temperature dropping/rising,
+        operators manually overriding the chiller setpoints, different material-batch warming overnight, or
+        different machine warm-up timing after shift change.</p>
+    </div>
+
+    <h3 id="mv-assignment"><span class="num">73</span>Assignment &mdash; Turbine Blade Hardness (Fully Solved)</h3>
+
+    <p><strong>Scenario:</strong> A heat-treatment facility is evaluating hardness (HRC) of forged steel turbine
+      blades. They pull <strong>2 blades</strong> from <strong>3 consecutive batches</strong>. On each blade, they
+      measure hardness at Root, Pitch, and Tip.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Batch (Time)</th>
+          <th>Blade (Part)</th>
+          <th>Root</th>
+          <th>Pitch</th>
+          <th>Tip</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Batch 1</td>
+          <td>Blade A</td>
+          <td class="num">45</td>
+          <td class="num">45</td>
+          <td class="num">44</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Blade B</td>
+          <td class="num">44</td>
+          <td class="num">45</td>
+          <td class="num">46</td>
+        </tr>
+        <tr>
+          <td>Batch 2</td>
+          <td>Blade C</td>
+          <td class="num">40</td>
+          <td class="num">41</td>
+          <td class="num">39</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Blade D</td>
+          <td class="num">39</td>
+          <td class="num">40</td>
+          <td class="num">41</td>
+        </tr>
+        <tr>
+          <td>Batch 3</td>
+          <td>Blade E</td>
+          <td class="num">46</td>
+          <td class="num">45</td>
+          <td class="num">45</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Blade F</td>
+          <td class="num">45</td>
+          <td class="num">46</td>
+          <td class="num">45</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>Step 1 &mdash; Positional spread (within each blade, Root to Tip)</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Blade</th>
+          <th>Root</th>
+          <th>Tip</th>
+          <th>|Root &minus; Tip|</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A</td>
+          <td class="num">45</td>
+          <td class="num">44</td>
+          <td class="num">1</td>
+        </tr>
+        <tr>
+          <td>B</td>
+          <td class="num">44</td>
+          <td class="num">46</td>
+          <td class="num">2</td>
+        </tr>
+        <tr>
+          <td>C</td>
+          <td class="num">40</td>
+          <td class="num">39</td>
+          <td class="num">1</td>
+        </tr>
+        <tr>
+          <td>D</td>
+          <td class="num">39</td>
+          <td class="num">41</td>
+          <td class="num">2</td>
+        </tr>
+        <tr>
+          <td>E</td>
+          <td class="num">46</td>
+          <td class="num">45</td>
+          <td class="num">1</td>
+        </tr>
+        <tr>
+          <td>F</td>
+          <td class="num">45</td>
+          <td class="num">45</td>
+          <td class="num">0</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Typical positional spread &asymp; <strong>1 &ndash; 2 HRC</strong>.</p>
+
+    <h4>Step 2 &mdash; Cyclical spread (between blades in the same batch)</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Batch</th>
+          <th>Blade-A-avg</th>
+          <th>Blade-B-avg</th>
+          <th>|diff|</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td class="num">44.67</td>
+          <td class="num">45.00</td>
+          <td class="num">0.33</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td class="num">40.00</td>
+          <td class="num">40.00</td>
+          <td class="num">0.00</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td class="num">45.33</td>
+          <td class="num">45.33</td>
+          <td class="num">0.00</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Typical cyclical spread &asymp; <strong>0 &ndash; 0.3 HRC</strong> (essentially zero).</p>
+
+    <h4>Step 3 &mdash; Temporal spread (between batches)</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Batch</th>
+          <th>Calculation</th>
+          <th>Grand Average</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td class="num">(45+45+44+44+45+46)/6</td>
+          <td class="num">44.83</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td class="num">(40+41+39+39+40+41)/6</td>
+          <td class="num">40.00</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td class="num">(46+45+45+45+46+45)/6</td>
+          <td class="num">45.33</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Range across batches &asymp; 45.33 &minus; 40.00 = <strong>5.33 HRC</strong>.</p>
+
+    <h4>Step 4 &mdash; Compare</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Source</th>
+          <th>Typical Spread</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Positional</td>
+          <td class="num">1 &ndash; 2 HRC</td>
+        </tr>
+        <tr>
+          <td>Cyclical</td>
+          <td class="num">&asymp; 0 HRC</td>
+        </tr>
+        <tr>
+          <td><strong>Temporal</strong></td>
+          <td class="num"><strong>&asymp; 5.33 HRC &larr; dominant</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="key-takeaway">
+      <p><strong>Memo to the Heat-Treatment Supervisor:</strong></p>
+      <p>Plotting the data as a multivariable chart with Batch on the X-axis, Blade-position (Root / Pitch / Tip)
+        as the grouping category, and HRC on the Y-axis, the dominant source of variation is <strong>Temporal
+        </strong>. Within-blade (positional) spread is only 1&ndash;2 HRC, and between-blade (cyclical) spread
+        within the same batch is essentially zero. However, the grand average jumps from 44.8 HRC (Batch 1) to
+        40.0 HRC (Batch 2) and back up to 45.3 HRC (Batch 3) &mdash; a swing of 5.3 HRC. Batch 2 was clearly
+        under-hardened.</p>
+      <p><strong>Recommended investigation:</strong> examine Batch 2's heat-treatment cycle specifically &mdash;
+        furnace temperature setpoint versus actual achieved temperature, quench-medium temperature and
+        contamination, soak time, and operator change. Tooling (positional uniformity) and process control
+        (cyclical consistency) are both healthy; <em>the time-period is the problem</em>.</p>
+    </div>
+
+    <h3 id="mv-before-doe"><span class="num">74</span>Why Multivariable Charts Come <em>Before</em> Taguchi DoE
+    </h3>
+
+    <p>Two statements to commit to memory.</p>
+
+    <ol>
+      <li><strong>Multivariable charts don't fix anything; they're a <em>map</em> telling you where to look.</strong>
+        They reduce the search space for root-cause analysis from &ldquo;everything&rdquo; to &ldquo;this one
+        specific source.&rdquo;</li>
+      <li><strong>Always run a Multivariable chart <em>before</em> designing a Taguchi DoE.</strong> If your
+        process has high <em>Temporal</em> variation &mdash; drifting day-to-day from ambient conditions &mdash;
+        then any DoE you run will be ruined by background noise. Your factor effects will be confounded with
+        time-drift, and your conclusions will be wrong. You need a temporally stable process to experiment on,
+        otherwise you're optimising inside a moving target.</li>
+    </ol>
+
+    <div class="exam-tip">If a question gives you a process with shifting daily means and asks &ldquo;should you run a
+      Taguchi DoE on this?&rdquo; &mdash; the answer is <strong>no, first stabilise the Temporal variation</strong>
+      (find and fix whatever drifts day-to-day), then DoE the now-stable process.</div>
+
+    <div class="key-takeaway">
+      <p><strong>Multivariable charts in one line:</strong> a fast visual triage that decides which of three
+        variation buckets &mdash; Positional, Cyclical, or Temporal &mdash; is eating your tolerance, so you can
+        attack the right source and stop wasting effort on the wrong ones.</p>
+    </div>
+
+
     <!-- ==================== EXAM CHEAT SHEET ==================== -->
     <div class="part">
       <div class="part-num">Final · The Night-Before-Exam Recap</div>
       <h2>One-Page Cheat Sheet</h2>
     </div>
 
-    <h3 id="exam-cheat"><span class="num">57</span>Everything That Could Be on Tomorrow's Paper</h3>
+    <h3 id="exam-cheat"><span class="num">75</span>Everything That Could Be on Tomorrow's Paper</h3>
 
     <h4>Theory — short-answer ammunition</h4>
     <ul>
@@ -4822,6 +6215,29 @@
         (seconds-minutes, R<sub>a</sub>C<sub>a</sub>) · Concentration (minutes-hours, R<sub>c</sub>C<sub>c</sub>).</li>
       <li><strong>Polarisation defined:</strong> voltage losses caused by electrochemical processes during
         charge/discharge — reason V<sub>L</sub> ≠ V<sub>oc</sub> under load.</li>
+      <li><strong>Scatter Plot:</strong> 2D graph of two continuous variables. X = cause/input, Y =
+        effect/output. Tests whether X drives Y.</li>
+      <li><strong>Correlation types:</strong> Positive (X↑Y↑) · Negative (X↑Y↓) · None (random scatter) · Non-linear
+        (curved).</li>
+      <li><strong>Pearson r:</strong> ranges −1 to +1; r = ±1 perfect linear; r = 0 no linear relation. <strong>|r|
+          &gt; 0.8</strong> = strong, use X to control Y; <strong>|r| &lt; 0.3</strong> = weak, don't bother.
+        R&sup2; = r&sup2; = fraction of variance in Y explained by X.</li>
+      <li><strong>Origin Pro scatter workflow:</strong> Plot → Basic 2D → Scatter; then Analysis → Fitting →
+        Linear Fit → reports slope, intercept, r, R&sup2;.</li>
+      <li><strong>Critical warning:</strong> <em>Correlation &ne; Causation</em>. Two variables moving together
+        may both be driven by a hidden third variable. Combine statistics with engineering logic.</li>
+      <li><strong>Multivariable Chart:</strong> visual triage of three variation sources — Positional, Cyclical,
+        Temporal — to find which one dominates before doing ANOVA or DoE.</li>
+      <li><strong>Positional</strong> = within-part (left vs right, edge vs centre); <strong>Cyclical</strong> =
+        part-to-part in a batch (often tool wear); <strong>Temporal</strong> = time-to-time, shift-to-shift,
+        batch-to-batch.</li>
+      <li><strong>Reading the MV chart:</strong> long vertical spread within one X-point = Positional dominant;
+        big jumps between consecutive parts = Cyclical dominant; whole cluster shifts up/down between time
+        periods = Temporal dominant. Biggest spread wins.</li>
+      <li><strong>Origin Pro MV workflow:</strong> 3 columns (Time, Category, Measurement) → Plot → Categorical →
+        Grouped Scatter → tick &ldquo;Connect Data Points within Group&rdquo;.</li>
+      <li><strong>Pre-DoE rule:</strong> Always run a Multivariable chart <em>before</em> a Taguchi experiment. If
+        Temporal variation is high, the DoE will be polluted by background noise.</li>
     </ul>
 
     <h4>Numerical — the formulas you'll need</h4>
@@ -4870,6 +6286,15 @@
         R<sub>c</sub>·C<sub>c</sub> (concentration). For charging, signs flip.</span>
     </div>
 
+    <div class="formula">
+      <strong>Pearson Correlation r:</strong><br>
+      r = Σ(x<sub>i</sub> − x̄)(y<sub>i</sub> − ȳ) / √[ Σ(x<sub>i</sub> − x̄)² · Σ(y<sub>i</sub> − ȳ)² ]<br><br>
+      <strong>Linear regression line:</strong><br>
+      slope b = Σ(x<sub>i</sub> − x̄)(y<sub>i</sub> − ȳ) / Σ(x<sub>i</sub> − x̄)²<br>
+      intercept a = ȳ − b·x̄<br>
+      <span class="note">R² = r². |r| &gt; 0.8 = strong; |r| &lt; 0.3 = useless.</span>
+    </div>
+
     <h4>Pareto numerical recipe (10 sec walkthrough)</h4>
     <ol>
       <li>Total cost = frequency × unit cost (do this for every row).</li>
@@ -4883,7 +6308,8 @@
     <h4>Control-chart workflow (the exam pattern)</h4>
     <ol>
       <li>Identify chart type from the question: <em>"proportion defective"</em> → p; <em>"defects per unit"</em> → c;
-        <em>"measured length/weight"</em> → X̄ &amp; R.</li>
+        <em>"measured length/weight"</em> → X̄ &amp; R.
+      </li>
       <li>Compute centreline (p̄ or c̄ or X̄̄ &amp; R̄).</li>
       <li>Compute σ (or read A₂, D₃, D₄ from the table).</li>
       <li>Compute UCL and LCL.</li>
@@ -4910,7 +6336,8 @@
     <ol>
       <li>If asked to identify polarisation type from a V(t) curve: <em>instantaneous step</em> → Ohmic (R<sub>0</sub>);
         <em>gradual exponential droop</em> → Active (R<sub>a</sub>C<sub>a</sub>); <em>sharp knee at end of discharge or
-          slow recovery tail</em> → Concentration (R<sub>c</sub>C<sub>c</sub>).</li>
+          slow recovery tail</em> → Concentration (R<sub>c</sub>C<sub>c</sub>).
+      </li>
       <li>If asked to draw a 1RC or 2RC: V<sub>oc</sub> source on the left, R<sub>0</sub> in series, then 1 or 2
         parallel-RC pairs in series, output to terminals V<sub>L</sub>.</li>
       <li>If asked "why 2RC instead of 1RC?" → "to capture concentration polarisation (slow ion-diffusion dynamics),
@@ -4919,23 +6346,57 @@
         up SoC from OCV–SoC curve."</li>
     </ol>
 
+    <h4>Scatter Plot workflow (the exam pattern)</h4>
+    <ol>
+      <li>Identify <strong>X = controlled / input</strong> and <strong>Y = measured / output</strong>. Get these
+        the right way around or the cause-effect interpretation flips.</li>
+      <li>Compute means x̄, ȳ; then deviations (x<sub>i</sub> − x̄) and (y<sub>i</sub> − ȳ).</li>
+      <li>Build the table of (x−x̄)(y−ȳ), (x−x̄)², (y−ȳ)² and sum each column.</li>
+      <li>Pearson r = Σ(x−x̄)(y−ȳ) / √[ Σ(x−x̄)² · Σ(y−ȳ)² ].</li>
+      <li>Classify: |r| &gt; 0.8 strong (X can control Y); 0.3 &lt; |r| &lt; 0.8 moderate; |r| &lt; 0.3 negligible.</li>
+      <li>Compute regression line: b = Σ(x−x̄)(y−ȳ) / Σ(x−x̄)²; a = ȳ − b·x̄. Predict / set process window from
+        the line.</li>
+      <li>Write the memo: state r, state direction (positive/negative), state strength, recommend the action.</li>
+      <li><strong>Always</strong> close with the disclaimer: <em>correlation ≠ causation</em>; verify with
+        engineering logic.</li>
+    </ol>
+
+    <h4>Multivariable Chart workflow (the exam pattern)</h4>
+    <ol>
+      <li>Identify the three variation buckets from the data structure: <em>positions on one part</em> →
+        Positional; <em>consecutive parts in the same batch</em> → Cyclical; <em>different time periods / shifts /
+          batches</em> → Temporal.</li>
+      <li>Compute the spread for each: Positional = max−min within one part; Cyclical = max−min across parts at
+        one position; Temporal = max−min of grand averages across time periods.</li>
+      <li>Whichever spread is biggest is the dominant source.</li>
+      <li>State the conclusion and pair it with the <em>correct corrective action</em>: Positional → fix
+        geometry/setup (tailstock alignment, mold cavity); Cyclical → fix tool wear / replace cutter; Temporal →
+        investigate the specific bad time period (shift, batch, day).</li>
+      <li><strong>Pre-DoE check:</strong> if Temporal variation is high, do <em>not</em> proceed with a Taguchi
+        DoE until that drift is removed.</li>
+    </ol>
+
     <div class="key-takeaway">
-      <p><strong>Five final pieces of advice for tomorrow:</strong></p>
-      <p>1. <strong>Sketch every control chart, fishbone, and circuit — even if not asked.</strong> Clean diagrams earn
-        marks even when calculation is partial.</p>
-      <p>2. <strong>Always check the sign of LCL.</strong> If your formula gives a negative LCL for p or c, set LCL = 0
-        and write a one-line justification.</p>
+      <p><strong>Seven final pieces of advice for tomorrow:</strong></p>
+      <p>1. <strong>Sketch every control chart, fishbone, scatter plot, multivariable chart, and circuit — even if
+          not asked.</strong> Clean diagrams earn marks even when calculation is partial.</p>
+      <p>2. <strong>Always check the sign of LCL.</strong> If your formula gives a negative LCL for p or c, set
+        LCL = 0 and write a one-line justification.</p>
       <p>3. <strong>For Pareto, rank by cost, not frequency.</strong> Most common conceptual trap.</p>
-      <p>4. <strong>For Taguchi, pick the highest S/N — always.</strong> Don't fall for the "smaller-the-better means
-        most negative S/N" trap.</p>
-      <p>5. <strong>For ECM, label every kink in a voltage curve with the right polarisation type.</strong> Examiners
-        love this question.</p>
+      <p>4. <strong>For Taguchi, pick the highest S/N — always.</strong> Don't fall for the
+        "smaller-the-better means most negative S/N" trap.</p>
+      <p>5. <strong>For Scatter Plots, state r and direction — and always add the &ldquo;correlation ≠
+          causation&rdquo; line.</strong> That sentence alone is worth a mark in most rubrics.</p>
+      <p>6. <strong>For Multivariable Charts, compute the spreads explicitly</strong> (Positional, Cyclical,
+        Temporal) and circle the biggest. Don't just eyeball — show the numbers.</p>
+      <p>7. <strong>For ECM, label every kink in a voltage curve with the right polarisation type.</strong>
+        Examiners love this question.</p>
     </div>
 
     <footer>
       Statistical Quality Control · Complete Study Guide<br>
-      Compiled from Lectures 4 &amp; 5 · Labs 1 (Pareto) · 2 (Fishbone) · Taguchi DoE · Control Charts · Battery ECM (MF
-      F220 Metrology &amp; Quality Assurance).<br>
+      Compiled from Lectures 4 &amp; 5 · Labs 1 (Pareto) · 2 (Fishbone) · 3 (Scatter Plots) · 4 (Multivariable
+      Charts) · Taguchi DoE · Control Charts · Battery ECM (MF F220 Metrology &amp; Quality Assurance).<br>
       <em>Good luck. You've got this.</em>
     </footer>
 
