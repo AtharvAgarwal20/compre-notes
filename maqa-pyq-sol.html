@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MF F220 — Metrology & Quality Assurance · Solutions</title>
+
+<!-- KaTeX for math rendering -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          throwOnError: false
+        });"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=Newsreader:opsz,wght@6..72,200..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper: #f4ede0;
+    --paper-2: #ebe2d2;
+    --ink: #1a1f2e;
+    --ink-soft: #2d3548;
+    --ink-mute: #5a6378;
+    --rule: #c8bfae;
+    --accent: #a8431f;
+    --accent-soft: #c8633d;
+    --gold: #b08838;
+    --highlight: #fff3d6;
+    --good: #2d6a4f;
+    --bad: #9d2933;
+    --radius: 2px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Newsreader', Georgia, serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(at 15% 8%, rgba(168,67,31,0.05) 0px, transparent 50%),
+      radial-gradient(at 85% 92%, rgba(176,136,56,0.06) 0px, transparent 50%);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* subtle paper grain */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* ---------- Layout ---------- */
+  .wrapper {
+    display: grid;
+    grid-template-columns: 280px minmax(0,1fr);
+    gap: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 960px) {
+    .wrapper { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Sidebar / TOC ---------- */
+  aside {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 48px 28px 40px 40px;
+    border-right: 1px solid var(--rule);
+    background: linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  }
+
+  aside .brand {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-variation-settings: "opsz" 144, "SOFT" 50;
+    font-size: 17px;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  aside .brand small {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    margin-top: 6px;
+    font-weight: 400;
+  }
+
+  .toc-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin: 32px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  aside nav ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: tocItem;
+  }
+
+  aside nav li {
+    counter-increment: tocItem;
+    margin-bottom: 6px;
+  }
+
+  aside nav a {
+    display: flex;
+    gap: 10px;
+    padding: 6px 8px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.35;
+    border-radius: var(--radius);
+    transition: background 0.15s, color 0.15s;
+  }
+
+  aside nav a::before {
+    content: counter(tocItem, decimal-leading-zero);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    flex-shrink: 0;
+    padding-top: 3px;
+    letter-spacing: 0.05em;
+  }
+
+  aside nav a:hover {
+    background: rgba(168,67,31,0.08);
+    color: var(--ink);
+  }
+
+  aside nav a.active {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  aside nav a.active::before { color: var(--accent-soft); }
+
+  aside nav .sec-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-mute);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 22px 8px 8px;
+  }
+
+  /* ---------- Main column ---------- */
+  main {
+    padding: 64px clamp(24px, 6vw, 88px) 96px;
+    max-width: 980px;
+  }
+
+  /* ---------- Header ---------- */
+  header.masthead {
+    border-top: 4px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding: 28px 0 36px;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  header.masthead .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  header.masthead .kicker::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+
+  header.masthead h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+    font-size: clamp(38px, 6vw, 64px);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin: 0 0 16px;
+    color: var(--ink);
+  }
+
+  header.masthead h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  header.masthead .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 36px;
+    margin-top: 22px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+  }
+
+  header.masthead .meta strong {
+    display: block;
+    color: var(--ink);
+    font-weight: 500;
+    margin-top: 2px;
+    letter-spacing: 0;
+    font-family: 'Newsreader', serif;
+    font-size: 15px;
+  }
+
+  /* ---------- Section dividers ---------- */
+  .part-divider {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin: 72px 0 32px;
+  }
+
+  .part-divider .num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 64px;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .part-divider .label {
+    flex: 1;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 8px;
+  }
+
+  .part-divider .label .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .part-divider .label h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-variation-settings: "opsz" 144;
+    font-size: 32px;
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  /* ---------- Question cards ---------- */
+  .q {
+    margin: 48px 0;
+    padding: 0;
+    position: relative;
+    scroll-margin-top: 24px;
+  }
+
+  .q-head {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .q-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-variation-settings: "opsz" 144, "SOFT" 50;
+    font-size: 48px;
+    line-height: 0.9;
+    color: var(--accent);
+    flex-shrink: 0;
+    min-width: 64px;
+    border-right: 1px solid var(--rule);
+    padding-right: 18px;
+  }
+
+  .q-title {
+    flex: 1;
+    padding-top: 6px;
+  }
+
+  .q-title .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    border: 1px solid var(--rule);
+    padding: 3px 8px;
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+  }
+
+  .q-title h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-variation-settings: "opsz" 72;
+    font-size: 24px;
+    line-height: 1.2;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  /* ---------- Body text ---------- */
+  .q p { margin: 0 0 16px; }
+
+  .q strong { color: var(--ink); font-weight: 600; }
+  .q em { font-style: italic; }
+
+  /* ---------- Verdict / answer pill ---------- */
+  .verdict {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 8px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: var(--radius);
+    margin: 8px 0 18px;
+  }
+
+  .verdict.false { background: var(--bad); }
+  .verdict.true { background: var(--good); }
+
+  .verdict::before {
+    content: "▸";
+    color: var(--accent-soft);
+  }
+
+  /* ---------- Step blocks ---------- */
+  .step {
+    margin: 24px 0;
+    padding: 4px 0 4px 20px;
+    border-left: 2px solid var(--accent);
+    position: relative;
+  }
+
+  .step .step-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  /* ---------- Tables ---------- */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 24px 0;
+    border: 1px solid var(--rule);
+    background: rgba(255,255,255,0.4);
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 15px;
+    font-family: 'Newsreader', serif;
+  }
+
+  table caption {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper-2);
+  }
+
+  th, td {
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    background: var(--paper-2);
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  tr.total td {
+    background: rgba(168,67,31,0.08);
+    font-weight: 600;
+    border-top: 2px solid var(--ink);
+  }
+
+  td.num, th.num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    text-align: right;
+  }
+
+  /* ---------- Callouts ---------- */
+  .callout {
+    margin: 24px 0;
+    padding: 20px 24px;
+    border-left: 4px solid var(--gold);
+    background: rgba(176,136,56,0.08);
+    position: relative;
+  }
+
+  .callout .callout-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    display: block;
+    font-weight: 600;
+  }
+
+  .callout p:last-child { margin-bottom: 0; }
+
+  .callout.warn { border-left-color: var(--accent); background: rgba(168,67,31,0.07); }
+  .callout.warn .callout-label { color: var(--accent); }
+
+  /* ---------- Math display tweaks ---------- */
+  .katex-display {
+    margin: 18px 0 !important;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.5);
+    border-left: 2px solid var(--ink);
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .katex { font-size: 1.05em !important; }
+
+  /* ---------- Lists ---------- */
+  .q ul, .q ol {
+    margin: 12px 0 18px;
+    padding-left: 24px;
+  }
+
+  .q li { margin-bottom: 8px; }
+
+  .q ul li::marker { color: var(--accent); }
+
+  /* ---------- Footer ---------- */
+  footer {
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 4px solid var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-mute);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  footer .mark {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    letter-spacing: 0;
+    color: var(--ink);
+  }
+
+  /* ---------- Floating action ---------- */
+  .print-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 50;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 12px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.15s;
+  }
+
+  .print-btn:hover { transform: translateY(-2px); background: var(--accent); }
+
+  /* ---------- Print ---------- */
+  @media print {
+    aside, .print-btn { display: none; }
+    .wrapper { grid-template-columns: 1fr; }
+    main { padding: 0; max-width: none; }
+    body { background: white; font-size: 11pt; }
+    body::before { display: none; }
+    .q { page-break-inside: avoid; }
+    .katex-display { background: #f5f5f5; }
+  }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 960px) {
+    aside {
+      position: relative;
+      height: auto;
+      max-height: 60vh;
+      border-right: none;
+      border-bottom: 1px solid var(--rule);
+      padding: 28px 24px;
+    }
+    main { padding: 32px 22px 60px; }
+    .q-head { gap: 14px; }
+    .q-num { font-size: 36px; min-width: 48px; padding-right: 12px; }
+    .q-title h3 { font-size: 20px; }
+    .part-divider .num { font-size: 44px; }
+    .part-divider .label h2 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside>
+    <div class="brand">
+      Metrology &amp; Quality Assurance
+      <small>MF F220 · Comp. Exam · 14·05·2024</small>
+    </div>
+
+    <div class="toc-title">Contents</div>
+
+    <nav>
+      <div class="sec-label">Part A — Theory</div>
+      <ol>
+        <li><a href="#q1">Grinding vs. lapping</a></li>
+        <li><a href="#q2">Process capability index</a></li>
+        <li><a href="#q3">Control charts</a></li>
+        <li><a href="#q4">Depth of cut &amp; cut-off length</a></li>
+        <li><a href="#q5">DMAIC vs. DMADV</a></li>
+        <li><a href="#q6">Interferometers vs. stylus</a></li>
+        <li><a href="#q7">Kaizen</a></li>
+        <li><a href="#q10">Reading a drifting chart</a></li>
+      </ol>
+
+      <div class="sec-label">Part B — Numericals</div>
+      <ol start="9">
+        <li><a href="#q8">c-chart · processing errors</a></li>
+        <li><a href="#q9">X̄–R · dissolved oxygen</a></li>
+        <li><a href="#qd">X̄–R · delay times</a></li>
+        <li><a href="#qp">p-chart · dissatisfied customers</a></li>
+        <li><a href="#qpareto">Pareto · lost-time causes</a></li>
+      </ol>
+    </nav>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main>
+
+    <header class="masthead">
+      <div class="kicker">Solutions Compendium · Open-Book Reference</div>
+      <h1>A <em>complete</em> worked-solutions guide for the comprehensive examination.</h1>
+      <div class="meta">
+        <div>Course<strong>MF F220 — Metrology &amp; Quality Assurance</strong></div>
+        <div>Department<strong>Mechanical Engineering · BITS Pilani</strong></div>
+        <div>Format<strong>Theory + SPC numericals</strong></div>
+        <div>Max Marks<strong>70</strong></div>
+      </div>
+    </header>
+
+    <!-- ===================== PART A ===================== -->
+    <div class="part-divider" id="part-a">
+      <div class="num">I</div>
+      <div class="label">
+        <span class="eyebrow">Section one</span>
+        <h2>Theory Questions</h2>
+      </div>
+    </div>
+
+    <!-- Q1 -->
+    <section class="q" id="q1">
+      <div class="q-head">
+        <div class="q-num">01</div>
+        <div class="q-title">
+          <span class="tag">Surface Finish · True/False</span>
+          <h3>Grinding generally provides a better surface finish than lapping.</h3>
+        </div>
+      </div>
+
+      <div class="verdict false">Answer · False</div>
+
+      <p><strong>Lapping</strong> produces a finer surface finish than grinding. Typical achievable Ra values:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Process</th><th class="num">Surface roughness Ra (μm)</th></tr></thead>
+          <tbody>
+            <tr><td>Grinding</td><td class="num">0.1 – 1.6</td></tr>
+            <tr><td>Lapping</td><td class="num">0.025 – 0.4</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Grinding uses bonded abrasive wheels rotating at high speed; the abrasive grains plough material and leave grinding marks oriented along the wheel-feed direction. Lapping uses loose abrasive grit suspended in a fluid carrier between the work and a flat lap (cast iron, brass). The abrasive rolls and lightly indents the surface in random directions, removing peaks at the sub-micron level and producing a very fine, non-directional finish.</p>
+
+      <p>Because lapping is a low-pressure, low-velocity process with random abrasive motion, it yields better Ra and flatness than grinding. <strong>Grinding is a pre-finishing operation; lapping is a super-finishing operation.</strong></p>
+    </section>
+
+    <!-- Q2 -->
+    <section class="q" id="q2">
+      <div class="q-head">
+        <div class="q-num">02</div>
+        <div class="q-title">
+          <span class="tag">Process Capability</span>
+          <h3>What is the process capability index? How does it influence repair cost?</h3>
+        </div>
+      </div>
+
+      <p>The process capability index measures how well a process produces output within specification limits. The two common indices are:</p>
+
+      $$C_p = \frac{USL - LSL}{6\sigma}, \qquad C_{pk} = \min\!\left(\frac{USL - \mu}{3\sigma},\ \frac{\mu - LSL}{3\sigma}\right)$$
+
+      <p>$C_p$ assumes the process is centred between USL and LSL; $C_{pk}$ accounts for off-centring. A value of $C_{pk} \geq 1.33$ is generally considered capable.</p>
+
+      <div class="callout">
+        <span class="callout-label">Influence on Repair Cost</span>
+        <p>A higher capability index means the process spread ($6\sigma$) is narrow relative to the tolerance — very few units fall outside specification. Fewer defective units means fewer products requiring rework, scrap, warranty repair, or customer-side service repair.</p>
+        <p>Conversely, when $C_{pk} < 1$, the natural variation exceeds the tolerance band, defectives are produced at a high rate, and the repair/rework/warranty cost rises sharply. Quantitatively, the defective fraction (and therefore the expected repair cost per unit produced) drops by orders of magnitude as $C_{pk}$ rises from 1.0 → 1.33 → 1.67 — which is why companies invest in process improvement rather than absorbing downstream repair cost.</p>
+      </div>
+    </section>
+
+    <!-- Q3 -->
+    <section class="q" id="q3">
+      <div class="q-head">
+        <div class="q-num">03</div>
+        <div class="q-title">
+          <span class="tag">SPC Fundamentals</span>
+          <h3>What are control charts? Where do we use them?</h3>
+        </div>
+      </div>
+
+      <p>A <strong>control chart</strong> is a time-ordered plot of a quality characteristic with a centre line (process mean) and upper and lower control limits, typically at $\pm 3\sigma$ from the mean. It distinguishes between two sources of variation:</p>
+
+      <ul>
+        <li><strong>Common-cause variation</strong> — inherent, random noise in the process.</li>
+        <li><strong>Special-cause (assignable) variation</strong> — identifiable disturbances that should be investigated and removed.</li>
+      </ul>
+
+      <p><strong>Where they are used:</strong> in any repetitive manufacturing or service process where output is measured over time — to monitor stability, detect process shifts, decide when to intervene, and verify the effect of improvements.</p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>Common control charts and example applications</caption>
+          <thead><tr><th>Chart</th><th>Data type</th><th>Example application</th></tr></thead>
+          <tbody>
+            <tr><td>X̄–R</td><td>Variable, small <em>n</em></td><td>Mean shaft diameter in a turning operation</td></tr>
+            <tr><td>X̄–S</td><td>Variable, large <em>n</em></td><td>Fill weight in a beverage bottling line</td></tr>
+            <tr><td>p-chart</td><td>Attribute · proportion</td><td>Fraction of defective bulbs in batches of 200</td></tr>
+            <tr><td>c-chart</td><td>Attribute · count</td><td>Number of solder defects per PCB</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Q4 -->
+    <section class="q" id="q4">
+      <div class="q-head">
+        <div class="q-num">04</div>
+        <div class="q-title">
+          <span class="tag">Surface Metrology · True/False</span>
+          <h3>With an increase in depth of cut, the cut-off length for roughness measurement also increases.</h3>
+        </div>
+      </div>
+
+      <div class="verdict false">Answer · False</div>
+
+      <p>The cut-off length (sampling length) for surface roughness measurement is <strong>not</strong> governed by the depth of cut. It is determined by the <strong>expected magnitude of roughness (Ra value)</strong> of the surface, as specified by <em>ISO 4288 / ASME B46.1</em>.</p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>Standard cut-off lengths versus expected Ra</caption>
+          <thead><tr><th class="num">Expected Ra (μm)</th><th class="num">Cut-off λc (mm)</th></tr></thead>
+          <tbody>
+            <tr><td class="num">up to 0.1</td><td class="num">0.25</td></tr>
+            <tr><td class="num">0.1 – 2</td><td class="num">0.8</td></tr>
+            <tr><td class="num">2 – 10</td><td class="num">2.5</td></tr>
+            <tr><td class="num">10 – 80</td><td class="num">8</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>A larger depth of cut <em>may</em> produce a rougher surface and therefore a higher Ra, which in turn may require the next standard cut-off length — but the relationship is through the resulting surface roughness, not directly through the depth of cut. The cut-off length is chosen to include several wavelengths of the dominant surface texture so that the measurement filter separates roughness from waviness correctly.</p>
+    </section>
+
+    <!-- Q5 -->
+    <section class="q" id="q5">
+      <div class="q-head">
+        <div class="q-num">05</div>
+        <div class="q-title">
+          <span class="tag">Six Sigma</span>
+          <h3>What is DMAIC? Explain with an example. How is it different from DMADV?</h3>
+        </div>
+      </div>
+
+      <p><strong>DMAIC = Define – Measure – Analyse – Improve – Control.</strong> The Six Sigma framework for improving an <em>existing</em> process that is producing output below the desired sigma level.</p>
+
+      <ul>
+        <li><strong>Define:</strong> problem statement, customer requirements (CTQs), project scope.</li>
+        <li><strong>Measure:</strong> collect baseline data, validate measurement system (Gage R&amp;R), establish current performance.</li>
+        <li><strong>Analyse:</strong> use Pareto, fishbone, regression, hypothesis tests to find root causes.</li>
+        <li><strong>Improve:</strong> generate, pilot, and implement solutions; DoE often used.</li>
+        <li><strong>Control:</strong> lock in gains using SOPs, control charts, mistake-proofing.</li>
+      </ul>
+
+      <div class="callout">
+        <span class="callout-label">Example · Car-Door Assembly Line</span>
+        <p>3.5% of doors fail a gap inspection. <em>Define</em> the gap CTQ (±0.5 mm). <em>Measure</em> current defect rate and confirm gauge capability. <em>Analyse</em> reveals hinge-bolt torque variation as the dominant cause. <em>Improve</em> introduces a torque-controlled driver and a poka-yoke seating fixture. <em>Control</em> uses SPC on bolt torque and weekly gap audits. Defect rate drops to 0.2%.</p>
+      </div>
+
+      <p><strong>DMADV = Define – Measure – Analyse – Design – Verify</strong> (also called <em>DFSS</em> — Design for Six Sigma). It is used to <strong>design a new product or process from scratch</strong>, or when an existing process must be redesigned because incremental DMAIC improvement cannot reach the target sigma level.</p>
+
+      <div class="callout warn">
+        <span class="callout-label">Key Difference</span>
+        <p>DMAIC <em>improves</em> what already exists; DMADV <em>designs</em> something new. DMAIC's last two stages are <strong>Improve &amp; Control</strong> (modify existing process); DMADV's are <strong>Design &amp; Verify</strong> (build and validate a new design).</p>
+      </div>
+    </section>
+
+    <!-- Q6 -->
+    <section class="q" id="q6">
+      <div class="q-head">
+        <div class="q-num">06</div>
+        <div class="q-title">
+          <span class="tag">Surface Measurement</span>
+          <h3>What are interferometers? How do they differ from stylus-based systems?</h3>
+        </div>
+      </div>
+
+      <p>An <strong>interferometer</strong> measures surface topography by exploiting interference between two coherent light beams (typically from a laser). One beam reflects off the test surface, the other off a reference flat; their recombined wavefront forms fringe patterns whose phase shift corresponds to height differences at the surface — with sub-nanometre vertical resolution. Common types: Michelson, Mirau, Twyman-Green, white-light scanning interferometers.</p>
+
+      <p>A <strong>stylus-based system</strong> (Talysurf, Mitutoyo Surftest, &amp;c.) drags a fine diamond-tipped stylus across the surface; vertical stylus motion is transduced to give a 2-D roughness profile. Resolution depends on stylus tip radius (typically 2–10 μm) and electronics.</p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>Comparison of measurement systems</caption>
+          <thead><tr><th>Aspect</th><th>Interferometer</th><th>Stylus</th></tr></thead>
+          <tbody>
+            <tr><td>Contact</td><td>Non-contact (optical)</td><td>Contact — can scratch soft parts</td></tr>
+            <tr><td>Vertical resolution</td><td>&lt; 1 nm</td><td>~10 nm</td></tr>
+            <tr><td>Lateral resolution</td><td>Diffraction-limited (~0.5 μm)</td><td>Stylus-tip limited (2–10 μm)</td></tr>
+            <tr><td>Data type</td><td>Full 3-D areal map</td><td>2-D profile only</td></tr>
+            <tr><td>Speed</td><td>Whole field at once</td><td>Slow, line by line</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warn">
+        <span class="callout-label">Limitations of Interferometers</span>
+        <p>Require reflective surfaces (struggle with very rough, transparent, or steeply sloped specimens — fringes are lost); sensitive to environmental vibration; expensive; cannot measure deep features beyond the coherence/scan range without phase-unwrapping issues.</p>
+      </div>
+
+      <p><strong>Applications:</strong> semiconductor wafers, MEMS, optical lenses and mirrors, hard-disk substrates, lapped/polished bearing surfaces — places where the surface is delicate, reflective, and sub-nanometre features matter.</p>
+    </section>
+
+    <!-- Q7 -->
+    <section class="q" id="q7">
+      <div class="q-head">
+        <div class="q-num">07</div>
+        <div class="q-title">
+          <span class="tag">Lean Philosophy</span>
+          <h3>What is Kaizen? What benefits does it offer compared to organisations that do not adopt it?</h3>
+        </div>
+      </div>
+
+      <p><strong>Kaizen</strong> is the Japanese philosophy of <em>continuous, incremental improvement</em> involving all employees, from operators on the shop floor to senior management. Rather than large infrequent capital-intensive overhauls, Kaizen relies on many small, low-cost, employee-driven changes that accumulate over time.</p>
+
+      <ol>
+        <li><strong>Higher productivity at lower cost</strong> — small daily improvements remove waste (<em>muda</em>) in motion, waiting, transport, over-processing, defects, over-production, and inventory.</li>
+        <li><strong>Stronger quality</strong> — problems are caught and fixed at the source, so defect rates fall and rework cost drops.</li>
+        <li><strong>Employee engagement</strong> — workers are empowered to propose and implement changes, raising morale, retention, and ownership.</li>
+        <li><strong>Faster response to market changes</strong> — a culture of continuous adjustment is more agile than one relying on episodic top-down projects.</li>
+        <li><strong>Lower change-resistance</strong> — improvements are incremental and familiar, so they are absorbed without the disruption typical of "big-bang" change programmes.</li>
+        <li><strong>Improved safety</strong> — operators routinely identify and eliminate ergonomic and process hazards as part of daily Kaizen.</li>
+        <li><strong>Compounding gains</strong> — many 1–2% improvements stacked over years yield very large cumulative benefit that competitors without the practice cannot match.</li>
+      </ol>
+
+      <p>Organisations <em>without</em> Kaizen typically rely on periodic management-driven initiatives, which are slower, more expensive, and miss the bottom-up shop-floor knowledge about real process problems.</p>
+    </section>
+
+    <!-- Q10 -->
+    <section class="q" id="q10">
+      <div class="q-head">
+        <div class="q-num">10</div>
+        <div class="q-title">
+          <span class="tag">Chart Interpretation</span>
+          <h3>Comment on the process (rising trend toward UCL).</h3>
+        </div>
+      </div>
+
+      <p>The chart shows sample values starting near the LCL and steadily rising over time toward the UCL — a classic <strong>trend pattern</strong>. An assignable cause is producing a sustained, monotonic shift in the process mean. Common-cause variation alone produces random scatter around the centre line; a clear upward drift is a <em>Western-Electric / Nelson-rule violation</em> (six or more consecutive increasing points).</p>
+
+      <div class="callout warn">
+        <span class="callout-label">Likely Physical Causes</span>
+        <p>Tool wear · gradual fixture loosening · ambient temperature rise during a shift · operator fatigue · accumulating contamination of a cutting fluid · sensor drift in the measurement system.</p>
+      </div>
+
+      <p>The process is <strong>not in statistical control</strong> even though no individual point may yet have crossed the UCL — action should be taken before the trend reaches the limit. Investigation and corrective action are required: identify whether the drift is in the process itself or in the measurement system, and either restore the process (tool change, recalibration, temperature compensation) or revise the procedure that allows the drift.</p>
+    </section>
+
+
+    <!-- ===================== PART B ===================== -->
+    <div class="part-divider" id="part-b">
+      <div class="num">II</div>
+      <div class="label">
+        <span class="eyebrow">Section two</span>
+        <h2>Numerical Problems</h2>
+      </div>
+    </div>
+
+    <!-- Q8 c-chart -->
+    <section class="q" id="q8">
+      <div class="q-head">
+        <div class="q-num">08</div>
+        <div class="q-title">
+          <span class="tag">c-Chart · Processing Errors</span>
+          <h3>Processing errors per 100 purchase orders — construct an appropriate control chart and revised chart if required.</h3>
+        </div>
+      </div>
+
+      <p>Each sample contains 100 purchase orders and the count of errors is recorded for 25 samples. Because we are counting the <em>number of nonconformities per inspection unit of constant size</em>, a <strong>c-chart</strong> is appropriate.</p>
+
+      <div class="step">
+        <span class="step-label">Step 1 — Compute c̄</span>
+        $$\bar{c} = \frac{\sum c_i}{k} = \frac{101}{25} = 4.04$$
+      </div>
+
+      <div class="step">
+        <span class="step-label">Step 2 — Trial 3σ limits</span>
+        $$UCL = \bar{c} + 3\sqrt{\bar{c}} = 4.04 + 3\sqrt{4.04} = 10.07$$
+        $$LCL = \bar{c} - 3\sqrt{\bar{c}} = 4.04 - 6.03 = -1.99 \Rightarrow 0$$
+        $$CL = 4.04$$
+      </div>
+
+      <div class="step">
+        <span class="step-label">Step 3 — Check for out-of-control points</span>
+        <p>Only <strong>sample 9 (c = 11)</strong> exceeds UCL = 10.07. All other samples lie between 0 and 10.07.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-label">Step 4 — Revised limits (remove sample 9, assignable cause)</span>
+        $$\bar{c}_{rev} = \frac{101 - 11}{24} = \frac{90}{24} = 3.75$$
+        $$UCL_{rev} = 3.75 + 3\sqrt{3.75} = 9.56, \quad LCL_{rev} = 0, \quad CL_{rev} = 3.75$$
+        <p>Re-checking the remaining 24 samples (maximum = 7) against UCL = 9.56: <strong>all in control.</strong></p>
+      </div>
+
+      <div class="callout">
+        <span class="callout-label">Comment on Quality Level</span>
+        <p>The revised process averages <strong>3.75 errors per 100 orders</strong> — i.e. roughly 3.75% of all purchase orders contain a processing error. For a company whose stated objective is to <em>eliminate such errors totally</em>, this is far from acceptable. The process is statistically stable after removing the special-cause sample, but its capability is poor relative to the target of zero. Further improvement (root-cause analysis on the dominant error types, training, mistake-proofing of the order-entry system, automation of validation checks) is needed to lower c̄ itself.</p>
+      </div>
+    </section>
+
+    <!-- Q9 -->
+    <section class="q" id="q9">
+      <div class="q-head">
+        <div class="q-num">09</div>
+        <div class="q-title">
+          <span class="tag">X̄–R · Dissolved Oxygen</span>
+          <h3>Stability of dissolved oxygen — construct X̄ and R charts; revise if necessary (larger-is-better).</h3>
+        </div>
+      </div>
+
+      <p>Sample size $n = 4$, number of subgroups $k = 25$. Constants: $A_2 = 0.729$, $D_3 = 0$, $D_4 = 2.282$, $d_2 = 2.059$.</p>
+
+      <div class="step">
+        <span class="step-label">Step 1 — Grand averages</span>
+        $$\bar{\bar{X}} = \frac{166.5}{25} = 6.66, \qquad \bar{R} = \frac{45.5}{25} = 1.82$$
+      </div>
+
+      <div class="step">
+        <span class="step-label">Step 2 — Trial limits</span>
+        <p><strong>X̄ chart:</strong></p>
+        $$UCL = 6.66 + (0.729)(1.82) = 7.99$$
+        $$LCL = 6.66 - 1.327 = 5.33, \quad CL = 6.66$$
+        <p><strong>R chart:</strong></p>
+        $$UCL = (2.282)(1.82) = 4.15, \quad LCL = 0, \quad CL = 1.82$$
+      </div>
+
+      <div class="step">
+        <span class="step-label">Step 3 — Check for out-of-control points</span>
+        <p><strong>R chart:</strong> max R = 2.7 (sample 8) &lt; 4.15 → <em>R chart in control.</em></p>
+        <p><strong>X̄ chart:</strong></p>
+        <ul>
+          <li><strong>Above UCL (7.99):</strong> samples 2 (8.2), 10 (8.3), 17 (8.3), 18 (8.0), 20 (8.5), 22 (8.3)</li>
+          <li><strong>Below LCL (5.33):</strong> samples 13 (4.2), 14 (4.3)</li>
+        </ul>
+      </div>
+
+      <div class="callout warn">
+        <span class="callout-label">Special Caution · Larger-is-Better</span>
+        <p>Because dissolved oxygen is a <em>larger-is-better</em> quality characteristic, the two kinds of out-of-control points have <strong>different interpretations</strong>:</p>
+        <ul>
+          <li><strong>Above UCL → exceptionally good</strong> water quality (desirable special cause). Investigate and reproduce.</li>
+          <li><strong>Below LCL → poor</strong> water quality (undesirable special cause). Eliminate.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <span class="step-label">Step 4 — Revised limits (remove all 8 OOC points)</span>
+        $$\bar{\bar{X}}_{rev} = \frac{166.5 - 58.1}{17} = \frac{108.4}{17} = 6.376$$
+        $$\bar{R}_{rev} = \frac{45.5 - 15.7}{17} = \frac{29.8}{17} = 1.753$$
+
+        <p><strong>Revised X̄ chart:</strong></p>
+        $$UCL_{rev} = 6.376 + (0.729)(1.753) = 7.65$$
+        $$LCL_{rev} = 5.10, \quad CL = 6.38$$
+
+        <p><strong>Revised R chart:</strong></p>
+        $$UCL_{rev} = (2.282)(1.753) = 4.00, \quad LCL = 0, \quad CL = 1.75$$
+      </div>
+
+      <p><strong>Stability discussion:</strong> The R chart is in control throughout, so within-sample variability is acceptable; the issue is variation in the <em>mean</em> dissolved oxygen between observations. The bad samples (13, 14) suggest episodes of higher pollutant discharge; the good samples should be investigated as opportunities — conditions (river flow, lower discharge, aeration) that should be reproduced.</p>
+    </section>
+
+    <!-- Q delay -->
+    <section class="q" id="qd">
+      <div class="q-head">
+        <div class="q-num">10</div>
+        <div class="q-title">
+          <span class="tag">X̄–R · Delay Times</span>
+          <h3>Average and range of delay times (n = 5, k = 25). Lower is preferred.</h3>
+        </div>
+      </div>
+
+      <p>Constants for $n = 5$: $A_2 = 0.577$, $D_3 = 0$, $D_4 = 2.114$.</p>
+
+      <div class="step">
+        <span class="step-label">Grand averages</span>
+        $$\bar{\bar{X}} = \frac{241.4}{25} = 9.656, \qquad \bar{R} = \frac{89.8}{25} = 3.592$$
+      </div>
+
+      <div class="step">
+        <span class="step-label">Trial limits</span>
+        <p><strong>X̄ chart:</strong></p>
+        $$UCL = 9.656 + (0.577)(3.592) = 11.73$$
+        $$LCL = 9.656 - 2.073 = 7.58, \quad CL = 9.66$$
+        <p><strong>R chart:</strong></p>
+        $$UCL = (2.114)(3.592) = 7.59, \quad LCL = 0, \quad CL = 3.59$$
+        <p>These match the LCL = 7.58 and UCL = 11.72 given in the problem.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-label">Out-of-control points</span>
+        <ul>
+          <li><strong>R chart:</strong> max R = 4.6 (sample 3) &lt; 7.59 → R chart in control.</li>
+          <li><strong>X̄ chart, Sample 3:</strong> 15.8 &gt; 11.73 → above UCL — <em>long delay, undesirable</em></li>
+          <li><strong>X̄ chart, Sample 6:</strong> 5.6 &lt; 7.58 → below LCL — <em>very short delay, desirable</em></li>
+        </ul>
+      </div>
+
+      <div class="callout">
+        <span class="callout-label">Will Sample 6 Be Removed?</span>
+        <p>Lower delay is preferred. Sample 6 represents an <em>exceptionally good</em> outcome — a special cause that produced lower-than-expected delay. The right action is to investigate why delay was so low and <strong>replicate</strong> the cause. For computing revised limits, the standard convention is to remove sample 3 (unwanted excursion) and treat sample 6 as a target to learn from rather than a defect.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-label">Revised limits — removing only sample 3</span>
+        $$\bar{\bar{X}}_{rev} = \frac{241.4 - 15.8}{24} = 9.40$$
+        $$\bar{R}_{rev} = \frac{89.8 - 4.6}{24} = 3.55$$
+        $$UCL_{X,rev} = 9.40 + (0.577)(3.55) = 11.45$$
+        $$LCL_{X,rev} = 7.35$$
+        $$UCL_{R,rev} = (2.114)(3.55) = 7.50$$
+      </div>
+
+      <p><strong>Performance comment:</strong> The process averages roughly 9.4 minutes of delay with most points in the 7–11 minute band. Sample 3 (15.8) flags a one-off problem requiring root-cause analysis. Samples 1 and 6 show that delays under 8 minutes are achievable — so there is room to bring the mean down. Process is statistically stable after removing the high outlier, but the mean delay is not yet at the desired low level.</p>
+    </section>
+
+    <!-- Q p-chart -->
+    <section class="q" id="qp">
+      <div class="q-head">
+        <div class="q-num">11</div>
+        <div class="q-title">
+          <span class="tag">p-Chart · Customer Satisfaction</span>
+          <h3>Number of dissatisfied customers in 20 samples of size 100.</h3>
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="step-label">Step 1 — p̄</span>
+        $$\sum d = 83, \quad \sum n = 20 \times 100 = 2000$$
+        $$\bar{p} = \frac{83}{2000} = 0.0415$$
+      </div>
+
+      <div class="step">
+        <span class="step-label">Step 2 — Trial limits</span>
+        $$\sigma_p = \sqrt{\frac{\bar{p}(1-\bar{p})}{n}} = \sqrt{\frac{0.0415 \times 0.9585}{100}} = 0.01994$$
+        $$UCL = 0.0415 + 3(0.01994) = 0.1013$$
+        $$LCL = 0.0415 - 0.0598 = -0.0183 \Rightarrow 0$$
+        $$CL = 0.0415$$
+      </div>
+
+      <div class="step">
+        <span class="step-label">Step 3 — Out-of-control points</span>
+        <ul>
+          <li>Sample 10: $p = 0.11$ → above UCL</li>
+          <li>Sample 16: $p = 0.12$ → above UCL</li>
+        </ul>
+        <p>All other samples have $p \leq 0.05$ (in control).</p>
+      </div>
+
+      <div class="step">
+        <span class="step-label">Step 4 — Revised limits (remove 10 and 16)</span>
+        $$\bar{p}_{rev} = \frac{83 - 11 - 12}{18 \times 100} = \frac{60}{1800} = 0.0333$$
+        $$\sigma_{p,rev} = \sqrt{\frac{0.0333 \times 0.9667}{100}} = 0.01795$$
+        $$UCL_{rev} = 0.0333 + 3(0.01795) = 0.0871$$
+        $$LCL_{rev} = 0, \quad CL_{rev} = 0.0333$$
+      </div>
+
+      <div class="callout">
+        <span class="callout-label">Result</span>
+        <p>Re-checking the remaining 18 samples: maximum $p = 0.05 < 0.0871$ → all in control. Process is now stable with about <strong>3.33%</strong> dissatisfied customers on average — better than the original 4.15%, but the company should still address the dominant causes of dissatisfaction to lower p̄ further.</p>
+      </div>
+    </section>
+
+    <!-- Q Pareto -->
+    <section class="q" id="qpareto">
+      <div class="q-head">
+        <div class="q-num">12</div>
+        <div class="q-title">
+          <span class="tag">Pareto · Cost-Driven Prioritisation</span>
+          <h3>Pareto chart for lost-time causes &amp; ₹18,000 monthly allocation.</h3>
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="step-label">Step 1 — Total cost per cause</span>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Cause</th><th class="num">Incidences</th><th class="num">Unit cost (₹)</th><th class="num">Total cost (₹)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Work instructions</td><td class="num">4000</td><td class="num">0.2</td><td class="num">800</td></tr>
+              <tr><td>Bill of Materials</td><td class="num">3500</td><td class="num">0.5</td><td class="num">1,750</td></tr>
+              <tr><td>Work Orders</td><td class="num">80</td><td class="num">50</td><td class="num">4,000</td></tr>
+              <tr><td>Wrong Parts or Material</td><td class="num">100</td><td class="num">30</td><td class="num">3,000</td></tr>
+              <tr><td>Lack of proper tools</td><td class="num">120</td><td class="num">100</td><td class="num">12,000</td></tr>
+              <tr><td>Bad assembly outlines</td><td class="num">50</td><td class="num">50</td><td class="num">2,500</td></tr>
+              <tr class="total"><td><strong>Total</strong></td><td></td><td></td><td class="num"><strong>24,050</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="step-label">Step 2 — Sort descending and compute cumulative %</span>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th class="num">Rank</th><th>Cause</th><th class="num">Cost (₹)</th><th class="num">% of total</th><th class="num">Cumulative %</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="num">1</td><td>Lack of proper tools</td><td class="num">12,000</td><td class="num">49.9</td><td class="num">49.9</td></tr>
+              <tr><td class="num">2</td><td>Work Orders</td><td class="num">4,000</td><td class="num">16.6</td><td class="num">66.5</td></tr>
+              <tr><td class="num">3</td><td>Wrong Parts/Material</td><td class="num">3,000</td><td class="num">12.5</td><td class="num">79.0</td></tr>
+              <tr><td class="num">4</td><td>Bad assembly outlines</td><td class="num">2,500</td><td class="num">10.4</td><td class="num">89.4</td></tr>
+              <tr><td class="num">5</td><td>Bill of Materials</td><td class="num">1,750</td><td class="num">7.3</td><td class="num">96.7</td></tr>
+              <tr><td class="num">6</td><td>Work instructions</td><td class="num">800</td><td class="num">3.3</td><td class="num">100.0</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Inline mini Pareto bar chart in SVG -->
+      <div class="step">
+        <span class="step-label">Pareto Chart</span>
+        <svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; background:rgba(255,255,255,0.5); border:1px solid var(--rule); padding:8px;">
+          <!-- Axes -->
+          <line x1="60" y1="20" x2="60" y2="260" stroke="#1a1f2e" stroke-width="1.5"/>
+          <line x1="60" y1="260" x2="660" y2="260" stroke="#1a1f2e" stroke-width="1.5"/>
+          <line x1="660" y1="20" x2="660" y2="260" stroke="#1a1f2e" stroke-width="1.5"/>
+
+          <!-- Y-axis labels (left) -->
+          <text x="55" y="25" text-anchor="end" font-family="JetBrains Mono" font-size="10" fill="#5a6378">12k</text>
+          <text x="55" y="85" text-anchor="end" font-family="JetBrains Mono" font-size="10" fill="#5a6378">9k</text>
+          <text x="55" y="145" text-anchor="end" font-family="JetBrains Mono" font-size="10" fill="#5a6378">6k</text>
+          <text x="55" y="205" text-anchor="end" font-family="JetBrains Mono" font-size="10" fill="#5a6378">3k</text>
+          <text x="55" y="263" text-anchor="end" font-family="JetBrains Mono" font-size="10" fill="#5a6378">0</text>
+
+          <!-- Y-axis labels (right %) -->
+          <text x="665" y="25" font-family="JetBrains Mono" font-size="10" fill="#a8431f">100%</text>
+          <text x="665" y="85" font-family="JetBrains Mono" font-size="10" fill="#a8431f">75%</text>
+          <text x="665" y="145" font-family="JetBrains Mono" font-size="10" fill="#a8431f">50%</text>
+          <text x="665" y="205" font-family="JetBrains Mono" font-size="10" fill="#a8431f">25%</text>
+          <text x="665" y="263" font-family="JetBrains Mono" font-size="10" fill="#a8431f">0%</text>
+
+          <!-- Bars (scaling 12000 = full height ~240) -->
+          <!-- 1. Lack of tools: 12000 → 240 px tall -->
+          <rect x="80" y="20" width="80" height="240" fill="#1a1f2e"/>
+          <!-- 2. Work Orders: 4000 → 80 px tall -->
+          <rect x="180" y="180" width="80" height="80" fill="#2d3548"/>
+          <!-- 3. Wrong Parts: 3000 → 60 px tall -->
+          <rect x="280" y="200" width="80" height="60" fill="#5a6378"/>
+          <!-- 4. Bad assembly: 2500 → 50 px tall -->
+          <rect x="380" y="210" width="80" height="50" fill="#7a8294"/>
+          <!-- 5. BoM: 1750 → 35 px tall -->
+          <rect x="480" y="225" width="80" height="35" fill="#a0a8b8"/>
+          <!-- 6. Work instructions: 800 → 16 px tall -->
+          <rect x="580" y="244" width="80" height="16" fill="#c0c8d4"/>
+
+          <!-- Cumulative line: 49.9%, 66.5%, 79%, 89.4%, 96.7%, 100% -->
+          <!-- map % to y: y = 260 - %*2.4 -->
+          <polyline points="120,140 220,100 320,70 420,45 520,28 620,20"
+                    fill="none" stroke="#a8431f" stroke-width="2"/>
+          <!-- Markers -->
+          <circle cx="120" cy="140" r="4" fill="#a8431f"/>
+          <circle cx="220" cy="100" r="4" fill="#a8431f"/>
+          <circle cx="320" cy="70" r="4" fill="#a8431f"/>
+          <circle cx="420" cy="45" r="4" fill="#a8431f"/>
+          <circle cx="520" cy="28" r="4" fill="#a8431f"/>
+          <circle cx="620" cy="20" r="4" fill="#a8431f"/>
+
+          <!-- Cumulative labels -->
+          <text x="120" y="132" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#a8431f">49.9</text>
+          <text x="220" y="92" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#a8431f">66.5</text>
+          <text x="320" y="62" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#a8431f">79.0</text>
+          <text x="420" y="37" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#a8431f">89.4</text>
+          <text x="520" y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#a8431f">96.7</text>
+
+          <!-- X-axis labels -->
+          <text x="120" y="278" text-anchor="middle" font-family="Newsreader" font-size="10" fill="#1a1f2e">Tools</text>
+          <text x="220" y="278" text-anchor="middle" font-family="Newsreader" font-size="10" fill="#1a1f2e">Orders</text>
+          <text x="320" y="278" text-anchor="middle" font-family="Newsreader" font-size="10" fill="#1a1f2e">Parts</text>
+          <text x="420" y="278" text-anchor="middle" font-family="Newsreader" font-size="10" fill="#1a1f2e">Assembly</text>
+          <text x="520" y="278" text-anchor="middle" font-family="Newsreader" font-size="10" fill="#1a1f2e">BoM</text>
+          <text x="620" y="278" text-anchor="middle" font-family="Newsreader" font-size="10" fill="#1a1f2e">Instr.</text>
+
+          <!-- Axis titles -->
+          <text x="30" y="145" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#5a6378" transform="rotate(-90 30 145)">Cost (₹)</text>
+          <text x="700" y="145" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#a8431f" transform="rotate(90 700 145)">Cumulative %</text>
+          <text x="360" y="305" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="12" fill="#1a1f2e">Causes of lost-time, ranked by cost</text>
+        </svg>
+      </div>
+
+      <div class="callout">
+        <span class="callout-label">(a) Discussion</span>
+        <p>The Pareto principle holds clearly. The <strong>top three causes — Lack of proper tools, Work Orders, Wrong Parts/Material — account for 79% of total lost-time cost.</strong> Note the contrast with raw incidence count: Work Instructions and Bill of Materials cause the most <em>frequent</em> lost-time incidents (4000 and 3500 respectively) but their unit cost is so low that they are the <em>least</em> expensive causes. Sorting by cost rather than frequency redirects management attention to where money is actually lost.</p>
+      </div>
+
+      <div class="callout warn">
+        <span class="callout-label">(b) Budget Allocation · ₹18,000</span>
+        <p>Tackling causes in descending cost order:</p>
+        <ul>
+          <li>Lack of proper tools (₹12,000) ✓ → ₹6,000 left</li>
+          <li>Work Orders (₹4,000) ✓ → ₹2,000 left</li>
+          <li>Wrong Parts/Material (₹3,000) ✗ exceeds remaining budget</li>
+        </ul>
+        <p>The manager should address <strong>"Lack of proper tools" and "Work Orders"</strong>, absorbing ₹16,000 and removing <strong>66.5%</strong> of total lost-time cost. The remaining ₹2,000 can be reserved or rolled over. An alternative combination — Lack of tools + Wrong Parts + Bad assembly outlines — costs ₹17,500 and covers 72.8%, but gives slightly less cost-impact per rupee.</p>
+      </div>
+    </section>
+
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+      <div>
+        <div class="mark">Compiled for peer study.</div>
+        <div style="margin-top:6px;">Cross-reference with course notes &amp; Montgomery, <em>Introduction to Statistical Quality Control</em>.</div>
+      </div>
+      <div style="text-align:right;">
+        MF F220 · 14·05·2024<br>
+        Department of Mechanical Engineering<br>
+        BITS Pilani · Pilani Campus
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<button class="print-btn" onclick="window.print()">⎙ Print / Save PDF</button>
+
+<script>
+  // Active section in TOC
+  const links = document.querySelectorAll('aside nav a');
+  const sections = Array.from(links).map(l => document.querySelector(l.getAttribute('href')));
+
+  function onScroll() {
+    const scrollY = window.scrollY + 80;
+    let activeIdx = 0;
+    sections.forEach((sec, i) => {
+      if (sec && sec.offsetTop <= scrollY) activeIdx = i;
+    });
+    links.forEach(l => l.classList.remove('active'));
+    if (links[activeIdx]) links[activeIdx].classList.add('active');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+</body>
+</html>
